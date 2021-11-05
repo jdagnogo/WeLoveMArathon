@@ -2,7 +2,9 @@ package com.jdagnogo.welovemarathon.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple200 = Color(0xFFBB86FC)
-val Purple500 = Color(0xFF6200EE)
-val Purple700 = Color(0xFF3700B3)
-val Teal200 = Color(0xFF03DAC5)
+val Primary = Color(0xFF94BCB4)
+val PrimaryLight = Color(0xFFC5EFE6)
+val PrimaryDark = Color(0xFF658C84)
+val Secondary = Color(0xFFE0B3A6)
+val SecondaryLight = Color(0xFFFFE5D7)
+val SecondaryDark = Color(0xFFAD8377)
