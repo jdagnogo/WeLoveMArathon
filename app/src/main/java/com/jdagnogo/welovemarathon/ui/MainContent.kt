@@ -1,5 +1,6 @@
 package com.jdagnogo.welovemarathon.ui
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -9,7 +10,7 @@ import com.jdagnogo.welovemarathon.ui.component.MainDestinations
 import com.jdagnogo.welovemarathon.ui.component.WLMScaffold
 import com.jdagnogo.welovemarathon.ui.component.wlmNavGraph
 import com.jdagnogo.welovemarathon.ui.theme.WeLoveMarathonTheme
-
+@ExperimentalAnimationApi
 @Composable
 fun MainContent() {
     WeLoveMarathonTheme {
