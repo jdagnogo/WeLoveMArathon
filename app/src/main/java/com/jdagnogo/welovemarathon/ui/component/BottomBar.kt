@@ -15,12 +15,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.jdagnogo.welovemarathon.home.BottomNavIndicatorShape
 import com.jdagnogo.welovemarathon.home.BottomNavigationItemPadding
-import com.jdagnogo.welovemarathon.ui.component.MainDestinations.*
 import com.jdagnogo.welovemarathon.ui.theme.WeLoveMarathonTheme
 
 @Composable
 fun BottomBar(
-    tabs: Array<MainDestinations>,
+    tabs: Array<HomeSections>,
     currentRoute: String,
     navigateToRoute: (String) -> Unit,
     color: Color = MaterialTheme.colors.secondary,
@@ -37,7 +36,7 @@ fun BottomBar(
             dampingRatio = 0.8f
         )
         BottomNavLayout(
-            selectedIndex = currentSection.position,
+            selectedIndex = currentSection.ordinal,
             itemCount = routes.size,
             indicator = { BottomNavIndicator() },
             animSpec = springSpec,
@@ -78,8 +77,8 @@ fun BottomBarPreview() {
     WeLoveMarathonTheme {
         Surface {
             BottomBar(
-                tabs = arrayOf(Home, Food, Sea, Shopping),
-                currentRoute = Shopping.route,
+                tabs = arrayOf(HomeSections.HOME, HomeSections.FOOD, HomeSections.SEA, HomeSections.SHOPPING),
+                currentRoute = HomeSections.SHOPPING.route,
                 navigateToRoute = {}
             )
         }

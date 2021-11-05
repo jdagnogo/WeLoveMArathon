@@ -18,7 +18,7 @@ fun MainBody() {
             bottomBar = {
                 if (appState.shouldShowBottomBar) {
                     BottomBar(
-                        tabs = appState.bottomBarTabs.toTypedArray(),
+                        tabs = appState.bottomBarTabs,
                         currentRoute = appState.currentRoute!!,
                         navigateToRoute = appState::navigateToBottomBarRoute
                     )
@@ -28,7 +28,7 @@ fun MainBody() {
         ) { innerPaddingModifier ->
             NavHost(
                 navController = appState.navController,
-                startDestination = MainDestinations.Home.route,
+                startDestination = MainDestinations.HOME_ROUTE,
                 modifier = Modifier.padding(innerPaddingModifier)
             ) {
                 wlmNavGraph()

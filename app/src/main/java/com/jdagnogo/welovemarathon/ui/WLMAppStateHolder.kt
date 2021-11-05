@@ -16,7 +16,7 @@ import androidx.navigation.NavGraph
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.jdagnogo.welovemarathon.ui.component.MainDestinations
+import com.jdagnogo.welovemarathon.ui.component.HomeSections
 
 /**
  * Responsible for holding state and containing UI-related logic.
@@ -27,8 +27,7 @@ class WLMAppStateHolder(
     val navController: NavHostController,
     private val resources: Resources,
 ) {
-    val bottomBarTabs =
-        MainDestinations::class.nestedClasses.map { it.objectInstance as MainDestinations }
+    val bottomBarTabs = HomeSections.values()
     private val bottomBarRoutes = bottomBarTabs.map { it.route }
 
     val currentRoute: String?

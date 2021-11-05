@@ -1,32 +1,42 @@
 package com.jdagnogo.welovemarathon.ui.component
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Face
-import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import androidx.navigation.navigation
 import com.jdagnogo.welovemarathon.food.FoodScreen
 import com.jdagnogo.welovemarathon.home.HomeScreen
 import com.jdagnogo.welovemarathon.sea.SeaScreen
 import com.jdagnogo.welovemarathon.shopping.ShoppingScreen
 
-fun NavGraphBuilder.wlmNavGraph(
+fun NavGraphBuilder.wlmNavGraph() {
+    navigation(
+        route = MainDestinations.HOME_ROUTE,
+        startDestination = HomeSections.HOME.route
+    ) {
+        homeGraph()
+    }
+}
+
+fun NavGraphBuilder.homeGraph(
     modifier: Modifier = Modifier,
 ) {
-    composable(MainDestinations.Home.route) {
+    composable(HomeSections.HOME.route) {
         HomeScreen(modifier)
     }
-    composable(MainDestinations.Food.route) {
+    composable(HomeSections.FOOD.route) {
         FoodScreen(modifier)
     }
-    composable(MainDestinations.Shopping.route) {
+    composable(HomeSections.SEA.route) {
         ShoppingScreen(modifier)
     }
-    composable(MainDestinations.Sea.route) {
+    composable(HomeSections.SHOPPING.route) {
         SeaScreen(modifier)
     }
 }
@@ -34,14 +44,18 @@ fun NavGraphBuilder.wlmNavGraph(
 /**
  * Destinations used in the app.
  */
-sealed class MainDestinations(
-    val id: String,
+
+enum class HomeSections(
+    val title: String,
     val icon: ImageVector,
     val route: String,
-    val position: Int = 0,
 ) {
-    object Home : MainDestinations("Home", Icons.Outlined.Home, "home/home", 0)
-    object Food : MainDestinations("Food", Icons.Outlined.Face, "home/food", 1)
-    object Sea : MainDestinations("Sea", Icons.Outlined.Favorite, "home/sea", 2)
-    object Shopping : MainDestinations("Shopping", Icons.Outlined.ShoppingCart, "home/shopping", 3)
+    HOME("Home", Icons.Outlined.Home, "home/feed"),
+    FOOD("Food", Icons.Outlined.Search, "home/food"),
+    SEA("Sea", Icons.Outlined.ShoppingCart, "home/sea"),
+    SHOPPING("Shopping", Icons.Outlined.AccountCircle, "home/shopping")
+}
+
+object MainDestinations {
+    const val HOME_ROUTE = "home"
 }

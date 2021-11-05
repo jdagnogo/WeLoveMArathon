@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
     Box(modifier = modifier){
-        Text(text = "FoodScreen")
+        Text(text = "HomeScreen")
     }
 }
 
