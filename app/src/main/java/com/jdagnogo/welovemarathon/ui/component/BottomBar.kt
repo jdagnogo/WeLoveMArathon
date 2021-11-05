@@ -46,7 +46,7 @@ fun BottomBar(
                 val selected = section == currentSection
                 val tint by animateColorAsState(
                     if (selected) {
-                        MaterialTheme.colors.secondaryVariant
+                        WeLoveMarathonTheme.colors.bottomBarIconSelected
                     } else {
                         MaterialTheme.colors.secondaryVariant
                     }
@@ -77,7 +77,10 @@ fun BottomBarPreview() {
     WeLoveMarathonTheme {
         Surface {
             BottomBar(
-                tabs = arrayOf(HomeSections.HOME, HomeSections.FOOD, HomeSections.SEA, HomeSections.SHOPPING),
+                tabs = arrayOf(HomeSections.HOME,
+                    HomeSections.FOOD,
+                    HomeSections.SEA,
+                    HomeSections.SHOPPING),
                 currentRoute = HomeSections.SHOPPING.route,
                 navigateToRoute = {}
             )

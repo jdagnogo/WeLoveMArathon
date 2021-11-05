@@ -39,6 +39,9 @@ fun NavGraphBuilder.homeGraph(
     composable(HomeSections.SHOPPING.route) {
         SeaScreen(modifier)
     }
+    composable(HomeSections.MUSEUM.route) {
+        SeaScreen(modifier)
+    }
 }
 
 /**
@@ -46,14 +49,14 @@ fun NavGraphBuilder.homeGraph(
  */
 
 enum class HomeSections(
-    val title: String,
     val icon: ImageVector,
     val route: String,
 ) {
-    HOME("Home", Icons.Outlined.Home, "home/feed"),
-    FOOD("Food", Icons.Outlined.Search, "home/food"),
-    SEA("Sea", Icons.Outlined.ShoppingCart, "home/sea"),
-    SHOPPING("Shopping", Icons.Outlined.AccountCircle, "home/shopping")
+    HOME(Icons.Outlined.Home, "home/feed"),
+    FOOD(Icons.Outlined.Search, "home/food"),
+    SEA(Icons.Outlined.ShoppingCart, "home/sea"),
+    SHOPPING(Icons.Outlined.AccountCircle, "home/shopping"),
+    MUSEUM(Icons.Outlined.AccountCircle, "home/museam")
 }
 
 object MainDestinations {

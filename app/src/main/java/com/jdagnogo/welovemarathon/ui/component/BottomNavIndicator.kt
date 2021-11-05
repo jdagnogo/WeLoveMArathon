@@ -4,7 +4,6 @@ import android.content.res.Configuration
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,7 +19,7 @@ import com.jdagnogo.welovemarathon.ui.theme.WeLoveMarathonTheme
 @Composable
 fun BottomNavIndicator(
     strokeWidth: Dp = 2.dp,
-    color: Color = MaterialTheme.colors.primary,
+    color: Color = WeLoveMarathonTheme.colors.bottomBarIndicator,
     shape: Shape = BottomNavIndicatorShape,
 ) {
     Spacer(

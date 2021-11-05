@@ -11,7 +11,7 @@ import com.jdagnogo.welovemarathon.ui.component.wlmNavGraph
 import com.jdagnogo.welovemarathon.ui.theme.WeLoveMarathonTheme
 
 @Composable
-fun MainBody() {
+fun MainContent() {
     WeLoveMarathonTheme {
         val appState = rememberAppState()
         WLMScaffold(
