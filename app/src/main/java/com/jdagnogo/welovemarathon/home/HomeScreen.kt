@@ -21,7 +21,7 @@ fun HomeScreen(
     if (state is HomeViewState.Loading) {
         LoadingComponent(modifier = modifier)
     } else {
-        HomeContent(state = state, modifier = modifier)
+        HomeContent(state = state as HomeViewState.OnBlogSuccess, modifier = modifier)
     }
 }
 

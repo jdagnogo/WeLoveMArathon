@@ -3,7 +3,6 @@ package com.jdagnogo.welovemarathon.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -20,9 +19,9 @@ class HomeViewModel @Inject constructor() : ViewModel() {
 
     private fun fakeData() {
         viewModelScope.launch {
-            delay(5000)
+            //delay(1000)
             _state.value = HomeViewState.OnBlogSuccess(
-                listOf(Blog(title = "toto"), Blog(title = "titi"))
+                Blog().fakeList()
             )
         }
     }
