@@ -2,15 +2,15 @@ package com.jdagnogo.welovemarathon.home
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,7 +27,6 @@ fun BlogItem(
     Card(
         shape = MaterialTheme.shapes.medium,
         modifier = Modifier
-            .padding(end = 8.dp)
             .fillMaxWidth()
             .height(200.dp)
             .padding(bottom = 16.dp)
@@ -35,8 +34,9 @@ fun BlogItem(
 
             }
     ) {
-        ConstraintLayout(modifier = modifier.fillMaxSize()) {
+        ConstraintLayout(modifier = modifier .padding(end = 8.dp).fillMaxSize()) {
             val (image, title, author, date, summary) = createRefs()
+            val guideline = createGuidelineFromStart(0.5f)
             Image(
                 painter = rememberImagePainter(
                     data = blog.link,
@@ -47,17 +47,16 @@ fun BlogItem(
                     }
                 ),
                 contentDescription = blog.title,
-                modifier = Modifier.constrainAs(image){
-                    top.linkTo(parent.top)
-                    start.linkTo(parent.start)
-                    width
+                modifier = Modifier.constrainAs(image) {
+                    linkTo(parent.start, guideline)
+                    width = Dimension.fillToConstraints
                 }
             )
 
             Text(
                 text = blog.author,
                 style = MaterialTheme.typography.overline,
-                modifier = Modifier.constrainAs(author){
+                modifier = Modifier.constrainAs(author) {
                     top.linkTo(parent.top, 16.dp)
                     start.linkTo(image.end)
                     end.linkTo(parent.end)
@@ -68,7 +67,7 @@ fun BlogItem(
             Text(
                 text = blog.date,
                 style = MaterialTheme.typography.overline,
-                modifier = Modifier.constrainAs(date){
+                modifier = Modifier.constrainAs(date) {
                     top.linkTo(author.bottom)
                     start.linkTo(image.end)
                     end.linkTo(parent.end)
@@ -79,7 +78,7 @@ fun BlogItem(
             Text(
                 text = blog.title,
                 style = MaterialTheme.typography.subtitle1,
-                modifier = Modifier.constrainAs(title){
+                modifier = Modifier.constrainAs(title) {
                     top.linkTo(date.bottom, 16.dp)
                     start.linkTo(image.end)
                     end.linkTo(parent.end)
@@ -90,11 +89,16 @@ fun BlogItem(
             Text(
                 text = blog.summary,
                 style = MaterialTheme.typography.body1,
-                modifier = Modifier.constrainAs(summary){
+                modifier = Modifier.constrainAs(summary) {
+                    linkTo(
+                        start = title.start,
+                        end = parent.end,
+                        bias = 0f
+                    )
                     top.linkTo(title.bottom, 8.dp)
-                    start.linkTo(title.start)
-                    end.linkTo(parent.end, 8.dp)
+                    bottom.linkTo(parent.bottom, 16.dp)
                     width = Dimension.fillToConstraints
+                    height = Dimension.fillToConstraints
                 }
             )
         }
