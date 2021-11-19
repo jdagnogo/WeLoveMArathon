@@ -8,10 +8,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
-        android:name=".WLMApp"
+        android:name=".common.WLMApp"
         android:theme="@style/Theme.WeLoveMarathon">
         <activity
-            android:name=".ui.MainActivity"
+            android:name="com.jdagnogo.welovemarathon.common.ui.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.WeLoveMarathon.NoActionBar">
