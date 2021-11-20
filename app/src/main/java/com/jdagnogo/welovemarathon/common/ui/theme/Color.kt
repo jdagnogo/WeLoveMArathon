@@ -1,9 +1,13 @@
 package com.jdagnogo.welovemarathon.common.ui.theme
 
+import androidx.compose.foundation.background
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.TileMode
 
 val Primary = Color(0xFF94BCB4)
 val PrimaryLight = Color(0xFFC5EFE6)
@@ -17,25 +21,37 @@ val Neutral4 = Color(0x1f000000)
 val Neutral3 = Color(0x1fffffff)
 val BackgroundLight = Secondary
 val ContentBackgroundLight = Color(0xFFF1F0F0)
+val ContentBackgroundDark = Color(0xFF161616)
 
 class WLMColors(
+    val gradient: List<Color>,
+    val gradientVariant: List<Color>,
     val bottomBarIndicator: Color,
     val bottomBarIconSelected: Color,
     val bottomBarIcon: Color,
     val isLight: Boolean,
     val divider: Color,
-    val contentBackground: Color
+    val contentBackground: Color,
 )
 
 @Composable
-fun parseConfigCustomPalette(bottomBarIndicator: Color, divider : Color,isLight: Boolean): WLMColors {
+fun parseConfigCustomPalette(
+    gradient: List<Color>,
+    gradientVariant: List<Color>,
+    bottomBarIndicator: Color,
+    divider: Color,
+    isLight: Boolean,
+    contentBackground : Color
+): WLMColors {
     return WLMColors(
+        gradient = gradient,
+        gradientVariant = gradientVariant,
         bottomBarIndicator = bottomBarIndicator,
         bottomBarIconSelected = bottomBarIndicator,
         bottomBarIcon = SecondaryDark,
         isLight = isLight,
         divider = divider,
-        contentBackground = ContentBackgroundLight
+        contentBackground = contentBackground
     )
 }
 
@@ -57,3 +73,16 @@ fun parseConfigPalette(isLight: Boolean): Colors {
         isLight = isLight,
     )
 }
+
+fun Modifier.offsetGradientBackground(
+    colors: List<Color>,
+    width: Float,
+    offset: Float = 0f,
+) = background(
+    Brush.horizontalGradient(
+        colors,
+        startX = -offset,
+        endX = width - offset,
+        tileMode = TileMode.Mirror
+    )
+)

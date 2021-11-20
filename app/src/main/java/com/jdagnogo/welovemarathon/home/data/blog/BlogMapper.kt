@@ -1,4 +1,4 @@
-package com.jdagnogo.welovemarathon.home.data
+package com.jdagnogo.welovemarathon.home.data.blog
 
 import com.jdagnogo.welovemarathon.home.domain.Blog
 import javax.inject.Inject

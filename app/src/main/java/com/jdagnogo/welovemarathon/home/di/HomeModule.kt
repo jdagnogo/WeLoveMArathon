@@ -2,8 +2,8 @@ package com.jdagnogo.welovemarathon.home.di
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.jdagnogo.welovemarathon.common.data.WLMDatabase
-import com.jdagnogo.welovemarathon.home.data.BlogDao
-import com.jdagnogo.welovemarathon.home.data.BlogMapper
+import com.jdagnogo.welovemarathon.home.data.blog.BlogDao
+import com.jdagnogo.welovemarathon.home.data.blog.BlogMapper
 import com.jdagnogo.welovemarathon.home.data.HomeRepository
 import com.jdagnogo.welovemarathon.home.domain.GetBlogUseCase
 import dagger.Module

@@ -1,7 +1,7 @@
 package com.jdagnogo.welovemarathon.home.di
 
-import com.jdagnogo.welovemarathon.home.data.BlogFirebaseData
-import com.jdagnogo.welovemarathon.home.data.BlogRemoteData
+import com.jdagnogo.welovemarathon.home.data.blog.BlogFirebaseData
+import com.jdagnogo.welovemarathon.home.data.blog.BlogRemoteData
 import com.jdagnogo.welovemarathon.home.data.HomeRepository
 import com.jdagnogo.welovemarathon.home.data.HomeRepositoryImpl
 import dagger.Binds

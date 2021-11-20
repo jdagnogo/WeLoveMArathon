@@ -1,6 +1,6 @@
 package com.jdagnogo.welovemarathon.home.domain
 
-import com.jdagnogo.welovemarathon.home.data.BlogEntity
+import com.jdagnogo.welovemarathon.home.data.blog.BlogEntity
 
 data class Blog(
     val id: String = "",
@@ -11,8 +11,8 @@ data class Blog(
     val date: String = "",
     val image: String = "",
     val authorImage: String = "",
-){
-    fun toBlogEntity(): BlogEntity{
+) {
+    fun toBlogEntity(): BlogEntity {
         return BlogEntity(
             id = id,
             title = title,

@@ -1,4 +1,4 @@
-package com.jdagnogo.welovemarathon.home.data
+package com.jdagnogo.welovemarathon.home.data.blog
 
 import coil.network.HttpException
 import com.google.firebase.firestore.FirebaseFirestore
@@ -24,6 +24,8 @@ class BlogFirebaseData @Inject constructor(private val fireStore: FirebaseFirest
                 .get()
                 .await()
 
+            blogs.addAll(snapshot.toObjects(Blog::class.java))
+            blogs.addAll(snapshot.toObjects(Blog::class.java))
             blogs.addAll(snapshot.toObjects(Blog::class.java))
 
             Resource.Success(blogs)

@@ -1,4 +1,4 @@
-package com.jdagnogo.welovemarathon.home.data
+package com.jdagnogo.welovemarathon.home.data.blog
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
