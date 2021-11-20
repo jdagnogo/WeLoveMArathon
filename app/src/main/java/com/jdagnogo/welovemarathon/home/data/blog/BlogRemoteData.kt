@@ -25,8 +25,6 @@ class BlogFirebaseData @Inject constructor(private val fireStore: FirebaseFirest
                 .await()
 
             blogs.addAll(snapshot.toObjects(Blog::class.java))
-            blogs.addAll(snapshot.toObjects(Blog::class.java))
-            blogs.addAll(snapshot.toObjects(Blog::class.java))
 
             Resource.Success(blogs)
         } catch (e: HttpException) {

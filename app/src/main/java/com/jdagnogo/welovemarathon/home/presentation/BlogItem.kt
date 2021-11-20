@@ -7,6 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -31,6 +32,7 @@ fun BlogItem(
         elevation = 20.dp,
         shape = MaterialTheme.shapes.medium,
         modifier = Modifier
+            .padding(start = 24.dp, end = 24.dp, bottom = 16.dp)
             .fillMaxWidth()
             .height(150.dp)
             .clickable {

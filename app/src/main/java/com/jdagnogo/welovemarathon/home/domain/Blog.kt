@@ -39,5 +39,9 @@ fun Blog.fakeList(): List<Blog> {
             date = "18 septembre 2021"),
         Blog("title3", "title3", summary = "grjkgkjghkehgkeghkrghkerjg"),
         Blog("title4", "title4", summary = "grjkgkjghkehgkeghkrghkerjg"),
+        Blog("title5", "title4", summary = "grjkgkjghkehgkeghkrghkerjg"),
+        Blog("title6", "title4", summary = "grjkgkjghkehgkeghkrghkerjg"),
+        Blog("title7", "title4", summary = "grjkgkjghkehgkeghkrghkerjg"),
+        Blog("title8", "title4", summary = "grjkgkjghkehgkeghkrghkerjg"),
         Blog("title5", "title5", summary = "grjkgkjghkehgkeghkrghkerjg"))
 }

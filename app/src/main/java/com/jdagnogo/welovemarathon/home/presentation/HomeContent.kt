@@ -25,41 +25,34 @@ import com.jdagnogo.welovemarathon.home.domain.fakeList
 @Composable
 fun HomeContent(state: HomeState.OnBlogSuccess, modifier: Modifier) {
     Surface(modifier = modifier.fillMaxSize()) {
-        Column(modifier = Modifier
+        LazyColumn(modifier = Modifier
             .fillMaxWidth()
             .background(WeLoveMarathonTheme.colors.contentBackground)) {
-            HomeTopBarContent(modifier = Modifier)
+            item {
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    HomeTopBarContent(modifier = Modifier)
 
-            TitleComponent(
-                title = "Marathon Run",
-                alignRight = false,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.End))
+                    TitleComponent(
+                        title = "Marathon Run",
+                        alignRight = false,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .align(Alignment.End))
 
-            MarathonRunList(runs = MarathonRun().fakeList(), modifier = Modifier.fillMaxWidth())
+                    MarathonRunList(runs = MarathonRun().fakeList(),
+                        modifier = Modifier.fillMaxWidth())
 
-            TitleComponent(
-                title = "Blogs",
-                alignRight = true,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.End))
-
-            BlogList(blogs = state.data, modifier = Modifier
-                .fillMaxHeight()
-                .fillMaxWidth())
-        }
-    }
-}
-
-@Composable
-fun BlogList(blogs: List<Blog>, modifier: Modifier) {
-    LazyColumn(modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        contentPadding = PaddingValues(start = 24.dp, end = 24.dp)) {
-        itemsIndexed(blogs) { _, blog ->
-            BlogItem(blog = blog)
+                    TitleComponent(
+                        title = "Blogs",
+                        alignRight = true,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .align(Alignment.End))
+                }
+            }
+            itemsIndexed(state.data) { _, blog ->
+                BlogItem(blog = blog, )
+            }
         }
     }
 }
