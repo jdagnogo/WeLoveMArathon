@@ -28,9 +28,9 @@ class BlogFirebaseData @Inject constructor(private val fireStore: FirebaseFirest
 
             Resource.Success(blogs)
         } catch (e: HttpException) {
-            Resource.Error("error ", null)
+            Resource.GenericError.HttpError(e.message ?: "", null, code = e.response.code())
         } catch (e: IOException) {
-            Resource.Error(
+            Resource.GenericError.NetworkError(
                 message = "Couldn't reach server, check your internet connection.",
                 data = listOf()
             )

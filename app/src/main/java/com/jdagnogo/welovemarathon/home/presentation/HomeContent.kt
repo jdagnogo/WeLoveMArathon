@@ -23,20 +23,8 @@ import com.jdagnogo.welovemarathon.home.domain.fakeList
 fun HomeContent(state: HomeState.OnBlogSuccess, modifier: Modifier) {
     Surface(modifier = modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_wlm_logo),
-                contentDescription = "",
-                modifier = Modifier
-                    .height(56.dp)
-                    .width(56.dp)
-                    .align(Alignment.CenterHorizontally)
-                    .padding(top = 16.dp)
-            )
-            Text(text = "We Love Marathon ! ",
-                modifier = Modifier
-                    .padding(top = 16.dp)
-                    .align(Alignment.CenterHorizontally)
-            )
+            HomeTopBarContent(modifier = Modifier)
+
             Box(modifier = Modifier
                 .height(50.dp)
                 .padding(top = 16.dp, end = 16.dp)

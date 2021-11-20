@@ -32,6 +32,8 @@ class HomeViewModel @Inject constructor(private val getBlogUseCase: GetBlogUseCa
                     }
                     is Resource.Error -> HomeState.Error(resource.message ?: "")
                     is Resource.Loading -> HomeState.Loading
+                    is Resource.GenericError.HttpError ->{}
+                    is Resource.GenericError.NetworkError -> {}
                 }
             }.launchIn(this)
         }

@@ -12,11 +12,11 @@ val Typography = Typography(
     body1 = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
+        fontSize = 14.sp,
     ),
     subtitle1 = TextStyle(
         fontWeight = FontWeight.SemiBold,
-        fontSize = 20.sp,
+        fontSize = 16.sp,
         letterSpacing = 0.15.sp,
         color = PrimaryDark
     )

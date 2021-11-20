@@ -9,6 +9,8 @@ data class Blog(
     val author: String = "",
     val link: String = "",
     val date: String = "",
+    val image: String = "",
+    val authorImage: String = "",
 ){
     fun toBlogEntity(): BlogEntity{
         return BlogEntity(
@@ -17,7 +19,9 @@ data class Blog(
             summary = summary,
             author = author,
             link = link,
-            date = date
+            date = date,
+            image = image,
+            authorImage = authorImage
         )
     }
 }

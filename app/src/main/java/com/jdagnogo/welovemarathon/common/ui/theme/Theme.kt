@@ -38,11 +38,11 @@ val LightColorPalette: @Composable () -> Colors by lazy {
 
 // custom palette colors
 val DarkColorCustomPalette: @Composable () -> WLMColors by lazy {
-    { parseConfigCustomPalette(White, false) }
+    { parseConfigCustomPalette(White, Neutral3,false) }
 }
 
 val LightColorCustomPalette: @Composable () -> WLMColors by lazy {
-    { parseConfigCustomPalette(Black, true) }
+    { parseConfigCustomPalette(Black, Neutral4,true) }
 }
 
 object WeLoveMarathonTheme {

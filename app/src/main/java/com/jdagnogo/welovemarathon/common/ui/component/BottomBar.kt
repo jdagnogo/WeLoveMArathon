@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.accompanist.insets.navigationBarsPadding
 import com.jdagnogo.welovemarathon.home.presentation.BottomNavIndicatorShape
 import com.jdagnogo.welovemarathon.home.presentation.BottomNavigationItemPadding
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
@@ -40,7 +41,7 @@ fun BottomBar(
             itemCount = routes.size,
             indicator = { BottomNavIndicator() },
             animSpec = springSpec,
-            modifier = Modifier
+            modifier = Modifier.navigationBarsPadding(start = false, end = false)
         ) {
             tabs.forEach { section ->
                 val selected = section == currentSection
