@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.insets.navigationBarsPadding
+import com.jdagnogo.welovemarathon.common.ui.theme.Primary
 import com.jdagnogo.welovemarathon.home.presentation.BottomNavIndicatorShape
 import com.jdagnogo.welovemarathon.home.presentation.BottomNavigationItemPadding
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
@@ -32,6 +33,7 @@ fun BottomBar(
         color = color,
         contentColor = contentColor
     ) {
+        DividerComponent(color = Primary)
         val springSpec = SpringSpec<Float>(
             stiffness = 800f,
             dampingRatio = 0.8f

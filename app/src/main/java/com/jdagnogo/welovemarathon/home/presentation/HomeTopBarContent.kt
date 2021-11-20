@@ -17,13 +17,14 @@ import com.google.accompanist.insets.statusBarsPadding
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.component.DividerComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.Primary
+import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 
 @Composable
 fun HomeTopBarContent(modifier: Modifier) {
     Column(modifier = modifier.statusBarsPadding()) {
         TopAppBar(
-            backgroundColor = Color(0xffffffff),
+            backgroundColor = Secondary,
             contentColor = Color(0xde000000),
             elevation = 0.dp
         ) {
@@ -36,9 +37,9 @@ fun HomeTopBarContent(modifier: Modifier) {
                         .width(60.dp)
                 )
                 Text(text = "We Love Marathon ! ",
-                    color = Primary,
+                    color = Color.Black,
                     style = MaterialTheme.typography.h6,
-                    modifier = Modifier.align(Alignment.CenterVertically)
+                    modifier = Modifier.align(Alignment.CenterVertically).padding(start = 16.dp)
                 )
             }
         }

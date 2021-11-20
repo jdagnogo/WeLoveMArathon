@@ -62,10 +62,10 @@ fun BlogItem(
 
             Text(
                 text = blog.author,
-                style = MaterialTheme.typography.overline,
+                style = MaterialTheme.typography.caption,
                 modifier = Modifier.constrainAs(author) {
                     top.linkTo(parent.top, 16.dp)
-                    start.linkTo(image.end, 4.dp)
+                    start.linkTo(image.end, 8.dp)
                     end.linkTo(parent.end)
                     width = Dimension.fillToConstraints
                 }
@@ -76,7 +76,7 @@ fun BlogItem(
                 style = MaterialTheme.typography.overline,
                 modifier = Modifier.constrainAs(date) {
                     top.linkTo(author.bottom)
-                    start.linkTo(image.end, 4.dp)
+                    start.linkTo(author.start)
                     end.linkTo(parent.end)
                     width = Dimension.fillToConstraints
                 }
@@ -84,23 +84,26 @@ fun BlogItem(
 
             Text(
                 text = blog.title,
+                maxLines = 1,
                 style = MaterialTheme.typography.subtitle1,
                 modifier = Modifier.constrainAs(title) {
-                    top.linkTo(date.bottom, 16.dp)
-                    start.linkTo(image.end, 4.dp)
-                    end.linkTo(parent.end)
+                    top.linkTo(date.bottom, 8.dp)
+                    start.linkTo(author.start)
+                    end.linkTo(parent.end, 4.dp)
                     width = Dimension.fillToConstraints
                 }
             )
 
             Text(
                 text = blog.summary,
+                maxLines = 2,
                 style = MaterialTheme.typography.body1,
                 modifier = Modifier
                     .constrainAs(summary) {
                         linkTo(
-                            start = title.start,
+                            start = author.start,
                             end = parent.end,
+                            endMargin = 4.dp,
                             bias = 0f
                         )
                         top.linkTo(title.bottom, 8.dp)

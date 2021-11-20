@@ -118,9 +118,11 @@ dependencies {
     // Kotlin Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.3.5'
 
+    //accompanist
     def insets_version = "0.21.2-beta"
     implementation "com.google.accompanist:accompanist-insets:$insets_version"
     implementation "com.google.accompanist:accompanist-insets-ui:$insets_version"
+    implementation "com.google.accompanist:accompanist-systemuicontroller:$insets_version"
 }
 // Allow references to generated code
 kapt {

@@ -2,6 +2,7 @@ package com.jdagnogo.welovemarathon.home.presentation
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -15,6 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jdagnogo.welovemarathon.R
+import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 import com.jdagnogo.welovemarathon.home.domain.Blog
 import com.jdagnogo.welovemarathon.home.domain.fakeList
 
@@ -22,7 +24,7 @@ import com.jdagnogo.welovemarathon.home.domain.fakeList
 @Composable
 fun HomeContent(state: HomeState.OnBlogSuccess, modifier: Modifier) {
     Surface(modifier = modifier.fillMaxSize()) {
-        Column(modifier = Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.fillMaxWidth().background(WeLoveMarathonTheme.colors.contentBackground)) {
             HomeTopBarContent(modifier = Modifier)
 
             Box(modifier = Modifier

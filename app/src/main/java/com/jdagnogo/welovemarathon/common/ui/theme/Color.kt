@@ -15,13 +15,16 @@ val Black = Color(0xFF000000)
 val White = Color(0xFFFAFAFA)
 val Neutral4 = Color(0x1f000000)
 val Neutral3 = Color(0x1fffffff)
+val BackgroundLight = Secondary
+val ContentBackgroundLight = Color(0xFFF1F0F0)
 
 class WLMColors(
     val bottomBarIndicator: Color,
     val bottomBarIconSelected: Color,
     val bottomBarIcon: Color,
     val isLight: Boolean,
-    val divider: Color
+    val divider: Color,
+    val contentBackground: Color
 )
 
 @Composable
@@ -31,7 +34,8 @@ fun parseConfigCustomPalette(bottomBarIndicator: Color, divider : Color,isLight:
         bottomBarIconSelected = bottomBarIndicator,
         bottomBarIcon = SecondaryDark,
         isLight = isLight,
-        divider = divider
+        divider = divider,
+        contentBackground = ContentBackgroundLight
     )
 }
 
@@ -42,7 +46,7 @@ fun parseConfigPalette(isLight: Boolean): Colors {
         primaryVariant = PrimaryDark,
         secondary = Secondary,
         secondaryVariant = SecondaryDark,
-        background = MaterialTheme.colors.background,
+        background = BackgroundLight,
         surface = MaterialTheme.colors.surface,
         error = MaterialTheme.colors.error,
         onPrimary = MaterialTheme.colors.onPrimary,

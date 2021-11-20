@@ -5,6 +5,8 @@ import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun WeLoveMarathonTheme(
@@ -16,6 +18,13 @@ fun WeLoveMarathonTheme(
         DarkColorPalette
     } else {
         LightColorPalette()
+    }
+
+    val sysUiController = rememberSystemUiController()
+    SideEffect {
+        sysUiController.setSystemBarsColor(
+            color = colors.background
+        )
     }
 
     MaterialTheme(
