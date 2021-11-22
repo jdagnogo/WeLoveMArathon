@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.jdagnogo.welovemarathon.home.data.blog.BlogDao
 import com.jdagnogo.welovemarathon.home.data.blog.BlogEntity
+import com.jdagnogo.welovemarathon.home.data.run.RunDao
 import com.jdagnogo.welovemarathon.home.data.run.RunEntity
 import java.util.*
 
@@ -15,6 +16,7 @@ import java.util.*
 )
 abstract class WLMDatabase : RoomDatabase() {
     abstract fun getBlogDao(): BlogDao
+    abstract fun getRunDao(): RunDao
 
     companion object {
         private const val DB_NAME = "wlm_db"

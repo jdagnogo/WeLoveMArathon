@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.jdagnogo.welovemarathon.home.domain.MarathonRun
 
-@Entity
+@Entity(tableName = "run_entity")
 data class RunEntity(
     @PrimaryKey val id: String = "",
     val title: String = "",

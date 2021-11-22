@@ -5,8 +5,8 @@ import com.jdagnogo.welovemarathon.home.data.HomeRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetBlogUseCase @Inject constructor(private val repository: HomeRepository) {
-    suspend operator fun invoke(): Flow<Resource<List<Blog>>> {
-        return repository.getBlogs()
+class GetRunUseCase @Inject constructor(private val repository: HomeRepository) {
+    suspend operator fun invoke(): Flow<Resource<List<MarathonRun>>> {
+        return repository.getRuns()
     }
 }

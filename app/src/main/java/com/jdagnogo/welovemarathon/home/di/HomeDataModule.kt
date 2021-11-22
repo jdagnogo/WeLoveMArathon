@@ -4,6 +4,8 @@ import com.jdagnogo.welovemarathon.home.data.blog.BlogFirebaseData
 import com.jdagnogo.welovemarathon.home.data.blog.BlogRemoteData
 import com.jdagnogo.welovemarathon.home.data.HomeRepository
 import com.jdagnogo.welovemarathon.home.data.HomeRepositoryImpl
+import com.jdagnogo.welovemarathon.home.data.run.RunFirebaseData
+import com.jdagnogo.welovemarathon.home.data.run.RunRemoteData
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -21,4 +23,9 @@ abstract class HomeDataModule {
     abstract fun bindBlogFirebaseData(
         blogFirebaseData: BlogFirebaseData,
     ): BlogRemoteData
+
+    @Binds
+    abstract fun bindRunFirebaseData(
+        runFirebaseData: RunFirebaseData,
+    ): RunRemoteData
 }
