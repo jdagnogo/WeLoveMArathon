@@ -58,18 +58,13 @@ fun HomeContent(state: HomeState, modifier: Modifier) {
 
 fun blogList(state: HomeState, scope: LazyListScope) {
     with(scope) {
-        when (state) {
-            is HomeState.OnBlogsSuccess -> {
-                itemsIndexed(state.data) { _, blog ->
-                    BlogItem(blog = blog)
-                }
+        if (state.isLoadingBlogs) {
+            item {
+                LoadingComponent(modifier = Modifier)
             }
-            is HomeState.LoadingBlogs -> {
-                item {
-                    LoadingComponent(modifier = Modifier)
-                }
-            }
-            else -> {
+        } else {
+            itemsIndexed(state.blogs) { _, blog ->
+                BlogItem(blog = blog)
             }
         }
     }
@@ -77,36 +72,30 @@ fun blogList(state: HomeState, scope: LazyListScope) {
 
 @Composable
 fun MarathonRunList(state: HomeState, modifier: Modifier) {
-    when (state) {
-        is HomeState.LoadingRuns -> {
-            LoadingComponent(modifier = Modifier)
+    if (state.isLoadingRuns) {
+        LoadingComponent(modifier = Modifier)
+    } else {
+        val scroll = rememberScrollState(0)
+
+        // The Cards show a gradient which spans 3 cards and scrolls with parallax.
+        val gradientWidth = with(LocalDensity.current) {
+            (6 * (HighlightCardWidth + HighlightCardPadding).toPx())
         }
-
-        is HomeState.OnRunsSuccess -> {
-            val scroll = rememberScrollState(0)
-
-            // The Cards show a gradient which spans 3 cards and scrolls with parallax.
-            val gradientWidth = with(LocalDensity.current) {
-                (6 * (HighlightCardWidth + HighlightCardPadding).toPx())
-            }
-            LazyRow(modifier = modifier,
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                contentPadding = PaddingValues(start = 24.dp, end = 24.dp)) {
-                itemsIndexed(state.data) { index, run ->
-                    val gradient = when ((index / 2) % 2) {
-                        0 -> WeLoveMarathonTheme.colors.gradient
-                        else -> WeLoveMarathonTheme.colors.gradientVariant
-                    }
-                    RunItem(run = run,
-                        index = index,
-                        gradient = gradient,
-                        gradientWidth = gradientWidth,
-                        scroll = scroll.value,
-                        modifier = Modifier)
+        LazyRow(modifier = modifier,
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            contentPadding = PaddingValues(start = 24.dp, end = 24.dp)) {
+            itemsIndexed(state.runs) { index, run ->
+                val gradient = when ((index / 2) % 2) {
+                    0 -> WeLoveMarathonTheme.colors.gradient
+                    else -> WeLoveMarathonTheme.colors.gradientVariant
                 }
+                RunItem(run = run,
+                    index = index,
+                    gradient = gradient,
+                    gradientWidth = gradientWidth,
+                    scroll = scroll.value,
+                    modifier = Modifier)
             }
-        }
-        else -> {
         }
     }
 }
@@ -118,6 +107,6 @@ fun MarathonRunList(state: HomeState, modifier: Modifier) {
 fun LoadingComponentPreview() {
     val fakeData = Blog().fakeList()
     MaterialTheme {
-        HomeContent(state = HomeState.OnBlogsSuccess(fakeData), modifier = Modifier)
+        HomeContent(state = HomeState(), modifier = Modifier)
     }
 }

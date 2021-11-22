@@ -13,6 +13,7 @@ import com.jdagnogo.welovemarathon.home.data.run.RunRemoteData
 import com.jdagnogo.welovemarathon.home.domain.GetBlogUseCase
 import com.jdagnogo.welovemarathon.home.domain.GetRunUseCase
 import com.jdagnogo.welovemarathon.home.domain.HomeUseCases
+import com.jdagnogo.welovemarathon.home.presentation.HomeReducer
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,6 +46,10 @@ object HomeModule {
         getRunUseCase: GetRunUseCase,
         getBlogUseCase: GetBlogUseCase,
     ) = HomeUseCases(getBlogUseCase = getBlogUseCase, getRunUseCase = getRunUseCase)
+
+    @Provides
+    @Singleton
+    fun provideHomeReducer() = HomeReducer()
 
     @Provides
     @Singleton
