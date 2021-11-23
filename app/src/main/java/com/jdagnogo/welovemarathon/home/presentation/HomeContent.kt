@@ -2,6 +2,7 @@ package com.jdagnogo.welovemarathon.home.presentation
 
 import android.content.res.Configuration
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -20,7 +21,9 @@ import androidx.compose.ui.unit.dp
 import com.jdagnogo.welovemarathon.common.ui.component.LoadingComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 import com.jdagnogo.welovemarathon.home.domain.Blog
+import com.jdagnogo.welovemarathon.home.domain.MarathonRun
 import com.jdagnogo.welovemarathon.home.domain.fakeList
+import com.jdagnogo.welovemarathon.R
 
 @ExperimentalAnimationApi
 @Composable
@@ -28,7 +31,7 @@ fun HomeContent(state: HomeState, modifier: Modifier) {
     Surface(modifier = modifier.fillMaxSize()) {
         LazyColumn(modifier = Modifier
             .fillMaxWidth()
-            .background(WeLoveMarathonTheme.colors.contentBackground)) {
+            .background(WeLoveMarathonTheme.colors.contentBackground).animateContentSize()) {
             item {
                 Column(modifier = Modifier.fillMaxWidth()) {
                     HomeTopBarContent(modifier = Modifier)
@@ -41,7 +44,7 @@ fun HomeContent(state: HomeState, modifier: Modifier) {
                             .align(Alignment.End))
 
                     MarathonRunList(state,
-                        modifier = Modifier.fillMaxWidth())
+                        modifier = Modifier.fillMaxWidth().animateContentSize())
 
                     TitleComponent(
                         title = "Blogs",
@@ -60,7 +63,7 @@ fun blogList(state: HomeState, scope: LazyListScope) {
     with(scope) {
         if (state.isLoadingBlogs) {
             item {
-                LoadingComponent(modifier = Modifier)
+                LoadingComponent(modifier = Modifier.fillMaxWidth().size(200.dp), rawId = R.raw.blog)
             }
         } else {
             itemsIndexed(state.blogs) { _, blog ->
@@ -73,7 +76,7 @@ fun blogList(state: HomeState, scope: LazyListScope) {
 @Composable
 fun MarathonRunList(state: HomeState, modifier: Modifier) {
     if (state.isLoadingRuns) {
-        LoadingComponent(modifier = Modifier)
+        LoadingComponent(modifier = Modifier.fillMaxWidth().size(200.dp), rawId = R.raw.runing)
     } else {
         val scroll = rememberScrollState(0)
 
@@ -101,12 +104,51 @@ fun MarathonRunList(state: HomeState, modifier: Modifier) {
 }
 
 @ExperimentalAnimationApi
-@Preview(name = "Full content")
-@Preview("Dark : Full content", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(name = "Loading")
+@Preview("Dark : Loading", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun LoadingComponentPreview() {
-    val fakeData = Blog().fakeList()
+    val reducer = HomeReducer()
+    val state = reducer.reduce(HomeState(), HomePartialState.LoadingBlogs)
     MaterialTheme {
-        HomeContent(state = HomeState(), modifier = Modifier)
+        HomeContent(state = state, modifier = Modifier)
+    }
+}
+
+@ExperimentalAnimationApi
+@Preview(name = "Blogs")
+@Preview("Dark : Blogs", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun BlogsComponentPreview() {
+    val reducer = HomeReducer()
+    val state = reducer.reduce(HomeState(), HomePartialState.OnBlogsSuccess(Blog().fakeList()))
+    MaterialTheme {
+        HomeContent(state = state, modifier = Modifier)
+    }
+}
+
+@ExperimentalAnimationApi
+@Preview(name = "Runs")
+@Preview("Dark : Runs", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun RunsComponentPreview() {
+    val reducer = HomeReducer()
+    val state =
+        reducer.reduce(HomeState(), HomePartialState.OnRunsSuccess(MarathonRun().fakeList()))
+    MaterialTheme {
+        HomeContent(state = state, modifier = Modifier)
+    }
+}
+
+@ExperimentalAnimationApi
+@Preview(name = "Full content")
+@Composable
+fun HomeComponentPreview() {
+    val reducer = HomeReducer()
+    val state =
+        reducer.reduce(HomeState(), HomePartialState.OnRunsSuccess(MarathonRun().fakeList()))
+    val finalState = reducer.reduce(state, HomePartialState.OnBlogsSuccess(Blog().fakeList()))
+    MaterialTheme {
+        HomeContent(state = finalState, modifier = Modifier)
     }
 }

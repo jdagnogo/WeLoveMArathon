@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.insets.navigationBarsPadding
 import com.jdagnogo.welovemarathon.common.ui.theme.Primary
@@ -57,7 +58,7 @@ fun BottomBar(
                 BottomNavigationItem(
                     icon = {
                         Icon(
-                            imageVector = section.icon,
+                            painterResource(id = section.icon),
                             tint = tint,
                             contentDescription = null
                         )

@@ -8,6 +8,7 @@ import com.jdagnogo.welovemarathon.home.domain.Blog
 import com.jdagnogo.welovemarathon.home.domain.HomeUseCases
 import com.jdagnogo.welovemarathon.home.domain.MarathonRun
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -31,6 +32,7 @@ class HomeViewModel @Inject constructor(
 
     private fun fetchBlogs() {
         viewModelScope.launch {
+            delay(1000)
             homeUseCases.getBlogUseCase.invoke().onEach { resource ->
                 val partialState = when (resource) {
                     is Resource.Success -> {
@@ -49,6 +51,7 @@ class HomeViewModel @Inject constructor(
 
     private fun fetchRuns() {
         viewModelScope.launch {
+            delay(1000)
             homeUseCases.getRunUseCase.invoke().onEach { resource ->
                 val partialState = when (resource) {
                     is Resource.Success -> {

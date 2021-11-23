@@ -123,6 +123,10 @@ dependencies {
     implementation "com.google.accompanist:accompanist-insets:$insets_version"
     implementation "com.google.accompanist:accompanist-insets-ui:$insets_version"
     implementation "com.google.accompanist:accompanist-systemuicontroller:$insets_version"
+
+    //lottie
+    def lottieVersion = "4.2.1"
+    implementation "com.airbnb.android:lottie-compose:$lottieVersion"
 }
 // Allow references to generated code
 kapt {

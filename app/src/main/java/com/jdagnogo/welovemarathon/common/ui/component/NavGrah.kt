@@ -12,6 +12,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.food.FoodScreen
 import com.jdagnogo.welovemarathon.home.presentation.HomeScreen
 import com.jdagnogo.welovemarathon.home.presentation.HomeViewModel
@@ -54,14 +55,14 @@ fun NavGraphBuilder.homeGraph(
  */
 
 enum class HomeSections(
-    val icon: ImageVector,
+    val icon: Int,
     val route: String,
 ) {
-    HOME(Icons.Outlined.Home, "home/feed"),
-    FOOD(Icons.Outlined.Search, "home/food"),
-    SEA(Icons.Outlined.ShoppingCart, "home/sea"),
-    SHOPPING(Icons.Outlined.AccountCircle, "home/shopping"),
-    MUSEUM(Icons.Outlined.AccountCircle, "home/museam")
+    HOME(R.drawable.ic_home, "home/feed"),
+    FOOD(R.drawable.ic_food, "home/food"),
+    SEA(R.drawable.ic_sea, "home/sea"),
+    SHOPPING(R.drawable.ic_shopping, "home/shopping"),
+    MUSEUM(R.drawable.ic_food, "home/museam")
 }
 
 object MainDestinations {
