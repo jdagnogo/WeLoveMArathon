@@ -1,23 +1,20 @@
 package com.jdagnogo.welovemarathon.common.ui.component
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AccountCircle
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Search
-import androidx.compose.material.icons.outlined.ShoppingCart
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.jdagnogo.welovemarathon.R
-import com.jdagnogo.welovemarathon.food.FoodScreen
+import com.jdagnogo.welovemarathon.food.presentation.FoodScreen
+import com.jdagnogo.welovemarathon.food.presentation.FoodViewModel
 import com.jdagnogo.welovemarathon.home.presentation.HomeScreen
 import com.jdagnogo.welovemarathon.home.presentation.HomeViewModel
 import com.jdagnogo.welovemarathon.sea.SeaScreen
 import com.jdagnogo.welovemarathon.shopping.ShoppingScreen
+@ExperimentalFoundationApi
 @ExperimentalAnimationApi
 fun NavGraphBuilder.wlmNavGraph() {
     navigation(
@@ -28,6 +25,7 @@ fun NavGraphBuilder.wlmNavGraph() {
     }
 }
 
+@ExperimentalFoundationApi
 @ExperimentalAnimationApi
 fun NavGraphBuilder.homeGraph(
     modifier: Modifier = Modifier,
@@ -37,7 +35,8 @@ fun NavGraphBuilder.homeGraph(
         HomeScreen(viewModel, modifier)
     }
     composable(HomeSections.FOOD.route) {
-        FoodScreen(modifier)
+        val viewModel = hiltViewModel<FoodViewModel>()
+        FoodScreen(viewModel = viewModel, modifier)
     }
     composable(HomeSections.SEA.route) {
         ShoppingScreen(modifier)

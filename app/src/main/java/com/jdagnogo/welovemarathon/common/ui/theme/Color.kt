@@ -19,6 +19,7 @@ val Black = Color(0xFF000000)
 val White = Color(0xFFFAFAFA)
 val Neutral4 = Color(0x1f000000)
 val Neutral3 = Color(0x1fffffff)
+val Background = Color(0xE1E1E1)
 val BackgroundLight = Secondary
 val ContentBackgroundLight = Color(0xFFF1F0F0)
 val ContentBackgroundDark = Color(0xFF161616)
