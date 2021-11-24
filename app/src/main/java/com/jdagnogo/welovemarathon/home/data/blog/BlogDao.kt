@@ -1,6 +1,7 @@
 package com.jdagnogo.welovemarathon.home.data.blog
 
 import androidx.room.*
+import com.jdagnogo.welovemarathon.home.data.blog.BlogEntity.Companion.TABLE_BLOG
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -21,7 +22,7 @@ interface BlogDao {
     }
 
     companion object {
-        private const val QUERY_DELETE = "DELETE FROM blog_entity"
-        private const val QUERY_GET_ALL = "SELECT * FROM blog_entity"
+        private const val QUERY_DELETE = "DELETE FROM $TABLE_BLOG"
+        private const val QUERY_GET_ALL = "SELECT * FROM $TABLE_BLOG"
     }
 }

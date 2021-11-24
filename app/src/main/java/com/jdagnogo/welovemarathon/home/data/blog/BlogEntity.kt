@@ -2,9 +2,10 @@ package com.jdagnogo.welovemarathon.home.data.blog
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.jdagnogo.welovemarathon.home.data.blog.BlogEntity.Companion.TABLE_BLOG
 import com.jdagnogo.welovemarathon.home.domain.Blog
 
-@Entity(tableName = "blog_entity")
+@Entity(tableName = TABLE_BLOG)
 data class BlogEntity(
     @PrimaryKey val id: String = "",
     val title: String = "",
@@ -26,5 +27,9 @@ data class BlogEntity(
             image = image,
             authorImage = authorImage
         )
+    }
+
+    companion object {
+        const val TABLE_BLOG = "blogs"
     }
 }

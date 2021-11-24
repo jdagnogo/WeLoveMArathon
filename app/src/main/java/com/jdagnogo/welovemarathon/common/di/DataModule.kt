@@ -2,6 +2,7 @@ package com.jdagnogo.welovemarathon.common.di
 
 import android.app.Application
 import androidx.room.Room
+import com.google.firebase.firestore.FirebaseFirestore
 import com.jdagnogo.welovemarathon.common.WLMApp
 import com.jdagnogo.welovemarathon.common.data.WLMDatabase
 import dagger.Module
@@ -21,4 +22,8 @@ object DataModule {
     ): WLMDatabase {
         return WLMDatabase.getAppDataBase(app)
     }
+
+    @Singleton
+    @Provides
+    fun provideFirebaseFirestore() = FirebaseFirestore.getInstance()
 }

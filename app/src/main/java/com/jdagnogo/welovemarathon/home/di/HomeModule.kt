@@ -76,10 +76,6 @@ object HomeModule {
 
     @Singleton
     @Provides
-    fun provideFirebaseFirestore() = FirebaseFirestore.getInstance()
-
-    @Singleton
-    @Provides
     fun provideBlogDao(db: WLMDatabase): BlogDao = db.getBlogDao()
 
     @Singleton

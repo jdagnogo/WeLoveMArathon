@@ -27,8 +27,8 @@ import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.theme.Background
 import com.jdagnogo.welovemarathon.common.ui.theme.Primary
 import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryDark
-import com.jdagnogo.welovemarathon.food.domain.Restaurant
-import com.jdagnogo.welovemarathon.food.domain.fakeList
+import com.jdagnogo.welovemarathon.food.domain.restaurant.Restaurant
+import com.jdagnogo.welovemarathon.food.domain.restaurant.fakeList
 
 @Composable
 fun RestaurantItem(restaurant: Restaurant, modifier: Modifier = Modifier) {

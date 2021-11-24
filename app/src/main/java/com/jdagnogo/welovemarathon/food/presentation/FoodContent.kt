@@ -19,14 +19,15 @@ import com.jdagnogo.welovemarathon.common.ui.component.DividerComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.Primary
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 import com.jdagnogo.welovemarathon.food.domain.FoodCategory
-import com.jdagnogo.welovemarathon.food.domain.Restaurant
-import com.jdagnogo.welovemarathon.food.domain.fakeList
-import com.jdagnogo.welovemarathon.food.presentation.restaurant.RestaurantItem
-import com.jdagnogo.welovemarathon.home.presentation.TitleComponent
+import com.jdagnogo.welovemarathon.food.presentation.restaurant.RestaurantContent
 
 @ExperimentalFoundationApi
 @Composable
-fun FoodContent(onCategorySelected: (FoodCategory) -> Unit, modifier: Modifier) {
+fun FoodContent(
+    state: FoodState,
+    onCategorySelected: (FoodCategory) -> Unit,
+    modifier: Modifier,
+) {
     Surface(modifier = modifier
         .fillMaxSize()
         .background(WeLoveMarathonTheme.colors.contentBackground)) {
@@ -49,23 +50,12 @@ fun FoodContent(onCategorySelected: (FoodCategory) -> Unit, modifier: Modifier) 
                 }
             }
             DividerComponent(color = Primary)
-            if (true) {
-                val restaurants = Restaurant().fakeList()
-                TitleComponent(title = "Recommanded", alignRight = true, modifier = Modifier)
 
-                LazyRow(
-                    contentPadding = PaddingValues(top = 16.dp, start = 16.dp, end = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                ) {
-                    itemsIndexed(restaurants) { _, restaurant ->
-                        RestaurantItem(restaurant = restaurant)
-                    }
+            when (state.currentCategory) {
+                FoodCategory.RESTAURANT -> {
+                    RestaurantContent(state.restaurants)
                 }
-
-                DividerComponent(color = Primary)
-                TitleComponent(title = "Others", alignRight = false, modifier = Modifier)
+                else ->{}
             }
         }
     }
@@ -78,6 +68,7 @@ fun FoodContent(onCategorySelected: (FoodCategory) -> Unit, modifier: Modifier) 
 @Composable
 fun FoodContentPreview() {
     MaterialTheme {
-        FoodContent({}, modifier = Modifier)
+        val state = FoodState(currentCategory = FoodCategory.RESTAURANT)
+        FoodContent(state = state, {}, modifier = Modifier)
     }
 }
