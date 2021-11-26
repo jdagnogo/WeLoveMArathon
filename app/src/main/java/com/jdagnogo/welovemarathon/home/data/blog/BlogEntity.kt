@@ -1,10 +1,12 @@
 package com.jdagnogo.welovemarathon.home.data.blog
 
+import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.jdagnogo.welovemarathon.home.data.blog.BlogEntity.Companion.TABLE_BLOG
 import com.jdagnogo.welovemarathon.home.domain.Blog
 
+@Keep
 @Entity(tableName = TABLE_BLOG)
 data class BlogEntity(
     @PrimaryKey val id: String = "",

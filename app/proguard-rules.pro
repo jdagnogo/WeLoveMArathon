@@ -14,8 +14,40 @@
 
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+-keepattributes SourceFile,LineNumberTable
 
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
-#-renamesourcefileattribute SourceFile
+-renamesourcefileattribute SourceFile
+
+# Uncomment this to preserve the line number information for
+# debugging stack traces.
+-keepattributes SourceFile,LineNumberTable
+
+# If you keep the line number information, uncomment this to
+# hide the original source file name.
+-renamesourcefileattribute SourceFile
+
+
+# Repackage classes into the top-level.
+-repackageclasses
+-keep class * extends androidx.room.RoomDatabase
+-keep @androidx.room.Entity class *
+-keepattributes Signature
+
+-dontwarn okio.**
+-dontwarn retrofit2.Call
+-dontnote retrofit2.Platform$IOS$MainThreadExecutor
+-keep class android.support.v7.widget.RecyclerView { *; }
+
+-keep class com.jdagnogo.welovemarathon.home.domain.Blog
+-keep class com.jdagnogo.welovemarathon.home.domain.Blog
+-keep class com.jdagnogo.welovemarathon.home.data.blog.BlogEntity
+-keep class com.jdagnogo.welovemarathon.home.data.blog.BlogMapper
+
+#Firebase
+-keepattributes EnclosingMethod
+-keepattributes InnerClasses
+-dontnote org.xmlpull.v1.**
+-keepclassmembers class org.xmlpull.** { *; }
+-keep class com.firebase.** { *; }

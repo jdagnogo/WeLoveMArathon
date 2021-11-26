@@ -1,7 +1,8 @@
 package com.jdagnogo.welovemarathon.food.domain.restaurant
 
+import androidx.annotation.Keep
 import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantEntity
-
+@Keep
 data class Restaurant(
     val id: String = "",
     val name: String = "",

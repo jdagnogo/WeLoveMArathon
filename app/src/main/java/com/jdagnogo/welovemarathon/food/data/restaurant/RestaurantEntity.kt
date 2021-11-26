@@ -1,9 +1,10 @@
 package com.jdagnogo.welovemarathon.food.data.restaurant
 
+import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.jdagnogo.welovemarathon.food.domain.restaurant.Restaurant
-
+@Keep
 @Entity(tableName = "restaurant")
 data class RestaurantEntity(
     @PrimaryKey val id: String = "",

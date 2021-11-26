@@ -1,5 +1,6 @@
 package com.jdagnogo.welovemarathon.home.presentation
 
+import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jdagnogo.welovemarathon.common.ui.IModel
@@ -80,6 +81,7 @@ class HomeViewModel @Inject constructor(
 /**
  * The data class that will describe the state of the view
  */
+@Keep
 data class HomeState(
     val isLoadingBlogs: Boolean = true,
     val isLoadingRuns: Boolean = true,
@@ -87,7 +89,7 @@ data class HomeState(
     val runs: List<MarathonRun> = listOf(),
     val error: String = "",
 )
-
+@Keep
 sealed class HomePartialState {
     object LoadingBlogs : HomePartialState()
     object LoadingRuns : HomePartialState()

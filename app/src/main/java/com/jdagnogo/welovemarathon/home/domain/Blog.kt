@@ -1,7 +1,8 @@
 package com.jdagnogo.welovemarathon.home.domain
 
+import androidx.annotation.Keep
 import com.jdagnogo.welovemarathon.home.data.blog.BlogEntity
-
+@Keep
 data class Blog(
     val id: String = "",
     val title: String = "",

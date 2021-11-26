@@ -1,7 +1,8 @@
 package com.jdagnogo.welovemarathon.home.domain
 
+import androidx.annotation.Keep
 import com.jdagnogo.welovemarathon.home.data.run.RunEntity
-
+@Keep
 data class MarathonRun(
     val id: String = "",
     val title: String = "",

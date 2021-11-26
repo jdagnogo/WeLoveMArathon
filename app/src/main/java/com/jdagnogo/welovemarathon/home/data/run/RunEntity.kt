@@ -1,9 +1,10 @@
 package com.jdagnogo.welovemarathon.home.data.run
 
+import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.jdagnogo.welovemarathon.home.domain.MarathonRun
-
+@Keep
 @Entity(tableName = "run_entity")
 data class RunEntity(
     @PrimaryKey val id: String = "",
