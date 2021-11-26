@@ -26,6 +26,11 @@ class HomeReducer : IReducer<HomeState, HomePartialState> {
                     runs = partialState.data
                 )
             }
+            is HomePartialState.OnBannerSuccess -> {
+                state.copy(
+                    banner = partialState.banner
+                )
+            }
         }
     }
 }

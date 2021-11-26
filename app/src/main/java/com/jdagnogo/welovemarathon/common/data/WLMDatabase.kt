@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.jdagnogo.welovemarathon.common.banner.BannerDao
+import com.jdagnogo.welovemarathon.common.banner.GifBannerEntity
 import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantDao
 import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantEntity
 import com.jdagnogo.welovemarathon.home.data.blog.BlogDao
@@ -13,13 +15,14 @@ import com.jdagnogo.welovemarathon.home.data.run.RunEntity
 import java.util.*
 
 @Database(
-    entities = [BlogEntity::class, RunEntity::class, RestaurantEntity::class],
+    entities = [BlogEntity::class, RunEntity::class, RestaurantEntity::class, GifBannerEntity::class],
     version = 1
 )
 abstract class WLMDatabase : RoomDatabase() {
     abstract fun getBlogDao(): BlogDao
     abstract fun getRunDao(): RunDao
     abstract fun getRestaurantDao(): RestaurantDao
+    abstract fun getBannerDao(): BannerDao
 
     companion object {
         private const val DB_NAME = "wlm_db"

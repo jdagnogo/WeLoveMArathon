@@ -1,6 +1,6 @@
 package com.jdagnogo.welovemarathon.home.di
 
-import com.google.firebase.firestore.FirebaseFirestore
+import com.jdagnogo.welovemarathon.common.banner.GetHomeBannerUseCase
 import com.jdagnogo.welovemarathon.common.data.WLMDatabase
 import com.jdagnogo.welovemarathon.home.data.HomeData
 import com.jdagnogo.welovemarathon.home.data.HomeRepository
@@ -45,7 +45,10 @@ object HomeModule {
     fun provideHomeUseCases(
         getRunUseCase: GetRunUseCase,
         getBlogUseCase: GetBlogUseCase,
-    ) = HomeUseCases(getBlogUseCase = getBlogUseCase, getRunUseCase = getRunUseCase)
+        getHomeBannerUseCase: GetHomeBannerUseCase,
+    ) = HomeUseCases(getBlogUseCase = getBlogUseCase,
+        getRunUseCase = getRunUseCase,
+        getHomeBannerUseCase = getHomeBannerUseCase)
 
     @Provides
     @Singleton

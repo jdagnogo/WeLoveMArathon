@@ -18,12 +18,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jdagnogo.welovemarathon.R
+import com.jdagnogo.welovemarathon.common.banner.GifBannerComponent
 import com.jdagnogo.welovemarathon.common.ui.component.LoadingComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 import com.jdagnogo.welovemarathon.home.domain.Blog
 import com.jdagnogo.welovemarathon.home.domain.MarathonRun
 import com.jdagnogo.welovemarathon.home.domain.fakeList
-import com.jdagnogo.welovemarathon.R
 
 @ExperimentalAnimationApi
 @Composable
@@ -31,10 +32,15 @@ fun HomeContent(state: HomeState, modifier: Modifier) {
     Surface(modifier = modifier.fillMaxSize()) {
         LazyColumn(modifier = Modifier
             .fillMaxWidth()
-            .background(WeLoveMarathonTheme.colors.contentBackground).animateContentSize()) {
+            .background(WeLoveMarathonTheme.colors.contentBackground)
+            .animateContentSize()) {
             item {
                 Column(modifier = Modifier.fillMaxWidth()) {
                     HomeTopBarContent(modifier = Modifier)
+
+                    if (state.banner != null) {
+                        GifBannerComponent(gifBanner = state.banner)
+                    }
 
                     TitleComponent(
                         title = "Marathon Run",
@@ -44,7 +50,9 @@ fun HomeContent(state: HomeState, modifier: Modifier) {
                             .align(Alignment.End))
 
                     MarathonRunList(state,
-                        modifier = Modifier.fillMaxWidth().animateContentSize())
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .animateContentSize())
 
                     TitleComponent(
                         title = "Blogs",
@@ -63,7 +71,9 @@ fun blogList(state: HomeState, scope: LazyListScope) {
     with(scope) {
         if (state.isLoadingBlogs) {
             item {
-                LoadingComponent(modifier = Modifier.fillMaxWidth().size(200.dp), rawId = R.raw.blog)
+                LoadingComponent(modifier = Modifier
+                    .fillMaxWidth()
+                    .size(200.dp), rawId = R.raw.blog)
             }
         } else {
             itemsIndexed(state.blogs) { _, blog ->
@@ -76,7 +86,9 @@ fun blogList(state: HomeState, scope: LazyListScope) {
 @Composable
 fun MarathonRunList(state: HomeState, modifier: Modifier) {
     if (state.isLoadingRuns) {
-        LoadingComponent(modifier = Modifier.fillMaxWidth().size(200.dp), rawId = R.raw.runing)
+        LoadingComponent(modifier = Modifier
+            .fillMaxWidth()
+            .size(200.dp), rawId = R.raw.runing)
     } else {
         val scroll = rememberScrollState(0)
 

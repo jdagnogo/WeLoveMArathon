@@ -3,6 +3,7 @@ package com.jdagnogo.welovemarathon.home.presentation
 import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jdagnogo.welovemarathon.common.banner.GifBanner
 import com.jdagnogo.welovemarathon.common.ui.IModel
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.home.domain.Blog
@@ -29,6 +30,7 @@ class HomeViewModel @Inject constructor(
     init {
         dispatchEvent(HomeUiEvent.FetchRuns)
         dispatchEvent(HomeUiEvent.FetchBlogs)
+        dispatchEvent(HomeUiEvent.FetchBanner)
     }
 
     private fun fetchBlogs() {
@@ -45,7 +47,24 @@ class HomeViewModel @Inject constructor(
                         HomePartialState.Error("")
                     }
                 }
-                _state.value =  reducer.reduce(_state.value, partialState)
+                _state.value = reducer.reduce(_state.value, partialState)
+            }.launchIn(this)
+        }
+    }
+
+    private fun fetchBanner() {
+        viewModelScope.launch {
+            homeUseCases.getHomeBannerUseCase.invoke().onEach { resource ->
+                val partialState = when (resource) {
+                    is Resource.Success -> {
+                        HomePartialState.OnBannerSuccess(resource.data?.first())
+                    }
+                    else -> {
+                        //Todo : hanlde error
+                        HomePartialState.Error("")
+                    }
+                }
+                _state.value = reducer.reduce(_state.value, partialState)
             }.launchIn(this)
         }
     }
@@ -74,6 +93,7 @@ class HomeViewModel @Inject constructor(
             is HomeUiEvent.OnBlogClicked -> TODO()
             HomeUiEvent.FetchBlogs -> fetchBlogs()
             HomeUiEvent.FetchRuns -> fetchRuns()
+            HomeUiEvent.FetchBanner -> fetchBanner()
         }
     }
 }
@@ -85,15 +105,18 @@ class HomeViewModel @Inject constructor(
 data class HomeState(
     val isLoadingBlogs: Boolean = true,
     val isLoadingRuns: Boolean = true,
+    val banner: GifBanner? = null,
     val blogs: List<Blog> = listOf(),
     val runs: List<MarathonRun> = listOf(),
     val error: String = "",
 )
+
 @Keep
 sealed class HomePartialState {
     object LoadingBlogs : HomePartialState()
     object LoadingRuns : HomePartialState()
     data class Error(val message: String) : HomePartialState()
+    data class OnBannerSuccess(val banner: GifBanner?) : HomePartialState()
     data class OnBlogsSuccess(val data: List<Blog>) : HomePartialState()
     data class OnRunsSuccess(val data: List<MarathonRun>) : HomePartialState()
 }
@@ -106,4 +129,5 @@ sealed class HomeUiEvent {
     data class OnBlogClicked(val id: String) : HomeUiEvent()
     object FetchBlogs : HomeUiEvent()
     object FetchRuns : HomeUiEvent()
+    object FetchBanner : HomeUiEvent()
 }
