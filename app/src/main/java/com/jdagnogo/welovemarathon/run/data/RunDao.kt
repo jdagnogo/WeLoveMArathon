@@ -1,4 +1,4 @@
-package com.jdagnogo.welovemarathon.home.data.run
+package com.jdagnogo.welovemarathon.run.data
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow

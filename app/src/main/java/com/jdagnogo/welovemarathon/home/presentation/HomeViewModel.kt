@@ -3,12 +3,12 @@ package com.jdagnogo.welovemarathon.home.presentation
 import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jdagnogo.welovemarathon.blog.domain.Blog
 import com.jdagnogo.welovemarathon.common.banner.GifBanner
 import com.jdagnogo.welovemarathon.common.ui.IModel
 import com.jdagnogo.welovemarathon.common.utils.Resource
-import com.jdagnogo.welovemarathon.home.domain.Blog
 import com.jdagnogo.welovemarathon.home.domain.HomeUseCases
-import com.jdagnogo.welovemarathon.home.domain.MarathonRun
+import com.jdagnogo.welovemarathon.run.domain.Run
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -107,7 +107,7 @@ data class HomeState(
     val isLoadingRuns: Boolean = true,
     val banner: GifBanner? = null,
     val blogs: List<Blog> = listOf(),
-    val runs: List<MarathonRun> = listOf(),
+    val runs: List<Run> = listOf(),
     val error: String = "",
 )
 
@@ -118,7 +118,7 @@ sealed class HomePartialState {
     data class Error(val message: String) : HomePartialState()
     data class OnBannerSuccess(val banner: GifBanner?) : HomePartialState()
     data class OnBlogsSuccess(val data: List<Blog>) : HomePartialState()
-    data class OnRunsSuccess(val data: List<MarathonRun>) : HomePartialState()
+    data class OnRunsSuccess(val data: List<Run>) : HomePartialState()
 }
 
 /**

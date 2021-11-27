@@ -1,19 +1,14 @@
 package com.jdagnogo.welovemarathon.home.presentation
 
-import android.content.res.Configuration
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.TransformOrigin
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.jdagnogo.welovemarathon.home.domain.Blog
-import com.jdagnogo.welovemarathon.home.domain.fakeList
 
 @ExperimentalAnimationApi
 @Composable

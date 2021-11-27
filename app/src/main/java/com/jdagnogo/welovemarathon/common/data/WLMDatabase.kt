@@ -8,10 +8,10 @@ import com.jdagnogo.welovemarathon.common.banner.BannerDao
 import com.jdagnogo.welovemarathon.common.banner.GifBannerEntity
 import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantDao
 import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantEntity
-import com.jdagnogo.welovemarathon.home.data.blog.BlogDao
-import com.jdagnogo.welovemarathon.home.data.blog.BlogEntity
-import com.jdagnogo.welovemarathon.home.data.run.RunDao
-import com.jdagnogo.welovemarathon.home.data.run.RunEntity
+import com.jdagnogo.welovemarathon.blog.data.BlogDao
+import com.jdagnogo.welovemarathon.blog.data.BlogEntity
+import com.jdagnogo.welovemarathon.run.data.RunDao
+import com.jdagnogo.welovemarathon.run.data.RunEntity
 import java.util.*
 
 @Database(

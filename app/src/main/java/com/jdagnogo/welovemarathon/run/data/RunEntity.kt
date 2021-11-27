@@ -1,9 +1,10 @@
-package com.jdagnogo.welovemarathon.home.data.run
+package com.jdagnogo.welovemarathon.run.data
 
 import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.jdagnogo.welovemarathon.home.domain.MarathonRun
+import com.jdagnogo.welovemarathon.run.domain.Run
+
 @Keep
 @Entity(tableName = "run_entity")
 data class RunEntity(
@@ -13,8 +14,8 @@ data class RunEntity(
     val image: String = "",
     val link: String = "",
 ) {
-    fun toMarathonRun(): MarathonRun {
-        return MarathonRun(
+    fun toMarathonRun(): Run {
+        return Run(
             id = id,
             title = title,
             date = date,

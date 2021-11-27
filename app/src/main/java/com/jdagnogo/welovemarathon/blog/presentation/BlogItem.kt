@@ -1,4 +1,4 @@
-package com.jdagnogo.welovemarathon.home.presentation
+package com.jdagnogo.welovemarathon.blog.presentation
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateContentSize
@@ -20,8 +20,8 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
-import com.jdagnogo.welovemarathon.home.domain.Blog
-import com.jdagnogo.welovemarathon.home.domain.fakeList
+import com.jdagnogo.welovemarathon.blog.domain.Blog
+import com.jdagnogo.welovemarathon.blog.domain.fakeList
 
 @Composable
 fun BlogItem(

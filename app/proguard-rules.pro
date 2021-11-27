@@ -42,8 +42,8 @@
 
 -keep class com.jdagnogo.welovemarathon.home.domain.Blog
 -keep class com.jdagnogo.welovemarathon.home.domain.Blog
--keep class com.jdagnogo.welovemarathon.home.data.blog.BlogEntity
--keep class com.jdagnogo.welovemarathon.home.data.blog.BlogMapper
+-keep class com.jdagnogo.welovemarathon.blog.data.BlogEntity
+-keep class com.jdagnogo.welovemarathon.blog.data.BlogMapper
 
 #Firebase
 -keepattributes EnclosingMethod

@@ -1,8 +1,9 @@
-package com.jdagnogo.welovemarathon.home.data.blog
+package com.jdagnogo.welovemarathon.blog.data
 
 import androidx.annotation.Keep
-import com.jdagnogo.welovemarathon.home.domain.Blog
+import com.jdagnogo.welovemarathon.blog.domain.Blog
 import javax.inject.Inject
+
 @Keep
 class BlogMapper @Inject constructor() {
     fun toBlogs(blogEntities: List<BlogEntity>): List<Blog> {

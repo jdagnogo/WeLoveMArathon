@@ -1,9 +1,9 @@
-package com.jdagnogo.welovemarathon.home.domain
+package com.jdagnogo.welovemarathon.run.domain
 
 import androidx.annotation.Keep
-import com.jdagnogo.welovemarathon.home.data.run.RunEntity
+import com.jdagnogo.welovemarathon.run.data.RunEntity
 @Keep
-data class MarathonRun(
+data class Run(
     val id: String = "",
     val title: String = "",
     val date: String = "",
@@ -21,10 +21,10 @@ data class MarathonRun(
     }
 }
 
-fun MarathonRun.fakeList(): List<MarathonRun> {
+fun Run.fakeList(): List<Run> {
     return listOf(
-        MarathonRun("toto", "title", "date", "", "link"),
-        MarathonRun("titi", "title2", "date", "", "link"),
-        MarathonRun("tata", "title3", "date", "", "link"),
+        Run("toto", "title", "date", "", "link"),
+        Run("titi", "title2", "date", "", "link"),
+        Run("tata", "title3", "date", "", "link"),
     )
 }

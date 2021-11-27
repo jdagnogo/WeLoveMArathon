@@ -1,4 +1,4 @@
-package com.jdagnogo.welovemarathon.home.presentation
+package com.jdagnogo.welovemarathon.run.presentation
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
@@ -17,18 +17,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
-import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryDark
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 import com.jdagnogo.welovemarathon.common.ui.theme.offsetGradientBackground
-import com.jdagnogo.welovemarathon.home.domain.MarathonRun
-import com.jdagnogo.welovemarathon.home.domain.fakeList
+import com.jdagnogo.welovemarathon.run.domain.Run
+import com.jdagnogo.welovemarathon.run.domain.fakeList
 
 val HighlightCardWidth = 170.dp
 val HighlightCardPadding = 16.dp
 
 @Composable
 fun RunItem(
-    run: MarathonRun,
+    run: Run,
     index: Int, scroll: Int, gradient: List<Color>,
     gradientWidth: Float, modifier: Modifier,
 ) {
@@ -98,7 +97,7 @@ fun RunItem(
 @Composable
 fun RunItemPreview() {
     MaterialTheme {
-        RunItem(MarathonRun().fakeList().first(),
+        RunItem(Run().fakeList().first(),
             index = 0,
             gradient = WeLoveMarathonTheme.colors.gradient,
             gradientWidth = gradientWidth,

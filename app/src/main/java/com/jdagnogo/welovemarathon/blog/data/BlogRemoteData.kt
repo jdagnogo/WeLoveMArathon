@@ -1,32 +1,32 @@
-package com.jdagnogo.welovemarathon.home.data.run
+package com.jdagnogo.welovemarathon.blog.data
 
 import coil.network.HttpException
 import com.google.firebase.firestore.FirebaseFirestore
+import com.jdagnogo.welovemarathon.blog.domain.Blog
 import com.jdagnogo.welovemarathon.common.utils.Resource
-import com.jdagnogo.welovemarathon.home.domain.MarathonRun
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.tasks.await
 import java.io.IOException
 import javax.inject.Inject
 
-interface RunRemoteData {
-    suspend fun getRuns(): Resource<List<MarathonRun>>
+interface BlogRemoteData {
+    suspend fun getBlogs(): Resource<List<Blog>>
 }
 
 @ExperimentalCoroutinesApi
-class RunFirebaseData @Inject constructor(private val fireStore: FirebaseFirestore) :
-    RunRemoteData {
-    override suspend fun getRuns(): Resource<List<MarathonRun>> {
-        val runs = mutableListOf<MarathonRun>()
+class BlogFirebaseData @Inject constructor(private val fireStore: FirebaseFirestore) :
+    BlogRemoteData {
+    override suspend fun getBlogs(): Resource<List<Blog>> {
+        val blogs = mutableListOf<Blog>()
         return try {
             val snapshot = fireStore
                 .collection(COLLECTION_NAME)
                 .get()
                 .await()
 
-            runs.addAll(snapshot.toObjects(MarathonRun::class.java))
+            blogs.addAll(snapshot.toObjects(Blog::class.java))
 
-            Resource.Success(runs)
+            Resource.Success(blogs)
         } catch (e: HttpException) {
             Resource.GenericError.HttpError(e.message ?: "", null, code = e.response.code())
         } catch (e: IOException) {
@@ -38,6 +38,6 @@ class RunFirebaseData @Inject constructor(private val fireStore: FirebaseFiresto
     }
 
     companion object {
-        private const val COLLECTION_NAME = "Run"
+        private const val COLLECTION_NAME = "Blog"
     }
 }

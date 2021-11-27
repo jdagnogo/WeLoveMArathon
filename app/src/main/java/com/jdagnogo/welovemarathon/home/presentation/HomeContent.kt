@@ -19,12 +19,17 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jdagnogo.welovemarathon.R
+import com.jdagnogo.welovemarathon.blog.domain.Blog
+import com.jdagnogo.welovemarathon.blog.domain.fakeList
+import com.jdagnogo.welovemarathon.blog.presentation.BlogItem
 import com.jdagnogo.welovemarathon.common.banner.GifBannerComponent
 import com.jdagnogo.welovemarathon.common.ui.component.LoadingComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
-import com.jdagnogo.welovemarathon.home.domain.Blog
-import com.jdagnogo.welovemarathon.home.domain.MarathonRun
-import com.jdagnogo.welovemarathon.home.domain.fakeList
+import com.jdagnogo.welovemarathon.run.domain.Run
+import com.jdagnogo.welovemarathon.run.domain.fakeList
+import com.jdagnogo.welovemarathon.run.presentation.HighlightCardPadding
+import com.jdagnogo.welovemarathon.run.presentation.HighlightCardWidth
+import com.jdagnogo.welovemarathon.run.presentation.RunItem
 
 @ExperimentalAnimationApi
 @Composable
@@ -146,7 +151,7 @@ fun BlogsComponentPreview() {
 fun RunsComponentPreview() {
     val reducer = HomeReducer()
     val state =
-        reducer.reduce(HomeState(), HomePartialState.OnRunsSuccess(MarathonRun().fakeList()))
+        reducer.reduce(HomeState(), HomePartialState.OnRunsSuccess(Run().fakeList()))
     MaterialTheme {
         HomeContent(state = state, modifier = Modifier)
     }
@@ -158,7 +163,7 @@ fun RunsComponentPreview() {
 fun HomeComponentPreview() {
     val reducer = HomeReducer()
     val state =
-        reducer.reduce(HomeState(), HomePartialState.OnRunsSuccess(MarathonRun().fakeList()))
+        reducer.reduce(HomeState(), HomePartialState.OnRunsSuccess(Run().fakeList()))
     val finalState = reducer.reduce(state, HomePartialState.OnBlogsSuccess(Blog().fakeList()))
     MaterialTheme {
         HomeContent(state = finalState, modifier = Modifier)

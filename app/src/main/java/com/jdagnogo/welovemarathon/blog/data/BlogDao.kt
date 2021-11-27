@@ -1,7 +1,7 @@
-package com.jdagnogo.welovemarathon.home.data.blog
+package com.jdagnogo.welovemarathon.blog.data
 
 import androidx.room.*
-import com.jdagnogo.welovemarathon.home.data.blog.BlogEntity.Companion.TABLE_BLOG
+import com.jdagnogo.welovemarathon.blog.data.BlogEntity.Companion.TABLE_BLOG
 import kotlinx.coroutines.flow.Flow
 
 @Dao
