@@ -8,16 +8,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import com.jdagnogo.welovemarathon.beach.presentation.beachList
 import com.jdagnogo.welovemarathon.common.banner.GifBannerComponent
-import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
 import com.jdagnogo.welovemarathon.common.ui.component.TitleIconComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 
@@ -44,6 +42,7 @@ fun HomeContent(state: HomeState, modifier: Modifier) {
                     TitleIconComponent(title = "Beaches", modifier = Modifier)
                 }
             }
+            beachList(state.beaches, this)
         }
     }
 }

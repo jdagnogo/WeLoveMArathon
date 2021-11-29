@@ -1,4 +1,4 @@
-package com.jdagnogo.welovemarathon.sea
+package com.jdagnogo.welovemarathon.beach
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.Text

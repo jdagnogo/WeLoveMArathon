@@ -3,6 +3,7 @@ package com.jdagnogo.welovemarathon.home.presentation
 import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jdagnogo.welovemarathon.beach.domain.Beach
 import com.jdagnogo.welovemarathon.common.banner.GifBanner
 import com.jdagnogo.welovemarathon.common.ui.IModel
 import com.jdagnogo.welovemarathon.common.utils.Resource
@@ -18,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val runUseCases: HomeUseCases,
+    private val homeUseCases: HomeUseCases,
     private val reducer: HomeReducer,
 ) : ViewModel(),
     IModel<HomeState, HomeUiEvent> {
@@ -27,19 +28,35 @@ class HomeViewModel @Inject constructor(
 
     init {
         dispatchEvent(HomeUiEvent.FetchBanner)
+        dispatchEvent(HomeUiEvent.FetchBeaches)
     }
 
     override fun dispatchEvent(event: HomeUiEvent) {
         when (event) {
-            is HomeUiEvent.FetchBeaches -> {
-            }
+            HomeUiEvent.FetchBeaches -> fetchBeaches()
             HomeUiEvent.FetchBanner -> fetchBanner()
+        }
+    }
+
+    private fun fetchBeaches() {
+        viewModelScope.launch {
+            homeUseCases.getShortListBeachesUseCase.invoke().onEach { resource ->
+                val partialState = when (resource) {
+                    is Resource.Success -> {
+                        HomePartialState.OnBeachesSuccess(resource.data ?: listOf())
+                    }
+                    else -> {
+                        HomePartialState.Error("")
+                    }
+                }
+                _state.value = reducer.reduce(_state.value, partialState)
+            }.launchIn(this)
         }
     }
 
     private fun fetchBanner() {
         viewModelScope.launch {
-            runUseCases.getHomeBannerUseCase.invoke().onEach { resource ->
+            homeUseCases.getHomeBannerUseCase.invoke().onEach { resource ->
                 val partialState = when (resource) {
                     is Resource.Success -> {
                         HomePartialState.OnBannerSuccess(resource.data?.first())
@@ -60,6 +77,7 @@ class HomeViewModel @Inject constructor(
 @Keep
 data class HomeState(
     val activities: List<Activities> = Activities.values().toList(),
+    val beaches: List<Beach> = listOf(),
     val isLoadingBeaches: Boolean = true,
     val banner: GifBanner? = null,
 )
@@ -68,6 +86,7 @@ data class HomeState(
 sealed class HomePartialState {
     object LoadingBeaches : HomePartialState()
     data class OnBannerSuccess(val banner: GifBanner?) : HomePartialState()
+    data class OnBeachesSuccess(val data: List<Beach>) : HomePartialState()
     data class Error(val message: String) : HomePartialState()
 }
 

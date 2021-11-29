@@ -52,7 +52,7 @@ fun ActivityItem(
     modifier: Modifier = Modifier,
 ) {
     Card(
-        elevation = 20.dp,
+        elevation = 8.dp,
         shape = MaterialTheme.shapes.large,
         modifier = Modifier
             .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)

@@ -14,7 +14,7 @@ import com.jdagnogo.welovemarathon.home.presentation.HomeScreen
 import com.jdagnogo.welovemarathon.home.presentation.HomeViewModel
 import com.jdagnogo.welovemarathon.run.presentation.RunScreen
 import com.jdagnogo.welovemarathon.run.presentation.RunViewModel
-import com.jdagnogo.welovemarathon.sea.SeaScreen
+import com.jdagnogo.welovemarathon.beach.SeaScreen
 import com.jdagnogo.welovemarathon.shopping.ShoppingScreen
 
 @ExperimentalFoundationApi
