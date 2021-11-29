@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.jdagnogo.welovemarathon.common.banner.GifBanner
 import com.jdagnogo.welovemarathon.common.ui.IModel
 import com.jdagnogo.welovemarathon.common.utils.Resource
+import com.jdagnogo.welovemarathon.home.domain.Activities
 import com.jdagnogo.welovemarathon.home.domain.HomeUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -58,6 +59,7 @@ class HomeViewModel @Inject constructor(
  */
 @Keep
 data class HomeState(
+    val activities: List<Activities> = Activities.values().toList(),
     val isLoadingBeaches: Boolean = true,
     val banner: GifBanner? = null,
 )

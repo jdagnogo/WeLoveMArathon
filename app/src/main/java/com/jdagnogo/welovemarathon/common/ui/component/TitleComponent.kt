@@ -1,28 +1,29 @@
-package com.jdagnogo.welovemarathon.run.presentation
+package com.jdagnogo.welovemarathon.common.ui.component
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryDark
 
 @Composable
-fun RunTitleComponent(title : String, alignRight: Boolean, modifier: Modifier) {
+fun TitleComponent(title: String, alignRight: Boolean, modifier: Modifier) {
     Box(modifier = modifier
         .padding(16.dp)) {
-        // TODO : Background image
         Text(text = title,
             fontSize = 20.sp,
             fontStyle = FontStyle.Italic,
-            color = PrimaryDark,
-            modifier = Modifier
+            color = Color.Black,
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp)
                 .align(
                     Alignment.TopEnd.takeIf { alignRight } ?: Alignment.TopStart)
 
@@ -35,7 +36,7 @@ fun RunTitleComponent(title : String, alignRight: Boolean, modifier: Modifier) {
 @Composable
 fun RunTitleRightComponentPreview() {
     MaterialTheme {
-        RunTitleComponent("Align right",modifier = Modifier.fillMaxWidth(), alignRight = true)
+        TitleComponent("Align right", modifier = Modifier.fillMaxWidth(), alignRight = true)
     }
 }
 
@@ -44,6 +45,6 @@ fun RunTitleRightComponentPreview() {
 @Composable
 fun RunTitleTitleComponentPreview() {
     MaterialTheme {
-        RunTitleComponent("Align left", modifier = Modifier.fillMaxWidth(), alignRight = false)
+        TitleComponent("Align left", modifier = Modifier.fillMaxWidth(), alignRight = false)
     }
 }

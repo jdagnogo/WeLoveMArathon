@@ -18,6 +18,7 @@ import com.google.accompanist.insets.statusBarsPadding
 import com.jdagnogo.welovemarathon.blog.domain.Blog
 import com.jdagnogo.welovemarathon.blog.domain.fakeList
 import com.jdagnogo.welovemarathon.blog.presentation.blogList
+import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 import com.jdagnogo.welovemarathon.run.domain.Run
 import com.jdagnogo.welovemarathon.run.domain.fakeList
@@ -34,7 +35,7 @@ fun RunContent(state: RunState, modifier: Modifier) {
                 Column(modifier = Modifier
                     .fillMaxWidth()
                     .statusBarsPadding()) {
-                    RunTitleComponent(
+                    TitleComponent(
                         title = "Marathon Run",
                         alignRight = false,
                         modifier = Modifier
@@ -46,7 +47,7 @@ fun RunContent(state: RunState, modifier: Modifier) {
                             .fillMaxWidth()
                             .animateContentSize())
 
-                    RunTitleComponent(
+                    TitleComponent(
                         title = "Blogs",
                         alignRight = true,
                         modifier = Modifier
