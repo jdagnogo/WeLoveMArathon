@@ -12,8 +12,11 @@ import com.jdagnogo.welovemarathon.food.presentation.FoodScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodViewModel
 import com.jdagnogo.welovemarathon.home.presentation.HomeScreen
 import com.jdagnogo.welovemarathon.home.presentation.HomeViewModel
+import com.jdagnogo.welovemarathon.run.presentation.RunScreen
+import com.jdagnogo.welovemarathon.run.presentation.RunViewModel
 import com.jdagnogo.welovemarathon.sea.SeaScreen
 import com.jdagnogo.welovemarathon.shopping.ShoppingScreen
+
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
 fun NavGraphBuilder.wlmNavGraph() {
@@ -38,13 +41,14 @@ fun NavGraphBuilder.homeGraph(
         val viewModel = hiltViewModel<FoodViewModel>()
         FoodScreen(viewModel = viewModel, modifier)
     }
-    composable(HomeSections.SEA.route) {
+    composable(HomeSections.SERVICES.route) {
         ShoppingScreen(modifier)
     }
-    composable(HomeSections.SHOPPING.route) {
-        SeaScreen(modifier)
+    composable(HomeSections.RUN.route) {
+        val viewModel = hiltViewModel<RunViewModel>()
+        RunScreen(viewModel, modifier)
     }
-    composable(HomeSections.MUSEUM.route) {
+    composable(HomeSections.FAVORITES.route) {
         SeaScreen(modifier)
     }
 }
@@ -57,11 +61,11 @@ enum class HomeSections(
     val icon: Int,
     val route: String,
 ) {
-    HOME(R.drawable.ic_home, "home/feed"),
+    HOME(R.drawable.ic_home, "home/activities"),
     FOOD(R.drawable.ic_food, "home/food"),
-    SEA(R.drawable.ic_sea, "home/sea"),
-    SHOPPING(R.drawable.ic_shopping, "home/shopping"),
-    MUSEUM(R.drawable.ic_food, "home/museam")
+    SERVICES(R.drawable.ic_services, "home/services"),
+    RUN(R.drawable.ic_run, "home/run"),
+    FAVORITES(R.drawable.ic_favorites, "home/favorites")
 }
 
 object MainDestinations {

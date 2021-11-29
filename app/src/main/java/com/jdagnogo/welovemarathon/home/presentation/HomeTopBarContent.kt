@@ -50,8 +50,7 @@ fun HomeTopBarContent(modifier: Modifier) {
 @ExperimentalAnimationApi
 @Preview
 @Composable
-fun HomeTopBarContentPreview() {
-
+fun RunTopBarContentPreview() {
     WeLoveMarathonTheme {
         HomeTopBarContent(modifier = Modifier)
     }

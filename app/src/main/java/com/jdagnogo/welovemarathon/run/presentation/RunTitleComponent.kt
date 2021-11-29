@@ -1,4 +1,4 @@
-package com.jdagnogo.welovemarathon.home.presentation
+package com.jdagnogo.welovemarathon.run.presentation
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.*
@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.sp
 import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryDark
 
 @Composable
-fun TitleComponent(title : String, alignRight: Boolean, modifier: Modifier) {
+fun RunTitleComponent(title : String, alignRight: Boolean, modifier: Modifier) {
     Box(modifier = modifier
         .padding(16.dp)) {
         // TODO : Background image
@@ -33,17 +33,17 @@ fun TitleComponent(title : String, alignRight: Boolean, modifier: Modifier) {
 @ExperimentalAnimationApi
 @Preview(name = "Align right", showBackground = true)
 @Composable
-fun BlogTitleRightComponentPreview() {
+fun RunTitleRightComponentPreview() {
     MaterialTheme {
-        TitleComponent("Align right",modifier = Modifier.fillMaxWidth(), alignRight = true)
+        RunTitleComponent("Align right",modifier = Modifier.fillMaxWidth(), alignRight = true)
     }
 }
 
 @ExperimentalAnimationApi
 @Preview(name = "Align left", showBackground = true)
 @Composable
-fun BlogTitleComponentPreview() {
+fun RunTitleTitleComponentPreview() {
     MaterialTheme {
-        TitleComponent("Align left", modifier = Modifier.fillMaxWidth(), alignRight = false)
+        RunTitleComponent("Align left", modifier = Modifier.fillMaxWidth(), alignRight = false)
     }
 }

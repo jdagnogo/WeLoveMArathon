@@ -8,29 +8,8 @@ class HomeReducer : IReducer<HomeState, HomePartialState> {
             is HomePartialState.Error -> {
                 state.copy()
             }
-            HomePartialState.LoadingBlogs -> {
-                state.copy(isLoadingBlogs = true)
-            }
-            HomePartialState.LoadingRuns -> {
-                state.copy(isLoadingBlogs = true)
-            }
-            is HomePartialState.OnBlogsSuccess -> {
-                state.copy(
-                    isLoadingBlogs = false,
-                    blogs = partialState.data
-                )
-            }
-            is HomePartialState.OnRunsSuccess -> {
-                state.copy(
-                    isLoadingRuns = false,
-                    runs = partialState.data
-                )
-            }
-            is HomePartialState.OnBannerSuccess -> {
-                state.copy(
-                    banner = partialState.banner
-                )
-            }
+            HomePartialState.LoadingBeaches -> state.copy()
+            is HomePartialState.OnBannerSuccess -> state.copy(banner = partialState.banner)
         }
     }
 }

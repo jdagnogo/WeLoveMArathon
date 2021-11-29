@@ -28,6 +28,6 @@ fun LoadingComponent(rawId: Int, modifier: Modifier) {
 @Composable
 fun LoadingComponentPreview() {
     MaterialTheme {
-        LoadingComponent(modifier = Modifier, rawId = R.raw.blog)
+        LoadingComponent(modifier = Modifier, rawId = 0)
     }
 }

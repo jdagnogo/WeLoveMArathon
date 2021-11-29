@@ -12,15 +12,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.util.lerp
-import com.jdagnogo.welovemarathon.home.presentation.BottomNavHeight
 
 @Composable
-fun BottomNavLayout(selectedIndex: Int,
-                    itemCount: Int,
-                    animSpec: AnimationSpec<Float>,
-                    indicator: @Composable BoxScope.() -> Unit,
-                    modifier: Modifier = Modifier,
-                    content: @Composable () -> Unit
+fun BottomNavLayout(
+    selectedIndex: Int,
+    itemCount: Int,
+    animSpec: AnimationSpec<Float>,
+    indicator: @Composable BoxScope.() -> Unit,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit,
 ) {
     // Track how "selected" each item is [0, 1]
     val selectionFractions = remember(itemCount) {

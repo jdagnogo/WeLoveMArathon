@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -114,6 +116,14 @@ fun BlogItem(
                         height = Dimension.fillToConstraints
                     }
             )
+        }
+    }
+}
+
+fun blogList(blogs: List<Blog>, scope: LazyListScope) {
+    with(scope) {
+        itemsIndexed(blogs) { _, blog ->
+            BlogItem(blog = blog)
         }
     }
 }

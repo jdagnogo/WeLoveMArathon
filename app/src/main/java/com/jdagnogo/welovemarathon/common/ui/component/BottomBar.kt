@@ -16,8 +16,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.insets.navigationBarsPadding
 import com.jdagnogo.welovemarathon.common.ui.theme.Primary
-import com.jdagnogo.welovemarathon.home.presentation.BottomNavIndicatorShape
-import com.jdagnogo.welovemarathon.home.presentation.BottomNavigationItemPadding
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 
 @Composable
@@ -83,9 +81,9 @@ fun BottomBarPreview() {
             BottomBar(
                 tabs = arrayOf(HomeSections.HOME,
                     HomeSections.FOOD,
-                    HomeSections.SEA,
-                    HomeSections.SHOPPING),
-                currentRoute = HomeSections.SHOPPING.route,
+                    HomeSections.SERVICES,
+                    HomeSections.FAVORITES),
+                currentRoute = HomeSections.FAVORITES.route,
                 navigateToRoute = {}
             )
         }

@@ -4,6 +4,9 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -88,6 +91,32 @@ fun RunItem(
                 color = MaterialTheme.colors.primaryVariant,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
+        }
+    }
+}
+
+@Composable
+fun RunComponentList(runs: List<Run>, modifier: Modifier) {
+    val scroll = rememberScrollState(0)
+
+    // The Cards show a gradient which spans 3 cards and scrolls with parallax.
+    val gradientWidth = with(LocalDensity.current) {
+        (6 * (HighlightCardWidth + HighlightCardPadding).toPx())
+    }
+    LazyRow(modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(start = 24.dp, end = 24.dp)) {
+        itemsIndexed(runs) { index, run ->
+            val gradient = when ((index / 2) % 2) {
+                0 -> WeLoveMarathonTheme.colors.gradient
+                else -> WeLoveMarathonTheme.colors.gradientVariant
+            }
+            RunItem(run = run,
+                index = index,
+                gradient = gradient,
+                gradientWidth = gradientWidth,
+                scroll = scroll.value,
+                modifier = Modifier)
         }
     }
 }

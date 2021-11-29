@@ -18,11 +18,11 @@ import com.jdagnogo.welovemarathon.common.ui.theme.Primary
 import com.jdagnogo.welovemarathon.food.domain.restaurant.Restaurant
 import com.jdagnogo.welovemarathon.food.presentation.FoodContent
 import com.jdagnogo.welovemarathon.food.presentation.FoodState
-import com.jdagnogo.welovemarathon.home.presentation.TitleComponent
+import com.jdagnogo.welovemarathon.run.presentation.RunTitleComponent
 
 @Composable
 fun RestaurantContent(restaurants: List<Restaurant>, modifier: Modifier = Modifier) {
-    TitleComponent(title = "Recommended", alignRight = true, modifier = Modifier)
+    RunTitleComponent(title = "Recommended", alignRight = true, modifier = Modifier)
 
     LazyRow(
         contentPadding = PaddingValues(top = 16.dp, start = 16.dp, end = 16.dp),
@@ -36,7 +36,7 @@ fun RestaurantContent(restaurants: List<Restaurant>, modifier: Modifier = Modifi
     }
 
     DividerComponent(color = Primary)
-    TitleComponent(title = "Others", alignRight = false, modifier = Modifier)
+    RunTitleComponent(title = "Others", alignRight = false, modifier = Modifier)
 }
 
 @ExperimentalFoundationApi

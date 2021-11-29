@@ -12,8 +12,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.jdagnogo.welovemarathon.home.presentation.BottomNavIndicatorShape
-import com.jdagnogo.welovemarathon.home.presentation.BottomNavigationItemPadding
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 
 @Composable
