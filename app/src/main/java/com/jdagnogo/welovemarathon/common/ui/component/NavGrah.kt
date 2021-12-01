@@ -1,41 +1,52 @@
 package com.jdagnogo.welovemarathon.common.ui.component
 
+import androidx.annotation.Keep
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.jdagnogo.welovemarathon.R
+import com.jdagnogo.welovemarathon.beach.SeaScreen
+import com.jdagnogo.welovemarathon.beach.presentation.BeachDetailsScreen
+import com.jdagnogo.welovemarathon.beach.presentation.BeachViewModel
+import com.jdagnogo.welovemarathon.common.ui.component.MainDestinations.BEACHES_ROUTE
 import com.jdagnogo.welovemarathon.food.presentation.FoodScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodViewModel
 import com.jdagnogo.welovemarathon.home.presentation.HomeScreen
 import com.jdagnogo.welovemarathon.home.presentation.HomeViewModel
 import com.jdagnogo.welovemarathon.run.presentation.RunScreen
 import com.jdagnogo.welovemarathon.run.presentation.RunViewModel
-import com.jdagnogo.welovemarathon.beach.SeaScreen
 import com.jdagnogo.welovemarathon.shopping.ShoppingScreen
 
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
-fun NavGraphBuilder.wlmNavGraph() {
+fun NavGraphBuilder.wlmNavGraph(navController: NavController) {
     navigation(
         route = MainDestinations.HOME_ROUTE,
         startDestination = HomeSections.HOME.route
     ) {
-        homeGraph()
+        homeGraph(navController = navController)
+    }
+
+    composable(BEACHES_ROUTE) {
+        val viewModel = hiltViewModel<BeachViewModel>()
+        BeachDetailsScreen(viewModel = viewModel)
     }
 }
 
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
 fun NavGraphBuilder.homeGraph(
+    navController: NavController,
     modifier: Modifier = Modifier,
 ) {
     composable(HomeSections.HOME.route) {
         val viewModel = hiltViewModel<HomeViewModel>()
-        HomeScreen(viewModel, modifier)
+        HomeScreen(viewModel, navController, modifier)
     }
     composable(HomeSections.FOOD.route) {
         val viewModel = hiltViewModel<FoodViewModel>()
@@ -68,6 +79,12 @@ enum class HomeSections(
     FAVORITES(R.drawable.ic_favorites, "home/favorites")
 }
 
+@Keep
 object MainDestinations {
     const val HOME_ROUTE = "home"
+    const val BEACHES_ROUTE = "beaches"
+    const val SHOPPING_ROUTE = "shopping"
+    const val FOOD_ROUTE = "food"
+    const val SPORT_ROUTE = "sport"
+    const val CULTURE_ROUTE = "cultures"
 }

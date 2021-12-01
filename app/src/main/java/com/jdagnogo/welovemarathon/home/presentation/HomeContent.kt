@@ -22,7 +22,12 @@ import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
 @Composable
-fun HomeContent(state: HomeState, modifier: Modifier) {
+fun HomeContent(
+    state: HomeState,
+    onActivitySelected: (Int) -> Unit,
+    onBeachSelected: (String) -> Unit,
+    modifier: Modifier,
+) {
     Surface(modifier = modifier.fillMaxSize()) {
         LazyColumn(modifier = Modifier
             .fillMaxWidth()
@@ -37,12 +42,15 @@ fun HomeContent(state: HomeState, modifier: Modifier) {
                     }
 
                     ActivitiesGridComponent(activities = state.activities,
+                        onActivitySelected,
                         modifier = Modifier)
 
-                    TitleIconComponent(title = "Beaches", modifier = Modifier)
+                    TitleIconComponent(title = "Beaches",
+                        onClick = { onBeachSelected("") },
+                        modifier = Modifier)
                 }
             }
-            beachList(state.beaches, this)
+            beachList(state.beaches, onBeachSelected, this)
         }
     }
 }
@@ -56,6 +64,9 @@ fun LoadingComponentPreview() {
     val reducer = HomeReducer()
     val state = reducer.reduce(HomeState(), HomePartialState.LoadingBeaches)
     MaterialTheme {
-        HomeContent(state = state, modifier = Modifier)
+        HomeContent(state = state,
+            modifier = Modifier,
+            onActivitySelected = {},
+            onBeachSelected = {})
     }
 }

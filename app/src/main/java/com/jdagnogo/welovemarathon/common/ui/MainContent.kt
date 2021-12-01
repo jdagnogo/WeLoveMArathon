@@ -39,7 +39,7 @@ fun MainContent() {
                     startDestination = MainDestinations.HOME_ROUTE,
                     modifier = Modifier.padding(innerPaddingModifier)
                 ) {
-                    wlmNavGraph()
+                    wlmNavGraph(navController = appState.navController,)
                 }
             }
         }

@@ -25,12 +25,13 @@ import com.jdagnogo.welovemarathon.common.ui.component.DividerComponent
 @Composable
 fun BeachItem(
     beach: Beach,
+    onBeachSelected: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     ConstraintLayout(modifier = modifier
         .fillMaxSize()
         .padding(bottom = 24.dp)
-        .clickable { }) {
+        .clickable { onBeachSelected(beach.id) }) {
         val (image, title, divider) = createRefs()
         Image(
             painter = rememberImagePainter(
@@ -77,10 +78,10 @@ fun BeachItem(
     }
 }
 
-fun beachList(beaches: List<Beach>, scope: LazyListScope) {
+fun beachList(beaches: List<Beach>, onBeachSelected: (String) -> Unit, scope: LazyListScope) {
     with(scope) {
         itemsIndexed(beaches) { _, beach ->
-            BeachItem(beach = beach)
+            BeachItem(beach = beach, onBeachSelected)
         }
     }
 }
@@ -91,6 +92,6 @@ fun beachList(beaches: List<Beach>, scope: LazyListScope) {
 fun BeachComponentPreview() {
     val data = Beach().toFakeList()
     MaterialTheme {
-        BeachItem(beach = data.first())
+        BeachItem(beach = data.first(), {})
     }
 }

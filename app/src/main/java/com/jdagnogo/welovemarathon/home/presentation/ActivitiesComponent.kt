@@ -5,7 +5,10 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -21,13 +24,13 @@ import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
-import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 import com.jdagnogo.welovemarathon.home.domain.Activities
 
 @ExperimentalFoundationApi
 @Composable
 fun ActivitiesGridComponent(
     activities: List<Activities>,
+    onActivitySelected: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
@@ -35,10 +38,13 @@ fun ActivitiesGridComponent(
         LazyRow(modifier = Modifier
             .animateContentSize()) {
             items(activities.size) { index ->
-                val randomColor: Color = remember{activities[index].backgroundColor}
-                ActivityItem(activities = activities[index],
-                    color= randomColor,
-                    onActivityClicked = { /*TODO*/ })
+                val activity = activities[index]
+                val randomColor: Color = remember { activity.backgroundColor }
+                ActivityItem(
+                    activities = activity,
+                    color = randomColor,
+                    onActivityClicked = onActivitySelected,
+                )
             }
         }
     }
@@ -47,24 +53,24 @@ fun ActivitiesGridComponent(
 @Composable
 fun ActivityItem(
     activities: Activities,
-    onActivityClicked: () -> Unit,
+    onActivityClicked: (Int) -> Unit,
     color: Color = Secondary,
     modifier: Modifier = Modifier,
 ) {
     Card(
         elevation = 8.dp,
         shape = MaterialTheme.shapes.large,
-        modifier = Modifier
+        modifier = modifier
             .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
             .width(120.dp)
-            .clickable { onActivityClicked() }
+            .clickable { onActivityClicked(activities.ordinal) }
     ) {
         ConstraintLayout(modifier = Modifier.background(color = color)) {
             val (iconRef, titleRef) = createRefs()
 
             Text(text = activities.title,
-                color= Color.Black,
-                style =MaterialTheme.typography.h6,
+                color = Color.Black,
+                style = MaterialTheme.typography.h6,
                 modifier = Modifier
                     .padding(16.dp)
                     .constrainAs(titleRef) {
@@ -99,6 +105,6 @@ fun ActivityItem(
 fun ActivitiesGridComponentPreview() {
     val activities = Activities.values()
     MaterialTheme {
-        ActivitiesGridComponent(activities = activities.toList())
+        ActivitiesGridComponent(activities = activities.toList(), {})
     }
 }
