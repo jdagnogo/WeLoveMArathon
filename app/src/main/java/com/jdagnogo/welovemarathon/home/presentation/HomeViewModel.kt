@@ -40,7 +40,7 @@ class HomeViewModel @Inject constructor(
 
     private fun fetchBeaches() {
         viewModelScope.launch {
-            homeUseCases.getShortListBeachesUseCase.invoke().onEach { resource ->
+            homeUseCases.getBeachesUseCase.invoke().onEach { resource ->
                 val partialState = when (resource) {
                     is Resource.Success -> {
                         HomePartialState.OnBeachesSuccess(resource.data ?: listOf())

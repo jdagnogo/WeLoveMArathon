@@ -124,6 +124,8 @@ dependencies {
     //accompanist
     def insets_version = "0.21.2-beta"
     implementation "com.google.accompanist:accompanist-insets:$insets_version"
+    implementation "com.google.accompanist:accompanist-pager:$insets_version"
+    implementation "com.google.accompanist:accompanist-pager-indicators:$insets_version"
     implementation "com.google.accompanist:accompanist-insets-ui:$insets_version"
     implementation "com.google.accompanist:accompanist-systemuicontroller:$insets_version"
 

@@ -1,6 +1,6 @@
 package com.jdagnogo.welovemarathon.home.di
 
-import com.jdagnogo.welovemarathon.beach.domain.GetShortListBeachesUseCase
+import com.jdagnogo.welovemarathon.beach.domain.GetBeachesUseCase
 import com.jdagnogo.welovemarathon.common.banner.GetHomeBannerUseCase
 import com.jdagnogo.welovemarathon.home.domain.HomeUseCases
 import com.jdagnogo.welovemarathon.home.presentation.HomeReducer
@@ -21,7 +21,7 @@ object HomeModule {
     @Provides
     fun provideRunDao(
         bannerUseCase: GetHomeBannerUseCase,
-        getshortlistbeachesusecase: GetShortListBeachesUseCase,
+        getBeachesUseCase: GetBeachesUseCase,
     ): HomeUseCases =
-        HomeUseCases(bannerUseCase, getshortlistbeachesusecase)
+        HomeUseCases(bannerUseCase, getBeachesUseCase)
 }

@@ -2,6 +2,7 @@ package com.jdagnogo.welovemarathon.beach.di
 
 import com.jdagnogo.welovemarathon.beach.data.*
 import com.jdagnogo.welovemarathon.beach.domain.GetBeachesUseCase
+import com.jdagnogo.welovemarathon.beach.presentation.BeachReducer
 import com.jdagnogo.welovemarathon.common.data.WLMDatabase
 import dagger.Module
 import dagger.Provides
@@ -34,6 +35,10 @@ object BeachModule {
     fun provideBeachMapper(): BeachMapper {
         return BeachMapper()
     }
+
+    @Provides
+    @Singleton
+    fun provideBeachReducer() = BeachReducer()
 
     @Singleton
     @Provides

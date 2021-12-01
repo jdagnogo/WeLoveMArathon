@@ -6,10 +6,12 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.core.view.WindowCompat
+import com.google.accompanist.pager.ExperimentalPagerApi
 import dagger.hilt.android.AndroidEntryPoint
 @ExperimentalAnimationApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @ExperimentalPagerApi
     @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

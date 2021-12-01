@@ -9,8 +9,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.jdagnogo.welovemarathon.R
-import com.jdagnogo.welovemarathon.beach.SeaScreen
 import com.jdagnogo.welovemarathon.beach.presentation.BeachDetailsScreen
 import com.jdagnogo.welovemarathon.beach.presentation.BeachViewModel
 import com.jdagnogo.welovemarathon.common.ui.component.MainDestinations.BEACHES_ROUTE
@@ -22,6 +22,7 @@ import com.jdagnogo.welovemarathon.run.presentation.RunScreen
 import com.jdagnogo.welovemarathon.run.presentation.RunViewModel
 import com.jdagnogo.welovemarathon.shopping.ShoppingScreen
 
+@ExperimentalPagerApi
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
 fun NavGraphBuilder.wlmNavGraph(navController: NavController) {
@@ -60,7 +61,7 @@ fun NavGraphBuilder.homeGraph(
         RunScreen(viewModel, modifier)
     }
     composable(HomeSections.FAVORITES.route) {
-        SeaScreen(modifier)
+        ShoppingScreen(modifier)
     }
 }
 

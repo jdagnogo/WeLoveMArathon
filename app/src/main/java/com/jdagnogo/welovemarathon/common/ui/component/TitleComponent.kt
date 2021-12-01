@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun TitleComponent(title: String, alignRight: Boolean, modifier: Modifier) {
+fun TitleComponent(title: String, alignRight: Boolean = false, modifier: Modifier) {
     Box(modifier = modifier
         .padding(16.dp)) {
         Text(text = title,
