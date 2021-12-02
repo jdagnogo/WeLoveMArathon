@@ -14,6 +14,8 @@ import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantDao
 import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantEntity
 import com.jdagnogo.welovemarathon.run.data.RunDao
 import com.jdagnogo.welovemarathon.run.data.RunEntity
+import com.jdagnogo.welovemarathon.shopping.data.ShoppingDao
+import com.jdagnogo.welovemarathon.shopping.data.ShoppingEntity
 import java.util.*
 
 @Database(
@@ -22,7 +24,8 @@ import java.util.*
         RunEntity::class,
         RestaurantEntity::class,
         GifBannerEntity::class,
-        BeachEntity::class],
+        BeachEntity::class,
+        ShoppingEntity::class],
     version = 1
 )
 abstract class WLMDatabase : RoomDatabase() {
@@ -31,6 +34,7 @@ abstract class WLMDatabase : RoomDatabase() {
     abstract fun getRestaurantDao(): RestaurantDao
     abstract fun getBannerDao(): BannerDao
     abstract fun getBeachDao(): BeachDao
+    abstract fun getShoppingDao(): ShoppingDao
 
     companion object {
         private const val DB_NAME = "wlm_db"

@@ -14,13 +14,16 @@ import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.beach.presentation.BeachDetailsScreen
 import com.jdagnogo.welovemarathon.beach.presentation.BeachViewModel
 import com.jdagnogo.welovemarathon.common.ui.component.MainDestinations.BEACHES_ROUTE
+import com.jdagnogo.welovemarathon.common.ui.component.MainDestinations.SHOPPING_ROUTE
+import com.jdagnogo.welovemarathon.favorites.FavoritesScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodViewModel
 import com.jdagnogo.welovemarathon.home.presentation.HomeScreen
 import com.jdagnogo.welovemarathon.home.presentation.HomeViewModel
 import com.jdagnogo.welovemarathon.run.presentation.RunScreen
 import com.jdagnogo.welovemarathon.run.presentation.RunViewModel
-import com.jdagnogo.welovemarathon.shopping.ShoppingScreen
+import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingScreen
+import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingViewModel
 
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
@@ -36,6 +39,11 @@ fun NavGraphBuilder.wlmNavGraph(navController: NavController) {
     composable(BEACHES_ROUTE) {
         val viewModel = hiltViewModel<BeachViewModel>()
         BeachDetailsScreen(viewModel = viewModel)
+    }
+
+    composable(SHOPPING_ROUTE) {
+        val viewModel = hiltViewModel<ShoppingViewModel>()
+        ShoppingScreen(viewModel)
     }
 }
 
@@ -54,14 +62,14 @@ fun NavGraphBuilder.homeGraph(
         FoodScreen(viewModel = viewModel, modifier)
     }
     composable(HomeSections.SERVICES.route) {
-        ShoppingScreen(modifier)
+        FavoritesScreen(modifier)
     }
     composable(HomeSections.RUN.route) {
         val viewModel = hiltViewModel<RunViewModel>()
         RunScreen(viewModel, modifier)
     }
     composable(HomeSections.FAVORITES.route) {
-        ShoppingScreen(modifier)
+        FavoritesScreen(modifier)
     }
 }
 

@@ -8,6 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.jdagnogo.welovemarathon.common.ui.component.MainDestinations.BEACHES_ROUTE
+import com.jdagnogo.welovemarathon.common.ui.component.MainDestinations.SHOPPING_ROUTE
 
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
@@ -24,6 +25,7 @@ fun HomeScreen(
         onActivitySelected = {
             when (it) {
                 0 -> {
+                    navController.navigate(SHOPPING_ROUTE)
                 }
             }
         },
