@@ -1,9 +1,10 @@
 package com.jdagnogo.welovemarathon.common.banner
 
+import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.jdagnogo.welovemarathon.common.banner.GifBannerEntity.Companion.TABLE_BANNER
-
+@Keep
 @Entity(tableName = TABLE_BANNER)
 data class GifBannerEntity(
     @PrimaryKey val id: String = "",

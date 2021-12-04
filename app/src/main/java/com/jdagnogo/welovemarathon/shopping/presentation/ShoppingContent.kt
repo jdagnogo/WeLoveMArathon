@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 import com.jdagnogo.welovemarathon.shopping.domain.Shopping
@@ -25,6 +26,7 @@ fun ShoppingContent(
 ) {
     Box(modifier = modifier
         .fillMaxSize()
+        .navigationBarsPadding(start = false, end = false)
         .statusBarsPadding()
         .background(WeLoveMarathonTheme.colors.contentBackground)) {
 

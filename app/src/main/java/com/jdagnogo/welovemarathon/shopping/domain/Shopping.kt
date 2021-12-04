@@ -7,7 +7,7 @@ import com.jdagnogo.welovemarathon.shopping.data.ShoppingEntity
 data class Shopping(
     var id: String = "",
     var name: String = "",
-    var extraInfo: String = "",
+    var website: String = "",
     var location: String = "",
     var locationLink: String = "",
     var number: String = "",
@@ -19,7 +19,7 @@ data class Shopping(
     fun toShoppingEntity(): ShoppingEntity {
         return ShoppingEntity(id,
             name,
-            extraInfo,
+            website,
             location,
             locationLink,
             number,
@@ -33,7 +33,7 @@ data class Shopping(
 fun Shopping.map(data: Map<String, Any>) {
     id = data["id"] as? String ?: ""
     name = data["name"] as? String ?: ""
-    extraInfo = data["extraInfo"] as? String ?: ""
+    website = data["website"] as? String ?: ""
     location = data["location"] as? String ?: ""
     locationLink = data["locationLink"] as? String ?: ""
     number = data["number"] as? String ?: ""

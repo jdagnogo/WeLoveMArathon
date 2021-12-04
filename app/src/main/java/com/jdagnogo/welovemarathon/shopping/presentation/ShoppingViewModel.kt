@@ -8,6 +8,7 @@ import com.jdagnogo.welovemarathon.shopping.domain.GetShoppingUseCase
 import com.jdagnogo.welovemarathon.shopping.domain.Shopping
 import com.jdagnogo.welovemarathon.shopping.domain.ShoppingCategories
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -25,14 +26,17 @@ class ShoppingViewModel @Inject constructor(
     private var currentSelected: ShoppingCategories? = null
 
     init {
-        dispatchEvent(ShoppingUiEvent.OnCategoryClicked(ShoppingCategories.Woman))
+        viewModelScope.launch {
+            delay(1000)
+            dispatchEvent(ShoppingUiEvent.OnCategoryClicked(ShoppingCategories.Woman))
+        }
     }
 
     private fun fetchShoppings(category: ShoppingCategories) {
         viewModelScope.launch {
             if (currentSelected == category) return@launch
             currentSelected = category
-            val data = useCases.getShopping(category, this)
+            val data = useCases.getShopping(category)
             val recommended = data.firstOrNull { it.isRecommended }
             data.toMutableList().remove(recommended)
             val partialState = ShoppingPartialState.OnShoppingsSuccess(data = data,

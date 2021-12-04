@@ -9,7 +9,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import coil.compose.rememberImagePainter
+import com.google.accompanist.insets.navigationBarsPadding
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.component.ContactComponent
 import com.jdagnogo.welovemarathon.common.ui.component.DividerComponent
@@ -33,32 +34,30 @@ fun ShoppingComponent(
     currentCategory: ShoppingCategories = ShoppingCategories.Woman,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier = modifier.fillMaxWidth()) {
-        Text(text = currentCategory.name,
-            style = MaterialTheme.typography.h5,
-            modifier = Modifier
-                .align(CenterHorizontally)
-                .padding(top = 16.dp))
+    LazyColumn(
+        modifier = modifier.fillMaxWidth(),
+        contentPadding = PaddingValues(top = 16.dp, bottom = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        item {
+            Text(
+                text = currentCategory.name,
+                style = MaterialTheme.typography.h5,
+            )
 
-        Spacer(modifier = Modifier.padding(top = 16.dp))
+            Spacer(modifier = Modifier.padding(top = 16.dp))
 
-        recommended?.let {
-            ShoppingRecommendedComponent(recommended, modifier = Modifier.fillMaxWidth())
-        }
-
-        Spacer(modifier = Modifier.padding(top = 16.dp))
-
-        LazyColumn(
-            modifier = Modifier.fillMaxWidth(),
-            contentPadding = PaddingValues(top = 16.dp, bottom = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalAlignment = CenterHorizontally,
-        ) {
-            items(shoppings.size) { index ->
-                ShoppingItemComponent(shopping = shoppings[index])
+            recommended?.let {
+                ShoppingRecommendedComponent(recommended, modifier = Modifier.fillMaxWidth())
             }
+
+            Spacer(modifier = Modifier.padding(top = 16.dp))
         }
-        Spacer(modifier = Modifier.padding(top = 16.dp))
+
+        items(shoppings.size) { index ->
+            ShoppingItemComponent(shopping = shoppings[index])
+        }
     }
 }
 
@@ -90,7 +89,7 @@ fun ShoppingRecommendedComponent(shopping: Shopping, modifier: Modifier = Modifi
             .width(120.dp)
     ) {
         ConstraintLayout(modifier = Modifier.background(color = Color.White)) {
-            val (iconRef, titleRef, location, number, extraInfoRef) = createRefs()
+            val (iconRef, titleRef, location, number, extraInfoRef, websiteRef) = createRefs()
 
             Text(text = shopping.name,
                 color = Color.Black,
@@ -139,10 +138,20 @@ fun ShoppingRecommendedComponent(shopping: Shopping, modifier: Modifier = Modifi
                     end.linkTo(parent.end, 8.dp)
                     start.linkTo(parent.start)
                     top.linkTo(location.bottom, 8.dp)
-                    bottom.linkTo(parent.bottom, 8.dp)
                 })
 
-            Text(text = shopping.extraInfo,
+            ContactComponent(
+                icon = R.drawable.ic_phone,
+                text = shopping.website,
+                iconSize = 24.dp,
+                modifier = Modifier.constrainAs(websiteRef) {
+                    end.linkTo(parent.end, 8.dp)
+                    start.linkTo(parent.start)
+                    top.linkTo(number.bottom, 8.dp)
+                    bottom.linkTo(parent.bottom, 16.dp)
+                })
+
+            Text(text = shopping.description,
                 modifier = Modifier
                     .padding(start = 16.dp, end = 16.dp)
                     .constrainAs(extraInfoRef) {

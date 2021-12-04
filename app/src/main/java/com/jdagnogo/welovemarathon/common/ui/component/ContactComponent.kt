@@ -43,6 +43,7 @@ fun ContactComponent(
                 .size(iconSize))
         Text(
             text = text,
+            maxLines = 2,
             fontSize = textSize,
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp)

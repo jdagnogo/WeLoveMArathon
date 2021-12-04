@@ -14,8 +14,7 @@ class GetShoppingUseCase @Inject constructor(
     private val coroutineScope: CoroutineScope,
 ) {
     private val _data: MutableStateFlow<Resource<List<Shopping>>> =
-        MutableStateFlow(Resource.Loading(
-            listOf()))
+        MutableStateFlow(Resource.Loading(listOf()))
     val data: StateFlow<Resource<List<Shopping>>> = _data
 
     init {
@@ -28,7 +27,6 @@ class GetShoppingUseCase @Inject constructor(
 
     fun getShopping(
         shoppingCategories: ShoppingCategories,
-        scope: CoroutineScope,
     ): List<Shopping> {
         return data.value.data?.filter { data -> data.category == shoppingCategories } ?: listOf()
     }
