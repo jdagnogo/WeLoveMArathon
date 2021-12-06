@@ -34,10 +34,14 @@ fun SimpleListComponent(item: SimpleListItem, modifier: Modifier = Modifier) {
         text = item.number, modifier = Modifier.padding(top = 16.dp))
 }
 
-fun simpleListComponent(data: List<SimpleListItem>, scope: LazyListScope) {
+fun simpleListComponent(
+    data: List<SimpleListItem>,
+    scope: LazyListScope,
+    modifier: Modifier = Modifier,
+) {
     with(scope) {
         itemsIndexed(data) { _, item ->
-            SimpleListComponent(item = item)
+            SimpleListComponent(item = item, modifier)
         }
     }
 }
@@ -49,7 +53,7 @@ fun SimpleListComponentPreview() {
     MaterialTheme {
         LazyColumn(modifier = Modifier
             .fillMaxWidth()) {
-            simpleListComponent(SimpleListItem().fakeList(),this)
+            simpleListComponent(SimpleListItem().fakeList(), this)
         }
     }
 }

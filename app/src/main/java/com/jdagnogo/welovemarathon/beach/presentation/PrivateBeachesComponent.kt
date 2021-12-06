@@ -1,8 +1,7 @@
 package com.jdagnogo.welovemarathon.beach.presentation
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,10 +12,13 @@ import com.jdagnogo.welovemarathon.beach.domain.toFakeList
 import com.jdagnogo.welovemarathon.common.ui.component.simpleListComponent
 
 @Composable
-fun PrivateBeachesComponent(privateBeaches: List<PrivateBeach>, modifier: Modifier = Modifier) {
-    LazyColumn(modifier = modifier
-        .fillMaxWidth()) {
-        simpleListComponent(privateBeaches.map { it.toSimpleListItem() }, this)
+fun PrivateBeachesComponent(
+    privateBeaches: List<PrivateBeach>,
+    scope: LazyListScope? = null,
+    modifier: Modifier = Modifier,
+) {
+    scope?.let {
+        simpleListComponent(privateBeaches.map { it.toSimpleListItem() }, scope, modifier)
     }
 }
 

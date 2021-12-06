@@ -6,6 +6,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.MaterialTheme
@@ -36,7 +37,7 @@ fun RestaurantContent(restaurants: List<Restaurant>, modifier: Modifier = Modifi
     }
 
     DividerComponent(color = Primary)
-    TitleComponent(title = "Others", alignRight = false, modifier = Modifier)
+    TitleComponent(title = "Others", alignRight = false, modifier = Modifier.padding(16.dp))
 }
 
 @ExperimentalFoundationApi

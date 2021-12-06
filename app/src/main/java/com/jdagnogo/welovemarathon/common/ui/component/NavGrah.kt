@@ -5,16 +5,12 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
+import androidx.navigation.*
 import androidx.navigation.compose.composable
-import androidx.navigation.navigation
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.beach.presentation.BeachDetailsScreen
 import com.jdagnogo.welovemarathon.beach.presentation.BeachViewModel
-import com.jdagnogo.welovemarathon.common.ui.component.MainDestinations.BEACHES_ROUTE
-import com.jdagnogo.welovemarathon.common.ui.component.MainDestinations.SHOPPING_ROUTE
 import com.jdagnogo.welovemarathon.favorites.FavoritesScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodViewModel
@@ -32,18 +28,22 @@ import com.jdagnogo.welovemarathon.tips.presentation.TipsViewModel
 @ExperimentalAnimationApi
 fun NavGraphBuilder.wlmNavGraph(navController: NavController) {
     navigation(
-        route = MainDestinations.HOME_ROUTE,
+        route = MainDestinations.Home.route,
         startDestination = HomeSections.HOME.route
     ) {
         homeGraph(navController = navController)
     }
 
-    composable(BEACHES_ROUTE) {
+    composable(MainDestinations.Beaches.route,
+        arguments = listOf(navArgument("id") { type = NavType.StringType }))
+    { backStackEntry ->
+        val arguments = requireNotNull(backStackEntry.arguments)
         val viewModel = hiltViewModel<BeachViewModel>()
-        BeachDetailsScreen(viewModel = viewModel)
+        val beachId = arguments.getString("id")
+        BeachDetailsScreen(viewModel = viewModel, beachId = beachId)
     }
 
-    composable(SHOPPING_ROUTE) {
+    composable(MainDestinations.Shopping.route) {
         val viewModel = hiltViewModel<ShoppingViewModel>()
         ShoppingScreen(viewModel)
     }
@@ -92,11 +92,10 @@ enum class HomeSections(
 }
 
 @Keep
-object MainDestinations {
-    const val HOME_ROUTE = "home"
-    const val BEACHES_ROUTE = "beaches"
-    const val SHOPPING_ROUTE = "shopping"
-    const val FOOD_ROUTE = "food"
-    const val SPORT_ROUTE = "sport"
-    const val CULTURE_ROUTE = "cultures"
+sealed class MainDestinations(val route: String) {
+    object Home : MainDestinations("home")
+    object Shopping : MainDestinations("shopping")
+    object Beaches : MainDestinations("beaches/{id}") {
+        fun createRoute(id: String) = "beaches/$id"
+    }
 }

@@ -34,7 +34,7 @@ fun ActivitiesGridComponent(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
-        TitleComponent(title = "Activities", alignRight = true, modifier = Modifier)
+        TitleComponent(title = "Activities", alignRight = true, modifier = Modifier.padding(16.dp))
         LazyRow(modifier = Modifier
             .animateContentSize()) {
             items(activities.size) { index ->

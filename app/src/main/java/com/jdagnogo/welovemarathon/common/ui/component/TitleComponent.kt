@@ -17,8 +17,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun TitleComponent(title: String, alignRight: Boolean = false, modifier: Modifier) {
-    Box(modifier = modifier
-        .padding(16.dp)) {
+    Box(modifier = modifier) {
         Text(text = title,
             fontSize = 20.sp,
             fontStyle = FontStyle.Italic,

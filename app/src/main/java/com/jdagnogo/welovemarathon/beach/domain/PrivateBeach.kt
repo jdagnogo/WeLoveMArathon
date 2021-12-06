@@ -1,6 +1,7 @@
 package com.jdagnogo.welovemarathon.beach.domain
 
 import androidx.annotation.Keep
+import com.jdagnogo.welovemarathon.beach.data.PrivateBeachEntity
 import com.jdagnogo.welovemarathon.common.SimpleListItem
 
 @Keep
@@ -11,10 +12,14 @@ data class PrivateBeach(
     val location: String = "",
     val locationLink: String = "",
     val number: String = "",
-){
+) {
+    fun toPrivateBeachEntity(): PrivateBeachEntity {
+        return PrivateBeachEntity(id, name, parentId, location, locationLink, number)
+    }
+
     fun toSimpleListItem(): SimpleListItem {
         return SimpleListItem(
-            id, name, location , number
+            id, name, location, number
         )
     }
 }

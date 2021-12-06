@@ -8,18 +8,26 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
-import com.jdagnogo.welovemarathon.beach.domain.Beach
-import com.jdagnogo.welovemarathon.beach.domain.toFakeList
 
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @Composable
 fun BeachDetailsScreen(
     viewModel: BeachViewModel,
+    beachId: String?,
     modifier: Modifier = Modifier,
 ) {
     val state by viewModel.state.collectAsState()
     val pagerState = rememberPagerState()
     val scope = rememberCoroutineScope()
-    BeachDetailsContent(state, pagerState = pagerState, scope = scope)
+    if (state.privateBeaches.isEmpty()) {
+        viewModel.dispatchEvent(BeachUiEvent.FetchPrivatesBeaches(beachId ?: ""))
+    }
+    BeachDetailsContent(state,
+        currentSelectedId = beachId ?: "",
+        pagerState = pagerState,
+        scope = scope,
+        onBeachSelected = { viewModel.dispatchEvent(BeachUiEvent.FetchPrivatesBeaches(it)) },
+        modifier = modifier)
 }
+

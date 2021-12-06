@@ -6,20 +6,20 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.pager.*
 import com.jdagnogo.welovemarathon.beach.domain.Beach
-import com.jdagnogo.welovemarathon.beach.domain.PrivateBeach
 import com.jdagnogo.welovemarathon.beach.domain.toFakeList
 import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryDark
 import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
 @ExperimentalPagerApi
@@ -29,6 +29,7 @@ fun BeachDetailsContent(
     currentSelectedId: String = "",
     pagerState: PagerState,
     scope: CoroutineScope,
+    onBeachSelected: (id: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val beaches = state.beaches
@@ -60,6 +61,7 @@ fun BeachDetailsContent(
                             onClick = {
                                 scope.launch {
                                     pagerState.animateScrollToPage(index)
+                                    onBeachSelected(beach.id)
                                 }
                             },
                         )
@@ -69,7 +71,9 @@ fun BeachDetailsContent(
                     count = beaches.size,
                     state = pagerState,
                 ) { index ->
-                    BeachDetailsComponent(beach = beaches[index], PrivateBeach().toFakeList())
+                    BeachDetailsComponent(beach = beaches[pagerState.currentPage],
+                        privateBeaches = state.privateBeaches,
+                        modifier = Modifier.background(WeLoveMarathonTheme.colors.contentBackground))
                 }
             }
         }
@@ -86,6 +90,6 @@ fun BeachDetailsContentPreview() {
         val scope = rememberCoroutineScope()
         BeachDetailsContent(pagerState = pagerState,
             scope = scope,
-            state = BeachState(beaches = Beach().toFakeList()))
+            state = BeachState(beaches = Beach().toFakeList()), onBeachSelected = {})
     }
 }

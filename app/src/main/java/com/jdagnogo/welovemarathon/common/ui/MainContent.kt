@@ -36,7 +36,7 @@ fun MainContent() {
             ) { innerPaddingModifier ->
                 NavHost(
                     navController = appState.navController,
-                    startDestination = MainDestinations.HOME_ROUTE,
+                    startDestination = MainDestinations.Home.route,
                     modifier = Modifier.padding(innerPaddingModifier)
                 ) {
                     wlmNavGraph(navController = appState.navController)

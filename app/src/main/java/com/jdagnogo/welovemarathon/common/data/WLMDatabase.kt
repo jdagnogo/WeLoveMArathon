@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.jdagnogo.welovemarathon.beach.data.BeachDao
 import com.jdagnogo.welovemarathon.beach.data.BeachEntity
+import com.jdagnogo.welovemarathon.beach.data.PrivateBeachEntity
 import com.jdagnogo.welovemarathon.blog.data.BlogDao
 import com.jdagnogo.welovemarathon.blog.data.BlogEntity
 import com.jdagnogo.welovemarathon.common.banner.BannerDao
@@ -28,6 +29,7 @@ import java.util.*
         GifBannerEntity::class,
         BeachEntity::class,
         ShoppingEntity::class,
+        PrivateBeachEntity::class,
         TipsEntity::class],
     version = 3
 )
