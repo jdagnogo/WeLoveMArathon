@@ -1,6 +1,7 @@
 package com.jdagnogo.welovemarathon.beach.domain
 
 import androidx.annotation.Keep
+import com.jdagnogo.welovemarathon.common.SimpleListItem
 
 @Keep
 data class PrivateBeach(
@@ -9,8 +10,14 @@ data class PrivateBeach(
     val parentId: String = "",
     val location: String = "",
     val locationLink: String = "",
-    val phone: String = "",
-)
+    val number: String = "",
+){
+    fun toSimpleListItem(): SimpleListItem {
+        return SimpleListItem(
+            id, name, location , number
+        )
+    }
+}
 
 fun PrivateBeach.toFakeList(): List<PrivateBeach> {
     return listOf(

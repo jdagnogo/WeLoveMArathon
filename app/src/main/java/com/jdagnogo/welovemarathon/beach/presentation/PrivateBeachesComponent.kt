@@ -1,7 +1,8 @@
 package com.jdagnogo.welovemarathon.beach.presentation
 
 import android.content.res.Configuration
-import androidx.compose.material.Card
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -9,11 +10,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.jdagnogo.welovemarathon.beach.domain.PrivateBeach
 import com.jdagnogo.welovemarathon.beach.domain.toFakeList
+import com.jdagnogo.welovemarathon.common.ui.component.simpleListComponent
 
 @Composable
 fun PrivateBeachesComponent(privateBeaches: List<PrivateBeach>, modifier: Modifier = Modifier) {
-    Card() {
-        
+    LazyColumn(modifier = modifier
+        .fillMaxWidth()) {
+        simpleListComponent(privateBeaches.map { it.toSimpleListItem() }, this)
     }
 }
 

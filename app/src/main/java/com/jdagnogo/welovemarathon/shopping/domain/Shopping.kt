@@ -1,6 +1,7 @@
 package com.jdagnogo.welovemarathon.shopping.domain
 
 import androidx.annotation.Keep
+import com.jdagnogo.welovemarathon.common.SimpleListItem
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingEntity
 
 @Keep
@@ -27,6 +28,12 @@ data class Shopping(
             image,
             isRecommended,
             category = category.name)
+    }
+
+    fun toSimpleListItem(): SimpleListItem{
+        return SimpleListItem(
+            id, name, location , number
+        )
     }
 }
 

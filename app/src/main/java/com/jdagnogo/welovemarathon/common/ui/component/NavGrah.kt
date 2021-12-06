@@ -24,6 +24,8 @@ import com.jdagnogo.welovemarathon.run.presentation.RunScreen
 import com.jdagnogo.welovemarathon.run.presentation.RunViewModel
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingScreen
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingViewModel
+import com.jdagnogo.welovemarathon.tips.presentation.TipsScreen
+import com.jdagnogo.welovemarathon.tips.presentation.TipsViewModel
 
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
@@ -61,8 +63,9 @@ fun NavGraphBuilder.homeGraph(
         val viewModel = hiltViewModel<FoodViewModel>()
         FoodScreen(viewModel = viewModel, modifier)
     }
-    composable(HomeSections.SERVICES.route) {
-        FavoritesScreen(modifier)
+    composable(HomeSections.TIPS.route) {
+        val viewModel = hiltViewModel<TipsViewModel>()
+        TipsScreen(viewModel, modifier)
     }
     composable(HomeSections.RUN.route) {
         val viewModel = hiltViewModel<RunViewModel>()
@@ -83,7 +86,7 @@ enum class HomeSections(
 ) {
     HOME(R.drawable.ic_home, "home/activities"),
     FOOD(R.drawable.ic_food, "home/food"),
-    SERVICES(R.drawable.ic_services, "home/services"),
+    TIPS(R.drawable.ic_services, "home/tips"),
     RUN(R.drawable.ic_run, "home/run"),
     FAVORITES(R.drawable.ic_favorites, "home/favorites")
 }

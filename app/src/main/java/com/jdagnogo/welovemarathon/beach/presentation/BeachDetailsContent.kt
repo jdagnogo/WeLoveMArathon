@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.pager.*
 import com.jdagnogo.welovemarathon.beach.domain.Beach
+import com.jdagnogo.welovemarathon.beach.domain.PrivateBeach
 import com.jdagnogo.welovemarathon.beach.domain.toFakeList
 import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryDark
 import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
@@ -68,7 +69,7 @@ fun BeachDetailsContent(
                     count = beaches.size,
                     state = pagerState,
                 ) { index ->
-                    BeachDetailsComponent(beach = beaches[index])
+                    BeachDetailsComponent(beach = beaches[index], PrivateBeach().toFakeList())
                 }
             }
         }

@@ -23,6 +23,7 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.component.ContactComponent
 import com.jdagnogo.welovemarathon.common.ui.component.DividerComponent
+import com.jdagnogo.welovemarathon.common.ui.component.simpleListComponent
 import com.jdagnogo.welovemarathon.shopping.domain.Shopping
 import com.jdagnogo.welovemarathon.shopping.domain.ShoppingCategories
 import com.jdagnogo.welovemarathon.shopping.domain.fakeList
@@ -55,28 +56,8 @@ fun ShoppingComponent(
             Spacer(modifier = Modifier.padding(top = 16.dp))
         }
 
-        items(shoppings.size) { index ->
-            ShoppingItemComponent(shopping = shoppings[index])
-        }
+        simpleListComponent(shoppings.map { it.toSimpleListItem() }, this)
     }
-}
-
-@Composable
-fun ShoppingItemComponent(shopping: Shopping, modifier: Modifier = Modifier) {
-    DividerComponent()
-
-    Text(text = shopping.name, modifier = Modifier.padding(top = 8.dp))
-
-    ContactComponent(icon = R.drawable.ic_location,
-        textSize = 12.sp,
-        iconSize = 24.dp,
-        text = shopping.location, modifier = Modifier.padding(top = 16.dp))
-
-    ContactComponent(icon = R.drawable.ic_phone,
-        textSize = 12.sp,
-        iconSize = 24.dp,
-        text = shopping.number, modifier = Modifier.padding(top = 16.dp))
-
 }
 
 @Composable
