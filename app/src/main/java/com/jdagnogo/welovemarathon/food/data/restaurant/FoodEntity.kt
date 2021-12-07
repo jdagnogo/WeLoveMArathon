@@ -16,10 +16,10 @@ data class FoodEntity(
     val locationLink: String = "",
     val place: String = "",
     val website: String = "",
-    val isFavorite: Boolean = false,
+    @field:JvmField val isRecommended: Boolean = false,
     val type: String = "",
 ) {
-    fun toFood(type: String): Food {
+    fun toFood(): Food {
         return Food(
             id = id,
             name = name,
@@ -29,7 +29,7 @@ data class FoodEntity(
             locationLink = locationLink,
             place = place,
             website = website,
-            isFavorite = isFavorite,
+            isRecommended = isRecommended,
             type = type
         )
     }

@@ -1,11 +1,11 @@
 package com.jdagnogo.welovemarathon.food.presentation
 
-import android.text.Layout
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -19,9 +19,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
-import com.jdagnogo.welovemarathon.common.ui.theme.Neutral3
 import com.jdagnogo.welovemarathon.common.ui.theme.Neutral4
-import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryDark
 import com.jdagnogo.welovemarathon.food.domain.FoodCategory
 
 @Composable
@@ -37,7 +35,7 @@ fun FoodCategoryItem(
         modifier = modifier
             .size(100.dp)
             .clickable {
-
+                onCategorySelected(foodCategory)
             }
     ) {
         ConstraintLayout(modifier = modifier.fillMaxSize()) {
@@ -51,22 +49,26 @@ fun FoodCategoryItem(
                     }
                 ),
                 contentDescription = foodCategory.title,
-                modifier = Modifier.constrainAs(image) {
-                    linkTo(parent.start, parent.end)
-                    linkTo(parent.top, parent.bottom)
-                }.fillMaxSize(),
+                modifier = Modifier
+                    .constrainAs(image) {
+                        linkTo(parent.start, parent.end)
+                        linkTo(parent.top, parent.bottom)
+                    }
+                    .fillMaxSize(),
                 contentScale = ContentScale.Crop
             )
             Text(
                 text = foodCategory.title,
-                textAlign= TextAlign.Center,
+                textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.caption,
-                modifier = Modifier.background(Neutral4).constrainAs(title) {
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    bottom.linkTo(parent.bottom)
-                    width = Dimension.fillToConstraints
-                }
+                modifier = Modifier
+                    .background(Neutral4)
+                    .constrainAs(title) {
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        bottom.linkTo(parent.bottom)
+                        width = Dimension.fillToConstraints
+                    }
             )
         }
     }

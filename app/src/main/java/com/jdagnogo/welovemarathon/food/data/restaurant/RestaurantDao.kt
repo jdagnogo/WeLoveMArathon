@@ -15,6 +15,9 @@ interface RestaurantDao {
     @Query("SELECT * FROM $TABLE_RESTAURANT WHERE type = :type")
     fun getFoods(type: String): Flow<List<FoodEntity>>
 
+    @Query("SELECT * FROM $TABLE_RESTAURANT")
+    fun getAll(): Flow<List<FoodEntity>>
+
     @Transaction
     suspend fun update(type: String, foods: List<FoodEntity>) {
         clear(type)

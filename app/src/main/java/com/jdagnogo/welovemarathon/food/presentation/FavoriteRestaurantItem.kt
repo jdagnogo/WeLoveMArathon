@@ -1,4 +1,4 @@
-package com.jdagnogo.welovemarathon.food.presentation.restaurant
+package com.jdagnogo.welovemarathon.food.presentation
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image

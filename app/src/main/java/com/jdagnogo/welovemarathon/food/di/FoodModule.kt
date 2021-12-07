@@ -6,10 +6,9 @@ import com.jdagnogo.welovemarathon.food.data.FoodRepository
 import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantDao
 import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantMapper
 import com.jdagnogo.welovemarathon.food.domain.FoodUseCase
-import com.jdagnogo.welovemarathon.food.domain.restaurant.GetCoffeeUseCase
-import com.jdagnogo.welovemarathon.food.domain.restaurant.GetDessertsUseCase
-import com.jdagnogo.welovemarathon.food.domain.restaurant.GetRestaurantUseCase
-import com.jdagnogo.welovemarathon.food.domain.restaurant.RestaurantRemoteData
+import com.jdagnogo.welovemarathon.food.domain.restaurant.GetFoodOthersUseCase
+import com.jdagnogo.welovemarathon.food.domain.restaurant.GetFoodRecommendedUseCase
+import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantRemoteData
 import com.jdagnogo.welovemarathon.food.presentation.FoodReducer
 import dagger.Module
 import dagger.Provides
@@ -23,35 +22,26 @@ object FoodModule {
 
     @Provides
     @Singleton
-    fun provideGetRestaurantUseCase(
+    fun provideGetFoodRecommendedUseCase(
         repository: FoodRepository,
-    ): GetRestaurantUseCase {
-        return GetRestaurantUseCase(repository)
+    ): GetFoodRecommendedUseCase {
+        return GetFoodRecommendedUseCase(repository)
     }
 
     @Provides
     @Singleton
-    fun provideGetDessertsUseCase(
+    fun provideGetFoodOthersUseCase(
         repository: FoodRepository,
-    ): GetDessertsUseCase {
-        return GetDessertsUseCase(repository)
-    }
-
-    @Provides
-    @Singleton
-    fun provideGetCoffeeUseCase(
-        repository: FoodRepository,
-    ): GetCoffeeUseCase {
-        return GetCoffeeUseCase(repository)
+    ): GetFoodOthersUseCase {
+        return GetFoodOthersUseCase(repository)
     }
 
     @Provides
     @Singleton
     fun provideFoodUseCases(
-        getRestaurantUseCase: GetRestaurantUseCase,
-        getCoffeeUseCase: GetCoffeeUseCase,
-        getDessertsUseCase: GetDessertsUseCase,
-    ) = FoodUseCase(getRestaurantUseCase, getCoffeeUseCase, getDessertsUseCase)
+        getFoodRecommendedUseCase: GetFoodRecommendedUseCase,
+        getFoodOthersUseCase: GetFoodOthersUseCase,
+    ) = FoodUseCase(getFoodRecommendedUseCase, getFoodOthersUseCase)
 
     @Provides
     @Singleton

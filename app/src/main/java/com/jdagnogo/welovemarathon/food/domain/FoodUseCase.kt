@@ -1,12 +1,11 @@
 package com.jdagnogo.welovemarathon.food.domain
 
 import androidx.annotation.Keep
-import com.jdagnogo.welovemarathon.food.domain.restaurant.GetCoffeeUseCase
-import com.jdagnogo.welovemarathon.food.domain.restaurant.GetDessertsUseCase
-import com.jdagnogo.welovemarathon.food.domain.restaurant.GetRestaurantUseCase
+import com.jdagnogo.welovemarathon.food.domain.restaurant.GetFoodOthersUseCase
+import com.jdagnogo.welovemarathon.food.domain.restaurant.GetFoodRecommendedUseCase
+
 @Keep
 data class FoodUseCase(
-    val getRestaurantUseCase: GetRestaurantUseCase,
-    val getCoffeeUseCase: GetCoffeeUseCase,
-    val getDessertsUseCase: GetDessertsUseCase,
+    val getFoodRecommendedUseCase: GetFoodRecommendedUseCase,
+    val getFoodOthersUseCase: GetFoodOthersUseCase,
 )

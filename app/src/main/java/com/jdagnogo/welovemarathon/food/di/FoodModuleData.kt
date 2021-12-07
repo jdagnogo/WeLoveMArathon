@@ -2,8 +2,8 @@ package com.jdagnogo.welovemarathon.food.di
 
 import com.jdagnogo.welovemarathon.food.data.FoodRepository
 import com.jdagnogo.welovemarathon.food.data.FoodRepositoryIml
-import com.jdagnogo.welovemarathon.food.domain.restaurant.RestaurantFirebaseData
-import com.jdagnogo.welovemarathon.food.domain.restaurant.RestaurantRemoteData
+import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantFirebaseData
+import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantRemoteData
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

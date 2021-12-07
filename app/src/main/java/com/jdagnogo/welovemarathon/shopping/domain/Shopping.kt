@@ -30,9 +30,9 @@ data class Shopping(
             category = category.name)
     }
 
-    fun toSimpleListItem(): SimpleListItem{
+    fun toSimpleListItem(): SimpleListItem {
         return SimpleListItem(
-            id, name, location , number
+            id, name, location, number
         )
     }
 }
