@@ -1,9 +1,10 @@
 package com.jdagnogo.welovemarathon.food.domain.restaurant
 
 import androidx.annotation.Keep
-import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantEntity
+import com.jdagnogo.welovemarathon.food.data.restaurant.FoodEntity
+
 @Keep
-data class Restaurant(
+data class Food(
     val id: String = "",
     val name: String = "",
     val image: String = "",
@@ -13,9 +14,10 @@ data class Restaurant(
     val place: String = "",
     val website: String = "",
     val isFavorite: Boolean = false,
+    val type: String = "",
 ) {
-    fun toRestaurantEntity(): RestaurantEntity {
-        return RestaurantEntity(
+    fun foodEntity(type: String): FoodEntity {
+        return FoodEntity(
             id = id,
             name = name,
             image = image,
@@ -24,20 +26,21 @@ data class Restaurant(
             locationLink = locationLink,
             place = place,
             website = website,
-            isFavorite = isFavorite
+            isFavorite = isFavorite,
+            type = type
         )
     }
 }
 
-fun Restaurant.fakeList(): List<Restaurant> {
+fun Food.fakeList(): List<Food> {
     return listOf(
-        Restaurant("toto1 jfnejfnj rkjn rgjgn jerg",
+        Food("toto1 jfnejfnj rkjn rgjgn jerg",
             "restaurant1 frnfn nfnerfbk jfb,r n,erfb, be ",
             "number",
             "number grg rg ger r",
             "location rege rg gr erg ger ", isFavorite = true),
-        Restaurant("toto2", "restaurant2", "number", "location"),
-        Restaurant("toto3", "restaurant3", "number", "location"),
-        Restaurant("toto4", "restaurant4", "number", "location"),
+        Food("toto2", "restaurant2", "number", "location"),
+        Food("toto3", "restaurant3", "number", "location"),
+        Food("toto4", "restaurant4", "number", "location"),
     )
 }

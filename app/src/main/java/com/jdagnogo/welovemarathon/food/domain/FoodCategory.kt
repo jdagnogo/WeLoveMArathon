@@ -10,9 +10,7 @@ enum class FoodCategory(
     val title: String = "",
     val route: String,
 ) {
-    RECOMMENDED(R.drawable.food, Primary, "Recommended", "food/Recommended"),
     RESTAURANT(R.drawable.food, Primary, "Restaurant", "food/Restaurant"),
-    COFFEE(R.drawable.food, Primary, "Coffees", "food/Coffees"),
-    NIGHT(R.drawable.food, Primary, "Night life", "food/Night"),
-    ACTIVITY(R.drawable.food, Primary, "Activities", "food/Activities"),
+    COFFEE(R.drawable.food, Primary, "Coffee", "food/Coffees"),
+    DESSERT(R.drawable.food, Primary, "Desert", "food/Deserts"),
 }

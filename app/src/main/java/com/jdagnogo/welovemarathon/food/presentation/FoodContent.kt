@@ -4,19 +4,18 @@ import android.content.res.Configuration
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
-import com.jdagnogo.welovemarathon.common.ui.component.DividerComponent
-import com.jdagnogo.welovemarathon.common.ui.theme.Primary
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 import com.jdagnogo.welovemarathon.food.domain.FoodCategory
 import com.jdagnogo.welovemarathon.food.presentation.restaurant.RestaurantContent
@@ -31,31 +30,23 @@ fun FoodContent(
     Surface(modifier = modifier
         .fillMaxSize()
         .background(WeLoveMarathonTheme.colors.contentBackground)) {
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .background(WeLoveMarathonTheme.colors.contentBackground)) {
-
-            val categories = remember { FoodCategory.values() }
-            LazyRow(
-                contentPadding = PaddingValues(16.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp)
-                    .statusBarsPadding()
-            ) {
-                itemsIndexed(categories) { _, category ->
-                    FoodCategoryItem(foodCategory = category,
-                        onCategorySelected = onCategorySelected)
-                }
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = modifier
+                .statusBarsPadding()
+                .background(WeLoveMarathonTheme.colors.contentBackground)
+                .fillMaxWidth()) {
+            item {
+                RestaurantContent(state.restaurants,
+                    "Restaurants",
+                    modifier = Modifier.padding(top = 16.dp))
             }
-            DividerComponent(color = Primary)
 
-            when (state.currentCategory) {
-                FoodCategory.RESTAURANT -> {
-                    RestaurantContent(state.restaurants)
-                }
-                else ->{}
+            item {
+                RestaurantContent(state.coffees, "Coffees")
+            }
+            item {
+                RestaurantContent(state.deserts, "Deserts")
             }
         }
     }

@@ -5,8 +5,8 @@ import com.jdagnogo.welovemarathon.food.data.FoodRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetRestaurantUseCase @Inject constructor(private val repository: FoodRepository) {
+class GetDessertsUseCase @Inject constructor(private val repository: FoodRepository) {
     suspend operator fun invoke(): Flow<Resource<List<Food>>> {
-        return repository.getRestaurants()
+        return repository.getDesserts()
     }
 }

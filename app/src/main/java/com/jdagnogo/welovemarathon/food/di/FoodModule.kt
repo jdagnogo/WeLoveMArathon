@@ -6,8 +6,10 @@ import com.jdagnogo.welovemarathon.food.data.FoodRepository
 import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantDao
 import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantMapper
 import com.jdagnogo.welovemarathon.food.domain.FoodUseCase
-import com.jdagnogo.welovemarathon.food.domain.restaurant.RestaurantRemoteData
+import com.jdagnogo.welovemarathon.food.domain.restaurant.GetCoffeeUseCase
+import com.jdagnogo.welovemarathon.food.domain.restaurant.GetDessertsUseCase
 import com.jdagnogo.welovemarathon.food.domain.restaurant.GetRestaurantUseCase
+import com.jdagnogo.welovemarathon.food.domain.restaurant.RestaurantRemoteData
 import com.jdagnogo.welovemarathon.food.presentation.FoodReducer
 import dagger.Module
 import dagger.Provides
@@ -29,9 +31,27 @@ object FoodModule {
 
     @Provides
     @Singleton
+    fun provideGetDessertsUseCase(
+        repository: FoodRepository,
+    ): GetDessertsUseCase {
+        return GetDessertsUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetCoffeeUseCase(
+        repository: FoodRepository,
+    ): GetCoffeeUseCase {
+        return GetCoffeeUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
     fun provideFoodUseCases(
         getRestaurantUseCase: GetRestaurantUseCase,
-    ) = FoodUseCase(getRestaurantUseCase)
+        getCoffeeUseCase: GetCoffeeUseCase,
+        getDessertsUseCase: GetDessertsUseCase,
+    ) = FoodUseCase(getRestaurantUseCase, getCoffeeUseCase, getDessertsUseCase)
 
     @Provides
     @Singleton

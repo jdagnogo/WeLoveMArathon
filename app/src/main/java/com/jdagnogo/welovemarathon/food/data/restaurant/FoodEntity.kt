@@ -3,10 +3,11 @@ package com.jdagnogo.welovemarathon.food.data.restaurant
 import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.jdagnogo.welovemarathon.food.domain.restaurant.Restaurant
+import com.jdagnogo.welovemarathon.food.domain.restaurant.Food
+
 @Keep
 @Entity(tableName = "restaurant")
-data class RestaurantEntity(
+data class FoodEntity(
     @PrimaryKey val id: String = "",
     val name: String = "",
     val image: String = "",
@@ -16,9 +17,10 @@ data class RestaurantEntity(
     val place: String = "",
     val website: String = "",
     val isFavorite: Boolean = false,
+    val type: String = "",
 ) {
-    fun toRestaurant(): Restaurant {
-        return Restaurant(
+    fun toFood(type: String): Food {
+        return Food(
             id = id,
             name = name,
             image = image,
@@ -27,7 +29,8 @@ data class RestaurantEntity(
             locationLink = locationLink,
             place = place,
             website = website,
-            isFavorite = isFavorite
+            isFavorite = isFavorite,
+            type = type
         )
     }
 

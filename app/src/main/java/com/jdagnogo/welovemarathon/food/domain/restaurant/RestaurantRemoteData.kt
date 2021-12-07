@@ -1,40 +1,28 @@
 package com.jdagnogo.welovemarathon.food.domain.restaurant
 
-import coil.network.HttpException
 import com.google.firebase.firestore.FirebaseFirestore
 import com.jdagnogo.welovemarathon.common.utils.Resource
-import kotlinx.coroutines.tasks.await
-import java.io.IOException
+import com.jdagnogo.welovemarathon.common.utils.fetchList
+import com.jdagnogo.welovemarathon.food.domain.FoodCategory
 import javax.inject.Inject
 
 interface RestaurantRemoteData {
-    suspend fun getRestaurants(): Resource<List<Restaurant>>
+    suspend fun getRestaurants(): Resource<List<Food>>
+    suspend fun getDesserts(): Resource<List<Food>>
+    suspend fun getCoffees(): Resource<List<Food>>
 }
 
 class RestaurantFirebaseData @Inject constructor(private val fireStore: FirebaseFirestore) :
     RestaurantRemoteData {
-    override suspend fun getRestaurants(): Resource<List<Restaurant>> {
-        val restaurants = mutableListOf<Restaurant>()
-        return try {
-            val snapshot = fireStore
-                .collection(COLLECTION_NAME)
-                .get()
-                .await()
-
-            restaurants.addAll(snapshot.toObjects(Restaurant::class.java))
-
-            Resource.Success(restaurants)
-        } catch (e: HttpException) {
-            Resource.GenericError.HttpError(e.message ?: "", null, code = e.response.code())
-        } catch (e: IOException) {
-            Resource.GenericError.NetworkError(
-                message = "Couldn't reach server, check your internet connection.",
-                data = listOf()
-            )
-        }
+    override suspend fun getRestaurants(): Resource<List<Food>> {
+        return fetchList(fireStore, FoodCategory.RESTAURANT.title)
     }
 
-    companion object {
-        private const val COLLECTION_NAME = "Restaurant"
+    override suspend fun getDesserts(): Resource<List<Food>> {
+        return fetchList(fireStore, FoodCategory.DESSERT.title)
+    }
+
+    override suspend fun getCoffees(): Resource<List<Food>> {
+        return fetchList(fireStore, FoodCategory.COFFEE.title)
     }
 }

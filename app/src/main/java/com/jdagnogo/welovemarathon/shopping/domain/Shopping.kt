@@ -47,7 +47,7 @@ fun Shopping.map(data: Map<String, Any>) {
     description = data["description"] as? String ?: ""
     image = data["image"] as? String ?: ""
     isRecommended = data["isRecommended"] as? Boolean ?: false
-    val categoryAsString = data["category"] as? String ?: "Women"
+    val categoryAsString = data["category"] as? String ?: ShoppingCategories.Woman.name
     category = ShoppingCategories.valueOf(categoryAsString)
 }
 

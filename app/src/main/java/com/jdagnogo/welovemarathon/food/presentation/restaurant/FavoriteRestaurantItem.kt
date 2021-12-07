@@ -27,17 +27,16 @@ import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.theme.Background
 import com.jdagnogo.welovemarathon.common.ui.theme.Primary
 import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryDark
-import com.jdagnogo.welovemarathon.food.domain.restaurant.Restaurant
+import com.jdagnogo.welovemarathon.food.domain.restaurant.Food
 import com.jdagnogo.welovemarathon.food.domain.restaurant.fakeList
 
 @Composable
-fun RestaurantItem(restaurant: Restaurant, modifier: Modifier = Modifier) {
+fun RestaurantItem(food: Food, modifier: Modifier = Modifier) {
     ConstraintLayout(modifier = modifier) {
         val (image, card) = createRefs()
         Card(
             shape = MaterialTheme.shapes.large,
             modifier = modifier
-                .padding(vertical = 16.dp)
                 .width(200.dp)
                 .constrainAs(card) {
                     top.linkTo(image.bottom)
@@ -54,12 +53,12 @@ fun RestaurantItem(restaurant: Restaurant, modifier: Modifier = Modifier) {
                 .background(Background)) {
                 val (name, locationIcon, phoneIcon, location, phone) = createRefs()
                 Text(
-                    text = restaurant.name,
+                    text = food.name,
                     textAlign = TextAlign.Center,
                     color = Primary,
                     style = MaterialTheme.typography.subtitle1,
                     modifier = Modifier.constrainAs(name) {
-                        top.linkTo(parent.top, 8.dp)
+                        top.linkTo(parent.top, 16.dp)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
                         width = Dimension.fillToConstraints
@@ -84,7 +83,7 @@ fun RestaurantItem(restaurant: Restaurant, modifier: Modifier = Modifier) {
                     contentScale = ContentScale.Crop
                 )
 
-                Text(text = restaurant.location,
+                Text(text = food.location,
                     maxLines = 2,
                     modifier = Modifier.constrainAs(location) {
                         start.linkTo(locationIcon.end, 16.dp)
@@ -113,7 +112,7 @@ fun RestaurantItem(restaurant: Restaurant, modifier: Modifier = Modifier) {
                     contentScale = ContentScale.Crop
                 )
 
-                Text(text = restaurant.number,
+                Text(text = food.number,
                     maxLines = 2,
                     modifier = Modifier.constrainAs(phone) {
                         start.linkTo(phoneIcon.end, 16.dp)
@@ -127,13 +126,13 @@ fun RestaurantItem(restaurant: Restaurant, modifier: Modifier = Modifier) {
 
         Image(
             painter = rememberImagePainter(
-                data = restaurant.image,
+                data = food.image,
                 builder = {
                     crossfade(true)
                     error(R.drawable.food)
                 }
             ),
-            contentDescription = restaurant.name,
+            contentDescription = food.name,
             modifier = Modifier
                 .size(120.dp)
                 .clip(CircleShape)
@@ -153,6 +152,6 @@ fun RestaurantItem(restaurant: Restaurant, modifier: Modifier = Modifier) {
 @Composable
 fun RestaurantItemPreview() {
     MaterialTheme {
-        RestaurantItem(Restaurant().fakeList().first())
+        RestaurantItem(Food().fakeList().first())
     }
 }

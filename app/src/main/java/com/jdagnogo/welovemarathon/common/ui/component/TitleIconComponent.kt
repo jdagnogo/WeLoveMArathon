@@ -32,7 +32,6 @@ fun TitleIconComponent(
         .fillMaxWidth()
         .clickable { onClick() }
         .background(WeLoveMarathonTheme.colors.contentBackground)
-        .padding(16.dp)
     ) {
         val (titleRef, imageRef) = createRefs()
         Text(
