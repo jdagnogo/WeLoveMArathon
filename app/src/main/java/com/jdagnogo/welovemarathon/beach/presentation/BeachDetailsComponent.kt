@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,6 +28,7 @@ import com.jdagnogo.welovemarathon.beach.domain.Beach
 import com.jdagnogo.welovemarathon.beach.domain.PrivateBeach
 import com.jdagnogo.welovemarathon.beach.domain.toFakeList
 import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
+import com.jdagnogo.welovemarathon.common.utils.redirectToLink
 
 @Composable
 fun BeachDetailsComponent(
@@ -33,6 +36,7 @@ fun BeachDetailsComponent(
     privateBeaches: List<PrivateBeach> = listOf(),
     modifier: Modifier = Modifier,
 ) {
+    val uriHandler = LocalUriHandler.current
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -59,7 +63,8 @@ fun BeachDetailsComponent(
             Card(
                 elevation = 0.dp,
                 shape = RoundedCornerShape(16.dp, 16.dp, 0.dp, 0.dp),
-                modifier = Modifier.offset(y = -(12.dp))
+                modifier = Modifier
+                    .offset(y = -(12.dp))
                     .fillMaxWidth()
 
             ) {
@@ -98,6 +103,9 @@ fun BeachDetailsComponent(
                     Text(
                         text = beach.location,
                         modifier = Modifier
+                            .clickable {
+                                redirectToLink(uriHandler, beach.locationLink)
+                            }
                             .constrainAs(location) {
                                 top.linkTo(locationIcon.top)
                                 bottom.linkTo(locationIcon.bottom)
@@ -108,6 +116,7 @@ fun BeachDetailsComponent(
                         title = "Description",
                         modifier = Modifier
                             .fillMaxWidth()
+                            .padding(16.dp)
                             .constrainAs(descriptionTitle) {
                                 top.linkTo(locationIcon.bottom, 16.dp)
                                 start.linkTo(parent.start)
@@ -127,7 +136,6 @@ fun BeachDetailsComponent(
                         title = "Private beaches",
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(bottom = 16.dp)
                             .constrainAs(privateBeachTitle) {
                                 top.linkTo(description.bottom, 16.dp)
                                 start.linkTo(parent.start)
@@ -136,12 +144,13 @@ fun BeachDetailsComponent(
                     )
                     PrivateBeachesComponent(privateBeaches = privateBeaches,
                         scope = listScope,
-                        modifier = Modifier.background(Color.White)
+                        modifier = Modifier
+                            .background(Color.White)
                             .constrainAs(privateBeach) {
-                            top.linkTo(privateBeachTitle.bottom)
-                            start.linkTo(parent.start)
-                            end.linkTo(parent.end)
-                        })
+                                top.linkTo(privateBeachTitle.bottom)
+                                start.linkTo(parent.start)
+                                end.linkTo(parent.end)
+                            })
                 }
             }
         }

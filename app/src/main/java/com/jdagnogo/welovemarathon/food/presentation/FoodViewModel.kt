@@ -4,6 +4,7 @@ import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jdagnogo.welovemarathon.common.ui.IModel
+import com.jdagnogo.welovemarathon.common.utils.handleResource
 import com.jdagnogo.welovemarathon.food.domain.FoodCategory
 import com.jdagnogo.welovemarathon.food.domain.FoodUseCase
 import com.jdagnogo.welovemarathon.food.domain.restaurant.Food
@@ -27,7 +28,6 @@ class FoodViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            delay(500)
             dispatchEvent(FoodUiEvent.OnCategorySelected(FoodCategory.RESTAURANT.title))
         }
     }
@@ -38,18 +38,28 @@ class FoodViewModel @Inject constructor(
         }
     }
 
-    private suspend fun fetchOthers(type: String) {
+    private fun fetchOthers(type: String) {
         if (currentSelected == type) return
-        val data = foodUseCase.getFoodOthersUseCase.invoke(type)
-        val partialState = FoodPartialState.OnOthersSuccess(data = data)
-        _state.value = reducer.reduce(_state.value, partialState)
+        viewModelScope.launch {
+            handleResource(foodUseCase.getFoodOthersUseCase.invoke(type),
+                { FoodPartialState.OnOthersSuccess(it) },
+                FoodPartialState.Loading,
+                { FoodPartialState.Error("") },
+                { _state.value = reducer.reduce(state.value, it) },
+                this)
+        }
     }
 
-    private suspend fun fetchRecommended(type: String) {
+    private fun fetchRecommended(type: String) {
         if (currentSelected == type) return
-        val data = foodUseCase.getFoodRecommendedUseCase.invoke(type)
-        val partialState = FoodPartialState.OnRecommendedSuccess(data = data)
-        _state.value = reducer.reduce(_state.value, partialState)
+        viewModelScope.launch {
+            handleResource(foodUseCase.getFoodRecommendedUseCase.invoke(type),
+                { FoodPartialState.OnRecommendedSuccess(it) },
+                FoodPartialState.Loading,
+                { FoodPartialState.Error("") },
+                { _state.value = reducer.reduce(state.value, it) },
+                this)
+        }
     }
 
     private fun onCategorySelected(type: String) {

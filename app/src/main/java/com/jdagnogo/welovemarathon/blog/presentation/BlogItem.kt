@@ -3,7 +3,6 @@ package com.jdagnogo.welovemarathon.blog.presentation
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -11,11 +10,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -24,22 +25,25 @@ import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.blog.domain.Blog
 import com.jdagnogo.welovemarathon.blog.domain.fakeList
+import com.jdagnogo.welovemarathon.common.utils.redirectToLink
 
+@ExperimentalMaterialApi
 @Composable
 fun BlogItem(
     blog: Blog,
     modifier: Modifier = Modifier,
 ) {
+    val uriHandler = LocalUriHandler.current
     Card(
         elevation = 20.dp,
         shape = MaterialTheme.shapes.medium,
+        onClick = {
+            redirectToLink(uriHandler, blog.link)
+        },
         modifier = Modifier
             .padding(start = 24.dp, end = 24.dp, bottom = 16.dp)
             .fillMaxWidth()
             .height(150.dp)
-            .clickable {
-
-            }
     ) {
         ConstraintLayout(modifier = modifier
             .fillMaxSize()
@@ -120,6 +124,7 @@ fun BlogItem(
     }
 }
 
+@ExperimentalMaterialApi
 fun blogList(blogs: List<Blog>, scope: LazyListScope) {
     with(scope) {
         itemsIndexed(blogs) { _, blog ->
@@ -128,6 +133,7 @@ fun blogList(blogs: List<Blog>, scope: LazyListScope) {
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @Preview
 @Composable

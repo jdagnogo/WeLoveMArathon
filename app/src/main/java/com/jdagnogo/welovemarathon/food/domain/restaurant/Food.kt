@@ -34,7 +34,7 @@ data class Food(
 
     fun toSimpleListItem(): SimpleListItem {
         return SimpleListItem(
-            id, name, location, number
+            id, name, location, locationLink = locationLink, number,
         )
     }
 }

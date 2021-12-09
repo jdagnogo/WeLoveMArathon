@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
@@ -25,6 +26,7 @@ import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 import com.jdagnogo.welovemarathon.run.domain.Run
 import com.jdagnogo.welovemarathon.run.domain.fakeList
 
+@ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @Composable
 fun RunContent(state: RunState, modifier: Modifier) {
@@ -64,6 +66,7 @@ fun RunContent(state: RunState, modifier: Modifier) {
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @Preview(name = "Loading")
 @Preview("Dark : Loading", uiMode = Configuration.UI_MODE_NIGHT_YES)
@@ -76,6 +79,7 @@ fun LoadingComponentPreview() {
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @Preview(name = "Blogs")
 @Preview("Dark : Blogs", uiMode = Configuration.UI_MODE_NIGHT_YES)
@@ -88,6 +92,7 @@ fun BlogsComponentPreview() {
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @Preview(name = "Runs")
 @Preview("Dark : Runs", uiMode = Configuration.UI_MODE_NIGHT_YES)
@@ -101,6 +106,7 @@ fun RunsComponentPreview() {
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @Preview(name = "Full content")
 @Composable

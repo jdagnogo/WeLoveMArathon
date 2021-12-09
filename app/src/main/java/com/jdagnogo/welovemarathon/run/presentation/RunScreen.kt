@@ -3,6 +3,7 @@ package com.jdagnogo.welovemarathon.run.presentation
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -10,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.unit.dp
 
+@ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @Composable
 fun RunScreen(

@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -30,12 +31,14 @@ import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryDark
 import com.jdagnogo.welovemarathon.food.domain.restaurant.Food
 import com.jdagnogo.welovemarathon.food.domain.restaurant.fakeList
 
+@ExperimentalMaterialApi
 @Composable
 fun RestaurantItem(food: Food, modifier: Modifier = Modifier) {
     ConstraintLayout(modifier = modifier) {
         val (image, card) = createRefs()
         Card(
             shape = MaterialTheme.shapes.large,
+            onClick= {},
             modifier = modifier
                 .width(200.dp)
                 .constrainAs(card) {
@@ -43,9 +46,7 @@ fun RestaurantItem(food: Food, modifier: Modifier = Modifier) {
                     start.linkTo(parent.start)
                 }
                 .offset(y = -(30.dp))
-                .clickable {
 
-                }
         ) {
             ConstraintLayout(modifier = Modifier
                 .width(width = 100.dp)
@@ -147,6 +148,7 @@ fun RestaurantItem(food: Food, modifier: Modifier = Modifier) {
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @Preview
 @Composable

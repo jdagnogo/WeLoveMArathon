@@ -11,8 +11,8 @@ import com.jdagnogo.welovemarathon.blog.data.BlogDao
 import com.jdagnogo.welovemarathon.blog.data.BlogEntity
 import com.jdagnogo.welovemarathon.common.banner.BannerDao
 import com.jdagnogo.welovemarathon.common.banner.GifBannerEntity
-import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantDao
 import com.jdagnogo.welovemarathon.food.data.restaurant.FoodEntity
+import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantDao
 import com.jdagnogo.welovemarathon.run.data.RunDao
 import com.jdagnogo.welovemarathon.run.data.RunEntity
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingDao
@@ -31,7 +31,7 @@ import java.util.*
         ShoppingEntity::class,
         PrivateBeachEntity::class,
         TipsEntity::class],
-    version = 3
+    version = 4
 )
 abstract class WLMDatabase : RoomDatabase() {
     abstract fun getBlogDao(): BlogDao

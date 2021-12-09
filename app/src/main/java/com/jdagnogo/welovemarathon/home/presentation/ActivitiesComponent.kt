@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -26,6 +27,7 @@ import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import com.jdagnogo.welovemarathon.home.domain.Activities
 
+@ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable
 fun ActivitiesGridComponent(
@@ -50,6 +52,7 @@ fun ActivitiesGridComponent(
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun ActivityItem(
     activities: Activities,
@@ -60,10 +63,11 @@ fun ActivityItem(
     Card(
         elevation = 8.dp,
         shape = MaterialTheme.shapes.large,
+        onClick={ onActivityClicked(activities.ordinal) },
         modifier = modifier
             .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
             .width(120.dp)
-            .clickable { onActivityClicked(activities.ordinal) }
+
     ) {
         ConstraintLayout(modifier = Modifier.background(color = color)) {
             val (iconRef, titleRef) = createRefs()
@@ -99,6 +103,7 @@ fun ActivityItem(
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Preview
 @Composable

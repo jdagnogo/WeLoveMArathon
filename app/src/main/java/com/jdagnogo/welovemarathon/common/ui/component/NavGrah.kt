@@ -3,6 +3,7 @@ package com.jdagnogo.welovemarathon.common.ui.component
 import androidx.annotation.Keep
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.*
@@ -23,6 +24,7 @@ import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingViewModel
 import com.jdagnogo.welovemarathon.tips.presentation.TipsScreen
 import com.jdagnogo.welovemarathon.tips.presentation.TipsViewModel
 
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
@@ -49,6 +51,7 @@ fun NavGraphBuilder.wlmNavGraph(navController: NavController) {
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
 fun NavGraphBuilder.homeGraph(

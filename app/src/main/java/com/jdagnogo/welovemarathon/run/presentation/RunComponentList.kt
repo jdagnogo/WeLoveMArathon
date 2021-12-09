@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -22,6 +23,7 @@ import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 import com.jdagnogo.welovemarathon.common.ui.theme.offsetGradientBackground
+import com.jdagnogo.welovemarathon.common.utils.redirectToLink
 import com.jdagnogo.welovemarathon.run.domain.Run
 import com.jdagnogo.welovemarathon.run.domain.fakeList
 
@@ -34,6 +36,7 @@ fun RunItem(
     index: Int, scroll: Int, gradient: List<Color>,
     gradientWidth: Float, modifier: Modifier,
 ) {
+    val uriHandler = LocalUriHandler.current
     val left = index * with(LocalDensity.current) {
         (HighlightCardWidth + HighlightCardPadding).toPx()
     }
@@ -47,7 +50,7 @@ fun RunItem(
     ) {
         Column(
             modifier = Modifier
-                .clickable(onClick = { })
+                .clickable(onClick = { redirectToLink(uriHandler, run.link) })
                 .fillMaxSize()
         ) {
             Box(

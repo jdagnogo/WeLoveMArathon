@@ -3,6 +3,7 @@ package com.jdagnogo.welovemarathon.common.ui
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
@@ -14,6 +15,7 @@ import com.jdagnogo.welovemarathon.common.ui.component.WLMScaffold
 import com.jdagnogo.welovemarathon.common.ui.component.wlmNavGraph
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi

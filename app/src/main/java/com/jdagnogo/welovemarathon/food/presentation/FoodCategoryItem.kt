@@ -3,10 +3,10 @@ package com.jdagnogo.welovemarathon.food.presentation
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +22,7 @@ import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.theme.Neutral4
 import com.jdagnogo.welovemarathon.food.domain.FoodCategory
 
+@ExperimentalMaterialApi
 @Composable
 fun FoodCategoryItem(
     foodCategory: FoodCategory,
@@ -32,11 +33,10 @@ fun FoodCategoryItem(
         elevation = 20.dp,
         shape = MaterialTheme.shapes.large,
         backgroundColor = foodCategory.color,
+        onClick = { onCategorySelected(foodCategory)},
         modifier = modifier
             .size(100.dp)
-            .clickable {
-                onCategorySelected(foodCategory)
-            }
+
     ) {
         ConstraintLayout(modifier = modifier.fillMaxSize()) {
             val (image, title) = createRefs()
@@ -74,6 +74,7 @@ fun FoodCategoryItem(
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @Preview
 @Composable

@@ -7,6 +7,7 @@ data class SimpleListItem(
     val id: String = "",
     var name: String = "",
     var location: String = "",
+    var locationLink: String = "",
     var number: String = "",
 )
 

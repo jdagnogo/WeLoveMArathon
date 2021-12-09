@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 interface FoodRepository {
-    fun getFood(type: String, isRecommended: Boolean): List<Food>
+    val data: StateFlow<Resource<List<Food>>>
 }
 
 class FoodRepositoryIml @Inject constructor(
@@ -19,7 +19,7 @@ class FoodRepositoryIml @Inject constructor(
     private val coroutineScope: CoroutineScope,
 ) : FoodRepository {
 
-    override fun getFood(
+     fun getFood(
         type: String,
         isRecommended: Boolean,
     ): List<Food> {
@@ -30,7 +30,7 @@ class FoodRepositoryIml @Inject constructor(
 
     private val _data: MutableStateFlow<Resource<List<Food>>> =
         MutableStateFlow(Resource.Loading(listOf()))
-    val data: StateFlow<Resource<List<Food>>>
+    override val data: StateFlow<Resource<List<Food>>>
         get() = _data
 
     init {
