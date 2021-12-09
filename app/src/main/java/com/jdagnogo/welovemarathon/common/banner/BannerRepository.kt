@@ -1,5 +1,7 @@
 package com.jdagnogo.welovemarathon.common.banner
 
+import com.jdagnogo.welovemarathon.common.domain.DataFreshnessUseCase
+import com.jdagnogo.welovemarathon.common.domain.DataType
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.common.utils.resourceAsFlow
 import kotlinx.coroutines.flow.Flow
@@ -13,6 +15,7 @@ interface BannerRepository {
 class BannerRepositoryImpl @Inject constructor(
     private val bannerDao: BannerDao,
     private val bannerRemoteData: BannerRemoteData,
+    private val dataFreshnessUseCase: DataFreshnessUseCase,
 ) :
     BannerRepository {
     override suspend fun getHomeBanner(forceFetch: Boolean): Flow<Resource<List<GifBanner>>> {
@@ -26,7 +29,6 @@ class BannerRepositoryImpl @Inject constructor(
                 val blogEntities = blogs.map { it.toGifEntity() }
                 bannerDao.update(blogEntities)
             },
-            checkDataFreshness = { false }
-        )
+            checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.HOME) })
     }
 }

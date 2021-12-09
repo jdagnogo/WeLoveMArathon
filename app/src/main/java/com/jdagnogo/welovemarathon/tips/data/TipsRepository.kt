@@ -1,5 +1,6 @@
 package com.jdagnogo.welovemarathon.tips.data
 
+import com.jdagnogo.welovemarathon.common.domain.DataType
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.common.utils.resourceAsFlow
 import com.jdagnogo.welovemarathon.tips.domain.Tips
@@ -22,8 +23,7 @@ class TipsRepositoryImpl @Inject constructor(private val tipsData: TipsData) : T
                     val tipsEntities = mapper.toTipsEntities(tipses)
                     dao.update(tipsEntities)
                 },
-                checkDataFreshness = { false }
-            )
+                checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.TIPS) })
         }
     }
 }

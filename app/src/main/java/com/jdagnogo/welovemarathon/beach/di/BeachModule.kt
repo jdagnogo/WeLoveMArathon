@@ -6,6 +6,7 @@ import com.jdagnogo.welovemarathon.beach.domain.GetBeachesUseCase
 import com.jdagnogo.welovemarathon.beach.domain.GetPrivateBeachesUseCase
 import com.jdagnogo.welovemarathon.beach.presentation.BeachReducer
 import com.jdagnogo.welovemarathon.common.data.WLMDatabase
+import com.jdagnogo.welovemarathon.common.domain.DataFreshnessUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,7 +31,8 @@ object BeachModule {
         beachDao: BeachDao,
         beachRemoteData: BeachRemoteData,
         beachMapper: BeachMapper,
-    ) = BeachData(beachDao, beachRemoteData, beachMapper)
+        dataFreshnessUseCase: DataFreshnessUseCase,
+    ) = BeachData(beachDao, beachRemoteData, beachMapper, dataFreshnessUseCase)
 
     @Provides
     @Singleton

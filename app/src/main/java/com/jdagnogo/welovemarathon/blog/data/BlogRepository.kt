@@ -1,6 +1,7 @@
 package com.jdagnogo.welovemarathon.blog.data
 
 import com.jdagnogo.welovemarathon.blog.domain.Blog
+import com.jdagnogo.welovemarathon.common.domain.DataType
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.common.utils.resourceAsFlow
 import kotlinx.coroutines.flow.Flow
@@ -24,8 +25,7 @@ class BlogRepositoryImpl @Inject constructor(
                     val blogEntities = blogMapper.toBlogsEntities(blogs)
                     blogDao.updateBlogs(blogEntities)
                 },
-                checkDataFreshness = { false }
-            )
+                checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.BLOG) })
         }
     }
 }

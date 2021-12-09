@@ -2,6 +2,7 @@ package com.jdagnogo.welovemarathon.run.di
 
 import com.jdagnogo.welovemarathon.blog.domain.GetBlogUseCase
 import com.jdagnogo.welovemarathon.common.data.WLMDatabase
+import com.jdagnogo.welovemarathon.common.domain.DataFreshnessUseCase
 import com.jdagnogo.welovemarathon.run.data.*
 import com.jdagnogo.welovemarathon.run.domain.GetRunUseCase
 import com.jdagnogo.welovemarathon.run.domain.RunUseCases
@@ -30,7 +31,8 @@ object RunModule {
         runDao: RunDao,
         runRemoteData: RunRemoteData,
         runMapper: RunMapper,
-    ) = RunData(runDao, runRemoteData, runMapper)
+        dataFreshnessUseCase: DataFreshnessUseCase,
+    ) = RunData(runDao, runRemoteData, runMapper, dataFreshnessUseCase)
 
     @Provides
     @Singleton

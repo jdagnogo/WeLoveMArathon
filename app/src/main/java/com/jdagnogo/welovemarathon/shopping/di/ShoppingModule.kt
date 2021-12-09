@@ -1,6 +1,7 @@
 package com.jdagnogo.welovemarathon.shopping.di
 
 import com.jdagnogo.welovemarathon.common.data.WLMDatabase
+import com.jdagnogo.welovemarathon.common.domain.DataFreshnessUseCase
 import com.jdagnogo.welovemarathon.shopping.data.*
 import com.jdagnogo.welovemarathon.shopping.domain.GetShoppingUseCase
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingReducer
@@ -30,7 +31,8 @@ object ShoppingModule {
         shoppingDao: ShoppingDao,
         shoppingRemoteData: ShoppingRemoteData,
         shoppingMapper: ShoppingMapper,
-    ) = ShoppingData(shoppingDao, shoppingRemoteData, shoppingMapper)
+        dataFreshnessUseCase: DataFreshnessUseCase,
+    ) = ShoppingData(shoppingDao, shoppingRemoteData, dataFreshnessUseCase, shoppingMapper)
 
     @Provides
     @Singleton

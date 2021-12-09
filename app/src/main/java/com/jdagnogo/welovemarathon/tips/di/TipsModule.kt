@@ -1,6 +1,7 @@
 package com.jdagnogo.welovemarathon.tips.di
 
 import com.jdagnogo.welovemarathon.common.data.WLMDatabase
+import com.jdagnogo.welovemarathon.common.domain.DataFreshnessUseCase
 import com.jdagnogo.welovemarathon.tips.data.*
 import com.jdagnogo.welovemarathon.tips.domain.GetTipsUseCase
 import com.jdagnogo.welovemarathon.tips.presentation.TipsReducer
@@ -28,7 +29,8 @@ object TipsModule {
         dao: TipsDao,
         remoteData: TipsRemoteData,
         mapper: TipsMapper,
-    ) = TipsData(dao, remoteData, mapper)
+        dataFreshnessUseCase: DataFreshnessUseCase,
+    ) = TipsData(dao, remoteData, mapper, dataFreshnessUseCase)
 
     @Provides
     @Singleton

@@ -30,6 +30,7 @@ import java.util.*
         BeachEntity::class,
         ShoppingEntity::class,
         PrivateBeachEntity::class,
+        DataFreshnessEntity::class,
         TipsEntity::class],
     version = 4
 )
@@ -41,6 +42,7 @@ abstract class WLMDatabase : RoomDatabase() {
     abstract fun getBeachDao(): BeachDao
     abstract fun getShoppingDao(): ShoppingDao
     abstract fun getTipsDao(): TipsDao
+    abstract fun getDataFreshnessDao(): DataFreshnessDao
 
     companion object {
         private const val DB_NAME = "wlm_db"

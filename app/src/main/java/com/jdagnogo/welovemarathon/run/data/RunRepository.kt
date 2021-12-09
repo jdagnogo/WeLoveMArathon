@@ -1,5 +1,6 @@
 package com.jdagnogo.welovemarathon.run.data
 
+import com.jdagnogo.welovemarathon.common.domain.DataType
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.common.utils.resourceAsFlow
 import com.jdagnogo.welovemarathon.run.domain.Run
@@ -24,8 +25,7 @@ class RunRepositoryImpl @Inject constructor(
                     val runEntities = runMapper.toRunsEntities(runs)
                     runDao.updateRuns(runEntities)
                 },
-                checkDataFreshness = { false }
-            )
+                checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.RUN) })
         }
     }
 }

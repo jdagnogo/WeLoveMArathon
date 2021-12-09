@@ -38,10 +38,12 @@ android {
             minifyEnabled true
             signingConfig signingConfigs.release
             shrinkResources true
+            buildConfigField "int", "EXPIRATION_IN_MINUTES", "10080"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             applicationIdSuffix ".debug"
+            buildConfigField "int", "EXPIRATION_IN_MINUTES", "5"
             signingConfig signingConfigs.release
             debuggable true
         }

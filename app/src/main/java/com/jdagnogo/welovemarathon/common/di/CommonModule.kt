@@ -1,5 +1,9 @@
 package com.jdagnogo.welovemarathon.common.di
 
+import com.jdagnogo.welovemarathon.common.data.DataFreshnessDao
+import com.jdagnogo.welovemarathon.common.data.DataFreshnessRepository
+import com.jdagnogo.welovemarathon.common.data.WLMDatabase
+import com.jdagnogo.welovemarathon.common.domain.DataFreshnessUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,4 +25,16 @@ object CommonModule {
     @Provides
     @Singleton
     fun providesIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
+
+    @Provides
+    @Singleton
+    fun providesDataFreshnessUseCase(
+        dataFreshnessRepository: DataFreshnessRepository,
+    ): DataFreshnessUseCase = DataFreshnessUseCase(dataFreshnessRepository)
+
+    @Provides
+    @Singleton
+    fun providesDataFreshnessDao(
+        db: WLMDatabase,
+    ): DataFreshnessDao = db.getDataFreshnessDao()
 }

@@ -2,6 +2,7 @@ package com.jdagnogo.welovemarathon.beach.data
 
 import com.jdagnogo.welovemarathon.beach.domain.Beach
 import com.jdagnogo.welovemarathon.beach.domain.PrivateBeach
+import com.jdagnogo.welovemarathon.common.domain.DataType
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.common.utils.resourceAsFlow
 import kotlinx.coroutines.flow.Flow
@@ -27,8 +28,7 @@ class BeachRepositoryImpl @Inject constructor(private val beachData: BeachData) 
                     val beachEntities = beachMapper.toBeachEntities(beaches)
                     beachDao.update(beachEntities)
                 },
-                checkDataFreshness = { false }
-            )
+                checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.BEACH) })
         }
     }
 

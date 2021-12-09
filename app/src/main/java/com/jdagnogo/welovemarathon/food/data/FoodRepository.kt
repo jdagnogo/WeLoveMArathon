@@ -19,15 +19,6 @@ class FoodRepositoryIml @Inject constructor(
     private val coroutineScope: CoroutineScope,
 ) : FoodRepository {
 
-     fun getFood(
-        type: String,
-        isRecommended: Boolean,
-    ): List<Food> {
-        return data.value.data?.filter { data ->
-            data.type == type && data.isRecommended == isRecommended
-        } ?: listOf()
-    }
-
     private val _data: MutableStateFlow<Resource<List<Food>>> =
         MutableStateFlow(Resource.Loading(listOf()))
     override val data: StateFlow<Resource<List<Food>>>

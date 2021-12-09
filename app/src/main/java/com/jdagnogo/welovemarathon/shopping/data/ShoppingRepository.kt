@@ -1,9 +1,9 @@
 package com.jdagnogo.welovemarathon.shopping.data
 
+import com.jdagnogo.welovemarathon.common.domain.DataType
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.common.utils.resourceAsFlow
 import com.jdagnogo.welovemarathon.shopping.domain.Shopping
-import com.jdagnogo.welovemarathon.shopping.domain.ShoppingCategories
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -32,8 +32,7 @@ class ShoppingRepositoryImpl @Inject constructor(
                     val shoppingEntities = shoppingMapper.toShoppingsEntities(shoppings)
                     shoppingDao.update(shoppingEntities)
                 },
-                checkDataFreshness = { false }
-            )
+                checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.SHOPPING) })
         }
     }
 }
