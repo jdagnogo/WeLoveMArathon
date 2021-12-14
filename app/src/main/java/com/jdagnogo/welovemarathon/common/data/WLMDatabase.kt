@@ -17,6 +17,9 @@ import com.jdagnogo.welovemarathon.run.data.RunDao
 import com.jdagnogo.welovemarathon.run.data.RunEntity
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingDao
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingEntity
+import com.jdagnogo.welovemarathon.sport.data.SportCategoryEntity
+import com.jdagnogo.welovemarathon.sport.data.SportDao
+import com.jdagnogo.welovemarathon.sport.data.SportEntity
 import com.jdagnogo.welovemarathon.tips.data.TipsDao
 import com.jdagnogo.welovemarathon.tips.data.TipsEntity
 import java.util.*
@@ -31,6 +34,8 @@ import java.util.*
         ShoppingEntity::class,
         PrivateBeachEntity::class,
         DataFreshnessEntity::class,
+        SportCategoryEntity::class,
+        SportEntity::class,
         TipsEntity::class],
     version = 4
 )
@@ -43,6 +48,7 @@ abstract class WLMDatabase : RoomDatabase() {
     abstract fun getShoppingDao(): ShoppingDao
     abstract fun getTipsDao(): TipsDao
     abstract fun getDataFreshnessDao(): DataFreshnessDao
+    abstract fun getSportDao(): SportDao
 
     companion object {
         private const val DB_NAME = "wlm_db"

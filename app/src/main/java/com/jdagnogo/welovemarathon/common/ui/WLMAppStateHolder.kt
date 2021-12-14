@@ -1,14 +1,16 @@
 package com.jdagnogo.welovemarathon.common.ui
 
+import android.content.Context
 import android.content.res.Resources
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ReadOnlyComposable
-import androidx.compose.runtime.Stable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination
@@ -26,7 +28,24 @@ class WLMAppStateHolder(
     val scaffoldState: ScaffoldState,
     val navController: NavHostController,
     private val resources: Resources,
+    private val context: Context,
 ) {
+    var isOnline by mutableStateOf(checkIfOnline())
+        private set
+
+    @Suppress("DEPRECATION")
+    private fun checkIfOnline(): Boolean {
+        val cm = ContextCompat.getSystemService(context, ConnectivityManager::class.java)
+
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val capabilities = cm?.getNetworkCapabilities(cm.activeNetwork) ?: return false
+            capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) &&
+                    capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
+        } else {
+            cm?.activeNetworkInfo?.isConnectedOrConnecting == true
+        }
+    }
+
     val bottomBarTabs = HomeSections.values()
     private val bottomBarRoutes = bottomBarTabs.map { it.route }
 
@@ -62,9 +81,10 @@ fun rememberAppState(
     scaffoldState: ScaffoldState = rememberScaffoldState(),
     navController: NavHostController = rememberNavController(),
     resources: Resources = resources(),
+    context: Context = LocalContext.current,
 ) =
     remember(scaffoldState, navController, resources) {
-        WLMAppStateHolder(scaffoldState, navController, resources)
+        WLMAppStateHolder(scaffoldState, navController, resources, context)
     }
 
 /**

@@ -2,7 +2,8 @@ package com.jdagnogo.welovemarathon.beach.domain
 
 import androidx.annotation.Keep
 import com.jdagnogo.welovemarathon.beach.data.PrivateBeachEntity
-import com.jdagnogo.welovemarathon.common.SimpleListItem
+import com.jdagnogo.welovemarathon.common.domain.SimpleListItem
+
 
 @Keep
 data class PrivateBeach(

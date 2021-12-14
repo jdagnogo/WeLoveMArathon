@@ -3,8 +3,10 @@ package com.jdagnogo.welovemarathon.common.ui
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.google.accompanist.insets.ProvideWindowInsets
@@ -36,6 +38,9 @@ fun MainContent() {
                 },
                 scaffoldState = appState.scaffoldState
             ) { innerPaddingModifier ->
+                if (!appState.isOnline) {
+                    OfflineDialog()
+                }
                 NavHost(
                     navController = appState.navController,
                     startDestination = MainDestinations.Home.route,
@@ -45,5 +50,23 @@ fun MainContent() {
                 }
             }
         }
+    }
+}
+
+@Composable
+fun OfflineDialog() {
+    val openDialog = remember { mutableStateOf(true) }
+    if (openDialog.value) {
+        AlertDialog(
+            onDismissRequest = {},
+            title = { Text(text = "Connection error") },
+            text = { Text(text = "Check your internet connection and try again.") },
+            confirmButton = {
+                TextButton(onClick = { openDialog.value = false }) {
+                    Text("Close")
+                }
+            },
+            shape = MaterialTheme.shapes.large
+        )
     }
 }

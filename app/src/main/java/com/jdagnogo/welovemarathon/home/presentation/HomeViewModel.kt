@@ -45,6 +45,9 @@ class HomeViewModel @Inject constructor(
                     is Resource.Success -> {
                         HomePartialState.OnBeachesSuccess(resource.data ?: listOf())
                     }
+                    is Resource.Loading -> {
+                        HomePartialState.LoadingBeaches
+                    }
                     else -> {
                         HomePartialState.Error("")
                     }
@@ -59,10 +62,14 @@ class HomeViewModel @Inject constructor(
             homeUseCases.getHomeBannerUseCase.invoke().onEach { resource ->
                 val partialState = when (resource) {
                     is Resource.Success -> {
-                        HomePartialState.OnBannerSuccess(resource.data?.first())
+                        HomePartialState.OnBannerSuccess(resource.data?.firstOrNull()
+                            ?: GifBanner())
+                    }
+                    is Resource.Loading -> {
+                        HomePartialState.LoadingBeaches
                     }
                     else -> {
-                        HomePartialState.Error("")
+                        HomePartialState.Error(resource.message ?: "")
                     }
                 }
                 _state.value = reducer.reduce(_state.value, partialState)
@@ -80,6 +87,7 @@ data class HomeState(
     val beaches: List<Beach> = listOf(),
     val isLoadingBeaches: Boolean = true,
     val banner: GifBanner? = null,
+    val hasError: Boolean = false,
 )
 
 @Keep

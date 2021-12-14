@@ -1,7 +1,7 @@
 package com.jdagnogo.welovemarathon.shopping.domain
 
 import androidx.annotation.Keep
-import com.jdagnogo.welovemarathon.common.SimpleListItem
+import com.jdagnogo.welovemarathon.common.domain.SimpleListItem
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingEntity
 
 @Keep

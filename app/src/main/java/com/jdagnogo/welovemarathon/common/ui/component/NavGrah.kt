@@ -21,6 +21,8 @@ import com.jdagnogo.welovemarathon.run.presentation.RunScreen
 import com.jdagnogo.welovemarathon.run.presentation.RunViewModel
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingScreen
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingViewModel
+import com.jdagnogo.welovemarathon.sport.presentation.SportScreen
+import com.jdagnogo.welovemarathon.sport.presentation.SportViewModel
 import com.jdagnogo.welovemarathon.tips.presentation.TipsScreen
 import com.jdagnogo.welovemarathon.tips.presentation.TipsViewModel
 
@@ -48,6 +50,11 @@ fun NavGraphBuilder.wlmNavGraph(navController: NavController) {
     composable(MainDestinations.Shopping.route) {
         val viewModel = hiltViewModel<ShoppingViewModel>()
         ShoppingScreen(viewModel)
+    }
+
+    composable(MainDestinations.Sport.route) {
+        val viewModel = hiltViewModel<SportViewModel>()
+        SportScreen(viewModel)
     }
 }
 
@@ -98,6 +105,7 @@ enum class HomeSections(
 sealed class MainDestinations(val route: String) {
     object Home : MainDestinations("home")
     object Shopping : MainDestinations("shopping")
+    object Sport : MainDestinations("sport")
     object Beaches : MainDestinations("beaches/{id}") {
         fun createRoute(id: String) = "beaches/$id"
     }

@@ -1,4 +1,4 @@
-package com.jdagnogo.welovemarathon.common
+package com.jdagnogo.welovemarathon.common.domain
 
 import androidx.annotation.Keep
 

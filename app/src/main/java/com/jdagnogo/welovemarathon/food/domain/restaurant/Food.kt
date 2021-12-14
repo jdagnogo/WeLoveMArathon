@@ -1,7 +1,7 @@
 package com.jdagnogo.welovemarathon.food.domain.restaurant
 
 import androidx.annotation.Keep
-import com.jdagnogo.welovemarathon.common.SimpleListItem
+import com.jdagnogo.welovemarathon.common.domain.SimpleListItem
 import com.jdagnogo.welovemarathon.food.data.restaurant.FoodEntity
 
 @Keep

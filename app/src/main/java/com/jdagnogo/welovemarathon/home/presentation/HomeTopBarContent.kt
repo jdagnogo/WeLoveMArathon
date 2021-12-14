@@ -16,19 +16,25 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.component.DividerComponent
+import com.jdagnogo.welovemarathon.common.ui.component.ErrorComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.Primary
 import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 
 @Composable
-fun HomeTopBarContent(modifier: Modifier) {
+fun HomeTopBarContent(hasError: Boolean = false, modifier: Modifier) {
     Column(modifier = modifier.statusBarsPadding()) {
         TopAppBar(
             backgroundColor = Secondary,
             contentColor = Color(0xde000000),
             elevation = 0.dp
         ) {
-            Row(modifier = Modifier.fillMaxWidth().align(Alignment.CenterVertically)) {
+            if (hasError) {
+                ErrorComponent()
+            }
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.CenterVertically)) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_wlm_logo),
                     contentDescription = "",
@@ -39,7 +45,9 @@ fun HomeTopBarContent(modifier: Modifier) {
                 Text(text = "We Love Marathon ! ",
                     color = Color.Black,
                     style = MaterialTheme.typography.h6,
-                    modifier = Modifier.align(Alignment.CenterVertically).padding(start = 16.dp)
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                        .padding(start = 16.dp)
                 )
             }
         }
