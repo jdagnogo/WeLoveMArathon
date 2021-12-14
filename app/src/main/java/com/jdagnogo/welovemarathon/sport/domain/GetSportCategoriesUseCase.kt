@@ -9,7 +9,7 @@ import javax.inject.Inject
 class GetSportCategoriesUseCase @Inject constructor(private val repository: SportRepository) {
     suspend operator fun invoke(): Flow<Resource<List<SportCategory>>> {
         return repository.categories.map { list ->
-            Resource.Success(list.data ?: listOf())
+            Resource.Success(list.data?.sortedBy { it.ordinal } ?: listOf())
         }
     }
 }

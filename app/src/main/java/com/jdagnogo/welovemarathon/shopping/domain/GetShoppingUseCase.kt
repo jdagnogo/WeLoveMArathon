@@ -28,6 +28,8 @@ class GetShoppingUseCase @Inject constructor(
     fun getShopping(
         shoppingCategories: ShoppingCategories,
     ): List<Shopping> {
-        return data.value.data?.filter { data -> data.category == shoppingCategories } ?: listOf()
+        return data.value.data
+            ?.filter { data -> data.category == shoppingCategories }
+            ?.sortedBy { it.name } ?: listOf()
     }
 }

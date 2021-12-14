@@ -13,6 +13,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -24,6 +26,8 @@ import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.component.ContactComponent
 import com.jdagnogo.welovemarathon.common.ui.component.DividerComponent
 import com.jdagnogo.welovemarathon.common.ui.component.simpleListComponent
+import com.jdagnogo.welovemarathon.common.utils.redirectToLink
+import com.jdagnogo.welovemarathon.common.utils.redirectToPhone
 import com.jdagnogo.welovemarathon.shopping.domain.Shopping
 import com.jdagnogo.welovemarathon.shopping.domain.ShoppingCategories
 import com.jdagnogo.welovemarathon.shopping.domain.fakeList
@@ -69,6 +73,8 @@ fun ShoppingRecommendedComponent(shopping: Shopping, modifier: Modifier = Modifi
             .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
             .width(120.dp)
     ) {
+        val context = LocalContext.current
+        val uriHandler = LocalUriHandler.current
         ConstraintLayout(modifier = Modifier.background(color = Color.White)) {
             val (iconRef, titleRef, location, number, extraInfoRef, websiteRef) = createRefs()
 
@@ -105,6 +111,7 @@ fun ShoppingRecommendedComponent(shopping: Shopping, modifier: Modifier = Modifi
                 icon = R.drawable.ic_location,
                 text = shopping.location,
                 iconSize = 24.dp,
+                onClicked = { redirectToLink(uriHandler, shopping.locationLink) },
                 modifier = Modifier.constrainAs(location) {
                     end.linkTo(parent.end, 8.dp)
                     start.linkTo(parent.start)
@@ -115,6 +122,9 @@ fun ShoppingRecommendedComponent(shopping: Shopping, modifier: Modifier = Modifi
                 icon = R.drawable.ic_phone,
                 text = shopping.number,
                 iconSize = 24.dp,
+                onClicked = {
+                    redirectToPhone(context, shopping.number)
+                },
                 modifier = Modifier.constrainAs(number) {
                     end.linkTo(parent.end, 8.dp)
                     start.linkTo(parent.start)
@@ -125,6 +135,7 @@ fun ShoppingRecommendedComponent(shopping: Shopping, modifier: Modifier = Modifi
                 icon = R.drawable.ic_phone,
                 text = shopping.website,
                 iconSize = 24.dp,
+                onClicked = { redirectToLink(uriHandler, shopping.website) },
                 modifier = Modifier.constrainAs(websiteRef) {
                     end.linkTo(parent.end, 8.dp)
                     start.linkTo(parent.start)

@@ -34,44 +34,49 @@ class SportRepositoryIml @Inject constructor(
         get() = _categories
 
     init {
-        coroutineScope.launch {
-            fetchCategories()
-            fetchSports()
-        }
+        fetchCategories()
+        fetchSports()
+
     }
 
-    private suspend fun fetchCategories(forceFetch: Boolean = false) {
-        with(sportData) {
-            val categories = resourceAsFlow(
-                forceFetch = forceFetch,
-                fetchFromLocal = { dao.getAllCategories().map { mapper.toSportCategories(it) } },
-                networkCall = { remoteData.getSportCategories() },
-                saveCallResource = { categories ->
-                    val tipsEntities = mapper.toSportCategoriesEntities(categories)
-                    dao.updateCategories(tipsEntities)
-                },
-                checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.SPORT) })
+    private fun fetchCategories(forceFetch: Boolean = false) {
+        coroutineScope.launch {
+            with(sportData) {
+                val categories = resourceAsFlow(
+                    forceFetch = forceFetch,
+                    fetchFromLocal = {
+                        dao.getAllCategories().map { mapper.toSportCategories(it) }
+                    },
+                    networkCall = { remoteData.getSportCategories() },
+                    saveCallResource = { categories ->
+                        val tipsEntities = mapper.toSportCategoriesEntities(categories)
+                        dao.updateCategories(tipsEntities)
+                    },
+                    checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.SPORT_CATEGORIES) })
 
-            categories.collectLatest {
-                _categories.value = it
+                categories.collectLatest {
+                    _categories.value = it
+                }
             }
         }
     }
 
-    private suspend fun fetchSports(forceFetch: Boolean = false) {
-        with(sportData) {
-            val categories = resourceAsFlow(
-                forceFetch = forceFetch,
-                fetchFromLocal = { dao.getAll().map { mapper.toSports(it) } },
-                networkCall = { remoteData.getSports() },
-                saveCallResource = { sports ->
-                    val sportEntities = mapper.toSportsEntities(sports)
-                    dao.update(sportEntities)
-                },
-                checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.TIPS) })
+    private fun fetchSports(forceFetch: Boolean = false) {
+        coroutineScope.launch {
+            with(sportData) {
+                val categories = resourceAsFlow(
+                    forceFetch = forceFetch,
+                    fetchFromLocal = { dao.getAll().map { mapper.toSports(it) } },
+                    networkCall = { remoteData.getSports() },
+                    saveCallResource = { sports ->
+                        val sportEntities = mapper.toSportsEntities(sports)
+                        dao.update(sportEntities)
+                    },
+                    checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.SPORT) })
 
-            categories.collectLatest {
-                _data.value = it
+                categories.collectLatest {
+                    _data.value = it
+                }
             }
         }
     }

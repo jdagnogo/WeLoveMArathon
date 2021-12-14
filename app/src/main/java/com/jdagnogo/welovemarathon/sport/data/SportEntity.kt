@@ -18,7 +18,7 @@ data class SportEntity(
 ) {
     fun toSport(): Sport {
         return Sport(
-            id, name, website, locationLink, locationLink, number, category
+            id, name, website, location, locationLink, number, category
         )
     }
 

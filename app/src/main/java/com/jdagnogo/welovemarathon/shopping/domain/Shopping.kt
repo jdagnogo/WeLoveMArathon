@@ -32,7 +32,7 @@ data class Shopping(
 
     fun toSimpleListItem(): SimpleListItem {
         return SimpleListItem(
-            id, name, location, number
+            id, name, location, locationLink, number
         )
     }
 }

@@ -10,7 +10,9 @@ class GetSportsUseCase @Inject constructor(private val repository: SportReposito
     suspend operator fun invoke(type: String): Flow<Resource<List<Sport>>> {
         return repository.data.map { list ->
             val result =
-                list.data?.filter { it.category == type }?.toMutableList() ?: listOf()
+                list.data
+                    ?.filter { it.category == type }
+                    ?.sortedBy { it.name }?.toMutableList() ?: listOf()
             return@map Resource.Success(result)
         }
     }

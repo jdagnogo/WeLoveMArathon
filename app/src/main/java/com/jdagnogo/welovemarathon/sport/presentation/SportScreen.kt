@@ -13,5 +13,9 @@ fun SportScreen(
     modifier: Modifier = Modifier,
 ) {
     val state by viewModel.state.collectAsState()
-    SportContent()
+    SportContent(
+        state = state,
+        onCategoryClicked = {
+            viewModel.dispatchEvent(event = SportUiEvent.OnCategorySelected(it))
+        }, modifier = modifier)
 }

@@ -23,7 +23,7 @@ class SportViewModel @Inject constructor(
     private val _state = MutableStateFlow(SportState())
     override val state: StateFlow<SportState> get() = _state
 
-    private var currentSelected: String? = null
+    private var currentSelected: SportCategory? = null
 
     init {
         viewModelScope.launch {
@@ -32,8 +32,12 @@ class SportViewModel @Inject constructor(
     }
 
     override fun dispatchEvent(event: SportUiEvent) {
+        val categories = state.value.categories
         when (event) {
-            is SportUiEvent.OnCategorySelected -> onCategorySelected(event.type)
+            is SportUiEvent.OnCategorySelected -> {
+                onCategorySelected(
+                    categories.firstOrNull { it.name == event.type })
+            }
             SportUiEvent.FetchCategories -> fetchCategories()
         }
     }
@@ -44,16 +48,20 @@ class SportViewModel @Inject constructor(
                 { SportPartialState.OnCategoriesSuccess(it) },
                 SportPartialState.Loading,
                 { SportPartialState.Error("") },
-                { _state.value = reducer.reduce(state.value, it) },
+                {
+                    _state.value = reducer.reduce(state.value, it)
+                    dispatchEvent(SportUiEvent.OnCategorySelected(state.value.categories.firstOrNull()?.name))
+                },
                 this)
         }
     }
 
-    private fun fetchSports(type: String) {
+    private fun fetchSports(type: SportCategory) {
         if (currentSelected == type) return
+        currentSelected = type
         viewModelScope.launch {
-            handleResource(sportUseCase.getSportsUseCase.invoke(type),
-                { SportPartialState.OnSportsSuccess(it) },
+            handleResource(sportUseCase.getSportsUseCase.invoke(type.name),
+                { SportPartialState.OnSportsSuccess(it, type) },
                 SportPartialState.Loading,
                 { SportPartialState.Error("") },
                 { _state.value = reducer.reduce(state.value, it) },
@@ -61,10 +69,12 @@ class SportViewModel @Inject constructor(
         }
     }
 
-    private fun onCategorySelected(type: String) {
+    private fun onCategorySelected(type: SportCategory?) {
         viewModelScope.launch {
-            fetchSports(type = type)
-            currentSelected = type
+            type?.let {
+                fetchSports(type = type)
+                currentSelected = type
+            }
         }
     }
 }
@@ -73,7 +83,7 @@ class SportViewModel @Inject constructor(
 data class SportState(
     val categories: List<SportCategory> = listOf(),
     val sports: List<Sport> = listOf(),
-    val currentCategory: SportCategory = SportCategory(),
+    val currentCategory: SportCategory? = SportCategory(),
     val error: String = "",
 )
 
@@ -81,12 +91,14 @@ data class SportState(
 sealed class SportPartialState {
     object Loading : SportPartialState()
     data class Error(val message: String) : SportPartialState()
-    data class OnSportsSuccess(val data: List<Sport>) : SportPartialState()
+    data class OnSportsSuccess(val data: List<Sport>, val currentSelected: SportCategory) :
+        SportPartialState()
+
     data class OnCategoriesSuccess(val data: List<SportCategory>) : SportPartialState()
 }
 
 @Keep
 sealed class SportUiEvent {
-    data class OnCategorySelected(val type: String) : SportUiEvent()
+    data class OnCategorySelected(val type: String?) : SportUiEvent()
     object FetchCategories : SportUiEvent()
 }

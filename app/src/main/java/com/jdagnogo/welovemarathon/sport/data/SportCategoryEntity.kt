@@ -11,10 +11,11 @@ import com.jdagnogo.welovemarathon.sport.domain.SportCategory
 data class SportCategoryEntity(
     @PrimaryKey val name: String = "",
     val icon: String = "",
+    val ordinal: Int = 0,
 ) {
     fun toSportCategory(): SportCategory {
         return SportCategory(
-            name, icon
+            name, icon, ordinal
         )
     }
 

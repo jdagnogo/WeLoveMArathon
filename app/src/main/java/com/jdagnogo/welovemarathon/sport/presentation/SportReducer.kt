@@ -7,8 +7,9 @@ class SportReducer : IReducer<SportState, SportPartialState> {
         return when (partialState) {
             is SportPartialState.Error -> state.copy()
             SportPartialState.Loading -> state.copy()
-            is SportPartialState.OnCategoriesSuccess -> state.copy(categories = partialState.data)
-            is SportPartialState.OnSportsSuccess -> state.copy(sports = partialState.data)
+            is SportPartialState.OnCategoriesSuccess -> state.copy(categories = partialState.data, currentCategory = partialState.data?.firstOrNull())
+            is SportPartialState.OnSportsSuccess -> state.copy(sports = partialState.data,
+                currentCategory = partialState.currentSelected)
         }
     }
 }
