@@ -13,10 +13,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
+import com.jdagnogo.welovemarathon.common.ui.component.RightMenuComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 import com.jdagnogo.welovemarathon.shopping.domain.Shopping
 import com.jdagnogo.welovemarathon.shopping.domain.ShoppingCategories
 import com.jdagnogo.welovemarathon.shopping.domain.fakeList
+import com.jdagnogo.welovemarathon.shopping.domain.toRightMenuData
 
 @Composable
 fun ShoppingContent(
@@ -34,11 +36,14 @@ fun ShoppingContent(
             shoppings = state.shoppings,
             currentCategory = state.currentSelected,
             recommended = state.recommended,
-            modifier = Modifier.fillMaxSize().padding(end = 100.dp))
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(end = 100.dp))
 
-        ShoppingCategoryComponent(
+        RightMenuComponent(
             currentSelected = state.currentSelected.ordinal,
-            onCategoryClicked = onCategoryClicked,
+            categories = ShoppingCategories.values().toList().map { it.toRightMenuData() },
+            onCategoryClicked = { onCategoryClicked(ShoppingCategories.valueOf(it)) },
             modifier = Modifier.align(Alignment.TopEnd))
     }
 }
