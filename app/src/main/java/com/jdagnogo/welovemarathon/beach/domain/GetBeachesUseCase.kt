@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetBeachesUseCase @Inject constructor(private val repository: BeachRepository) {
-    suspend operator fun invoke(): Flow<Resource<List<Beach>>> {
-        return repository.getBeaches()
+    operator fun invoke(): Flow<Resource<List<Beach>>> {
+        return repository.beaches
     }
 }

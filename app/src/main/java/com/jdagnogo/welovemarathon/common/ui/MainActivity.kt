@@ -9,9 +9,12 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.core.view.WindowCompat
 import com.google.accompanist.pager.ExperimentalPagerApi
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.InternalCoroutinesApi
+
 @ExperimentalAnimationApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @InternalCoroutinesApi
     @ExperimentalMaterialApi
     @ExperimentalPagerApi
     @ExperimentalFoundationApi

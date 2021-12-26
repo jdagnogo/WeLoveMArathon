@@ -20,8 +20,8 @@ interface BeachDao {
     @Query(QUERY_GET_ALL)
     fun getAll(): Flow<List<BeachEntity>>
 
-    @Query("SELECT * FROM ${PrivateBeachEntity.TABLE} WHERE parentId = :parentId")
-    fun getPrivateBeaches(parentId: String): Flow<List<PrivateBeachEntity>>
+    @Query("SELECT * FROM ${PrivateBeachEntity.TABLE}")
+    fun getPrivateBeaches(): Flow<List<PrivateBeachEntity>>
 
     @Transaction
     suspend fun update(beaches: List<BeachEntity>) {

@@ -1,8 +1,11 @@
 package com.jdagnogo.welovemarathon.beach.presentation
 
 import androidx.annotation.Keep
+import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.PagerState
 import com.jdagnogo.welovemarathon.beach.domain.Beach
 import com.jdagnogo.welovemarathon.beach.domain.BeachUseCases
 import com.jdagnogo.welovemarathon.beach.domain.PrivateBeach
@@ -10,24 +13,32 @@ import com.jdagnogo.welovemarathon.common.ui.IModel
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.common.utils.handleResource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.text.FieldPosition
 import javax.inject.Inject
 
+@InternalCoroutinesApi
+@ExperimentalPagerApi
 @HiltViewModel
 class BeachViewModel @Inject constructor(
     private val beachesUseCase: BeachUseCases,
     private val reducer: BeachReducer,
+    val pagerState: PagerState,
 ) : ViewModel(), IModel<BeachState, BeachUiEvent> {
     private val _state = MutableStateFlow(BeachState())
     override val state: StateFlow<BeachState> get() = _state
 
     init {
         dispatchEvent(BeachUiEvent.FetchBeaches)
+        viewModelScope.launch {
+            snapshotFlow { pagerState.currentPage }.collect { page ->
+                dispatchEvent(
+                    BeachUiEvent.FetchPrivatesBeaches(
+                        state.value.beaches.getOrNull(page)?.id ?: ""
+                    ))
+            }
+        }
     }
 
     override fun dispatchEvent(event: BeachUiEvent) {

@@ -25,7 +25,10 @@ import com.jdagnogo.welovemarathon.sport.presentation.SportScreen
 import com.jdagnogo.welovemarathon.sport.presentation.SportViewModel
 import com.jdagnogo.welovemarathon.tips.presentation.TipsScreen
 import com.jdagnogo.welovemarathon.tips.presentation.TipsViewModel
+import com.jdagnogo.welovemarathon.wine.presentation.WineScreen
+import kotlinx.coroutines.InternalCoroutinesApi
 
+@InternalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
@@ -55,6 +58,9 @@ fun NavGraphBuilder.wlmNavGraph(navController: NavController) {
     composable(MainDestinations.Sport.route) {
         val viewModel = hiltViewModel<SportViewModel>()
         SportScreen(viewModel)
+    }
+    composable(MainDestinations.Wine.route) {
+        WineScreen()
     }
 }
 
@@ -106,6 +112,7 @@ sealed class MainDestinations(val route: String) {
     object Home : MainDestinations("home")
     object Shopping : MainDestinations("shopping")
     object Sport : MainDestinations("sport")
+    object Wine : MainDestinations("wine")
     object Beaches : MainDestinations("beaches/{id}") {
         fun createRoute(id: String) = "beaches/$id"
     }

@@ -16,7 +16,9 @@ import com.jdagnogo.welovemarathon.common.ui.component.MainDestinations
 import com.jdagnogo.welovemarathon.common.ui.component.WLMScaffold
 import com.jdagnogo.welovemarathon.common.ui.component.wlmNavGraph
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
+import kotlinx.coroutines.InternalCoroutinesApi
 
+@InternalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 @ExperimentalFoundationApi

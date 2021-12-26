@@ -54,8 +54,8 @@ fun BeachDetailsComponent(
                 ),
                 contentDescription = beach.name,
                 modifier = Modifier
-                    .height(250.dp)
-                    .offset(y = (8.dp)),
+                    .fillMaxWidth()
+                    .height(250.dp),
                 contentScale = ContentScale.Crop,
             )
         }
@@ -64,7 +64,7 @@ fun BeachDetailsComponent(
                 elevation = 0.dp,
                 shape = RoundedCornerShape(16.dp, 16.dp, 0.dp, 0.dp),
                 modifier = Modifier
-                    .offset(y = -(12.dp))
+                    .offset(y = -(20.dp))
                     .fillMaxWidth()
 
             ) {
@@ -142,15 +142,17 @@ fun BeachDetailsComponent(
                                 end.linkTo(parent.end)
                             }
                     )
-                    PrivateBeachesComponent(privateBeaches = privateBeaches,
-                        scope = listScope,
-                        modifier = Modifier
-                            .background(Color.White)
-                            .constrainAs(privateBeach) {
-                                top.linkTo(privateBeachTitle.bottom)
-                                start.linkTo(parent.start)
-                                end.linkTo(parent.end)
-                            })
+                    if (privateBeaches.isNotEmpty()) {
+                        PrivateBeachesComponent(privateBeaches = privateBeaches,
+                            scope = listScope,
+                            modifier = Modifier
+                                .background(Color.White)
+                                .constrainAs(privateBeach) {
+                                    top.linkTo(privateBeachTitle.bottom)
+                                    start.linkTo(parent.start)
+                                    end.linkTo(parent.end)
+                                })
+                    }
                 }
             }
         }

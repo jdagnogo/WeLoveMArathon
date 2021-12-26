@@ -1,5 +1,7 @@
 package com.jdagnogo.welovemarathon.beach.di
 
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.PagerState
 import com.jdagnogo.welovemarathon.beach.data.*
 import com.jdagnogo.welovemarathon.beach.domain.BeachUseCases
 import com.jdagnogo.welovemarathon.beach.domain.GetBeachesUseCase
@@ -13,6 +15,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+@ExperimentalPagerApi
 @Module
 @InstallIn(SingletonComponent::class)
 object BeachModule {
@@ -38,6 +41,12 @@ object BeachModule {
     @Singleton
     fun provideBeachMapper(): BeachMapper {
         return BeachMapper()
+    }
+
+    @Provides
+    @Singleton
+    fun providePagerState(): PagerState {
+        return PagerState()
     }
 
     @Provides
