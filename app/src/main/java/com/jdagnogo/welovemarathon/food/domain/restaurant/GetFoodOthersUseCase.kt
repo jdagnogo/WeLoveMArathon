@@ -10,7 +10,8 @@ class GetFoodOthersUseCase @Inject constructor(private val repository: FoodRepos
     suspend operator fun invoke(type: String): Flow<Resource<List<Food>>> {
         return repository.data.map { list ->
             val result =
-                list.data?.filter { it.isRecommended.not() && it.type == type }?.toMutableList()
+                list.data?.filter { it.isRecommended.not() && it.type == type }
+                    ?.sortedBy { it.name }?.toMutableList()
                     ?: listOf()
             return@map Resource.Success(result)
         }

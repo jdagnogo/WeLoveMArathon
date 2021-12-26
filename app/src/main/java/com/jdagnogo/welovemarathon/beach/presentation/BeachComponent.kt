@@ -44,13 +44,14 @@ fun BeachItem(
             contentDescription = beach.name,
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp)
                 .height(120.dp)
                 .constrainAs(image) {
                     linkTo(parent.start, parent.end)
                     top.linkTo(parent.top)
                 }
                 .fillMaxSize(),
-            contentScale = ContentScale.FillHeight
+            contentScale = ContentScale.FillWidth
         )
 
         Spacer(modifier = Modifier.height(8.dp))

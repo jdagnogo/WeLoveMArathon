@@ -9,8 +9,10 @@ import javax.inject.Inject
 class GetFoodRecommendedUseCase @Inject constructor(private val repository: FoodRepository) {
     suspend operator fun invoke(type: String): Flow<Resource<List<Food>>> {
         return repository.data.map { list ->
-            val result = list.data?.filter { it.isRecommended && it.type == type }?.toMutableList()
-                ?: listOf()
+            val result =
+                list.data?.filter { it.isRecommended && it.type == type }?.sortedBy { it.name }
+                    ?.toMutableList()
+                    ?: listOf()
             return@map Resource.Success(result)
         }
     }

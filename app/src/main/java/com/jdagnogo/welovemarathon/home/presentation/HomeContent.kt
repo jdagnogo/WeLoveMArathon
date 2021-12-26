@@ -49,7 +49,7 @@ fun HomeContent(
                         modifier = Modifier)
 
                     TitleIconComponent(title = "Beaches",
-                        onClick = { onBeachSelected("") },
+                        onClick = { onBeachSelected("aaaaIZX8LAR0YAlSIxjwbjV0") },
                         modifier = Modifier.padding(start = 16.dp, bottom = 16.dp, end = 16.dp))
                 }
             }
