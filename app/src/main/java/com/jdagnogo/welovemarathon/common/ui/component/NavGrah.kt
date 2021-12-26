@@ -102,8 +102,8 @@ enum class HomeSections(
 ) {
     HOME(R.drawable.ic_home, "home/activities"),
     FOOD(R.drawable.ic_food, "home/food"),
-    TIPS(R.drawable.ic_services, "home/tips"),
-    RUN(R.drawable.ic_run, "home/run"),
+    TIPS(R.drawable.ic_tips, "home/tips"),
+    RUN(R.drawable.ic_marathon, "home/run"),
     FAVORITES(R.drawable.ic_favorites, "home/favorites")
 }
 

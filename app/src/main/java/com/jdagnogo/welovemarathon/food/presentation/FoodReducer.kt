@@ -7,8 +7,14 @@ class FoodReducer : IReducer<FoodState, FoodPartialState> {
         return when (partialState) {
             is FoodPartialState.Error -> state.copy()
             FoodPartialState.Loading -> state.copy()
-            is FoodPartialState.OnOthersSuccess -> state.copy(others = partialState.data)
-            is FoodPartialState.OnRecommendedSuccess -> state.copy(recommended = partialState.data)
+            is FoodPartialState.OnOthersSuccess -> state.copy(
+                others = partialState.data,
+                currentCategory = partialState.currentCategory
+            )
+            is FoodPartialState.OnRecommendedSuccess -> state.copy(
+                recommended = partialState.data,
+                currentCategory = partialState.currentCategory
+            )
         }
     }
 }

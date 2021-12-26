@@ -1,11 +1,14 @@
 package com.jdagnogo.welovemarathon.home.presentation
 
 import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -37,8 +40,11 @@ fun ActivitiesGridComponent(
 ) {
     Column(modifier = modifier) {
         TitleComponent(title = "Activities", alignRight = true, modifier = Modifier.padding(16.dp))
-        LazyRow(modifier = Modifier
-            .animateContentSize()) {
+        LazyRow(
+            contentPadding = PaddingValues(start = 16.dp, end = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier.animateContentSize()
+        ) {
             items(activities.size) { index ->
                 val activity = activities[index]
                 val randomColor: Color = remember { activity.backgroundColor }
@@ -63,13 +69,14 @@ fun ActivityItem(
     Card(
         elevation = 8.dp,
         shape = MaterialTheme.shapes.large,
-        onClick={ onActivityClicked(activities.ordinal) },
+        border = BorderStroke(2.dp, color = color),
+        onClick = { onActivityClicked(activities.ordinal) },
         modifier = modifier
-            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
+            .padding(bottom = 16.dp)
             .width(120.dp)
 
     ) {
-        ConstraintLayout(modifier = Modifier.background(color = color)) {
+        ConstraintLayout(modifier = Modifier.background(color = Color.White)) {
             val (iconRef, titleRef) = createRefs()
 
             Text(text = activities.title,

@@ -5,7 +5,11 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -35,31 +39,39 @@ fun FoodContent(
     onCategorySelected: (FoodCategory) -> Unit,
     modifier: Modifier,
 ) {
-    Surface(modifier = modifier
-        .fillMaxSize()
-        .animateContentSize()
-        .background(WeLoveMarathonTheme.colors.contentBackground)) {
+    Surface(
+        modifier = modifier
+            .fillMaxSize()
+            .animateContentSize()
+            .background(WeLoveMarathonTheme.colors.contentBackground)
+    ) {
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier
                 .statusBarsPadding()
                 .background(WeLoveMarathonTheme.colors.contentBackground)
-                .fillMaxWidth()) {
+                .fillMaxWidth()
+        ) {
             val lazyScope = this
             item {
                 val categories = remember { FoodCategory.values() }
                 LazyRow(
+                    verticalAlignment = Alignment.CenterVertically,
                     contentPadding = PaddingValues(16.dp),
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(Secondary)
                         .padding(top = 16.dp, start = 8.dp)
+                        .animateContentSize()
                 ) {
                     itemsIndexed(categories) { _, category ->
-                        FoodCategoryItem(foodCategory = category,
-                            onCategorySelected = onCategorySelected)
+                        FoodCategoryItem(
+                            foodCategory = category,
+                            isSelected = state.currentCategory.name == category.name,
+                            onCategorySelected = onCategorySelected
+                        )
                     }
                 }
                 DividerComponent(color = Primary)
@@ -69,10 +81,12 @@ fun FoodContent(
             }
 
             item {
-                TitleComponent(title = "Others (${state.others.size})",
+                TitleComponent(
+                    title = "Others (${state.others.size})",
                     modifier = Modifier
                         .padding(8.dp)
-                        .fillMaxWidth())
+                        .fillMaxWidth()
+                )
                 simpleListComponent(
                     state.others.map { it.toSimpleListItem() },
                     lazyScope,

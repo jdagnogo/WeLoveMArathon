@@ -11,6 +11,6 @@ enum class FoodCategory(
     val route: String,
 ) {
     RESTAURANT(R.drawable.food, Primary, "Restaurant", "food/Restaurant"),
-    COFFEE(R.drawable.food, Primary, "Coffee", "food/Coffees"),
-    DESSERT(R.drawable.food, Primary, "Desert", "food/Deserts"),
+    COFFEE(R.drawable.capuchino, Primary, "Coffee", "food/Coffees"),
+    DESSERT(R.drawable.dessert, Primary, "Desert", "food/Deserts"),
 }

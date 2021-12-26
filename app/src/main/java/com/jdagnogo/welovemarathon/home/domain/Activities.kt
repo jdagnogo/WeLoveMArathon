@@ -7,8 +7,8 @@ import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryDark
 import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryLight
 
 enum class Activities(val title: String, val icon: Int, val backgroundColor: Color) {
-    SHOPPING("Shopping", R.drawable.ic_shopping, PrimaryLight),
-    WINES("Wine", R.drawable.ic_wine, Primary),
-    CULTURE("Culture", R.drawable.ic_culture, PrimaryDark),
-    SPORTS("Sports", R.drawable.ic_sport, PrimaryLight),
+    SHOPPING("Shopping", R.drawable.ic_shopping_colored, Primary),
+    WINES("Wine", R.drawable.ic_wine_colored, PrimaryDark),
+    CULTURE("Culture", R.drawable.ic_museum_colored, Primary),
+    SPORTS("Sports", R.drawable.ic_sports_colored, PrimaryDark),
 }

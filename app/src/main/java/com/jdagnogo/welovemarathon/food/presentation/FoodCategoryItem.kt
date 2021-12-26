@@ -27,6 +27,7 @@ import com.jdagnogo.welovemarathon.food.domain.FoodCategory
 fun FoodCategoryItem(
     foodCategory: FoodCategory,
     onCategorySelected: (FoodCategory) -> Unit,
+    isSelected  : Boolean = false,
     modifier: Modifier = Modifier,
 ) {
     Card(
@@ -35,7 +36,7 @@ fun FoodCategoryItem(
         backgroundColor = foodCategory.color,
         onClick = { onCategorySelected(foodCategory)},
         modifier = modifier
-            .size(100.dp)
+            .size(140.dp.takeIf { isSelected } ?: 100.dp)
 
     ) {
         ConstraintLayout(modifier = modifier.fillMaxSize()) {

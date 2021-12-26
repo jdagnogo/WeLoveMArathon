@@ -9,7 +9,6 @@ import com.jdagnogo.welovemarathon.food.domain.FoodCategory
 import com.jdagnogo.welovemarathon.food.domain.FoodUseCase
 import com.jdagnogo.welovemarathon.food.domain.restaurant.Food
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -24,11 +23,11 @@ class FoodViewModel @Inject constructor(
     private val _state = MutableStateFlow(FoodState())
     override val state: StateFlow<FoodState> get() = _state
 
-    private var currentSelected: String? = null
+    private lateinit var currentSelected: FoodCategory
 
     init {
         viewModelScope.launch {
-            dispatchEvent(FoodUiEvent.OnCategorySelected(FoodCategory.RESTAURANT.title))
+            dispatchEvent(FoodUiEvent.OnCategorySelected(FoodCategory.RESTAURANT))
         }
     }
 
@@ -38,31 +37,35 @@ class FoodViewModel @Inject constructor(
         }
     }
 
-    private fun fetchOthers(type: String) {
-        if (currentSelected == type) return
+    private fun fetchOthers(type: FoodCategory) {
+        if (::currentSelected.isInitialized && currentSelected == type) return
         viewModelScope.launch {
-            handleResource(foodUseCase.getFoodOthersUseCase.invoke(type),
-                { FoodPartialState.OnOthersSuccess(it) },
+            handleResource(
+                foodUseCase.getFoodOthersUseCase.invoke(type.title),
+                { FoodPartialState.OnOthersSuccess(it, type) },
                 FoodPartialState.Loading,
                 { FoodPartialState.Error("") },
                 { _state.value = reducer.reduce(state.value, it) },
-                this)
+                this
+            )
         }
     }
 
-    private fun fetchRecommended(type: String) {
-        if (currentSelected == type) return
+    private fun fetchRecommended(type: FoodCategory) {
+        if (::currentSelected.isInitialized && currentSelected == type) return
         viewModelScope.launch {
-            handleResource(foodUseCase.getFoodRecommendedUseCase.invoke(type),
-                { FoodPartialState.OnRecommendedSuccess(it) },
+            handleResource(
+                foodUseCase.getFoodRecommendedUseCase.invoke(type.title),
+                { FoodPartialState.OnRecommendedSuccess(it, type) },
                 FoodPartialState.Loading,
                 { FoodPartialState.Error("") },
                 { _state.value = reducer.reduce(state.value, it) },
-                this)
+                this
+            )
         }
     }
 
-    private fun onCategorySelected(type: String) {
+    private fun onCategorySelected(type: FoodCategory) {
         viewModelScope.launch {
             fetchRecommended(type = type)
             fetchOthers(type = type)
@@ -84,11 +87,14 @@ data class FoodState(
 sealed class FoodPartialState {
     object Loading : FoodPartialState()
     data class Error(val message: String) : FoodPartialState()
-    data class OnRecommendedSuccess(val data: List<Food>) : FoodPartialState()
-    data class OnOthersSuccess(val data: List<Food>) : FoodPartialState()
+    data class OnRecommendedSuccess(val data: List<Food>, val currentCategory: FoodCategory) :
+        FoodPartialState()
+
+    data class OnOthersSuccess(val data: List<Food>, val currentCategory: FoodCategory) :
+        FoodPartialState()
 }
 
 @Keep
 sealed class FoodUiEvent {
-    data class OnCategorySelected(val type: String) : FoodUiEvent()
+    data class OnCategorySelected(val type: FoodCategory) : FoodUiEvent()
 }

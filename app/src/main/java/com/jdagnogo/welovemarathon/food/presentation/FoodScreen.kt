@@ -17,7 +17,7 @@ fun FoodScreen(
     val state by viewModel.state.collectAsState()
     FoodContent(state,
         onCategorySelected = {
-            viewModel.dispatchEvent(FoodUiEvent.OnCategorySelected(type = it.title))
+            viewModel.dispatchEvent(FoodUiEvent.OnCategorySelected(type = it))
         },
         modifier = modifier)
 }
