@@ -29,6 +29,8 @@ import com.jdagnogo.welovemarathon.beach.domain.Beach
 import com.jdagnogo.welovemarathon.beach.domain.PrivateBeach
 import com.jdagnogo.welovemarathon.beach.domain.toFakeList
 import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
+import com.jdagnogo.welovemarathon.common.ui.theme.Primary
+import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import com.jdagnogo.welovemarathon.common.utils.redirectToLink
 
 @Composable
@@ -76,7 +78,7 @@ fun BeachDetailsComponent(
                     val (
                         name,
                         location,
-                        locationIcon, descriptionTitle,
+                        locationIcon, privateBeachImageTitle,
                         privateBeachTitle, privateBeach,
                         description,
                     ) = createRefs()
@@ -92,7 +94,7 @@ fun BeachDetailsComponent(
                     )
                     Image(
                         painter = rememberImagePainter(
-                            data = R.drawable.ic_location,
+                            data = R.drawable.location,
                         ),
                         contentDescription = beach.name,
                         modifier = Modifier
@@ -113,34 +115,37 @@ fun BeachDetailsComponent(
                                 start.linkTo(locationIcon.end, 8.dp)
                             }
                     )
-                    TitleComponent(
-                        title = "Description",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp)
-                            .constrainAs(descriptionTitle) {
-                                top.linkTo(locationIcon.bottom, 16.dp)
-                                start.linkTo(parent.start)
-                                end.linkTo(parent.end)
-                            }
-                    )
                     Text(
                         text = beach.description,
                         modifier = Modifier
                             .constrainAs(description) {
-                                top.linkTo(descriptionTitle.bottom)
+                                top.linkTo(location.bottom, 24.dp)
                                 start.linkTo(parent.start)
                                 end.linkTo(parent.end)
                             }
                     )
-                    TitleComponent(
-                        title = "Private beaches",
+                    Image(
+                        painter = rememberImagePainter(
+                            data = R.drawable.beach_bar,
+                        ),
+                        contentDescription = beach.image,
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .constrainAs(privateBeachTitle) {
-                                top.linkTo(description.bottom, 16.dp)
+                            .size(32.dp)
+                            .constrainAs(privateBeachImageTitle) {
+                                top.linkTo(description.bottom, 24.dp)
                                 start.linkTo(parent.start)
-                                end.linkTo(parent.end)
+                            }
+                    )
+
+                    Text(
+                        text = "Beach bars",
+                        style = MaterialTheme.typography.h6,
+                        modifier = Modifier
+                            .constrainAs(privateBeachTitle) {
+                                top.linkTo(privateBeachImageTitle.top)
+                                start.linkTo(privateBeachImageTitle.end, 16.dp)
+                                bottom.linkTo(privateBeachImageTitle.bottom)
+
                             }
                     )
                     if (privateBeaches.isNotEmpty()) {
@@ -149,7 +154,7 @@ fun BeachDetailsComponent(
                             modifier = Modifier
                                 .background(Color.White)
                                 .constrainAs(privateBeach) {
-                                    top.linkTo(privateBeachTitle.bottom)
+                                    top.linkTo(privateBeachImageTitle.bottom)
                                     start.linkTo(parent.start)
                                     end.linkTo(parent.end)
                                 })

@@ -1,5 +1,6 @@
 package com.jdagnogo.welovemarathon.beach.presentation
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -15,19 +16,18 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @Composable
 fun BeachDetailsScreen(
     viewModel: BeachViewModel,
-    beachId: String?,
+    currentPage: Int,
     modifier: Modifier = Modifier,
 ) {
     val state by viewModel.state.collectAsState()
     val scope = rememberCoroutineScope()
-    if (state.privateBeaches.isEmpty()) {
-        viewModel.dispatchEvent(BeachUiEvent.FetchPrivatesBeaches(beachId ?: ""))
-    }
+    viewModel.dispatchEvent(BeachUiEvent.ScrollTo(currentPage))
     BeachDetailsContent(state,
         pagerState = viewModel.pagerState,
         scope = scope,
         onBeachSelected = {
             viewModel.dispatchEvent(BeachUiEvent.FetchPrivatesBeaches(it))
+            viewModel.shouldRedirect = false
         },
         modifier = modifier)
 }

@@ -1,7 +1,16 @@
 package com.jdagnogo.welovemarathon.shopping.presentation
 
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
@@ -21,6 +30,7 @@ import androidx.constraintlayout.compose.Dimension
 import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.component.DividerComponent
+import com.jdagnogo.welovemarathon.common.ui.theme.Primary
 import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryDark
 import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import com.jdagnogo.welovemarathon.shopping.domain.ShoppingCategories
@@ -41,9 +51,11 @@ fun ShoppingCategoryComponent(
             .width(100.dp)) {
 
         itemsIndexed(categories) { index, shoppingCategory ->
-            ShoppingCategoriesItem(isSelected = index == currentSelected,
+            ShoppingCategoriesItem(
+                isSelected = index == currentSelected,
                 shoppingCategories = shoppingCategory,
-                onCategoryClicked)
+                onCategoryClicked
+            )
         }
     }
 }
@@ -73,7 +85,7 @@ fun ShoppingCategoriesItem(
                 .size(80.dp.takeIf { isSelected } ?: 60.dp)
                 .clip(CircleShape)
                 .background(Color.White)
-                .border(4.dp.takeIf { isSelected }?:2.dp, PrimaryDark, CircleShape)
+                .border(4.dp.takeIf { isSelected } ?: 2.dp, PrimaryDark, CircleShape)
                 .constrainAs(image) {
                     top.linkTo(parent.top)
                     linkTo(parent.start, parent.end)
@@ -83,7 +95,8 @@ fun ShoppingCategoriesItem(
         Text(
             text = shoppingCategories.name,
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.subtitle1.takeIf { isSelected }?:MaterialTheme.typography.caption,
+            style = MaterialTheme.typography.subtitle1.takeIf { isSelected }
+                ?: MaterialTheme.typography.caption,
             modifier = Modifier
                 .constrainAs(title) {
                     linkTo(parent.start, parent.end)

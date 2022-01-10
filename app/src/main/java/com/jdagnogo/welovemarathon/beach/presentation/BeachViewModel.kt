@@ -14,7 +14,12 @@ import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.common.utils.handleResource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,6 +33,7 @@ class BeachViewModel @Inject constructor(
 ) : ViewModel(), IModel<BeachState, BeachUiEvent> {
     private val _state = MutableStateFlow(BeachState())
     override val state: StateFlow<BeachState> get() = _state
+    var shouldRedirect = true
 
     init {
         dispatchEvent(BeachUiEvent.FetchBeaches)
@@ -36,7 +42,17 @@ class BeachViewModel @Inject constructor(
                 dispatchEvent(
                     BeachUiEvent.FetchPrivatesBeaches(
                         state.value.beaches.getOrNull(page)?.id ?: ""
-                    ))
+                    )
+                )
+            }
+        }
+    }
+
+    fun setPage(currentPage: Int) {
+        if (shouldRedirect){
+            viewModelScope.launch {
+                delay(1000)
+                pagerState.scrollToPage(currentPage, 0f)
             }
         }
     }
@@ -48,6 +64,9 @@ class BeachViewModel @Inject constructor(
             }
             is BeachUiEvent.FetchPrivatesBeaches -> {
                 fetchPrivateBeaches(parentId = event.parentId)
+            }
+            is BeachUiEvent.ScrollTo -> {
+                setPage(event.page)
             }
         }
     }
@@ -70,12 +89,15 @@ class BeachViewModel @Inject constructor(
 
     private fun fetchPrivateBeaches(parentId: String) {
         viewModelScope.launch {
-            handleResource(beachesUseCase.getPrivateBeachesUseCase.invoke(parentId = parentId),
+            handleResource(
+                beachesUseCase.getPrivateBeachesUseCase.invoke(parentId = parentId),
                 { BeachPartialState.OnPrivateBeachSuccess(it) },
                 BeachPartialState.Loading,
                 { BeachPartialState.Error("") },
                 { _state.value = reducer.reduce(state.value, it) },
-                this)
+                this
+            )
+            shouldRedirect = false
         }
     }
 }
@@ -99,4 +121,5 @@ sealed class BeachPartialState {
 sealed class BeachUiEvent {
     object FetchBeaches : BeachUiEvent()
     data class FetchPrivatesBeaches(val parentId: String) : BeachUiEvent()
+    data class ScrollTo(val page: Int) : BeachUiEvent()
 }

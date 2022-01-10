@@ -26,13 +26,16 @@ fun HomeScreen(
         onActivitySelected = {
             when (it) {
                 0 -> {
-                    navController.navigate(MainDestinations.Shopping.route)
+                  //  navController.navigate(MainDestinations.Shopping.route)
                 }
                 1 -> {
                     navController.navigate(MainDestinations.Wine.route)
                 }
-                3 -> {
+                2 -> {
                     navController.navigate(MainDestinations.Sport.route)
+                }
+                3 ->{
+                    navController.navigate(MainDestinations.Shopping.route)
                 }
             }
         },

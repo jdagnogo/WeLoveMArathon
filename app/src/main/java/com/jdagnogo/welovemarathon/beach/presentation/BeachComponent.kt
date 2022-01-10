@@ -3,7 +3,11 @@ package com.jdagnogo.welovemarathon.beach.presentation
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.MaterialTheme
@@ -25,13 +29,16 @@ import com.jdagnogo.welovemarathon.common.ui.component.DividerComponent
 @Composable
 fun BeachItem(
     beach: Beach,
-    onBeachSelected: (String) -> Unit,
+    position: Int,
+    onBeachSelected: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     ConstraintLayout(modifier = modifier
         .fillMaxSize()
         .padding(bottom = 24.dp)
-        .clickable { onBeachSelected(beach.id) }) {
+        .clickable {
+            onBeachSelected(position)
+        }) {
         val (image, title, divider) = createRefs()
         Image(
             painter = rememberImagePainter(
@@ -69,20 +76,21 @@ fun BeachItem(
                     width = Dimension.fillToConstraints
                 }
         )
-        DividerComponent(Modifier
-            .padding(top = 8.dp, start = 24.dp, end = 24.dp)
-            .constrainAs(divider) {
-                top.linkTo(title.bottom)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            })
+        DividerComponent(
+            Modifier
+                .padding(top = 8.dp, start = 24.dp, end = 24.dp)
+                .constrainAs(divider) {
+                    top.linkTo(title.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                })
     }
 }
 
-fun beachList(beaches: List<Beach>, onBeachSelected: (String) -> Unit, scope: LazyListScope) {
+fun beachList(beaches: List<Beach>, onBeachSelected: (Int) -> Unit, scope: LazyListScope) {
     with(scope) {
-        itemsIndexed(beaches) { _, beach ->
-            BeachItem(beach = beach, onBeachSelected)
+        itemsIndexed(beaches) { currentPage, beach ->
+            BeachItem(beach = beach, currentPage, onBeachSelected)
         }
     }
 }
@@ -93,6 +101,6 @@ fun beachList(beaches: List<Beach>, onBeachSelected: (String) -> Unit, scope: La
 fun BeachComponentPreview() {
     val data = Beach().toFakeList()
     MaterialTheme {
-        BeachItem(beach = data.first(), {})
+        BeachItem(beach = data.first(), 0, {})
     }
 }

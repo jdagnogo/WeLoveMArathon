@@ -22,8 +22,11 @@ import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.domain.RightMenuData
 import com.jdagnogo.welovemarathon.common.domain.toFakeList
+import com.jdagnogo.welovemarathon.common.ui.theme.Primary
 import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryDark
 import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
+import com.jdagnogo.welovemarathon.common.ui.theme.SecondaryDark
+import com.jdagnogo.welovemarathon.common.ui.theme.SecondaryLight
 
 @Composable
 fun RightMenuComponent(
@@ -37,7 +40,7 @@ fun RightMenuComponent(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .fillMaxHeight()
-            .background(Secondary)
+            .background(SecondaryDark)
             .width(100.dp)) {
 
         itemsIndexed(categories) { index, category ->
@@ -55,7 +58,7 @@ fun RightMenuItem(
     onCategoryClicked: (String) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
-    ConstraintLayout(modifier = modifier
+    ConstraintLayout(modifier = modifier.fillMaxSize()
         .clickable {
             onCategoryClicked(rightMenuData.name)
         }) {
@@ -73,7 +76,7 @@ fun RightMenuItem(
                 .size(80.dp.takeIf { isSelected } ?: 60.dp)
                 .clip(CircleShape)
                 .background(Color.White)
-                .border(4.dp.takeIf { isSelected } ?: 2.dp, PrimaryDark, CircleShape)
+                .border(4.dp.takeIf { isSelected } ?: 0.dp, Primary, CircleShape)
                 .constrainAs(image) {
                     top.linkTo(parent.top)
                     linkTo(parent.start, parent.end)
@@ -83,6 +86,8 @@ fun RightMenuItem(
         Text(
             text = rightMenuData.name,
             textAlign = TextAlign.Center,
+            color = Primary.takeIf { isSelected }
+                ?: PrimaryDark,
             style = MaterialTheme.typography.subtitle1.takeIf { isSelected }
                 ?: MaterialTheme.typography.caption,
             modifier = Modifier
@@ -92,10 +97,6 @@ fun RightMenuItem(
                     width = Dimension.fillToConstraints
                 }
         )
-        DividerComponent(modifier = Modifier.constrainAs(divider) {
-            top.linkTo(title.bottom, 8.dp)
-            linkTo(parent.start, parent.end)
-        })
     }
 }
 

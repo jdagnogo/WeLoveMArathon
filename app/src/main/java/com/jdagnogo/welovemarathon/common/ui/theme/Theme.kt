@@ -51,7 +51,7 @@ val DarkColorCustomPalette: @Composable () -> WLMColors by lazy {
         parseConfigCustomPalette(
             gradient = listOf(Primary, White, PrimaryDark, White),
             gradientVariant = listOf(Primary, White, PrimaryDark, White),
-            White, Neutral3, contentBackground = ContentBackgroundDark, isLight = false)
+            White, PrimaryDark, contentBackground = ContentBackgroundDark, isLight = false)
     }
 }
 
@@ -60,7 +60,7 @@ val LightColorCustomPalette: @Composable () -> WLMColors by lazy {
         parseConfigCustomPalette(
             gradient = listOf(Primary, White, PrimaryDark, White),
             gradientVariant = listOf(Primary, White, PrimaryDark, White),
-            Black, Neutral4, contentBackground = ContentBackgroundLight, isLight = true)
+            Black, PrimaryDark, contentBackground = ContentBackgroundLight, isLight = true)
     }
 }
 

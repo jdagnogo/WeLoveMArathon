@@ -42,12 +42,12 @@ fun NavGraphBuilder.wlmNavGraph(navController: NavController) {
     }
 
     composable(MainDestinations.Beaches.route,
-        arguments = listOf(navArgument("id") { type = NavType.StringType }))
+        arguments = listOf(navArgument("currentPage") { type = NavType.IntType }))
     { backStackEntry ->
         val arguments = requireNotNull(backStackEntry.arguments)
         val viewModel = hiltViewModel<BeachViewModel>()
-        val beachId = arguments.getString("id")
-        BeachDetailsScreen(viewModel = viewModel, beachId = beachId)
+        val page = arguments.getInt("currentPage")
+        BeachDetailsScreen(viewModel = viewModel, currentPage = page)
     }
 
     composable(MainDestinations.Shopping.route) {
@@ -113,7 +113,7 @@ sealed class MainDestinations(val route: String) {
     object Shopping : MainDestinations("shopping")
     object Sport : MainDestinations("sport")
     object Wine : MainDestinations("wine")
-    object Beaches : MainDestinations("beaches/{id}") {
-        fun createRoute(id: String) = "beaches/$id"
+    object Beaches : MainDestinations("beaches/{currentPage}") {
+        fun createRoute(currentPage: Int) = "beaches/$currentPage"
     }
 }

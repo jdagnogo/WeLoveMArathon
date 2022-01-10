@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jdagnogo.welovemarathon.beach.presentation.beachList
 import com.jdagnogo.welovemarathon.common.banner.GifBannerComponent
+import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
 import com.jdagnogo.welovemarathon.common.ui.component.TitleIconComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 
@@ -28,7 +29,7 @@ import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 fun HomeContent(
     state: HomeState,
     onActivitySelected: (Int) -> Unit,
-    onBeachSelected: (String) -> Unit,
+    onBeachSelected: (Int) -> Unit,
     modifier: Modifier,
 ) {
     Surface(modifier = modifier.fillMaxSize()) {
@@ -48,8 +49,7 @@ fun HomeContent(
                         onActivitySelected,
                         modifier = Modifier)
 
-                    TitleIconComponent(title = "Beaches",
-                        onClick = { onBeachSelected("aaaaIZX8LAR0YAlSIxjwbjV0") },
+                    TitleComponent(title = "Beaches",
                         modifier = Modifier.padding(start = 16.dp, bottom = 16.dp, end = 16.dp))
                 }
             }

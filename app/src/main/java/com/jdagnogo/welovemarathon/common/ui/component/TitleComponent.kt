@@ -14,6 +14,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryDark
 
 @Composable
 fun TitleComponent(title: String, alignRight: Boolean = false, modifier: Modifier) {
@@ -21,7 +22,7 @@ fun TitleComponent(title: String, alignRight: Boolean = false, modifier: Modifie
         Text(text = title,
             fontSize = 20.sp,
             fontStyle = FontStyle.Italic,
-            color = Color.Black,
+            color = PrimaryDark,
             modifier = Modifier.padding(start = 16.dp, end = 16.dp)
                 .align(
                     Alignment.TopEnd.takeIf { alignRight } ?: Alignment.TopStart)
