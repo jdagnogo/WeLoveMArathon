@@ -10,17 +10,21 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.FontWeight.Companion.W300
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.domain.SimpleListItem
 import com.jdagnogo.welovemarathon.common.domain.fakeList
+import com.jdagnogo.welovemarathon.common.ui.theme.ContentBackgroundDark
+import com.jdagnogo.welovemarathon.common.ui.theme.Neutral4
 import com.jdagnogo.welovemarathon.common.utils.redirectToLink
 import com.jdagnogo.welovemarathon.common.utils.redirectToPhone
-
 
 @Composable
 fun SimpleListComponent(
@@ -31,21 +35,31 @@ fun SimpleListComponent(
     val context = LocalContext.current
     DividerComponent()
 
-    Text(text = item.name, modifier = Modifier.padding(top = 8.dp))
+    Text(
+        text = item.name,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 16.sp,
+        color = Color.Black,
+        modifier = Modifier.padding(top = 8.dp)
+    )
 
-    ContactComponent(icon = R.drawable.ic_location,
+    ContactComponent(
+        icon = R.drawable.location,
         textSize = 12.sp,
         iconSize = 24.dp,
         onClicked = { redirectToLink(uriHandler, item.locationLink) },
-        text = item.location, modifier = Modifier.padding(top = 16.dp))
+        text = item.location, modifier = Modifier.padding(top = 16.dp)
+    )
 
-    ContactComponent(icon = R.drawable.ic_phone,
+    ContactComponent(
+        icon = R.drawable.ic_phone,
         textSize = 12.sp,
         iconSize = 24.dp,
         onClicked = {
             redirectToPhone(context, item.number)
         },
-        text = item.number, modifier = Modifier.padding(top = 16.dp))
+        text = item.number, modifier = Modifier.padding(top = 16.dp)
+    )
 }
 
 fun simpleListComponent(
@@ -65,8 +79,10 @@ fun simpleListComponent(
 @Composable
 fun SimpleListComponentPreview() {
     MaterialTheme {
-        LazyColumn(modifier = Modifier
-            .fillMaxWidth()) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
             simpleListComponent(SimpleListItem().fakeList(), this)
         }
     }

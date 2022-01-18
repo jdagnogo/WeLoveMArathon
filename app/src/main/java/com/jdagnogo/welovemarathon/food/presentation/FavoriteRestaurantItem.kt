@@ -68,7 +68,7 @@ fun RestaurantItem(food: Food, modifier: Modifier = Modifier) {
 
                 Image(
                     painter = rememberImagePainter(
-                        data = R.drawable.ic_location,
+                        data = R.drawable.location,
                         builder = {
                             crossfade(true)
                             error(R.drawable.food)

@@ -14,10 +14,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.pager.*
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.jdagnogo.welovemarathon.beach.domain.Beach
 import com.jdagnogo.welovemarathon.beach.domain.toFakeList
+import com.jdagnogo.welovemarathon.common.ui.theme.Primary
 import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryDark
 import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
+import com.jdagnogo.welovemarathon.common.ui.theme.SecondaryDark
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -39,10 +42,10 @@ fun BeachDetailsContent(
             .statusBarsPadding()
             .fillMaxWidth()
             .background(WeLoveMarathonTheme.colors.contentBackground)) {
-            TabRow(
+            ScrollableTabRow(
                 selectedTabIndex = pagerState.currentPage,
-                backgroundColor = Secondary,
-                contentColor = PrimaryDark,
+                backgroundColor = SecondaryDark,
+                contentColor = Primary,
                 indicator = { tabPositions ->
                     TabRowDefaults.Indicator(
                         Modifier.pagerTabIndicatorOffset(pagerState, tabPositions)
@@ -52,7 +55,7 @@ fun BeachDetailsContent(
                 // Add tabs for all of our pages
                 beaches.forEachIndexed { index, beach ->
                     Tab(
-                        text = { Text(beach.name, maxLines = 1, color = Color.Black) },
+                        text = { Text(beach.name, maxLines = 1, color = Color.White) },
                         selected = pagerState.currentPage == index,
                         onClick = {
                             scope.launch {

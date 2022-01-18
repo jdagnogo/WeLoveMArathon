@@ -10,18 +10,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
 
 val Primary = Color(0xFFE0B3A6)
-val PrimaryLight = Color(0xFFC5EFE6)
-val PrimaryDark = Color(0xFFAC897E)
+val PrimaryLight = Color(0xFFFFE5D7)
+val PrimaryDark = Color(0xFFAD8377)
 val Secondary = Color(0xFF95B3C4)
-val SecondaryLight = Color(0xFFBEDED7)
-val SecondaryDark = Color(0xFF364A55)
+val SecondaryLight = Color(0xFFC6E5F7)
+val SecondaryDark = Color(0xFF668394)
 val Black = Color(0xFF000000)
 val White = Color(0xFFFAFAFA)
 val Neutral4 = Color(0x4D000000)
 val Neutral3 = Color(0x1fffffff)
 val Background = Color(0xE1E1E1)
 val BackgroundLight = Secondary
-val ContentBackgroundLight = Color(0xFFF1F0F0)
+val ContentBackgroundLight = SecondaryLight
 val ContentBackgroundDark = Color(0xFF161616)
 
 class WLMColors(

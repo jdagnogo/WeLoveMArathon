@@ -24,6 +24,7 @@ import com.jdagnogo.welovemarathon.common.domain.RightMenuData
 import com.jdagnogo.welovemarathon.common.domain.toFakeList
 import com.jdagnogo.welovemarathon.common.ui.theme.Primary
 import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryDark
+import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryLight
 import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import com.jdagnogo.welovemarathon.common.ui.theme.SecondaryDark
 import com.jdagnogo.welovemarathon.common.ui.theme.SecondaryLight
@@ -76,7 +77,7 @@ fun RightMenuItem(
                 .size(80.dp.takeIf { isSelected } ?: 60.dp)
                 .clip(CircleShape)
                 .background(Color.White)
-                .border(4.dp.takeIf { isSelected } ?: 0.dp, Primary, CircleShape)
+                .border(4.dp.takeIf { isSelected } ?: 0.dp, PrimaryLight, CircleShape)
                 .constrainAs(image) {
                     top.linkTo(parent.top)
                     linkTo(parent.start, parent.end)
@@ -86,8 +87,8 @@ fun RightMenuItem(
         Text(
             text = rightMenuData.name,
             textAlign = TextAlign.Center,
-            color = Primary.takeIf { isSelected }
-                ?: PrimaryDark,
+            color = PrimaryLight.takeIf { isSelected }
+                ?: Primary,
             style = MaterialTheme.typography.subtitle1.takeIf { isSelected }
                 ?: MaterialTheme.typography.caption,
             modifier = Modifier

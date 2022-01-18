@@ -20,9 +20,8 @@ import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryDark
 fun TitleComponent(title: String, alignRight: Boolean = false, modifier: Modifier) {
     Box(modifier = modifier) {
         Text(text = title,
-            fontSize = 20.sp,
-            fontStyle = FontStyle.Italic,
-            color = PrimaryDark,
+            style = MaterialTheme.typography.h6,
+            color = Color.Black,
             modifier = Modifier.padding(start = 16.dp, end = 16.dp)
                 .align(
                     Alignment.TopEnd.takeIf { alignRight } ?: Alignment.TopStart)

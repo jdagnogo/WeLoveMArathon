@@ -100,7 +100,7 @@ enum class HomeSections(
     val icon: Int,
     val route: String,
 ) {
-    HOME(R.drawable.ic_home, "home/activities"),
+    HOME(R.drawable.ic_wlm_logo, "home/activities"),
     FOOD(R.drawable.ic_food, "home/food"),
     TIPS(R.drawable.ic_tips, "home/tips"),
     RUN(R.drawable.ic_marathon, "home/run"),

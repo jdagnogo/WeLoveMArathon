@@ -2,7 +2,13 @@ package com.jdagnogo.welovemarathon.home.presentation
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -32,17 +38,21 @@ fun HomeTopBarContent(hasError: Boolean = false, modifier: Modifier) {
             if (hasError) {
                 ErrorComponent()
             }
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.CenterVertically)) {
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.CenterVertically)
+            ) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_wlm_logo),
                     contentDescription = "",
                     modifier = Modifier
-                        .height(60.dp)
-                        .width(60.dp)
+                        .height(50.dp)
+                        .width(50.dp)
                 )
-                Text(text = "We Love Marathon ! ",
+                Text(
+                    text = "We Love Marathon",
                     color = Color.Black,
                     style = MaterialTheme.typography.h6,
                     modifier = Modifier
