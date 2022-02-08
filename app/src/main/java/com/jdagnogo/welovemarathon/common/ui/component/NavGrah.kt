@@ -6,8 +6,12 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.*
+import androidx.navigation.NavController
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import androidx.navigation.navigation
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.beach.presentation.BeachDetailsScreen
@@ -42,7 +46,8 @@ fun NavGraphBuilder.wlmNavGraph(navController: NavController) {
     }
 
     composable(MainDestinations.Beaches.route,
-        arguments = listOf(navArgument("currentPage") { type = NavType.IntType }))
+        arguments = listOf(navArgument("currentPage") { type = NavType.IntType })
+    )
     { backStackEntry ->
         val arguments = requireNotNull(backStackEntry.arguments)
         val viewModel = hiltViewModel<BeachViewModel>()
@@ -75,7 +80,7 @@ fun NavGraphBuilder.homeGraph(
         val viewModel = hiltViewModel<HomeViewModel>()
         HomeScreen(viewModel, navController, modifier)
     }
-    composable(HomeSections.FOOD.route) {
+    composable(HomeSections.FAVS.route) {
         val viewModel = hiltViewModel<FoodViewModel>()
         FoodScreen(viewModel = viewModel, modifier)
     }
@@ -87,7 +92,7 @@ fun NavGraphBuilder.homeGraph(
         val viewModel = hiltViewModel<RunViewModel>()
         RunScreen(viewModel, modifier)
     }
-    composable(HomeSections.FAVORITES.route) {
+    composable(HomeSections.ABOUT.route) {
         FavoritesScreen(modifier)
     }
 }
@@ -97,14 +102,15 @@ fun NavGraphBuilder.homeGraph(
  */
 
 enum class HomeSections(
+    val title: String,
     val icon: Int,
     val route: String,
 ) {
-    HOME(R.drawable.ic_wlm_logo, "home/activities"),
-    FOOD(R.drawable.ic_food, "home/food"),
-    TIPS(R.drawable.ic_tips, "home/tips"),
-    RUN(R.drawable.ic_marathon, "home/run"),
-    FAVORITES(R.drawable.ic_favorites, "home/favorites")
+    HOME("Home", R.drawable.ic_wlm_logo, "home/activities"),
+    TIPS("Tips", R.drawable.ic_tips, "home/tips"),
+    FAVS("Favs", R.drawable.ic_food, "home/favorites"),
+    RUN("Home", R.drawable.ic_marathon, "home/run"),
+    ABOUT("About", R.drawable.ic_favorites, "home/food")
 }
 
 @Keep

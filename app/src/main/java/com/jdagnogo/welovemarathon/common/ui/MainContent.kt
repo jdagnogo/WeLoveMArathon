@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.jdagnogo.welovemarathon.common.ui.component.BottomBar
+import com.jdagnogo.welovemarathon.common.ui.component.bottombar.BottomBar
 import com.jdagnogo.welovemarathon.common.ui.component.MainDestinations
 import com.jdagnogo.welovemarathon.common.ui.component.WLMScaffold
 import com.jdagnogo.welovemarathon.common.ui.component.wlmNavGraph

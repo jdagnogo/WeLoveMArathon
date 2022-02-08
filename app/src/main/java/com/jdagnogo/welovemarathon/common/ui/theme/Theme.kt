@@ -23,7 +23,7 @@ fun WeLoveMarathonTheme(
     val sysUiController = rememberSystemUiController()
     SideEffect {
         sysUiController.setSystemBarsColor(
-            color = colors.background
+            color = SystemBarColors
         )
     }
 

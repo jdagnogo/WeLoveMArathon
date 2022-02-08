@@ -33,3 +33,9 @@ val Typography = Typography(
     )
     */
 )
+
+val BottomNavTitleStyle = TextStyle(
+    fontFamily = FontFamily.Default,
+    fontWeight = FontWeight.Normal,
+    fontSize = 14.sp
+)

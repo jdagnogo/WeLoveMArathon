@@ -8,13 +8,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
-
-val Primary = Color(0xFFE0B3A6)
-val PrimaryLight = Color(0xFFFFE5D7)
-val PrimaryDark = Color(0xFFAD8377)
-val Secondary = Color(0xFF95B3C4)
-val SecondaryLight = Color(0xFFC6E5F7)
-val SecondaryDark = Color(0xFF668394)
+val SystemBarColors = Color(0xFFFFFFFF)
+val BottomMenuBackground = Color(0xFFFFFFFF)
+val Transparent = Color(0xff0080)
+val Primary = Color(0xFF3D4962)
+val PrimaryLight = Color(0xFF697490)
+val PrimaryDark = Color(0xFF142238)
+val Secondary = Color(0xFFFF9EA5)
+val SecondaryLight = Color(0xFFFFD0D6)
+val SecondaryDark = Color(0xFFCA6E76)
 val Black = Color(0xFF000000)
 val White = Color(0xFFFAFAFA)
 val Neutral4 = Color(0x4D000000)
