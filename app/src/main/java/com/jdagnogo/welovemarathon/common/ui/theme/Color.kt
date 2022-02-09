@@ -22,8 +22,8 @@ val White = Color(0xFFFAFAFA)
 val Neutral4 = Color(0x4D000000)
 val Neutral3 = Color(0x1fffffff)
 val Background = Color(0xE1E1E1)
-val BackgroundLight = Secondary
-val ContentBackgroundLight = SecondaryLight
+val BackgroundLight = Primary
+val ContentBackgroundLight = Primary
 val ContentBackgroundDark = Color(0xFF161616)
 
 class WLMColors(

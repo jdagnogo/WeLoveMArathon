@@ -5,6 +5,7 @@ import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
@@ -26,13 +27,14 @@ fun WeLoveMarathonTheme(
             color = SystemBarColors
         )
     }
-
-    MaterialTheme(
-        colors = colors,
-        typography = Typography,
-        shapes = Shapes,
-        content = content
-    )
+    CompositionLocalProvider(LocalSpacing provides Spacing()) {
+        MaterialTheme(
+            colors = colors,
+            typography = Typography,
+            shapes = Shapes,
+            content = content
+        )
+    }
 }
 
 private val DarkColorPalette = darkColors(
@@ -51,7 +53,8 @@ val DarkColorCustomPalette: @Composable () -> WLMColors by lazy {
         parseConfigCustomPalette(
             gradient = listOf(Primary, White, PrimaryDark, White),
             gradientVariant = listOf(Primary, White, PrimaryDark, White),
-            White, PrimaryDark, contentBackground = ContentBackgroundDark, isLight = false)
+            White, PrimaryDark, contentBackground = ContentBackgroundDark, isLight = false
+        )
     }
 }
 
@@ -60,7 +63,8 @@ val LightColorCustomPalette: @Composable () -> WLMColors by lazy {
         parseConfigCustomPalette(
             gradient = listOf(Primary, White, PrimaryDark, White),
             gradientVariant = listOf(Primary, White, PrimaryDark, White),
-            Black, PrimaryDark, contentBackground = ContentBackgroundLight, isLight = true)
+            Black, PrimaryDark, contentBackground = ContentBackgroundLight, isLight = true
+        )
     }
 }
 
