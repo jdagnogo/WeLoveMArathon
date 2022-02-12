@@ -4,18 +4,22 @@ import androidx.annotation.Keep
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.beach.presentation.BeachDetailsScreen
 import com.jdagnogo.welovemarathon.beach.presentation.BeachViewModel
+import com.jdagnogo.welovemarathon.common.ui.MenuContent
 import com.jdagnogo.welovemarathon.favorites.FavoritesScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodViewModel
@@ -25,12 +29,35 @@ import com.jdagnogo.welovemarathon.run.presentation.RunScreen
 import com.jdagnogo.welovemarathon.run.presentation.RunViewModel
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingScreen
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingViewModel
+import com.jdagnogo.welovemarathon.splash.SplashScreen
 import com.jdagnogo.welovemarathon.sport.presentation.SportScreen
 import com.jdagnogo.welovemarathon.sport.presentation.SportViewModel
 import com.jdagnogo.welovemarathon.tips.presentation.TipsScreen
 import com.jdagnogo.welovemarathon.tips.presentation.TipsViewModel
 import com.jdagnogo.welovemarathon.wine.presentation.WineScreen
 import kotlinx.coroutines.InternalCoroutinesApi
+
+@InternalCoroutinesApi
+@ExperimentalMaterialApi
+@ExperimentalPagerApi
+@ExperimentalFoundationApi
+@ExperimentalAnimationApi
+@Composable
+fun NavGraph() {
+    val navController = rememberNavController()
+    NavHost(
+        navController = navController,
+        startDestination = GlobalDestinations.SplashScreen.route
+    ) {
+        composable(GlobalDestinations.SplashScreen.route) {
+            SplashScreen(navController = navController)
+        }
+
+        composable(GlobalDestinations.MainScreen.route) {
+            MenuContent()
+        }
+    }
+}
 
 @InternalCoroutinesApi
 @ExperimentalMaterialApi
@@ -45,7 +72,8 @@ fun NavGraphBuilder.wlmNavGraph(navController: NavController) {
         homeGraph(navController = navController)
     }
 
-    composable(MainDestinations.Beaches.route,
+    composable(
+        MainDestinations.Beaches.route,
         arguments = listOf(navArgument("currentPage") { type = NavType.IntType })
     )
     { backStackEntry ->
@@ -122,4 +150,9 @@ sealed class MainDestinations(val route: String) {
     object Beaches : MainDestinations("beaches/{currentPage}") {
         fun createRoute(currentPage: Int) = "beaches/$currentPage"
     }
+}
+
+sealed class GlobalDestinations(val route: String) {
+    object SplashScreen : MainDestinations("splash_screen")
+    object MainScreen : MainDestinations("main_screen")
 }

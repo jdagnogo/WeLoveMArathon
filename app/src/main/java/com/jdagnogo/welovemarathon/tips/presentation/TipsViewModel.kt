@@ -3,7 +3,7 @@ package com.jdagnogo.welovemarathon.tips.presentation
 import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jdagnogo.welovemarathon.common.ui.IModel
+import com.jdagnogo.welovemarathon.common.utils.IModel
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.tips.domain.GetTipsUseCase
 import com.jdagnogo.welovemarathon.tips.domain.Tips

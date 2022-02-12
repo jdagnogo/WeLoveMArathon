@@ -1,6 +1,6 @@
 package com.jdagnogo.welovemarathon.run.presentation
 
-import com.jdagnogo.welovemarathon.common.ui.IReducer
+import com.jdagnogo.welovemarathon.common.utils.IReducer
 
 class RunReducer : IReducer<RunState, RunPartialState> {
     override fun reduce(state: RunState, partialState: RunPartialState): RunState {

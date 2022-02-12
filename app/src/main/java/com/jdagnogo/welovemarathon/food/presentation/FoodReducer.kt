@@ -1,6 +1,6 @@
 package com.jdagnogo.welovemarathon.food.presentation
 
-import com.jdagnogo.welovemarathon.common.ui.IReducer
+import com.jdagnogo.welovemarathon.common.utils.IReducer
 
 class FoodReducer : IReducer<FoodState, FoodPartialState> {
     override fun reduce(state: FoodState, partialState: FoodPartialState): FoodState {

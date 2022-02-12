@@ -1,6 +1,6 @@
 package com.jdagnogo.welovemarathon.beach.presentation
 
-import com.jdagnogo.welovemarathon.common.ui.IReducer
+import com.jdagnogo.welovemarathon.common.utils.IReducer
 
 class BeachReducer : IReducer<BeachState, BeachPartialState> {
     override fun reduce(state: BeachState, partialState: BeachPartialState): BeachState {

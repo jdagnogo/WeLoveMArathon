@@ -1,6 +1,6 @@
 package com.jdagnogo.welovemarathon.home.presentation
 
-import com.jdagnogo.welovemarathon.common.ui.IReducer
+import com.jdagnogo.welovemarathon.common.utils.IReducer
 
 class HomeReducer : IReducer<HomeState, HomePartialState> {
     override fun reduce(state: HomeState, partialState: HomePartialState): HomeState {

@@ -1,6 +1,6 @@
 package com.jdagnogo.welovemarathon.tips.presentation
 
-import com.jdagnogo.welovemarathon.common.ui.IReducer
+import com.jdagnogo.welovemarathon.common.utils.IReducer
 
 class TipsReducer : IReducer<TipsState, TipsPartialState> {
     override fun reduce(state: TipsState, partialState: TipsPartialState): TipsState {

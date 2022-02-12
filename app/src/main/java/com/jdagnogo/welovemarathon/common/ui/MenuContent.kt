@@ -3,19 +3,21 @@ package com.jdagnogo.welovemarathon.common.ui
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material.AlertDialog
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
-import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.jdagnogo.welovemarathon.common.ui.component.bottombar.BottomBar
 import com.jdagnogo.welovemarathon.common.ui.component.MainDestinations
 import com.jdagnogo.welovemarathon.common.ui.component.WLMScaffold
+import com.jdagnogo.welovemarathon.common.ui.component.bottombar.BottomBar
 import com.jdagnogo.welovemarathon.common.ui.component.wlmNavGraph
-import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @InternalCoroutinesApi
@@ -24,33 +26,29 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
 @Composable
-fun MainContent() {
-    WeLoveMarathonTheme {
-        ProvideWindowInsets {
-            val appState = rememberAppState()
-            WLMScaffold(
-                bottomBar = {
-                    if (appState.shouldShowBottomBar) {
-                        BottomBar(
-                            tabs = appState.bottomBarTabs,
-                            currentRoute = appState.currentRoute!!,
-                            navigateToRoute = appState::navigateToBottomBarRoute
-                        )
-                    }
-                },
-                scaffoldState = appState.scaffoldState
-            ) { innerPaddingModifier ->
-                if (!appState.isOnline) {
-                    OfflineDialog()
-                }
-                NavHost(
-                    navController = appState.navController,
-                    startDestination = MainDestinations.Home.route,
-                    modifier = Modifier.padding(innerPaddingModifier)
-                ) {
-                    wlmNavGraph(navController = appState.navController)
-                }
+fun MenuContent() {
+    val appState = rememberAppState()
+    WLMScaffold(
+        bottomBar = {
+            if (appState.shouldShowBottomBar) {
+                BottomBar(
+                    tabs = appState.bottomBarTabs,
+                    currentRoute = appState.currentRoute!!,
+                    navigateToRoute = appState::navigateToBottomBarRoute
+                )
             }
+        },
+        scaffoldState = appState.scaffoldState
+    ) { innerPaddingModifier ->
+        if (!appState.isOnline) {
+            OfflineDialog()
+        }
+        NavHost(
+            navController = appState.navController,
+            startDestination = MainDestinations.Home.route,
+            modifier = Modifier.padding(innerPaddingModifier)
+        ) {
+            wlmNavGraph(navController = appState.navController)
         }
     }
 }

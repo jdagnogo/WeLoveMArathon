@@ -1,6 +1,5 @@
-package com.jdagnogo.welovemarathon.common.ui
+package com.jdagnogo.welovemarathon.common.utils
 
-import androidx.lifecycle.LiveData
 import kotlinx.coroutines.flow.StateFlow
 
 interface IModel<STATE, EVENT> {

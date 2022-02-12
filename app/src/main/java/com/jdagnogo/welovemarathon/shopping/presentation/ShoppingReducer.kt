@@ -1,6 +1,6 @@
 package com.jdagnogo.welovemarathon.shopping.presentation
 
-import com.jdagnogo.welovemarathon.common.ui.IReducer
+import com.jdagnogo.welovemarathon.common.utils.IReducer
 
 class ShoppingReducer : IReducer<ShoppingState, ShoppingPartialState> {
     override fun reduce(state: ShoppingState, partialState: ShoppingPartialState): ShoppingState {

@@ -1,6 +1,6 @@
 package com.jdagnogo.welovemarathon.sport.presentation
 
-import com.jdagnogo.welovemarathon.common.ui.IReducer
+import com.jdagnogo.welovemarathon.common.utils.IReducer
 
 class SportReducer : IReducer<SportState, SportPartialState> {
     override fun reduce(state: SportState, partialState: SportPartialState): SportState {

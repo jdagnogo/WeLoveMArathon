@@ -9,7 +9,7 @@ import com.google.accompanist.pager.PagerState
 import com.jdagnogo.welovemarathon.beach.domain.Beach
 import com.jdagnogo.welovemarathon.beach.domain.BeachUseCases
 import com.jdagnogo.welovemarathon.beach.domain.PrivateBeach
-import com.jdagnogo.welovemarathon.common.ui.IModel
+import com.jdagnogo.welovemarathon.common.utils.IModel
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.common.utils.handleResource
 import dagger.hilt.android.lifecycle.HiltViewModel

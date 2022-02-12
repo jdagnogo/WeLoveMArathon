@@ -4,7 +4,7 @@ import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jdagnogo.welovemarathon.blog.domain.Blog
-import com.jdagnogo.welovemarathon.common.ui.IModel
+import com.jdagnogo.welovemarathon.common.utils.IModel
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.run.domain.Run
 import com.jdagnogo.welovemarathon.run.domain.RunUseCases

@@ -3,7 +3,7 @@ package com.jdagnogo.welovemarathon.food.presentation
 import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jdagnogo.welovemarathon.common.ui.IModel
+import com.jdagnogo.welovemarathon.common.utils.IModel
 import com.jdagnogo.welovemarathon.common.utils.handleResource
 import com.jdagnogo.welovemarathon.food.domain.FoodCategory
 import com.jdagnogo.welovemarathon.food.domain.FoodUseCase

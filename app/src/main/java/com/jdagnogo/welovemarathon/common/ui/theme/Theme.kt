@@ -7,6 +7,7 @@ import androidx.compose.material.darkColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
@@ -24,7 +25,10 @@ fun WeLoveMarathonTheme(
     val sysUiController = rememberSystemUiController()
     SideEffect {
         sysUiController.setSystemBarsColor(
-            color = SystemBarColors
+            color = Primary
+        )
+        sysUiController.setNavigationBarColor(
+            color = Color.White
         )
     }
     CompositionLocalProvider(LocalSpacing provides Spacing()) {
