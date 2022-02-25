@@ -32,7 +32,7 @@ fun GifBannerComponent(gifBanner: GifBanner, modifier: Modifier = Modifier) {
         },
         modifier = modifier
             .fillMaxWidth()
-            .height(100.dp)
+            .height(80.dp)
             .padding(top = 16.dp, start = 16.dp, end = 16.dp)
     ) {
         val imageLoader = ImageLoader.invoke(context).newBuilder()

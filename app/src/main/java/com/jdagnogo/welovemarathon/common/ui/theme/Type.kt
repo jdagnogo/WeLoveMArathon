@@ -2,15 +2,27 @@ package com.jdagnogo.welovemarathon.common.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import com.jdagnogo.welovemarathon.R
+
+val fonts = FontFamily(
+    Font(R.font.wlm_font, weight = FontWeight.Bold),
+    Font(R.font.wlm_font, weight = FontWeight.Light),
+    Font(R.font.wlm_font, weight = FontWeight.Thin),
+    Font(R.font.wlm_font, weight = FontWeight.Normal, style = FontStyle.Italic),
+    Font(R.font.wlm_font)
+)
 
 // Set of Material typography styles to start with
 val Typography = Typography(
 
     body1 = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = fonts,
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
     ),
@@ -22,12 +34,12 @@ val Typography = Typography(
     )
     /* Other default text styles to override
     button = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = fonts,
         fontWeight = FontWeight.W500,
         fontSize = 14.sp
     ),
     caption = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = fonts,
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp
     )
@@ -35,7 +47,39 @@ val Typography = Typography(
 )
 
 val BottomNavTitleStyle = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = fonts,
     fontWeight = FontWeight.Normal,
     fontSize = 14.sp
+)
+
+val TitleStyle = TextStyle(
+    fontFamily = fonts,
+    fontWeight = FontWeight.Normal,
+    color = White,
+    textAlign = TextAlign.Center,
+    fontSize = 20.sp
+)
+
+val ActivityTitleStyle = TextStyle(
+    fontFamily = fonts,
+    fontWeight = FontWeight.Normal,
+    color = White,
+    textAlign = TextAlign.Center,
+    fontSize = 14.sp
+)
+
+val ActivitySubTitleStyle = TextStyle(
+    fontFamily = fonts,
+    fontWeight = FontWeight.Normal,
+    color = White,
+    textAlign = TextAlign.Center,
+    fontSize = 10.sp
+)
+
+val SplashScreenTitleStyle = TextStyle(
+    fontFamily = fonts,
+    fontWeight = FontWeight.Normal,
+    color = White,
+    textAlign = TextAlign.Center,
+    fontSize = 18.sp
 )

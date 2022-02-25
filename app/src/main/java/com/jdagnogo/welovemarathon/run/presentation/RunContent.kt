@@ -36,7 +36,7 @@ fun RunContent(state: RunState, modifier: Modifier) {
             .background(WeLoveMarathonTheme.colors.contentBackground)
             .animateContentSize()) {
             item {
-                Column(modifier = Modifier
+               /* Column(modifier = Modifier
                     .fillMaxWidth()
                     .statusBarsPadding()) {
                     TitleComponent(
@@ -59,7 +59,7 @@ fun RunContent(state: RunState, modifier: Modifier) {
                             .fillMaxWidth()
                             .padding(16.dp)
                             .align(Alignment.End))
-                }
+                }*/
             }
             blogList(blogs = state.blogs, scope = this)
         }

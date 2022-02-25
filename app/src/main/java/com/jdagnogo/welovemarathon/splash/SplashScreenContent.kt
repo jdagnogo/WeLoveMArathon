@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.jdagnogo.welovemarathon.R
+import com.jdagnogo.welovemarathon.common.ui.theme.SplashScreenTitleStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 
 @Composable
@@ -37,6 +38,7 @@ fun SplashScreenContent(scale: Float, modifier: Modifier) {
         )
 
         Text(
+            style = SplashScreenTitleStyle,
             text = "We Love Marathon",
             modifier = Modifier.padding(top = MaterialTheme.spacing.small)
         )

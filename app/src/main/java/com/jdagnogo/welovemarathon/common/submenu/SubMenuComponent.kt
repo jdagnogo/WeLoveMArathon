@@ -1,7 +1,6 @@
-package com.jdagnogo.welovemarathon.home.presentation
+package com.jdagnogo.welovemarathon.common.submenu
 
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,35 +17,33 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.theme.ActivitySubTitleStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.ActivityTitleStyle
-import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
-import com.jdagnogo.welovemarathon.home.domain.Activities
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable
-fun ActivitiesGridComponent(
-    activities: List<Activities>,
-    onActivitySelected: (Int) -> Unit,
+fun SubMenuComponent(
+    items: List<SubMenuItem>,
+    onItemSelected: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
         LazyVerticalGrid(
-            cells = GridCells.Fixed(2),
+            cells = GridCells.Fixed(3),
             contentPadding = PaddingValues(
-                start = MaterialTheme.spacing.medium,
-                end = MaterialTheme.spacing.medium,
+                start = MaterialTheme.spacing.huge,
+                end = MaterialTheme.spacing.huge,
                 top = MaterialTheme.spacing.large,
                 bottom = MaterialTheme.spacing.extraHuge
             ),
@@ -54,11 +51,11 @@ fun ActivitiesGridComponent(
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
             modifier = Modifier.animateContentSize()
         ) {
-            items(activities.size) { index ->
-                val activity = activities[index]
-                ActivityItem(
-                    activities = activity,
-                    onActivityClicked = onActivitySelected,
+            items(items.size) { index ->
+                val item = items[index]
+                SubMenuGridComponent(
+                    item = item,
+                    onItemClicked = onItemSelected,
                 )
             }
         }
@@ -67,49 +64,54 @@ fun ActivitiesGridComponent(
 
 @ExperimentalMaterialApi
 @Composable
-fun ActivityItem(
-    activities: Activities,
-    onActivityClicked: (Int) -> Unit,
+fun SubMenuGridComponent(
+    item: SubMenuItem,
+    onItemClicked: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Card(
         elevation = MaterialTheme.spacing.small,
         shape = MaterialTheme.shapes.large,
-        onClick = { onActivityClicked(activities.ordinal) },
+        onClick = { onItemClicked(item.ordinal) },
     ) {
+        val iconSize = MaterialTheme.spacing.huge
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier
                 .fillMaxSize()
-                .background(color = activities.backgroundColor)
-                .padding( horizontal = MaterialTheme.spacing.medium)
+                .background(color = MaterialTheme.colors.primary)
+                .padding(horizontal = MaterialTheme.spacing.medium)
                 .padding(
                     bottom = MaterialTheme.spacing.medium,
-                    top = MaterialTheme.spacing.huge,
+                    top = MaterialTheme.spacing.medium,
                 )
         ) {
             Image(
                 painter = rememberImagePainter(
-                    data = activities.icon,
+                    data = item.icon,
                     builder = {
                         crossfade(true)
                         error(R.drawable.ic_wlm_logo)
                     }
                 ),
-                colorFilter= ColorFilter.tint(Color.White),
-                contentDescription = activities.title,
+                colorFilter = ColorFilter.tint(Color.White),
+                contentDescription = item.title,
                 modifier = Modifier
-                    .size(64.dp)
+                    .size(iconSize)
             )
             Text(
-                text = activities.title,
+                text = item.title,
                 style = ActivityTitleStyle,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
                     .padding(top = MaterialTheme.spacing.small)
             )
             Text(
-                text = activities.subtitle,
+                text = item.subtitle,
                 style = ActivitySubTitleStyle,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
                     .padding(top = MaterialTheme.spacing.extraSmall)
             )
@@ -121,9 +123,9 @@ fun ActivityItem(
 @ExperimentalFoundationApi
 @Preview
 @Composable
-fun ActivitiesGridComponentPreview() {
-    val activities = Activities.values()
+fun SubMenuComponentPreview() {
+    val subMenuItems = SubMenuShopping.values()
     MaterialTheme {
-        ActivitiesGridComponent(activities = activities.toList(), {})
+        SubMenuComponent(items = subMenuItems.toList().map { it.subMenuItem }, {})
     }
 }

@@ -39,7 +39,5 @@ fun HomeScreen(
                 }
             }
         },
-        onBeachSelected = {
-            navController.navigate(MainDestinations.Beaches.createRoute(it))
-        })
+    )
 }

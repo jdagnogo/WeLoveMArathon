@@ -2,25 +2,24 @@ package com.jdagnogo.welovemarathon.home.presentation
 
 import android.content.res.Configuration
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.jdagnogo.welovemarathon.beach.presentation.beachList
+import com.google.accompanist.insets.statusBarsPadding
 import com.jdagnogo.welovemarathon.common.banner.GifBannerComponent
-import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
-import com.jdagnogo.welovemarathon.common.ui.component.TitleIconComponent
-import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
+import com.jdagnogo.welovemarathon.common.ui.theme.TitleStyle
+import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
@@ -29,33 +28,34 @@ import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 fun HomeContent(
     state: HomeState,
     onActivitySelected: (Int) -> Unit,
-    onBeachSelected: (Int) -> Unit,
     modifier: Modifier,
 ) {
-    Surface(modifier = modifier.fillMaxSize()) {
-        LazyColumn(modifier = Modifier
-            .fillMaxWidth()
-            .background(WeLoveMarathonTheme.colors.contentBackground)
-            .animateContentSize()) {
-            item {
-                Column(modifier = Modifier.fillMaxWidth()) {
-                    HomeTopBarContent(state.hasError, modifier = Modifier)
-
-                    if (state.banner != null) {
-                        GifBannerComponent(gifBanner = state.banner)
-                    }
-
-                    ActivitiesGridComponent(activities = state.activities,
-                        onActivitySelected,
-                        modifier = Modifier)
-
-                    TitleComponent(title = "Beaches",
-                        modifier = Modifier.padding(start = 16.dp, bottom = 16.dp, end = 16.dp))
-                }
-            }
-            beachList(state.beaches, onBeachSelected, this)
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .statusBarsPadding()
+            .padding(horizontal = MaterialTheme.spacing.medium)
+    ) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(text = "We Love Marathon", style = TitleStyle, modifier = Modifier.fillMaxWidth())
+            ActivitiesGridComponent(
+                activities = state.activities,
+                onActivitySelected,
+            )
+        }
+        if (state.banner != null) {
+            GifBannerComponent(
+                gifBanner = state.banner,
+                Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = MaterialTheme.spacing.medium)
+            )
         }
     }
+
 }
 
 @ExperimentalMaterialApi
@@ -68,9 +68,10 @@ fun LoadingComponentPreview() {
     val reducer = HomeReducer()
     val state = reducer.reduce(HomeState(), HomePartialState.LoadingBeaches)
     MaterialTheme {
-        HomeContent(state = state,
+        HomeContent(
+            state = state,
             modifier = Modifier,
             onActivitySelected = {},
-            onBeachSelected = {})
+        )
     }
 }

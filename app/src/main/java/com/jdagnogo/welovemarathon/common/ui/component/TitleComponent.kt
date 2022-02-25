@@ -1,31 +1,66 @@
 package com.jdagnogo.welovemarathon.common.ui.component
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryDark
+import com.jdagnogo.welovemarathon.R
+import com.jdagnogo.welovemarathon.common.ui.theme.TitleStyle
+import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 
 @Composable
-fun TitleComponent(title: String, alignRight: Boolean = false, modifier: Modifier) {
-    Box(modifier = modifier) {
-        Text(text = title,
-            style = MaterialTheme.typography.h6,
-            color = Color.Black,
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp)
-                .align(
-                    Alignment.TopEnd.takeIf { alignRight } ?: Alignment.TopStart)
-
+fun TitleComponent(
+    iconLeft: Int = R.drawable.ic_wlm_logo,
+    iconRight: Int = R.drawable.location,
+    title: String,
+    modifier: Modifier = Modifier
+) {
+    val iconSize = MaterialTheme.spacing.semiHuge
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(top = MaterialTheme.spacing.medium)
+            .padding(horizontal = MaterialTheme.spacing.huge)
+    ) {
+        Icon(
+            painterResource(id = iconLeft),
+            contentDescription = "back",
+            tint = Color.White,
+            modifier = modifier
+                .height(iconSize)
+                .wrapContentWidth(Alignment.Start)
+                .background(Color(R.color.black), CircleShape)
+        )
+        Text(
+            text = title,
+            style = TitleStyle,
+            modifier = Modifier
+                .weight(1f)
+                .align(Alignment.CenterVertically)
+        )
+        Icon(
+            painterResource(id = iconRight),
+            contentDescription = "map",
+            tint = Color.White,
+            modifier = modifier
+                .height(iconSize)
+                .size(iconSize)
+                .wrapContentWidth(Alignment.End)
         )
     }
 }
@@ -35,15 +70,10 @@ fun TitleComponent(title: String, alignRight: Boolean = false, modifier: Modifie
 @Composable
 fun RunTitleRightComponentPreview() {
     MaterialTheme {
-        TitleComponent("Align right", modifier = Modifier.fillMaxWidth(), alignRight = true)
-    }
-}
-
-@ExperimentalAnimationApi
-@Preview(name = "Align left", showBackground = true)
-@Composable
-fun RunTitleTitleComponentPreview() {
-    MaterialTheme {
-        TitleComponent("Align left", modifier = Modifier.fillMaxWidth(), alignRight = false)
+        TitleComponent(
+            R.drawable.ic_wlm_logo,
+            R.drawable.ic_wlm_logo,
+            "Title"
+        )
     }
 }

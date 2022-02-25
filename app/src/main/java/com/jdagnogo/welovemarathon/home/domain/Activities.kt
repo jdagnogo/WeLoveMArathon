@@ -2,13 +2,24 @@ package com.jdagnogo.welovemarathon.home.domain
 
 import androidx.compose.ui.graphics.Color
 import com.jdagnogo.welovemarathon.R
+import com.jdagnogo.welovemarathon.common.ui.theme.ActivityColor
+import com.jdagnogo.welovemarathon.common.ui.theme.BeachColor
+import com.jdagnogo.welovemarathon.common.ui.theme.CultureColor
+import com.jdagnogo.welovemarathon.common.ui.theme.FoodColor
 import com.jdagnogo.welovemarathon.common.ui.theme.Primary
-import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryDark
-import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryLight
+import com.jdagnogo.welovemarathon.common.ui.theme.ShoppingColor
+import com.jdagnogo.welovemarathon.common.ui.theme.WineColor
 
-enum class Activities(val title: String, val icon: Int, val backgroundColor: Color) {
-    CULTURE("Culture", R.drawable.culture, Primary),
-    WINES("Wine", R.drawable.wine, Primary),
-    SPORTS("Sports", R.drawable.sports, Primary),
-    SHOPPING("Shopping", R.drawable.shopping, Primary),
+enum class Activities(
+    val title: String,
+    val subtitle: String,
+    val icon: Int,
+    val backgroundColor: Color
+) {
+    ACTIVITIES("Activities", "Let's explore", R.drawable.sports, ActivityColor),
+    BEACHES("Beaches", "Dive into", R.drawable.culture, BeachColor),
+    CULTURE("Culture", "Find treasures", R.drawable.culture, CultureColor),
+    SHOPPING("Shopping", "Therapy time", R.drawable.shopping, ShoppingColor),
+    FOOD("Food&Drink", "Yummy", R.drawable.wine, FoodColor),
+    WINES("Wine", "Deserve it", R.drawable.wine, WineColor),
 }
