@@ -11,14 +11,17 @@ import androidx.compose.ui.Modifier
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
 @Composable
-fun ShoppingScreen(
+fun ShoppingMenuScreen(
     shoppingViewModel: ShoppingViewModel,
     modifier: Modifier = Modifier,
 ) {
     val state by shoppingViewModel.state.collectAsState()
-    ShoppingContent(state = state,
-        onCategoryClicked = {
+    ShoppingMenuContent(state = state,
+        onItemSelected = {
             shoppingViewModel.dispatchEvent(event = ShoppingUiEvent.OnCategoryClicked(it))
+        },
+        onMapSelected = {
+            shoppingViewModel.dispatchEvent(event = ShoppingUiEvent.OnMapSelected)
         },
         modifier = modifier)
 }

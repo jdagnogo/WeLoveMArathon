@@ -7,11 +7,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.submenu.SubMenuScreen
-import com.jdagnogo.welovemarathon.common.submenu.SubMenuShopping
-import com.jdagnogo.welovemarathon.common.submenu.SubMenuUiModel
-import com.jdagnogo.welovemarathon.common.ui.theme.ShoppingColor
 import com.jdagnogo.welovemarathon.shopping.domain.Shopping
 import com.jdagnogo.welovemarathon.shopping.domain.ShoppingCategories
 import com.jdagnogo.welovemarathon.shopping.domain.fakeList
@@ -19,23 +15,17 @@ import com.jdagnogo.welovemarathon.shopping.domain.fakeList
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable
-fun ShoppingContent(
+fun ShoppingMenuContent(
     state: ShoppingState,
-    onCategoryClicked: (ShoppingCategories) -> Unit = {},
+    onItemSelected: (Int) -> Unit = {},
+    onMapSelected: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val subMenuUiModel = SubMenuUiModel(
-        screenName = "Shopping",
-        items = SubMenuShopping.values().toList().map { it.subMenuItem },
-        image = R.drawable.beach,
-        banner = null,
-        background = ShoppingColor
-    )
     SubMenuScreen(
-        subMenuUiModel = subMenuUiModel,
-        modifier = Modifier,
-        onItemSelected = {},
-        onMapSelected = {}
+        subMenuUiModel = state.subMenuUiModel,
+        modifier = modifier,
+        onItemSelected = onItemSelected,
+        onMapSelected = onMapSelected
     )
 }
 
@@ -60,6 +50,10 @@ fun ShoppingContentPreview() {
             )
         )
     MaterialTheme {
-        ShoppingContent(state = finalState, modifier = Modifier)
+        ShoppingMenuContent(
+            state = finalState,
+            modifier = Modifier,
+            onMapSelected = {},
+            onItemSelected = {})
     }
 }

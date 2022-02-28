@@ -15,10 +15,11 @@ data class Shopping(
     var description: String = "",
     var image: String = "",
     var isRecommended: Boolean = false,
-    var category: ShoppingCategories = ShoppingCategories.Woman,
+    var category: String = "",
 ) {
     fun toShoppingEntity(): ShoppingEntity {
-        return ShoppingEntity(id,
+        return ShoppingEntity(
+            id,
             name,
             website,
             location,
@@ -27,7 +28,8 @@ data class Shopping(
             description,
             image,
             isRecommended,
-            category = category.name)
+            category = category
+        )
     }
 
     fun toSimpleListItem(): SimpleListItem {
@@ -47,19 +49,20 @@ fun Shopping.map(data: Map<String, Any>) {
     description = data["description"] as? String ?: ""
     image = data["image"] as? String ?: ""
     isRecommended = data["isRecommended"] as? Boolean ?: false
-    val categoryAsString = data["category"] as? String ?: ShoppingCategories.Woman.name
-    category = ShoppingCategories.valueOf(categoryAsString)
+    category = data["category"] as? String ?: ""
 }
 
 fun Shopping.fakeList(): List<Shopping> {
     return listOf(
-        Shopping("toto",
+        Shopping(
             "toto",
-            category = ShoppingCategories.Woman,
+            "toto",
+            category = ShoppingCategories.Woman.name,
             description = "description",
-            isRecommended = true),
-        Shopping("toto4", "toto", category = ShoppingCategories.Woman),
-        Shopping("toto2", "toto", category = ShoppingCategories.Woman),
-        Shopping("toto3", "toto", category = ShoppingCategories.Woman)
+            isRecommended = true
+        ),
+        Shopping("toto4", "toto", category = ShoppingCategories.Woman.name),
+        Shopping("toto2", "toto", category = ShoppingCategories.Woman.name),
+        Shopping("toto3", "toto", category = ShoppingCategories.Woman.name)
     )
 }

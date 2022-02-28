@@ -32,15 +32,16 @@ import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 @ExperimentalFoundationApi
 @Composable
 fun SubMenuScreen(
-    subMenuUiModel: SubMenuUiModel,
+    subMenuUiModel: SubMenuUiModel?,
     onItemSelected: (Int) -> Unit,
-    onMapSelected: (Int) -> Unit,
+    onMapSelected: () -> Unit,
     modifier: Modifier,
 ) {
+    if (subMenuUiModel == null) return
     Box(
         modifier = modifier
             .statusBarsPadding()
-            .background(subMenuUiModel.background)
+            .background(subMenuUiModel.backgroundColor)
             .fillMaxSize()
     ) {
         Card(
@@ -105,7 +106,7 @@ fun SubMenuScreenPreview() {
         items = SubMenuShopping.values().toList().map { it.subMenuItem },
         image = 0,
         banner = null,
-        background = ShoppingColor
+        backgroundColor = ShoppingColor
     )
     MaterialTheme {
         SubMenuScreen(

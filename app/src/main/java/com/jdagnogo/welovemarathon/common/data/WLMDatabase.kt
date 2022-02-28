@@ -15,6 +15,7 @@ import com.jdagnogo.welovemarathon.food.data.restaurant.FoodEntity
 import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantDao
 import com.jdagnogo.welovemarathon.run.data.RunDao
 import com.jdagnogo.welovemarathon.run.data.RunEntity
+import com.jdagnogo.welovemarathon.shopping.data.ShoppingCategoryEntity
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingDao
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingEntity
 import com.jdagnogo.welovemarathon.sport.data.SportCategoryEntity
@@ -32,6 +33,7 @@ import java.util.*
         GifBannerEntity::class,
         BeachEntity::class,
         ShoppingEntity::class,
+        ShoppingCategoryEntity::class,
         PrivateBeachEntity::class,
         DataFreshnessEntity::class,
         SportCategoryEntity::class,

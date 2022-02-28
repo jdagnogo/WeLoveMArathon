@@ -15,6 +15,14 @@ class ShoppingReducer : IReducer<ShoppingState, ShoppingPartialState> {
                     recommended = partialState.recommended
                 )
             }
+            is ShoppingPartialState.OnCategoriesSuccess ->{
+                state.copy(
+                    categories = partialState.data
+                )
+            }
+            ShoppingPartialState.Loading -> {
+                state.copy()
+            }
         }
     }
 }

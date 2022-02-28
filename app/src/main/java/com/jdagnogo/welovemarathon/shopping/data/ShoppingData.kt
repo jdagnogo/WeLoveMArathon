@@ -5,8 +5,8 @@ import com.jdagnogo.welovemarathon.common.domain.DataFreshnessUseCase
 
 @Keep
 data class ShoppingData(
-    val shoppingDao: ShoppingDao,
-    val shoppingRemoteData: ShoppingRemoteData,
+    val dao: ShoppingDao,
+    val remoteData: ShoppingRemoteData,
     val dataFreshnessUseCase: DataFreshnessUseCase,
-    val shoppingMapper: ShoppingMapper,
+    val mapper: ShoppingMapper,
 )

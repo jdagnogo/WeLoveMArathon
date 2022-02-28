@@ -1,14 +1,20 @@
 package com.jdagnogo.welovemarathon.shopping.presentation
 
 import androidx.annotation.Keep
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jdagnogo.welovemarathon.R
+import com.jdagnogo.welovemarathon.common.banner.GifBanner
+import com.jdagnogo.welovemarathon.common.submenu.SubMenuUiModel
+import com.jdagnogo.welovemarathon.common.ui.theme.ShoppingColor
 import com.jdagnogo.welovemarathon.common.utils.IModel
-import com.jdagnogo.welovemarathon.shopping.domain.GetShoppingUseCase
+import com.jdagnogo.welovemarathon.common.utils.handleResource
 import com.jdagnogo.welovemarathon.shopping.domain.Shopping
 import com.jdagnogo.welovemarathon.shopping.domain.ShoppingCategories
+import com.jdagnogo.welovemarathon.shopping.domain.ShoppingCategory
+import com.jdagnogo.welovemarathon.shopping.domain.ShoppingUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -16,39 +22,59 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ShoppingViewModel @Inject constructor(
-    private val useCases: GetShoppingUseCase,
+    private val useCases: ShoppingUseCase,
     private val reducer: ShoppingReducer,
 ) : ViewModel(), IModel<ShoppingState, ShoppingUiEvent> {
 
     private val _state = MutableStateFlow(ShoppingState())
     override val state: StateFlow<ShoppingState> get() = _state
 
-    private var currentSelected: ShoppingCategories? = null
-
     init {
         viewModelScope.launch {
-            delay(1000)
-            dispatchEvent(ShoppingUiEvent.OnCategoryClicked(ShoppingCategories.Woman))
+            dispatchEvent(ShoppingUiEvent.FetchCategories)
         }
     }
 
-    private fun fetchShoppings(category: ShoppingCategories) {
+    private var currentSelected: ShoppingCategories? = null
+
+    private fun fetchCategories() {
         viewModelScope.launch {
-            if (currentSelected == category) return@launch
-            currentSelected = category
-            val data = useCases.getShopping(category)
-            val recommended = data.firstOrNull { it.isRecommended }
-            data.toMutableList().remove(recommended)
-            val partialState = ShoppingPartialState.OnShoppingsSuccess(data = data,
-                recommended,
-                category)
-            _state.value = reducer.reduce(_state.value, partialState)
+            handleResource(
+                useCases.getShoppingCategoriesUseCase.invoke(),
+                { ShoppingPartialState.OnCategoriesSuccess(it) },
+                ShoppingPartialState.Loading,
+                { ShoppingPartialState.Error("") },
+                {
+                    _state.value = reducer.reduce(state.value, it)
+                },
+                this
+            )
         }
     }
+
+    /* private fun fetchShopping(category: ShoppingCategories) {
+         viewModelScope.launch {
+             if (currentSelected == category) return@launch
+             currentSelected = category
+             val data = useCases.getShopping(category)
+             val recommended = data.firstOrNull { it.isRecommended }
+             data.toMutableList().remove(recommended)
+             val partialState = ShoppingPartialState.OnShoppingsSuccess(data = data,
+                 recommended,
+                 category)
+             _state.value = reducer.reduce(_state.value, partialState)
+         }
+     }*/
 
     override fun dispatchEvent(event: ShoppingUiEvent) {
         when (event) {
-            is ShoppingUiEvent.OnCategoryClicked -> fetchShoppings(category = event.category)
+            is ShoppingUiEvent.OnCategoryClicked -> {
+            }
+            ShoppingUiEvent.OnMapSelected -> {
+            }
+            ShoppingUiEvent.FetchCategories -> {
+                fetchCategories()
+            }
         }
     }
 }
@@ -59,14 +85,26 @@ class ShoppingViewModel @Inject constructor(
 @Keep
 data class ShoppingState(
     val currentSelected: ShoppingCategories = ShoppingCategories.Woman,
+    val categories: List<ShoppingCategory> = listOf(),
     val shoppings: List<Shopping> = listOf(),
     val recommended: Shopping? = null,
+    val banner: GifBanner? = null,
     val error: String = "",
-)
+) {
+    val subMenuUiModel = SubMenuUiModel(
+        screenName = "Shopping",
+        items = categories.map { it.toSubMenuItem() },
+        image = R.drawable.beach,
+        backgroundColor = ShoppingColor,
+        banner = banner,
+    )
+}
 
 @Keep
 sealed class ShoppingPartialState {
     data class Error(val message: String) : ShoppingPartialState()
+    object Loading : ShoppingPartialState()
+    data class OnCategoriesSuccess(val data: List<ShoppingCategory>) : ShoppingPartialState()
     data class OnShoppingsSuccess(
         val data: List<Shopping>,
         val recommended: Shopping?,
@@ -80,5 +118,7 @@ sealed class ShoppingPartialState {
  *  Google likes to call it Event as Android already has an Intent class
  */
 sealed class ShoppingUiEvent {
-    data class OnCategoryClicked(val category: ShoppingCategories) : ShoppingUiEvent()
+    data class OnCategoryClicked(val position: Int) : ShoppingUiEvent()
+    object OnMapSelected : ShoppingUiEvent()
+    object FetchCategories : ShoppingUiEvent()
 }

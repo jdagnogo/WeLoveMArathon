@@ -7,6 +7,6 @@ data class SubMenuUiModel(
     val screenName: String,
     val items: List<SubMenuItem>,
     val image: Int,
-    val background: Color,
+    val backgroundColor: Color,
     val banner: GifBanner? = null,
 )

@@ -19,6 +19,6 @@ abstract class SportDataModule {
 
     @Binds
     abstract fun bindSportFirebaseData(
-        fFirebaseData: SportFirebaseData,
+        firebaseData: SportFirebaseData,
     ): SportRemoteData
 }

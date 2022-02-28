@@ -23,11 +23,7 @@ data class ShoppingEntity(
     fun toShopping(): Shopping {
         return Shopping(
             id, name, website, location, locationLink, number, description, image, isRecommended,
-            category = try {
-                ShoppingCategories.valueOf(category)
-            } catch (e: Exception) {
-                ShoppingCategories.Woman
-            }
+            category = category
         )
     }
 

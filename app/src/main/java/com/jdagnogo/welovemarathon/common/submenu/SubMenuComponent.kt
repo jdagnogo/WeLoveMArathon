@@ -74,7 +74,7 @@ fun SubMenuGridComponent(
         shape = MaterialTheme.shapes.large,
         onClick = { onItemClicked(item.ordinal) },
     ) {
-        val iconSize = MaterialTheme.spacing.huge
+        val iconSize = MaterialTheme.spacing.extraHuge
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier
@@ -88,7 +88,7 @@ fun SubMenuGridComponent(
         ) {
             Image(
                 painter = rememberImagePainter(
-                    data = item.icon,
+                    data = if (item.iconUrl.isNotEmpty()) item.iconUrl else item.icon,
                     builder = {
                         crossfade(true)
                         error(R.drawable.ic_wlm_logo)
@@ -101,19 +101,11 @@ fun SubMenuGridComponent(
             )
             Text(
                 text = item.title,
-                style = ActivityTitleStyle,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier
-                    .padding(top = MaterialTheme.spacing.small)
-            )
-            Text(
-                text = item.subtitle,
                 style = ActivitySubTitleStyle,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
-                    .padding(top = MaterialTheme.spacing.extraSmall)
+                    .padding(top = MaterialTheme.spacing.small)
             )
         }
     }

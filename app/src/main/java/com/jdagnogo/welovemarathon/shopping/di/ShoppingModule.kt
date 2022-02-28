@@ -2,14 +2,19 @@ package com.jdagnogo.welovemarathon.shopping.di
 
 import com.jdagnogo.welovemarathon.common.data.WLMDatabase
 import com.jdagnogo.welovemarathon.common.domain.DataFreshnessUseCase
-import com.jdagnogo.welovemarathon.shopping.data.*
+import com.jdagnogo.welovemarathon.shopping.data.ShoppingDao
+import com.jdagnogo.welovemarathon.shopping.data.ShoppingData
+import com.jdagnogo.welovemarathon.shopping.data.ShoppingMapper
+import com.jdagnogo.welovemarathon.shopping.data.ShoppingRemoteData
+import com.jdagnogo.welovemarathon.shopping.data.ShoppingRepository
+import com.jdagnogo.welovemarathon.shopping.domain.GetShoppingCategoriesUseCase
 import com.jdagnogo.welovemarathon.shopping.domain.GetShoppingUseCase
+import com.jdagnogo.welovemarathon.shopping.domain.ShoppingUseCase
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingReducer
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineScope
 import javax.inject.Singleton
 
 @Module
@@ -20,9 +25,8 @@ object ShoppingModule {
     @Singleton
     fun provideGetShoppingUseCase(
         repository: ShoppingRepository,
-        scope: CoroutineScope,
     ): GetShoppingUseCase {
-        return GetShoppingUseCase(repository, scope)
+        return GetShoppingUseCase(repository)
     }
 
     @Provides
@@ -46,5 +50,20 @@ object ShoppingModule {
 
     @Provides
     @Singleton
+    fun provideShoppingUseCase(
+        getShoppingUseCase: GetShoppingUseCase,
+        getShoppingCategoriesUseCase: GetShoppingCategoriesUseCase,
+    ) = ShoppingUseCase(
+        getShoppingUseCase = getShoppingUseCase,
+        getShoppingCategoriesUseCase = getShoppingCategoriesUseCase
+    )
+
+    @Provides
+    @Singleton
     fun provideShoppingReducer() = ShoppingReducer()
+
+    @Provides
+    @Singleton
+    fun provideGetShoppingCategoriesUseCase(repository: ShoppingRepository) =
+        GetShoppingCategoriesUseCase(repository)
 }

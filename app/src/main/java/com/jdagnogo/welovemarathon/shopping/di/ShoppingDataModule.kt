@@ -14,11 +14,11 @@ import dagger.hilt.components.SingletonComponent
 abstract class ShoppingDataModule {
     @Binds
     abstract fun bindShoppingRepository(
-        shoppingRepositoryImpl: ShoppingRepositoryImpl,
+        repositoryImpl: ShoppingRepositoryImpl,
     ): ShoppingRepository
 
     @Binds
     abstract fun bindShoppingFirebaseData(
-        shoppingFirebaseData: ShoppingFirebaseData,
+        firebaseData: ShoppingFirebaseData,
     ): ShoppingRemoteData
 }

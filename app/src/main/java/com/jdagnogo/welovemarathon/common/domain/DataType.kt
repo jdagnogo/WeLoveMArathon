@@ -13,6 +13,7 @@ enum class DataType(val timeType: Int, val value: Int) {
     HOME(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
     RUN(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
     SHOPPING(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
+    SHOPPING_CATEGORIES(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
     TIPS(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
     SPORT(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
     SPORT_CATEGORIES(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),

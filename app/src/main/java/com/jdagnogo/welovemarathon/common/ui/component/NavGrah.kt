@@ -27,7 +27,7 @@ import com.jdagnogo.welovemarathon.home.presentation.HomeScreen
 import com.jdagnogo.welovemarathon.home.presentation.HomeViewModel
 import com.jdagnogo.welovemarathon.run.presentation.RunScreen
 import com.jdagnogo.welovemarathon.run.presentation.RunViewModel
-import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingScreen
+import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingMenuScreen
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingViewModel
 import com.jdagnogo.welovemarathon.splash.SplashScreen
 import com.jdagnogo.welovemarathon.sport.presentation.SportScreen
@@ -85,7 +85,7 @@ fun NavGraphBuilder.wlmNavGraph(navController: NavController) {
 
     composable(MainDestinations.Shopping.route) {
         val viewModel = hiltViewModel<ShoppingViewModel>()
-        ShoppingScreen(viewModel)
+        ShoppingMenuScreen(viewModel)
     }
 
     composable(MainDestinations.Sport.route) {
