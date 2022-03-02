@@ -1,7 +1,7 @@
 package com.jdagnogo.welovemarathon.home.di
 
 import com.jdagnogo.welovemarathon.beach.domain.GetBeachesUseCase
-import com.jdagnogo.welovemarathon.common.banner.GetHomeBannerUseCase
+import com.jdagnogo.welovemarathon.common.banner.GetBannerUseCase
 import com.jdagnogo.welovemarathon.home.domain.HomeUseCases
 import com.jdagnogo.welovemarathon.home.presentation.HomeReducer
 import dagger.Module
@@ -20,7 +20,7 @@ object HomeModule {
     @Singleton
     @Provides
     fun provideRunDao(
-        bannerUseCase: GetHomeBannerUseCase,
+        bannerUseCase: GetBannerUseCase,
         getBeachesUseCase: GetBeachesUseCase,
     ): HomeUseCases =
         HomeUseCases(bannerUseCase, getBeachesUseCase)

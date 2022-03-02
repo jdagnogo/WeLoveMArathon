@@ -35,14 +35,15 @@ fun SubMenuScreen(
     subMenuUiModel: SubMenuUiModel?,
     onItemSelected: (Int) -> Unit,
     onMapSelected: () -> Unit,
+    onBackPressed: () -> Unit,
     modifier: Modifier,
 ) {
     if (subMenuUiModel == null) return
     Box(
         modifier = modifier
+            .fillMaxSize()
             .statusBarsPadding()
             .background(subMenuUiModel.backgroundColor)
-            .fillMaxSize()
     ) {
         Card(
             elevation = 0.dp,
@@ -68,13 +69,15 @@ fun SubMenuScreen(
             )
         }
         TitleComponent(
-            title = subMenuUiModel.screenName
+            title = subMenuUiModel.screenName,
+            onLeftIconClicked = onBackPressed,
+            onRightIconClicked = onMapSelected
         )
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = MaterialTheme.spacing.medium)
-                .padding(bottom = MaterialTheme.spacing.medium),
+                .padding(bottom = 80.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom
         ) {
@@ -89,7 +92,7 @@ fun SubMenuScreen(
                 gifBanner = subMenuUiModel.banner,
                 Modifier
                     .align(Alignment.BottomCenter)
-                    .padding(bottom = MaterialTheme.spacing.medium)
+                    .padding(bottom = MaterialTheme.spacing.extraHuge)
             )
         }
     }
@@ -113,6 +116,7 @@ fun SubMenuScreenPreview() {
             subMenuUiModel = subMenuUiModel,
             modifier = Modifier,
             onItemSelected = {},
+            onBackPressed = {},
             onMapSelected = {}
         )
     }

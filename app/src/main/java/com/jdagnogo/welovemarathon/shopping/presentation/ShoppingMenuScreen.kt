@@ -7,21 +7,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
+
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
 @Composable
 fun ShoppingMenuScreen(
     shoppingViewModel: ShoppingViewModel,
+    navController: NavController,
     modifier: Modifier = Modifier,
 ) {
     val state by shoppingViewModel.state.collectAsState()
-    ShoppingMenuContent(state = state,
+    ShoppingMenuContent(
+        state = state,
         onItemSelected = {
             shoppingViewModel.dispatchEvent(event = ShoppingUiEvent.OnCategoryClicked(it))
         },
         onMapSelected = {
             shoppingViewModel.dispatchEvent(event = ShoppingUiEvent.OnMapSelected)
         },
-        modifier = modifier)
+        onBackPressed = {
+            navController.popBackStack()
+        },
+        modifier = modifier
+    )
 }

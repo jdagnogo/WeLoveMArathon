@@ -19,13 +19,15 @@ fun ShoppingMenuContent(
     state: ShoppingState,
     onItemSelected: (Int) -> Unit = {},
     onMapSelected: () -> Unit,
+    onBackPressed: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     SubMenuScreen(
         subMenuUiModel = state.subMenuUiModel,
         modifier = modifier,
         onItemSelected = onItemSelected,
-        onMapSelected = onMapSelected
+        onMapSelected = onMapSelected,
+        onBackPressed = onBackPressed
     )
 }
 
@@ -54,6 +56,7 @@ fun ShoppingContentPreview() {
             state = finalState,
             modifier = Modifier,
             onMapSelected = {},
+            onBackPressed = {},
             onItemSelected = {})
     }
 }

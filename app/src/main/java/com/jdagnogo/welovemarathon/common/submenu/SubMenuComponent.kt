@@ -19,15 +19,16 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.theme.ActivitySubTitleStyle
-import com.jdagnogo.welovemarathon.common.ui.theme.ActivityTitleStyle
+import com.jdagnogo.welovemarathon.common.ui.theme.Primary
+import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryLight
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 
 @ExperimentalMaterialApi
@@ -79,7 +80,16 @@ fun SubMenuGridComponent(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier
                 .fillMaxSize()
-                .background(color = MaterialTheme.colors.primary)
+                .background(
+                    brush = Brush.horizontalGradient(
+                        colors = listOf(
+                            PrimaryLight,
+                            Primary,
+                            Primary,
+                            Primary,
+                        )
+                    )
+                )
                 .padding(horizontal = MaterialTheme.spacing.medium)
                 .padding(
                     bottom = MaterialTheme.spacing.medium,

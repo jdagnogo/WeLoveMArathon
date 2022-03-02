@@ -11,6 +11,7 @@ enum class DataType(val timeType: Int, val value: Int) {
     BLOG(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
     FOOD(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
     HOME(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
+    BANNER(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
     RUN(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
     SHOPPING(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
     SHOPPING_CATEGORIES(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),

@@ -1,14 +1,15 @@
 package com.jdagnogo.welovemarathon.shopping.presentation
 
 import androidx.annotation.Keep
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.banner.GifBanner
+import com.jdagnogo.welovemarathon.common.banner.SHOPPING
 import com.jdagnogo.welovemarathon.common.submenu.SubMenuUiModel
 import com.jdagnogo.welovemarathon.common.ui.theme.ShoppingColor
 import com.jdagnogo.welovemarathon.common.utils.IModel
+import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.common.utils.handleResource
 import com.jdagnogo.welovemarathon.shopping.domain.Shopping
 import com.jdagnogo.welovemarathon.shopping.domain.ShoppingCategories
@@ -17,6 +18,8 @@ import com.jdagnogo.welovemarathon.shopping.domain.ShoppingUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,9 +33,8 @@ class ShoppingViewModel @Inject constructor(
     override val state: StateFlow<ShoppingState> get() = _state
 
     init {
-        viewModelScope.launch {
-            dispatchEvent(ShoppingUiEvent.FetchCategories)
-        }
+        fetchCategories()
+        fetchBanner()
     }
 
     private var currentSelected: ShoppingCategories? = null
@@ -49,6 +51,28 @@ class ShoppingViewModel @Inject constructor(
                 },
                 this
             )
+        }
+    }
+
+    private fun fetchBanner() {
+        viewModelScope.launch {
+            useCases.getBannerUseCase.invoke(SHOPPING).onEach { resource ->
+                val partialState = when (resource) {
+                    is Resource.Success -> {
+                        ShoppingPartialState.OnBannerSuccess(
+                            resource.data?.firstOrNull()
+                                ?: GifBanner()
+                        )
+                    }
+                    is Resource.Loading -> {
+                        ShoppingPartialState.Loading
+                    }
+                    else -> {
+                        ShoppingPartialState.Error(resource.message ?: "")
+                    }
+                }
+                _state.value = reducer.reduce(_state.value, partialState)
+            }.launchIn(this)
         }
     }
 
@@ -71,9 +95,6 @@ class ShoppingViewModel @Inject constructor(
             is ShoppingUiEvent.OnCategoryClicked -> {
             }
             ShoppingUiEvent.OnMapSelected -> {
-            }
-            ShoppingUiEvent.FetchCategories -> {
-                fetchCategories()
             }
         }
     }
@@ -104,6 +125,7 @@ data class ShoppingState(
 sealed class ShoppingPartialState {
     data class Error(val message: String) : ShoppingPartialState()
     object Loading : ShoppingPartialState()
+    data class OnBannerSuccess(val banner: GifBanner?) : ShoppingPartialState()
     data class OnCategoriesSuccess(val data: List<ShoppingCategory>) : ShoppingPartialState()
     data class OnShoppingsSuccess(
         val data: List<Shopping>,
@@ -120,5 +142,4 @@ sealed class ShoppingPartialState {
 sealed class ShoppingUiEvent {
     data class OnCategoryClicked(val position: Int) : ShoppingUiEvent()
     object OnMapSelected : ShoppingUiEvent()
-    object FetchCategories : ShoppingUiEvent()
 }

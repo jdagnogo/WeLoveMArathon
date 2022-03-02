@@ -85,7 +85,7 @@ fun NavGraphBuilder.wlmNavGraph(navController: NavController) {
 
     composable(MainDestinations.Shopping.route) {
         val viewModel = hiltViewModel<ShoppingViewModel>()
-        ShoppingMenuScreen(viewModel)
+        ShoppingMenuScreen(viewModel, navController)
     }
 
     composable(MainDestinations.Sport.route) {

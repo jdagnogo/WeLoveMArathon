@@ -10,12 +10,14 @@ data class GifBannerEntity(
     @PrimaryKey val id: String = "",
     val name: String = "",
     val resLink: String = "",
+    val type: String = "",
     val link: String = "",
 ) {
     fun toGifBanner(): GifBanner {
         return GifBanner(
             id = id,
             name = name,
+            type = type,
             resLink = resLink,
             link = link
         )

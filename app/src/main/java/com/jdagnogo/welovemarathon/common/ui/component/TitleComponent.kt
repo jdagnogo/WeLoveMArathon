@@ -2,6 +2,7 @@ package com.jdagnogo.welovemarathon.common.ui.component
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.theme.TitleStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
@@ -26,7 +26,9 @@ import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 @Composable
 fun TitleComponent(
     iconLeft: Int = R.drawable.ic_wlm_logo,
+    onLeftIconClicked: () -> Unit = {},
     iconRight: Int = R.drawable.location,
+    onRightIconClicked: () -> Unit = {},
     title: String,
     modifier: Modifier = Modifier
 ) {
@@ -42,6 +44,9 @@ fun TitleComponent(
             contentDescription = "back",
             tint = Color.White,
             modifier = modifier
+                .clickable {
+                    onLeftIconClicked()
+                }
                 .height(iconSize)
                 .wrapContentWidth(Alignment.Start)
                 .background(Color(R.color.black), CircleShape)
@@ -58,6 +63,9 @@ fun TitleComponent(
             contentDescription = "map",
             tint = Color.White,
             modifier = modifier
+                .clickable {
+                    onRightIconClicked()
+                }
                 .height(iconSize)
                 .size(iconSize)
                 .wrapContentWidth(Alignment.End)
@@ -72,7 +80,9 @@ fun RunTitleRightComponentPreview() {
     MaterialTheme {
         TitleComponent(
             R.drawable.ic_wlm_logo,
+            {},
             R.drawable.ic_wlm_logo,
+            {},
             "Title"
         )
     }

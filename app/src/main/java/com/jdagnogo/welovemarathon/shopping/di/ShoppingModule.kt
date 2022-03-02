@@ -1,5 +1,6 @@
 package com.jdagnogo.welovemarathon.shopping.di
 
+import com.jdagnogo.welovemarathon.common.banner.GetBannerUseCase
 import com.jdagnogo.welovemarathon.common.data.WLMDatabase
 import com.jdagnogo.welovemarathon.common.domain.DataFreshnessUseCase
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingDao
@@ -53,9 +54,11 @@ object ShoppingModule {
     fun provideShoppingUseCase(
         getShoppingUseCase: GetShoppingUseCase,
         getShoppingCategoriesUseCase: GetShoppingCategoriesUseCase,
+        getBannerUseCase: GetBannerUseCase,
     ) = ShoppingUseCase(
         getShoppingUseCase = getShoppingUseCase,
-        getShoppingCategoriesUseCase = getShoppingCategoriesUseCase
+        getShoppingCategoriesUseCase = getShoppingCategoriesUseCase,
+        getBannerUseCase = getBannerUseCase
     )
 
     @Provides

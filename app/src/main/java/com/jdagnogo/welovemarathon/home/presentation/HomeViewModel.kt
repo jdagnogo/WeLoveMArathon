@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jdagnogo.welovemarathon.beach.domain.Beach
 import com.jdagnogo.welovemarathon.common.banner.GifBanner
+import com.jdagnogo.welovemarathon.common.banner.HOME
 import com.jdagnogo.welovemarathon.common.utils.IModel
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.home.domain.Activities
@@ -59,7 +60,7 @@ class HomeViewModel @Inject constructor(
 
     private fun fetchBanner() {
         viewModelScope.launch {
-            homeUseCases.getHomeBannerUseCase.invoke().onEach { resource ->
+            homeUseCases.getBannerUseCase.invoke(HOME).onEach { resource ->
                 val partialState = when (resource) {
                     is Resource.Success -> {
                         HomePartialState.OnBannerSuccess(resource.data?.firstOrNull()

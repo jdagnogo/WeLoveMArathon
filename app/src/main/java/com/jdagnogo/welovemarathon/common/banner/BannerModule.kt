@@ -14,8 +14,8 @@ object BannerModule {
     @Singleton
     fun provideGetHomeBannerUseCase(
         repository: BannerRepository,
-    ): GetHomeBannerUseCase {
-        return GetHomeBannerUseCase(repository)
+    ): GetBannerUseCase {
+        return GetBannerUseCase(repository)
     }
 
     @Singleton
