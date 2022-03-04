@@ -134,6 +134,10 @@ dependencies {
     //lottie
     def lottieVersion = "4.2.1"
     implementation "com.airbnb.android:lottie-compose:$lottieVersion"
+
+    //Map
+    implementation "com.google.maps.android:maps-compose:1.0.0"
+    implementation "com.google.android.gms:play-services-maps:18.0.2"
 }
 // Allow references to generated code
 kapt {

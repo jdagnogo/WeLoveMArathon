@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -19,25 +21,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.theme.TitleStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 
 @Composable
 fun TitleComponent(
-    iconLeft: Int = R.drawable.ic_wlm_logo,
+    iconLeft: Int = R.drawable.ic_back,
     onLeftIconClicked: () -> Unit = {},
     iconRight: Int = R.drawable.location,
     onRightIconClicked: () -> Unit = {},
     title: String,
     modifier: Modifier = Modifier
 ) {
-    val iconSize = MaterialTheme.spacing.semiHuge
+    val iconSize = MaterialTheme.spacing.huge
     Row(
         modifier = modifier
             .fillMaxWidth()
             .padding(top = MaterialTheme.spacing.medium)
-            .padding(horizontal = MaterialTheme.spacing.huge)
+            .padding(horizontal = MaterialTheme.spacing.medium)
     ) {
         Icon(
             painterResource(id = iconLeft),
@@ -47,9 +50,8 @@ fun TitleComponent(
                 .clickable {
                     onLeftIconClicked()
                 }
-                .height(iconSize)
-                .wrapContentWidth(Alignment.Start)
-                .background(Color(R.color.black), CircleShape)
+                .size(MaterialTheme.spacing.huge)
+                .background(Color(R.color.black), RoundedCornerShape(50))
         )
         Text(
             text = title,
@@ -66,9 +68,7 @@ fun TitleComponent(
                 .clickable {
                     onRightIconClicked()
                 }
-                .height(iconSize)
                 .size(iconSize)
-                .wrapContentWidth(Alignment.End)
         )
     }
 }

@@ -8,27 +8,24 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.jdagnogo.welovemarathon.common.ui.component.MainDestinations
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
 @Composable
-fun ShoppingMenuScreen(
-    shoppingViewModel: ShoppingViewModel,
+fun ShoppingScreen(
+    viewModel: ShoppingViewModel,
     navController: NavController,
     modifier: Modifier = Modifier,
 ) {
-    val state by shoppingViewModel.state.collectAsState()
-    ShoppingMenuContent(
+    val state by viewModel.state.collectAsState()
+    ShoppingContent(
         state = state,
-        onItemSelected = {
-            shoppingViewModel.dispatchEvent(event = ShoppingUiEvent.OnCategoryClicked(it))
-            navController.navigate(MainDestinations.Shopping.route)
+        onItemSelected = { id ->
+            viewModel.dispatchEvent(ShoppingUiEvent.OnRecommendedItemSelected(id))
         },
-        onMapSelected = {
-            shoppingViewModel.dispatchEvent(event = ShoppingUiEvent.OnMapSelected)
-        },
+        onFilterClicked = { viewModel.dispatchEvent(ShoppingUiEvent.OnFilterClicked) },
+        onMapSelected = { },// redirect to Map screen,
         onBackPressed = {
             navController.popBackStack()
         },

@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingEntity.Companion.TABLE
 import com.jdagnogo.welovemarathon.shopping.domain.Shopping
 import com.jdagnogo.welovemarathon.shopping.domain.ShoppingCategories
+
 @Keep
 @Entity(tableName = TABLE)
 data class ShoppingEntity(
@@ -19,11 +20,21 @@ data class ShoppingEntity(
     val image: String = "",
     val isRecommended: Boolean = false,
     val category: String = ShoppingCategories.Woman.name,
+    var tags: String = "",
 ) {
     fun toShopping(): Shopping {
         return Shopping(
-            id, name, website, location, locationLink, number, description, image, isRecommended,
-            category = category
+            id = id,
+            name = name,
+            website = website,
+            location = location,
+            locationLink = locationLink,
+            number = number,
+            description = description,
+            image = image,
+            isRecommended = isRecommended,
+            category = category,
+            tags = tags
         )
     }
 

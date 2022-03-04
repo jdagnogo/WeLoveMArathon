@@ -1,6 +1,8 @@
 package com.jdagnogo.welovemarathon.shopping.domain
 
 import androidx.annotation.Keep
+import com.jdagnogo.welovemarathon.common.category.CategoryItem
+import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryItem
 import com.jdagnogo.welovemarathon.common.domain.SimpleListItem
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingEntity
 
@@ -14,27 +16,47 @@ data class Shopping(
     var number: String = "",
     var description: String = "",
     var image: String = "",
-    var isRecommended: Boolean = false,
+    @field:JvmField var isRecommended: Boolean = false,
     var category: String = "",
+    var tags: String = "",
 ) {
     fun toShoppingEntity(): ShoppingEntity {
         return ShoppingEntity(
-            id,
-            name,
-            website,
-            location,
-            locationLink,
-            number,
-            description,
-            image,
-            isRecommended,
-            category = category
+            id = id,
+            name = name,
+            website = website,
+            location = location,
+            locationLink = locationLink,
+            number = number,
+            description = description,
+            image = image,
+            isRecommended = isRecommended,
+            category = category,
+            tags = tags
         )
     }
 
     fun toSimpleListItem(): SimpleListItem {
         return SimpleListItem(
             id, name, location, locationLink, number
+        )
+    }
+
+    fun toRecommendedCategoryItem(): RecommendedCategoryItem {
+        return RecommendedCategoryItem(
+            id = id,
+            name = name,
+            image = image
+        )
+    }
+
+    fun toCategoryItem(): CategoryItem{
+        return CategoryItem(
+            id = id,
+            name = name,
+            locationLink = locationLink,
+            number = number,
+            tags = tags
         )
     }
 }

@@ -10,9 +10,8 @@ class ShoppingReducer : IReducer<ShoppingState, ShoppingPartialState> {
             }
             is ShoppingPartialState.OnShoppingsSuccess -> {
                 state.copy(
-                    currentSelected = partialState.currentSelected,
-                    shoppings = partialState.data,
-                    recommended = partialState.recommended
+                    shoppings = partialState.items,
+                    recommendedItems = partialState.recommendedItems,
                 )
             }
             is ShoppingPartialState.OnCategoriesSuccess -> {

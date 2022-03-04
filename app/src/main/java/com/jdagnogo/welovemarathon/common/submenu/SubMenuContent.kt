@@ -77,7 +77,7 @@ fun SubMenuScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = MaterialTheme.spacing.medium)
-                .padding(bottom = 80.dp),
+                .padding(bottom = MaterialTheme.spacing.huge),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom
         ) {
@@ -92,12 +92,11 @@ fun SubMenuScreen(
                 gifBanner = subMenuUiModel.banner,
                 Modifier
                     .align(Alignment.BottomCenter)
-                    .padding(bottom = MaterialTheme.spacing.extraHuge)
+                    .padding(bottom = MaterialTheme.spacing.medium)
             )
         }
     }
 }
-
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi

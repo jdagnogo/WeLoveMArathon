@@ -6,12 +6,13 @@ import androidx.lifecycle.viewModelScope
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.banner.GifBanner
 import com.jdagnogo.welovemarathon.common.banner.SHOPPING
+import com.jdagnogo.welovemarathon.common.category.CategoryItem
+import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryItem
 import com.jdagnogo.welovemarathon.common.submenu.SubMenuUiModel
 import com.jdagnogo.welovemarathon.common.ui.theme.ShoppingColor
 import com.jdagnogo.welovemarathon.common.utils.IModel
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.common.utils.handleResource
-import com.jdagnogo.welovemarathon.shopping.domain.Shopping
 import com.jdagnogo.welovemarathon.shopping.domain.ShoppingCategories
 import com.jdagnogo.welovemarathon.shopping.domain.ShoppingCategory
 import com.jdagnogo.welovemarathon.shopping.domain.ShoppingUseCase
@@ -37,7 +38,7 @@ class ShoppingViewModel @Inject constructor(
         fetchBanner()
     }
 
-    private var currentSelected: ShoppingCategories? = null
+    private var currentSelected: ShoppingCategory? = null
 
     private fun fetchCategories() {
         viewModelScope.launch {
@@ -76,25 +77,41 @@ class ShoppingViewModel @Inject constructor(
         }
     }
 
-    /* private fun fetchShopping(category: ShoppingCategories) {
-         viewModelScope.launch {
-             if (currentSelected == category) return@launch
-             currentSelected = category
-             val data = useCases.getShopping(category)
-             val recommended = data.firstOrNull { it.isRecommended }
-             data.toMutableList().remove(recommended)
-             val partialState = ShoppingPartialState.OnShoppingsSuccess(data = data,
-                 recommended,
-                 category)
-             _state.value = reducer.reduce(_state.value, partialState)
-         }
-     }*/
+    private fun fetchShopping(category: ShoppingCategory) {
+        viewModelScope.launch {
+            if (currentSelected == category) return@launch
+            currentSelected = category
+            viewModelScope.launch {
+                handleResource(
+                    useCases.getShoppingUseCase.invoke(category.name),
+                    {
+                        ShoppingPartialState.OnShoppingsSuccess(
+                            items = it.filter { it.isRecommended.not() }.map { it.toCategoryItem() },
+                        recommendedItems = it.filter { it.isRecommended }.map { it.toRecommendedCategoryItem() }
+                        )
+                    },
+                    ShoppingPartialState.Loading,
+                    { ShoppingPartialState.Error("") },
+                    { partialState ->
+                        _state.value = reducer.reduce(state.value, partialState)
+                    },
+                    this
+                )
+            }
+        }
+    }
 
     override fun dispatchEvent(event: ShoppingUiEvent) {
         when (event) {
             is ShoppingUiEvent.OnCategoryClicked -> {
+                val category = state.value.categories[event.position]
+                fetchShopping(category)
             }
             ShoppingUiEvent.OnMapSelected -> {
+            }
+            ShoppingUiEvent.OnFilterClicked -> {
+            }
+            is ShoppingUiEvent.OnRecommendedItemSelected -> {
             }
         }
     }
@@ -107,8 +124,8 @@ class ShoppingViewModel @Inject constructor(
 data class ShoppingState(
     val currentSelected: ShoppingCategories = ShoppingCategories.Woman,
     val categories: List<ShoppingCategory> = listOf(),
-    val shoppings: List<Shopping> = listOf(),
-    val recommended: Shopping? = null,
+    val shoppings: List<CategoryItem> = listOf(),
+    val recommendedItems: List<RecommendedCategoryItem> = emptyList(),
     val banner: GifBanner? = null,
     val error: String = "",
 ) {
@@ -128,11 +145,9 @@ sealed class ShoppingPartialState {
     data class OnBannerSuccess(val banner: GifBanner?) : ShoppingPartialState()
     data class OnCategoriesSuccess(val data: List<ShoppingCategory>) : ShoppingPartialState()
     data class OnShoppingsSuccess(
-        val data: List<Shopping>,
-        val recommended: Shopping?,
-        val currentSelected: ShoppingCategories,
-    ) :
-        ShoppingPartialState()
+        val items: List<CategoryItem>,
+        val recommendedItems: List<RecommendedCategoryItem>
+    ) : ShoppingPartialState()
 }
 
 /**
@@ -142,4 +157,6 @@ sealed class ShoppingPartialState {
 sealed class ShoppingUiEvent {
     data class OnCategoryClicked(val position: Int) : ShoppingUiEvent()
     object OnMapSelected : ShoppingUiEvent()
+    object OnFilterClicked : ShoppingUiEvent()
+    data class OnRecommendedItemSelected(val id: String) : ShoppingUiEvent()
 }

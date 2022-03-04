@@ -46,9 +46,8 @@ fun ShoppingContentPreview() {
     val finalState =
         reducer.reduce(
             state, ShoppingPartialState.OnShoppingsSuccess(
-                Shopping().fakeList(),
-                Shopping("recomended"),
-                ShoppingCategories.Pet
+               items = emptyList(),
+                recommendedItems = emptyList()
             )
         )
     MaterialTheme {

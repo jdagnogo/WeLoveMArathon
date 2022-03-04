@@ -5,8 +5,12 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
@@ -28,6 +32,7 @@ import com.jdagnogo.welovemarathon.home.presentation.HomeViewModel
 import com.jdagnogo.welovemarathon.run.presentation.RunScreen
 import com.jdagnogo.welovemarathon.run.presentation.RunViewModel
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingMenuScreen
+import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingScreen
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingViewModel
 import com.jdagnogo.welovemarathon.splash.SplashScreen
 import com.jdagnogo.welovemarathon.sport.presentation.SportScreen
@@ -64,14 +69,13 @@ fun NavGraph() {
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
-fun NavGraphBuilder.wlmNavGraph(navController: NavController) {
+fun NavGraphBuilder.wlmNavGraph(navController: NavController, viewModelStoreOwner : ViewModelStoreOwner) {
     navigation(
         route = MainDestinations.Home.route,
         startDestination = HomeSections.HOME.route
     ) {
         homeGraph(navController = navController)
     }
-
     composable(
         MainDestinations.Beaches.route,
         arguments = listOf(navArgument("currentPage") { type = NavType.IntType })
@@ -83,9 +87,14 @@ fun NavGraphBuilder.wlmNavGraph(navController: NavController) {
         BeachDetailsScreen(viewModel = viewModel, currentPage = page)
     }
 
-    composable(MainDestinations.Shopping.route) {
-        val viewModel = hiltViewModel<ShoppingViewModel>()
+    composable(MainDestinations.ShoppingSubMenu.route) {
+        val viewModel = hiltViewModel<ShoppingViewModel>(viewModelStoreOwner = viewModelStoreOwner)
         ShoppingMenuScreen(viewModel, navController)
+    }
+
+    composable(MainDestinations.Shopping.route) {
+        val viewModel = hiltViewModel<ShoppingViewModel>(viewModelStoreOwner = viewModelStoreOwner)
+        ShoppingScreen(viewModel, navController)
     }
 
     composable(MainDestinations.Sport.route) {
@@ -144,6 +153,7 @@ enum class HomeSections(
 @Keep
 sealed class MainDestinations(val route: String) {
     object Home : MainDestinations("home")
+    object ShoppingSubMenu : MainDestinations("shoppingSubMenu")
     object Shopping : MainDestinations("shopping")
     object Sport : MainDestinations("sport")
     object Wine : MainDestinations("wine")

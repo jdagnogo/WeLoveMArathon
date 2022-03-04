@@ -76,10 +76,32 @@ val ActivitySubTitleStyle = TextStyle(
     fontSize = 10.sp
 )
 
+val CategoryGridTagStyle = TextStyle(
+    fontFamily = fonts,
+    fontWeight = FontWeight.Normal,
+    color = Primary,
+    fontSize = 10.sp
+)
+
 val SplashScreenTitleStyle = TextStyle(
     fontFamily = fonts,
     fontWeight = FontWeight.Normal,
     color = White,
     textAlign = TextAlign.Center,
     fontSize = 18.sp
+)
+
+val RecommendedCategoryTitleStyle = TextStyle(
+    fontFamily = fonts,
+    fontWeight = FontWeight.Bold,
+    color = White,
+    fontSize = 14.sp
+)
+
+val RecommendedCategoryItemTitleStyle = TextStyle(
+    fontFamily = fonts,
+    fontWeight = FontWeight.Normal,
+    color = White,
+    textAlign = TextAlign.Center,
+    fontSize = 16.sp
 )
