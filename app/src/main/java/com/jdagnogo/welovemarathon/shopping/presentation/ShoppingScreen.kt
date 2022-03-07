@@ -8,6 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.jdagnogo.welovemarathon.common.ui.component.MainDestinations
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
@@ -25,9 +26,9 @@ fun ShoppingScreen(
             viewModel.dispatchEvent(ShoppingUiEvent.OnRecommendedItemSelected(id))
         },
         onFilterClicked = { viewModel.dispatchEvent(ShoppingUiEvent.OnFilterClicked) },
-        onMapSelected = { },// redirect to Map screen,
+        onMapSelected = { },
         onBackPressed = {
-            navController.popBackStack()
+            navController.navigate(MainDestinations.Map.route)
         },
         modifier = modifier
     )

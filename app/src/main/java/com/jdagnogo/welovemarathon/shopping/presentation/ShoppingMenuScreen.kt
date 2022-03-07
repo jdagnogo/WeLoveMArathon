@@ -27,7 +27,7 @@ fun ShoppingMenuScreen(
             navController.navigate(MainDestinations.Shopping.route)
         },
         onMapSelected = {
-            shoppingViewModel.dispatchEvent(event = ShoppingUiEvent.OnMapSelected)
+            navController.navigate(MainDestinations.Map.route)
         },
         onBackPressed = {
             navController.popBackStack()

@@ -51,7 +51,7 @@ fun TitleComponent(
                     onLeftIconClicked()
                 }
                 .size(MaterialTheme.spacing.huge)
-                .background(Color(R.color.black), RoundedCornerShape(50))
+                .background(Color(R.color.black), CircleShape)
         )
         Text(
             text = title,

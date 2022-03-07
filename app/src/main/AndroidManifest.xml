@@ -11,6 +11,8 @@
         android:supportsRtl="true"
         android:name=".common.WLMApp"
         android:theme="@style/Theme.WeLoveMarathon">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyALN_EnzfcWmLPOuO_VoDSVFQ4M--DWR7Y"/>
         <activity
             android:name="com.jdagnogo.welovemarathon.common.ui.MainActivity"
             android:exported="true"

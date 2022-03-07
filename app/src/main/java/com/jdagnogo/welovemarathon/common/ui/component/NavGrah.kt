@@ -29,6 +29,8 @@ import com.jdagnogo.welovemarathon.food.presentation.FoodScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodViewModel
 import com.jdagnogo.welovemarathon.home.presentation.HomeScreen
 import com.jdagnogo.welovemarathon.home.presentation.HomeViewModel
+import com.jdagnogo.welovemarathon.map.MapScreen
+import com.jdagnogo.welovemarathon.map.MapViewModel
 import com.jdagnogo.welovemarathon.run.presentation.RunScreen
 import com.jdagnogo.welovemarathon.run.presentation.RunViewModel
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingMenuScreen
@@ -97,6 +99,11 @@ fun NavGraphBuilder.wlmNavGraph(navController: NavController, viewModelStoreOwne
         ShoppingScreen(viewModel, navController)
     }
 
+    composable(MainDestinations.Map.route) {
+        val viewModel = hiltViewModel<MapViewModel>(viewModelStoreOwner = viewModelStoreOwner)
+        MapScreen(viewModel, navController)
+    }
+
     composable(MainDestinations.Sport.route) {
         val viewModel = hiltViewModel<SportViewModel>()
         SportScreen(viewModel)
@@ -155,6 +162,7 @@ sealed class MainDestinations(val route: String) {
     object Home : MainDestinations("home")
     object ShoppingSubMenu : MainDestinations("shoppingSubMenu")
     object Shopping : MainDestinations("shopping")
+    object Map : MainDestinations("map")
     object Sport : MainDestinations("sport")
     object Wine : MainDestinations("wine")
     object Beaches : MainDestinations("beaches/{currentPage}") {
