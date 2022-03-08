@@ -40,8 +40,8 @@ fun CategoryScreen(
     ) {
         TitleComponent(
             title = title,
-            onLeftIconClicked = onBackPressed,
-            onRightIconClicked = onMapSelected
+            onLeftIconClicked = onMapSelected,
+            onRightIconClicked = onBackPressed
         )
 
         RecommendedCategoryComponent(
