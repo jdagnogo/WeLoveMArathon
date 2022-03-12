@@ -26,9 +26,14 @@ fun ShoppingScreen(
             viewModel.dispatchEvent(ShoppingUiEvent.OnRecommendedItemSelected(id))
         },
         onFilterClicked = { viewModel.dispatchEvent(ShoppingUiEvent.OnFilterClicked) },
-        onMapSelected = { },
-        onBackPressed = {
+        onMapSelected = {
             navController.navigate(MainDestinations.Map.route)
+        },
+        onBackPressed = {
+            navController.popBackStack()
+        },
+        onRecommendedDialogClosed = {
+            viewModel.dispatchEvent(ShoppingUiEvent.OnRecommendedDialogClosed)
         },
         modifier = modifier
     )

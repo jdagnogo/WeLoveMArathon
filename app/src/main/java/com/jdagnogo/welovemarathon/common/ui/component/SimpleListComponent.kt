@@ -45,7 +45,6 @@ fun SimpleListComponent(
 
     ContactComponent(
         icon = R.drawable.location,
-        textSize = 12.sp,
         iconSize = 24.dp,
         onClicked = { redirectToLink(uriHandler, item.locationLink) },
         text = item.location, modifier = Modifier.padding(top = 16.dp)
@@ -53,7 +52,6 @@ fun SimpleListComponent(
 
     ContactComponent(
         icon = R.drawable.ic_phone,
-        textSize = 12.sp,
         iconSize = 24.dp,
         onClicked = {
             redirectToPhone(context, item.number)

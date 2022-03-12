@@ -98,6 +98,20 @@ val RecommendedCategoryTitleStyle = TextStyle(
     fontSize = 14.sp
 )
 
+val tagsTitleStyle = TextStyle(
+    fontFamily = fonts,
+    fontWeight = FontWeight.Normal,
+    color = ShoppingColor,
+    fontSize = 12.sp
+)
+
+val contactStyle = TextStyle(
+    fontFamily = fonts,
+    fontWeight = FontWeight.Normal,
+    color = White,
+    fontSize = 16.sp
+)
+
 val RecommendedCategoryItemTitleStyle = TextStyle(
     fontFamily = fonts,
     fontWeight = FontWeight.Normal,

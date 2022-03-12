@@ -98,8 +98,7 @@ fun ActivityItem(
                 ),
                 colorFilter= ColorFilter.tint(Color.White),
                 contentDescription = activities.title,
-                modifier = Modifier
-                    .size(64.dp)
+                modifier = Modifier.size(50.dp)
             )
             Text(
                 text = activities.title,

@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.Primary
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
@@ -24,12 +23,15 @@ import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 @Composable
 fun CategoryScreen(
     title: String,
-    recommendedItems: List<RecommendedCategoryItem>,
+    recommendedItems: List<RecommendedCategoryDetails>,
     items: List<CategoryItem>,
+    currentShoppingSelected : RecommendedCategoryDetails?,
+    shouldOpenRecommenderDialog: Boolean,
     onItemSelected: (String) -> Unit,
     onMapSelected: () -> Unit,
     onBackPressed: () -> Unit,
     onFilterClicked: () -> Unit,
+    onRecommendedDialogClosed: () -> Unit,
     modifier: Modifier,
 ) {
     Column(
@@ -40,8 +42,8 @@ fun CategoryScreen(
     ) {
         TitleComponent(
             title = title,
-            onLeftIconClicked = onMapSelected,
-            onRightIconClicked = onBackPressed
+            onLeftIconClicked = onBackPressed,
+            onRightIconClicked = onMapSelected
         )
 
         RecommendedCategoryComponent(
@@ -55,6 +57,12 @@ fun CategoryScreen(
             onFilterClicked = onFilterClicked,
             Modifier.padding(top = MaterialTheme.spacing.medium)
         )
+        if (shouldOpenRecommenderDialog) {
+            RecommendedCategoryDetailsDialogComponent(
+                item = currentShoppingSelected,
+                onDismissRequest = onRecommendedDialogClosed,
+            )
+        }
     }
 }
 
@@ -65,8 +73,8 @@ fun CategoryScreen(
 @Composable
 fun CategoryScreenPreview() {
     val recommendedItems = listOf(
-        RecommendedCategoryItem("id", "name", ""),
-        RecommendedCategoryItem("id2", "name2", "")
+        RecommendedCategoryDetails("id", "name", ""),
+        RecommendedCategoryDetails("id2", "name2", "")
     )
     val items = listOf(
         CategoryItem("id", "name", tags = "#toto #titi"),
@@ -80,6 +88,9 @@ fun CategoryScreenPreview() {
             title = "Title",
             recommendedItems = recommendedItems,
             items = items,
+            currentShoppingSelected = RecommendedCategoryDetailsFake,
+            false,
+            {},
             {},
             {},
             {},

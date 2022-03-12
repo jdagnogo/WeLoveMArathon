@@ -7,7 +7,7 @@ import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.banner.GifBanner
 import com.jdagnogo.welovemarathon.common.banner.SHOPPING
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
-import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryItem
+import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
 import com.jdagnogo.welovemarathon.common.submenu.SubMenuUiModel
 import com.jdagnogo.welovemarathon.common.ui.theme.ShoppingColor
 import com.jdagnogo.welovemarathon.common.utils.IModel
@@ -86,8 +86,10 @@ class ShoppingViewModel @Inject constructor(
                     useCases.getShoppingUseCase.invoke(category.name),
                     {
                         ShoppingPartialState.OnShoppingsSuccess(
-                            items = it.filter { it.isRecommended.not() }.map { it.toCategoryItem() },
-                        recommendedItems = it.filter { it.isRecommended }.map { it.toRecommendedCategoryItem() }
+                            items = it.filter { it.isRecommended.not() }
+                                .map { it.toCategoryItem() },
+                            recommendedItems = it.filter { it.isRecommended }
+                                .map { it.toRecommendedCategoryItem() }
                         )
                     },
                     ShoppingPartialState.Loading,
@@ -107,11 +109,16 @@ class ShoppingViewModel @Inject constructor(
                 val category = state.value.categories[event.position]
                 fetchShopping(category)
             }
-            ShoppingUiEvent.OnMapSelected -> {
-            }
             ShoppingUiEvent.OnFilterClicked -> {
             }
             is ShoppingUiEvent.OnRecommendedItemSelected -> {
+                val item = state.value.recommendedItems.firstOrNull { it.id == event.id }
+                val partialState = ShoppingPartialState.OnRecommendedDialog(item = item)
+                _state.value = reducer.reduce(state.value, partialState)
+            }
+            ShoppingUiEvent.OnRecommendedDialogClosed -> {
+                val partialState = ShoppingPartialState.OnRecommendedDialog(item = null)
+                _state.value = reducer.reduce(state.value, partialState)
             }
         }
     }
@@ -125,7 +132,9 @@ data class ShoppingState(
     val currentSelected: ShoppingCategories = ShoppingCategories.Woman,
     val categories: List<ShoppingCategory> = listOf(),
     val shoppings: List<CategoryItem> = listOf(),
-    val recommendedItems: List<RecommendedCategoryItem> = emptyList(),
+    val currentShoppingSelected: RecommendedCategoryDetails? = null,
+    val recommendedItems: List<RecommendedCategoryDetails> = emptyList(),
+    val shouldOpenRecommendedDialog: Boolean = false,
     val banner: GifBanner? = null,
     val error: String = "",
 ) {
@@ -143,10 +152,11 @@ sealed class ShoppingPartialState {
     data class Error(val message: String) : ShoppingPartialState()
     object Loading : ShoppingPartialState()
     data class OnBannerSuccess(val banner: GifBanner?) : ShoppingPartialState()
+    data class OnRecommendedDialog(val item: RecommendedCategoryDetails?) : ShoppingPartialState()
     data class OnCategoriesSuccess(val data: List<ShoppingCategory>) : ShoppingPartialState()
     data class OnShoppingsSuccess(
         val items: List<CategoryItem>,
-        val recommendedItems: List<RecommendedCategoryItem>
+        val recommendedItems: List<RecommendedCategoryDetails>
     ) : ShoppingPartialState()
 }
 
@@ -156,7 +166,7 @@ sealed class ShoppingPartialState {
  */
 sealed class ShoppingUiEvent {
     data class OnCategoryClicked(val position: Int) : ShoppingUiEvent()
-    object OnMapSelected : ShoppingUiEvent()
     object OnFilterClicked : ShoppingUiEvent()
     data class OnRecommendedItemSelected(val id: String) : ShoppingUiEvent()
+    object OnRecommendedDialogClosed : ShoppingUiEvent()
 }

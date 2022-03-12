@@ -27,6 +27,12 @@ class ShoppingReducer : IReducer<ShoppingState, ShoppingPartialState> {
                     banner = partialState.banner
                 )
             }
+            is ShoppingPartialState.OnRecommendedDialog -> {
+                state.copy(
+                    shouldOpenRecommendedDialog = partialState.item != null,
+                    currentShoppingSelected = partialState.item
+                )
+            }
         }
     }
 }

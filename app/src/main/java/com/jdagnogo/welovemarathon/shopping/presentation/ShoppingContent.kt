@@ -17,6 +17,7 @@ fun ShoppingContent(
     onMapSelected: () -> Unit,
     onBackPressed: () -> Unit,
     onFilterClicked: () -> Unit,
+    onRecommendedDialogClosed: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     CategoryScreen(
@@ -28,5 +29,8 @@ fun ShoppingContent(
         onMapSelected = onMapSelected,
         onBackPressed = onBackPressed,
         onFilterClicked = onFilterClicked,
+        shouldOpenRecommenderDialog = state.shouldOpenRecommendedDialog,
+        onRecommendedDialogClosed = onRecommendedDialogClosed,
+        currentShoppingSelected = state.currentShoppingSelected,
     )
 }

@@ -40,7 +40,13 @@ fun HomeContent(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = "We Love Marathon", style = TitleStyle, modifier = Modifier.fillMaxWidth())
+            Text(
+                text = "We Love Marathon",
+                style = TitleStyle,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = MaterialTheme.spacing.medium)
+            )
             ActivitiesGridComponent(
                 activities = state.activities,
                 onActivitySelected,

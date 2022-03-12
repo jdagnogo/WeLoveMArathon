@@ -43,7 +43,7 @@ import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 @ExperimentalAnimationApi
 @Composable
 fun RecommendedCategoryComponent(
-    recommendedItems: List<RecommendedCategoryItem>,
+    recommendedItems: List<RecommendedCategoryDetails>,
     onItemSelected: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -88,7 +88,7 @@ fun RecommendedCategoryComponent(
 @ExperimentalAnimationApi
 @Composable
 fun RecommendedCategoryContent(
-    item: RecommendedCategoryItem,
+    item: RecommendedCategoryDetails,
     onItemSelected: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -126,7 +126,7 @@ fun RecommendedCategoryContent(
 @Preview
 @Composable
 fun RecommendedCategoryContentPreview() {
-    val item = RecommendedCategoryItem("id", "name", "")
+    val item = RecommendedCategoryDetails("id", "name", "")
     MaterialTheme {
         RecommendedCategoryContent(
             item = item, {}
@@ -139,16 +139,10 @@ fun RecommendedCategoryContentPreview() {
 @Preview
 @Composable
 fun RecommendedCategoryComponentPreview() {
-    val items = listOf(
-        RecommendedCategoryItem("id", "name", ""),
-        RecommendedCategoryItem("id2", "name2", ""),
-        RecommendedCategoryItem("id3", "name3", ""),
-        RecommendedCategoryItem("id4", "name4", ""),
-        RecommendedCategoryItem("id5", "name5", ""),
-    )
+
     MaterialTheme {
         RecommendedCategoryComponent(
-            recommendedItems = items, {}
+            recommendedItems = listOf(RecommendedCategoryDetailsFake), {}
         )
     }
 }

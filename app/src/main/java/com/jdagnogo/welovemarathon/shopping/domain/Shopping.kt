@@ -2,7 +2,7 @@ package com.jdagnogo.welovemarathon.shopping.domain
 
 import androidx.annotation.Keep
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
-import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryItem
+import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
 import com.jdagnogo.welovemarathon.common.domain.SimpleListItem
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingEntity
 
@@ -42,15 +42,21 @@ data class Shopping(
         )
     }
 
-    fun toRecommendedCategoryItem(): RecommendedCategoryItem {
-        return RecommendedCategoryItem(
+    fun toRecommendedCategoryItem(): RecommendedCategoryDetails {
+        return RecommendedCategoryDetails(
             id = id,
             name = name,
-            image = image
+            image = image,
+            website = website,
+            locationLink = locationLink,
+            location = location,
+            number = number,
+            description = description,
+            tags = tags,
         )
     }
 
-    fun toCategoryItem(): CategoryItem{
+    fun toCategoryItem(): CategoryItem {
         return CategoryItem(
             id = id,
             name = name,

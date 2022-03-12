@@ -14,3 +14,10 @@ data class RecommendedCategoryDetails(
     val image: String = "",
     val tags: String = "",
 )
+
+val RecommendedCategoryDetailsFake = RecommendedCategoryDetails(
+    name = "name",
+    description = "gre fkejr ferfk fr jkjkfe ef kj refer jk fre ",
+    number = "69853652265",
+    tags = "#rgrgr #fre #rgr #regre"
+)
