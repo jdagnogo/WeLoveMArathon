@@ -18,6 +18,7 @@ import com.jdagnogo.welovemarathon.run.data.RunEntity
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingCategoryEntity
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingDao
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingEntity
+import com.jdagnogo.welovemarathon.shopping.data.ShoppingTagEntity
 import com.jdagnogo.welovemarathon.sport.data.SportCategoryEntity
 import com.jdagnogo.welovemarathon.sport.data.SportDao
 import com.jdagnogo.welovemarathon.sport.data.SportEntity
@@ -34,12 +35,13 @@ import java.util.*
         BeachEntity::class,
         ShoppingEntity::class,
         ShoppingCategoryEntity::class,
+        ShoppingTagEntity::class,
         PrivateBeachEntity::class,
         DataFreshnessEntity::class,
         SportCategoryEntity::class,
         SportEntity::class,
         TipsEntity::class],
-    version = 6
+    version = 7
 )
 abstract class WLMDatabase : RoomDatabase() {
     abstract fun getBlogDao(): BlogDao

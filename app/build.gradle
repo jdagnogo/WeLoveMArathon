@@ -130,6 +130,7 @@ dependencies {
     implementation "com.google.accompanist:accompanist-pager-indicators:$insets_version"
     implementation "com.google.accompanist:accompanist-insets-ui:$insets_version"
     implementation "com.google.accompanist:accompanist-systemuicontroller:$insets_version"
+    implementation "com.google.accompanist:accompanist-flowlayout:$insets_version"
 
     //lottie
     def lottieVersion = "4.2.1"

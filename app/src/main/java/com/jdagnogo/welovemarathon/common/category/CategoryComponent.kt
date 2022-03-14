@@ -42,7 +42,7 @@ import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 @Composable
 fun CategoryComponent(
     items: List<CategoryItem>,
-    onFilterClicked: () -> Unit,
+    onFilterClicked: (isVisible: Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
@@ -81,7 +81,7 @@ fun CategoryItemComponent(
             Text(
                 overflow = TextOverflow.Ellipsis,
                 style = CategoryGridTagStyle,
-                text = "#toto #titi #tutu",
+                text = item.tags,
                 maxLines = 1,
                 modifier = Modifier.padding(top = MaterialTheme.spacing.medium)
             )
@@ -118,7 +118,7 @@ fun CategoryGridComponent(
 
 @Composable
 fun FilterComponent(
-    onFilterClicked: () -> Unit,
+    onFilterClicked: (isVisible: Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -135,7 +135,7 @@ fun FilterComponent(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .width(150.dp)
-                .clickable { onFilterClicked() }
+                .clickable { onFilterClicked(true) }
                 .background(Secondary)
                 .padding(
                     vertical = MaterialTheme.spacing.small

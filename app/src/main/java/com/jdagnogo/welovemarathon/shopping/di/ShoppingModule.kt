@@ -9,6 +9,7 @@ import com.jdagnogo.welovemarathon.shopping.data.ShoppingMapper
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingRemoteData
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingRepository
 import com.jdagnogo.welovemarathon.shopping.domain.GetShoppingCategoriesUseCase
+import com.jdagnogo.welovemarathon.shopping.domain.GetShoppingTagUseCase
 import com.jdagnogo.welovemarathon.shopping.domain.GetShoppingUseCase
 import com.jdagnogo.welovemarathon.shopping.domain.ShoppingUseCase
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingReducer
@@ -28,6 +29,14 @@ object ShoppingModule {
         repository: ShoppingRepository,
     ): GetShoppingUseCase {
         return GetShoppingUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetShoppingTagUseCase(
+        repository: ShoppingRepository,
+    ): GetShoppingTagUseCase {
+        return GetShoppingTagUseCase(repository)
     }
 
     @Provides
@@ -54,11 +63,13 @@ object ShoppingModule {
     fun provideShoppingUseCase(
         getShoppingUseCase: GetShoppingUseCase,
         getShoppingCategoriesUseCase: GetShoppingCategoriesUseCase,
+        getShoppingTagUseCase: GetShoppingTagUseCase,
         getBannerUseCase: GetBannerUseCase,
     ) = ShoppingUseCase(
         getShoppingUseCase = getShoppingUseCase,
         getShoppingCategoriesUseCase = getShoppingCategoriesUseCase,
-        getBannerUseCase = getBannerUseCase
+        getBannerUseCase = getBannerUseCase,
+        getShoppingTagUseCase = getShoppingTagUseCase,
     )
 
     @Provides

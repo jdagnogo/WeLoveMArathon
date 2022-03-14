@@ -5,6 +5,7 @@ import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.common.utils.resourceAsFlow
 import com.jdagnogo.welovemarathon.shopping.domain.Shopping
 import com.jdagnogo.welovemarathon.shopping.domain.ShoppingCategory
+import com.jdagnogo.welovemarathon.shopping.domain.ShoppingTag
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,6 +17,7 @@ import javax.inject.Inject
 interface ShoppingRepository {
     val data: StateFlow<Resource<List<Shopping>>>
     val categories: StateFlow<Resource<List<ShoppingCategory>>>
+    val tags: StateFlow<Resource<List<ShoppingTag>>>
 }
 
 class ShoppingRepositoryImpl @Inject constructor(
@@ -32,10 +34,15 @@ class ShoppingRepositoryImpl @Inject constructor(
     override val categories: StateFlow<Resource<List<ShoppingCategory>>>
         get() = _categories
 
+    private val _tags: MutableStateFlow<Resource<List<ShoppingTag>>> =
+        MutableStateFlow(Resource.Loading(listOf()))
+    override val tags: StateFlow<Resource<List<ShoppingTag>>>
+        get() = _tags
+
     init {
         fetchCategories()
         fetchData()
-
+        fetchTags()
     }
 
     private fun fetchCategories(forceFetch: Boolean = false) {
@@ -57,6 +64,30 @@ class ShoppingRepositoryImpl @Inject constructor(
 
                 categories.collectLatest {
                     _categories.value = it
+                }
+            }
+        }
+    }
+
+    private fun fetchTags(forceFetch: Boolean = false) {
+        coroutineScope.launch {
+            with(shoppingData) {
+                val categories = resourceAsFlow(
+                    forceFetch = forceFetch,
+                    fetchFromLocal = {
+                        dao.getAllTags().map { mapper.toDomainTag(it) }
+                    },
+                    networkCall = {
+                        remoteData.getTags()
+                    },
+                    saveCallResource = { categories ->
+                        val tipsEntities = mapper.toEntitiesTag(categories)
+                        dao.updateTags(tipsEntities)
+                    },
+                    checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.SHOPPING_TAG) })
+
+                categories.collectLatest {
+                    _tags.value = it
                 }
             }
         }

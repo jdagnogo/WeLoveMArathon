@@ -19,17 +19,26 @@ interface ShoppingDao {
     @Query(QUERY_DELETE_CATEGORY)
     suspend fun clearCategory()
 
+    @Query(QUERY_DELETE_TAG)
+    suspend fun clearTags()
+
     @Query(QUERY_GET_ALL)
     fun getAll(): Flow<List<ShoppingEntity>>
 
     @Query(QUERY_GET_ALL_SHOPPING_CATEGORY)
     fun getAllCategories(): Flow<List<ShoppingCategoryEntity>>
 
+    @Query(QUERY_GET_ALL_TAG)
+    fun getAllTags(): Flow<List<ShoppingTagEntity>>
+
     @Query("SELECT * FROM ${ShoppingEntity.TABLE} WHERE category = :shoppingCategory")
     fun getAll(shoppingCategory: ShoppingCategories): Flow<List<ShoppingEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllCategories(entities: List<ShoppingCategoryEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllTags(entities: List<ShoppingTagEntity>)
 
     @Transaction
     suspend fun update(shoppings: List<ShoppingEntity>) {
@@ -43,10 +52,18 @@ interface ShoppingDao {
         insertAllCategories(categoryEntities)
     }
 
+    @Transaction
+    suspend fun updateTags(entities: List<ShoppingTagEntity>) {
+        clearTags()
+        insertAllTags(entities)
+    }
+
     companion object {
         private const val QUERY_DELETE = "DELETE FROM ${ShoppingEntity.TABLE}"
         private const val QUERY_DELETE_CATEGORY = "DELETE FROM ${ShoppingCategoryEntity.TABLE}"
+        private const val QUERY_DELETE_TAG = "DELETE FROM ${ShoppingTagEntity.TABLE}"
         private const val QUERY_GET_ALL = "SELECT * FROM ${ShoppingEntity.TABLE}"
+        private const val QUERY_GET_ALL_TAG = "SELECT * FROM ${ShoppingTagEntity.TABLE}"
         private const val QUERY_GET_ALL_SHOPPING_CATEGORY =
             "SELECT * FROM ${ShoppingCategoryEntity.TABLE}"
     }

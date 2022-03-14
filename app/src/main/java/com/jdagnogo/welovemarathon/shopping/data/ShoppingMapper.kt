@@ -3,6 +3,7 @@ package com.jdagnogo.welovemarathon.shopping.data
 import androidx.annotation.Keep
 import com.jdagnogo.welovemarathon.shopping.domain.Shopping
 import com.jdagnogo.welovemarathon.shopping.domain.ShoppingCategory
+import com.jdagnogo.welovemarathon.shopping.domain.ShoppingTag
 import javax.inject.Inject
 
 @Keep
@@ -28,6 +29,18 @@ class ShoppingMapper @Inject constructor() {
     fun toEntitiesCategories(categories: List<ShoppingCategory>): List<ShoppingCategoryEntity> {
         return categories.map {
             it.toCategoryEntity()
+        }
+    }
+
+    fun toDomainTag(entities: List<ShoppingTagEntity>): List<ShoppingTag> {
+        return entities.map {
+            it.toDomainCategory()
+        }
+    }
+
+    fun toEntitiesTag(tag: List<ShoppingTag>): List<ShoppingTagEntity> {
+        return tag.map {
+            it.toEntity()
         }
     }
 }

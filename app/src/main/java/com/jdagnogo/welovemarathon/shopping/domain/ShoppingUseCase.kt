@@ -7,5 +7,6 @@ import com.jdagnogo.welovemarathon.common.banner.GetBannerUseCase
 data class ShoppingUseCase(
     val getShoppingUseCase: GetShoppingUseCase,
     val getShoppingCategoriesUseCase: GetShoppingCategoriesUseCase,
+    val getShoppingTagUseCase: GetShoppingTagUseCase,
     val getBannerUseCase: GetBannerUseCase
 )
