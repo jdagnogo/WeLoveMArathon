@@ -28,6 +28,9 @@ fun MapScreen(
     navController: NavController,
 ) {
     val state by viewModel.state.collectAsState()
+    if (state.items.isEmpty()) {
+        viewModel.dispatchEvent(MapUiEvent.OnInit(MapType.Shopping))
+    }
     MapScaffoldComponent(
         content = {
             MapContent(
@@ -38,7 +41,10 @@ fun MapScreen(
                 onBackPressed = { navController.popBackStack() })
         },
         sheetContent = {
-            MapBottomSheetComponent(Modifier.fillMaxWidth())
+            MapBottomSheetComponent(
+                mapItems = state.items,
+                Modifier.fillMaxWidth()
+            )
         }
     )
 }

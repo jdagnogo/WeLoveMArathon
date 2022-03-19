@@ -9,15 +9,16 @@ import javax.inject.Inject
 class GetShoppingUseCase @Inject constructor(
     private val repository: ShoppingRepository,
 ) {
-    suspend operator fun invoke(type: String, tags: List<String>): Flow<Resource<List<Shopping>>> {
+    suspend operator fun invoke(type: String? = null, tags: List<String> = emptyList()): Flow<Resource<List<Shopping>>> {
         return repository.data.map { list ->
-            val result =
-                list.data
-                    ?.filter { it.category == type }
-                    ?.sortedBy { it.name }?.toMutableList() ?: listOf()
+            var result =
+                list.data?.sortedBy { it.name }?.toMutableList() ?: listOf()
+            if (type != null) {
+                result = result.filter { it.category == type }
+            }
 
             if (tags.isNotEmpty()) {
-                return@map Resource.Success( result.filter { shopping ->
+                return@map Resource.Success(result.filter { shopping ->
                     var containsTags = false
                     tags.forEach { tag ->
                         if (shopping.tags.contains(tag, ignoreCase = true)) {
