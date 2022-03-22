@@ -1,8 +1,9 @@
 package com.jdagnogo.welovemarathon.shopping.domain
 
+import androidx.annotation.Keep
 import com.jdagnogo.welovemarathon.common.submenu.SubMenuItem
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingCategoryEntity
-
+@Keep
 data class ShoppingCategory(
     val name: String = "",
     val icon: String = "",

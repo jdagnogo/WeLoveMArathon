@@ -1,12 +1,13 @@
 package com.jdagnogo.welovemarathon.common.ui.theme
 
+import androidx.annotation.Keep
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-
+@Keep
 data class Spacing(
     val default: Dp = 0.dp,
     val extraSmall: Dp = 4.dp,

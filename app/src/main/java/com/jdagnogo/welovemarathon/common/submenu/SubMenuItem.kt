@@ -1,5 +1,8 @@
 package com.jdagnogo.welovemarathon.common.submenu
 
+import androidx.annotation.Keep
+
+@Keep
 data class SubMenuItem(
     val title: String = "",
     val subtitle: String = "",

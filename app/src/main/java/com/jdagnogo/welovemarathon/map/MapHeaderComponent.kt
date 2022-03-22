@@ -1,6 +1,7 @@
 package com.jdagnogo.welovemarathon.map
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -8,12 +9,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -22,11 +26,14 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.theme.Primary
+import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryDark
 import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryLight
 import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
@@ -49,9 +56,8 @@ fun MapHeaderComponent(
                 .clickable {
                     onBackPressed()
                 }
-                .size(MaterialTheme.spacing.huge)
                 .background(Color(R.color.black), CircleShape)
-                .padding(MaterialTheme.spacing.medium)
+                .padding(MaterialTheme.spacing.small)
         )
 
         LazyRow(
@@ -87,13 +93,21 @@ fun MapChip(
         .background(Secondary.takeIf { isSelected } ?: Primary)
         .border(width = 1.dp, color = PrimaryLight, shape = CircleShape)
         .padding(vertical = MaterialTheme.spacing.small)
-        .padding(end = MaterialTheme.spacing.extraMedium)
+        .padding(horizontal = MaterialTheme.spacing.extraMedium)
     ) {
-        Icon(
-            painterResource(id = R.drawable.ic_back),
+        Image(
+            painter = rememberImagePainter(
+                data = mapChip.iconUrl,
+                builder = {
+                    crossfade(true)
+                    error(R.drawable.ic_wlm_logo)
+                },
+            ),
             contentDescription = mapChip.name,
-            tint = Color.White,
-            modifier = Modifier.size(MaterialTheme.spacing.huge)
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.size(MaterialTheme.spacing.huge).padding(
+                horizontal = MaterialTheme.spacing.small
+            )
         )
 
         Text(

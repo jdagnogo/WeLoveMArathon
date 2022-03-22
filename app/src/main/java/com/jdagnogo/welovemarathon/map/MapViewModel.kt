@@ -3,6 +3,7 @@ package com.jdagnogo.welovemarathon.map
 import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.maps.model.LatLng
 import com.jdagnogo.welovemarathon.common.utils.IModel
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.common.utils.handleResource
@@ -48,6 +49,10 @@ class MapViewModel @Inject constructor(
                             MapItem(
                                 name = shopping.name,
                                 tags = shopping.tags,
+                                latLng = LatLng(
+                                    shopping.coordinate?.latitude ?: 0.0,
+                                    shopping.coordinate?.longitude ?: 0.0,
+                                )
                             )
                         }
                     },
@@ -59,6 +64,7 @@ class MapViewModel @Inject constructor(
                         it.map { shopping ->
                             MapChip(
                                 name = shopping.name,
+                                iconUrl = shopping.icon
                             )
                         }
                     },
@@ -127,7 +133,7 @@ sealed class MapPartialState {
     data class OnDataSuccess(val data: List<MapItem>) : MapPartialState()
     data class OnChipsSuccess(val data: List<MapChip>) : MapPartialState()
 }
-
+@Keep
 sealed class MapUiEvent {
     data class OnCategorySelected(val id: String) : MapUiEvent()
     data class OnInit(val type: MapType) : MapUiEvent()

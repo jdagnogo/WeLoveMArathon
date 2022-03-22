@@ -1,6 +1,7 @@
 package com.jdagnogo.welovemarathon.shopping.domain
 
 import androidx.annotation.Keep
+import com.google.firebase.firestore.GeoPoint
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
 import com.jdagnogo.welovemarathon.common.domain.SimpleListItem
@@ -19,6 +20,7 @@ data class Shopping(
     @field:JvmField var isRecommended: Boolean = false,
     var category: String = "",
     var tags: String = "",
+    var coordinate: GeoPoint? = null,
 ) {
     fun toShoppingEntity(): ShoppingEntity {
         return ShoppingEntity(
@@ -32,7 +34,9 @@ data class Shopping(
             image = image,
             isRecommended = isRecommended,
             category = category,
-            tags = tags
+            tags = tags,
+            longitude = coordinate?.longitude ?: 0.0,
+            latitude = coordinate?.latitude ?: 0.0,
         )
     }
 

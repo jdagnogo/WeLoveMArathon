@@ -1,8 +1,9 @@
 package com.jdagnogo.welovemarathon.sport.domain
 
+import androidx.annotation.Keep
 import com.jdagnogo.welovemarathon.common.domain.RightMenuData
 import com.jdagnogo.welovemarathon.sport.data.SportCategoryEntity
-
+@Keep
 data class SportCategory(
     val name: String = "",
     val icon: String = "",

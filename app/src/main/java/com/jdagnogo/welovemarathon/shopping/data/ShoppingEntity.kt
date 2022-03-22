@@ -3,6 +3,7 @@ package com.jdagnogo.welovemarathon.shopping.data
 import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.firebase.firestore.GeoPoint
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingEntity.Companion.TABLE
 import com.jdagnogo.welovemarathon.shopping.domain.Shopping
 import com.jdagnogo.welovemarathon.shopping.domain.ShoppingCategories
@@ -21,6 +22,8 @@ data class ShoppingEntity(
     val isRecommended: Boolean = false,
     val category: String = ShoppingCategories.Woman.name,
     var tags: String = "",
+    var longitude: Double = 0.0,
+    var latitude: Double = 0.0,
 ) {
     fun toShopping(): Shopping {
         return Shopping(
@@ -34,7 +37,8 @@ data class ShoppingEntity(
             image = image,
             isRecommended = isRecommended,
             category = category,
-            tags = tags
+            tags = tags,
+            coordinate = GeoPoint(latitude, longitude)
         )
     }
 
@@ -42,4 +46,3 @@ data class ShoppingEntity(
         const val TABLE = "Shopping"
     }
 }
-

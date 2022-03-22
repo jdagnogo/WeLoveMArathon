@@ -209,6 +209,7 @@ sealed class ShoppingPartialState {
  *  Here Intent is the same as Intent in MVI architecture
  *  Google likes to call it Event as Android already has an Intent class
  */
+@Keep
 sealed class ShoppingUiEvent {
     data class OnCategoryClicked(val position: Int) : ShoppingUiEvent()
     data class OnFilterClicked(val isVisible: Boolean) : ShoppingUiEvent()
