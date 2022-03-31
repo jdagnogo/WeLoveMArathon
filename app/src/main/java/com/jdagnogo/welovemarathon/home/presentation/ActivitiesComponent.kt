@@ -83,10 +83,7 @@ fun ActivityItem(
                 .fillMaxSize()
                 .background(color = activities.backgroundColor)
                 .padding( horizontal = MaterialTheme.spacing.medium)
-                .padding(
-                    bottom = MaterialTheme.spacing.medium,
-                    top = MaterialTheme.spacing.huge,
-                )
+                .padding(vertical = MaterialTheme.spacing.medium)
         ) {
             Image(
                 painter = rememberImagePainter(
@@ -98,19 +95,13 @@ fun ActivityItem(
                 ),
                 colorFilter= ColorFilter.tint(Color.White),
                 contentDescription = activities.title,
-                modifier = Modifier.size(50.dp)
+                modifier = Modifier.size(70.dp)
             )
             Text(
                 text = activities.title,
                 style = ActivityTitleStyle,
                 modifier = Modifier
                     .padding(top = MaterialTheme.spacing.small)
-            )
-            Text(
-                text = activities.subtitle,
-                style = ActivitySubTitleStyle,
-                modifier = Modifier
-                    .padding(top = MaterialTheme.spacing.extraSmall)
             )
         }
     }

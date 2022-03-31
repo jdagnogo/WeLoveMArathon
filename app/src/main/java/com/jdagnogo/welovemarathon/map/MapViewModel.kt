@@ -59,6 +59,7 @@ class MapViewModel @Inject constructor(
                 )
 
                 fetchCategory(
+                    screenName = type.screenName,
                     useCase = { useCases.getShoppingCategoriesUseCase.invoke() },
                     mapper = {
                         it.map { shopping ->
@@ -74,6 +75,7 @@ class MapViewModel @Inject constructor(
     }
 
     private fun <T> fetchCategory(
+        screenName: String,
         useCase: suspend () -> Flow<Resource<List<T>>>,
         mapper: (List<T>) -> List<MapChip>
     ) {
@@ -82,7 +84,8 @@ class MapViewModel @Inject constructor(
                 useCase.invoke(),
                 {
                     MapPartialState.OnChipsSuccess(
-                        mapper(it)
+                        mapper(it),
+                        screenName = screenName
                     )
                 },
                 MapPartialState.Loading,
@@ -121,6 +124,7 @@ class MapViewModel @Inject constructor(
 @Keep
 data class MapState(
     val error: String = "",
+    val screenName: String = "",
     val chips: List<MapChip> = emptyList(),
     val items: List<MapItem> = emptyList(),
     val currentSelected: String = "",
@@ -131,7 +135,7 @@ sealed class MapPartialState {
     object Loading : MapPartialState()
     data class Error(val message: String) : MapPartialState()
     data class OnDataSuccess(val data: List<MapItem>) : MapPartialState()
-    data class OnChipsSuccess(val data: List<MapChip>) : MapPartialState()
+    data class OnChipsSuccess(val data: List<MapChip>,val screenName: String) : MapPartialState()
 }
 @Keep
 sealed class MapUiEvent {
@@ -139,7 +143,7 @@ sealed class MapUiEvent {
     data class OnInit(val type: MapType) : MapUiEvent()
 }
 
-sealed class MapType {
-    object Shopping : MapType()
-    object Food : MapType()
+sealed class MapType(val screenName: String) {
+    object Shopping : MapType("Shopping")
+    object Food : MapType("Food & Drink")
 }

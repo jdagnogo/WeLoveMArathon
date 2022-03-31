@@ -17,12 +17,13 @@ fun ShoppingContent(
     onMapSelected: () -> Unit,
     onBackPressed: () -> Unit,
     onFiltersSelected: (ids: List<String>) -> Unit = {},
+    onResetSelected: () -> Unit = {},
     onFilterClicked: (isVisible: Boolean) -> Unit,
     onRecommendedDialogClosed: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     CategoryScreen(
-        title = state.subMenuUiModel.screenName,
+        title = state.currentSelected.name,
         recommendedItems = state.recommendedItems,
         items = state.shoppings,
         tags = state.categoryTags,
@@ -32,6 +33,7 @@ fun ShoppingContent(
         onMapSelected = onMapSelected,
         onBackPressed = onBackPressed,
         onFilterClicked = onFilterClicked,
+        onResetSelected = onResetSelected,
         shouldOpenRecommenderDialog = state.shouldOpenRecommendedDialog,
         shouldOpenFilterDialog = state.shouldOpenFilterDialog,
         onRecommendedDialogClosed = onRecommendedDialogClosed,

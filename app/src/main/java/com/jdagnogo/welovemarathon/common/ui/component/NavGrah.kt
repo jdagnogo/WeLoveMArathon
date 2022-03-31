@@ -124,7 +124,7 @@ fun NavGraphBuilder.homeGraph(
         val viewModel = hiltViewModel<HomeViewModel>()
         HomeScreen(viewModel, navController, modifier)
     }
-    composable(HomeSections.FAVS.route) {
+    composable(HomeSections.FAVORITES.route) {
         val viewModel = hiltViewModel<FoodViewModel>()
         FoodScreen(viewModel = viewModel, modifier)
     }
@@ -150,11 +150,11 @@ enum class HomeSections(
     val icon: Int,
     val route: String,
 ) {
-    HOME("Home", R.drawable.ic_wlm_logo, "home/activities"),
-    TIPS("Tips", R.drawable.ic_tips, "home/tips"),
-    FAVS("Favs", R.drawable.ic_food, "home/favorites"),
-    RUN("Home", R.drawable.ic_marathon, "home/run"),
-    ABOUT("About", R.drawable.ic_favorites, "home/food")
+    HOME("Home", R.drawable.home, "home/activities"),
+    TIPS("Tips", R.drawable.tips, "home/tips"),
+    FAVORITES("Liked", R.drawable.fav, "home/favorites"),
+    RUN("Run", R.drawable.run, "home/run"),
+    ABOUT("About", R.drawable.about, "home/food")
 }
 
 @Keep

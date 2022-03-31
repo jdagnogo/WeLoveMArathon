@@ -53,7 +53,7 @@ fun AnimatableIcon(
                 contentDescription = "icon",
                 tint = Color.White,
                 modifier = modifier.background(color = animatedColor)
-                    .padding(2.dp)
+                    .padding(4.dp)
             )
         }
     )

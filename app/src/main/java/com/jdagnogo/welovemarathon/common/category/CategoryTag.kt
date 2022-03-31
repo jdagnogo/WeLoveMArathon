@@ -12,4 +12,3 @@ val CategoryTagFake = CategoryTag(
     name = "name",
     isSelected = false,
 )
-

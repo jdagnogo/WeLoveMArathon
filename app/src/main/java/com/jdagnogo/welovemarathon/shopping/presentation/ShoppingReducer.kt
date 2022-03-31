@@ -51,6 +51,12 @@ class ShoppingReducer : IReducer<ShoppingState, ShoppingPartialState> {
                     currentSelected = partialState.data,
                 )
             }
+            ShoppingPartialState.OnFilterReset -> {
+                state.copy(
+                    shouldOpenFilterDialog = false,
+                    currentSelectedTags = emptyList()
+                )
+            }
         }
     }
 }

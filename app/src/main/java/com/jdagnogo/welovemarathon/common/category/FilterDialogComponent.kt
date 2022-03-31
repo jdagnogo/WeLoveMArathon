@@ -3,8 +3,9 @@ package com.jdagnogo.welovemarathon.common.category
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -33,18 +34,22 @@ import com.jdagnogo.welovemarathon.common.ui.theme.RecommendedCategoryItemTitleS
 import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import com.jdagnogo.welovemarathon.common.ui.theme.ShoppingColor
 import com.jdagnogo.welovemarathon.common.ui.theme.White
+import com.jdagnogo.welovemarathon.common.ui.theme.filterButtonStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
+import com.jdagnogo.welovemarathon.common.ui.theme.tagStyle
 
 @Composable
 fun FilterDialogComponent(
     tags: List<CategoryTag>,
     onFiltersSelected: (ids: List<String>) -> Unit = {},
+    onResetSelected: () -> Unit = {},
     onDismissRequest: () -> Unit = {},
 ) {
     Dialog(onDismissRequest = { onDismissRequest() }) {
         FilterDetailsDialogContent(
             tags = tags,
             onFiltersSelected = onFiltersSelected,
+            onResetSelected = onResetSelected,
         )
     }
 }
@@ -53,6 +58,7 @@ fun FilterDialogComponent(
 fun FilterDetailsDialogContent(
     tags: List<CategoryTag>,
     onFiltersSelected: (ids: List<String>) -> Unit = {},
+    onResetSelected: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Card(
@@ -86,23 +92,46 @@ fun FilterDetailsDialogContent(
                         })
                 }
             }
-            Button(
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .padding(MaterialTheme.spacing.medium)
-                    .fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(
-                    contentColor = Color.White,
-                    backgroundColor = ShoppingColor
-                ),
-                onClick = {
+                    .padding(vertical = MaterialTheme.spacing.medium)
+                    .padding(horizontal = MaterialTheme.spacing.small)
+            ) {
+                FilterDialogButton("Done ! ", {
                     onFiltersSelected(
                         tags.filter { it.isSelected }.map { it.name }
                     )
-                },
-            ) {
-                Text(text = "Done !")
+                }, Modifier.weight(1f))
+                FilterDialogButton("Reset", {
+                    onResetSelected()
+                }, Modifier.weight(1f))
             }
         }
+    }
+}
+
+@Composable
+fun FilterDialogButton(
+    title: String,
+    onClicked: () -> Unit = {},
+    modifier: Modifier = Modifier,
+) {
+    Button(
+        modifier = modifier.padding(
+            start = MaterialTheme.spacing.small,
+            end = MaterialTheme.spacing.small
+        ),
+        colors = ButtonDefaults.buttonColors(
+            contentColor = Color.White,
+            backgroundColor = ShoppingColor
+        ),
+        onClick = {
+            onClicked()
+        },
+    ) {
+        Text(text = title, style = filterButtonStyle)
     }
 }
 
@@ -114,6 +143,7 @@ fun FilterItem(
     modifier: Modifier = Modifier,
 ) {
     Text(
+        style = tagStyle,
         text = "#$tag",
         color = PrimaryDark.takeIf { isSelected } ?: White,
         modifier = modifier
@@ -144,18 +174,28 @@ fun FilterDetailsDialogContentComponentPreview() {
 @Composable
 fun FilterDetailsDialogSelectedContentComponentPreview() {
     FilterItem(
-        tag = CategoryTag("name", true).name
+        tag = CategoryTag("name", true).name,
+        isSelected = true
+    )
+}
+
+@SuppressLint("UnrememberedMutableState")
+@Preview(name = "Button")
+@Composable
+fun FilterDialogButtonPreview() {
+    FilterDialogButton(
+        title = "Done"
     )
 }
 
 @Preview(name = "Filter dialog")
 @Composable
 fun FilterDialogComponentPreview() {
-    FilterDialogComponent(
+    FilterDetailsDialogContent(
         tags =
         listOf(
             CategoryTag("name", true),
-            CategoryTag("name2", false),
+            CategoryTag("long long long name", false),
             CategoryTag("name2", false),
             CategoryTag("name2", true),
             CategoryTag("name2", false),

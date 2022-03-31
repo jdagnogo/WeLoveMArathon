@@ -28,7 +28,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
@@ -36,6 +35,7 @@ import com.jdagnogo.welovemarathon.common.ui.component.ContactComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.Primary
 import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryLight
 import com.jdagnogo.welovemarathon.common.ui.theme.SplashScreenTitleStyle
+import com.jdagnogo.welovemarathon.common.ui.theme.recommendedCategoryContentStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 import com.jdagnogo.welovemarathon.common.ui.theme.tagsTitleStyle
 import com.jdagnogo.welovemarathon.common.utils.redirectToLink
@@ -105,7 +105,7 @@ fun RecommendedCategoryDetailsDialogContent(
                     modifier = modifier
                         .padding(start = MaterialTheme.spacing.extraMedium)
                         .clickable {
-
+                            // redirect to website
                         }
                         .size(MaterialTheme.spacing.large)
                         .background(Primary, CircleShape)
@@ -120,6 +120,7 @@ fun RecommendedCategoryDetailsDialogContent(
 
             Text(
                 overflow = TextOverflow.Ellipsis,
+                style = recommendedCategoryContentStyle,
                 text = item.description,
                 modifier = Modifier
                     .padding(vertical = MaterialTheme.spacing.huge)
@@ -132,7 +133,7 @@ fun RecommendedCategoryDetailsDialogContent(
                 onClicked = { redirectToLink(uriHandler, item.locationLink) },
                 text = item.location, modifier = Modifier
                     .padding(top = 16.dp)
-                    .padding(horizontal = MaterialTheme.spacing.medium)
+                    .padding(horizontal = MaterialTheme.spacing.medium),
             )
 
             ContactComponent(

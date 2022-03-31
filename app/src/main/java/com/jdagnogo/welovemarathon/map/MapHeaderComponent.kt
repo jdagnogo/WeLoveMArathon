@@ -1,7 +1,6 @@
 package com.jdagnogo.welovemarathon.map
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -9,31 +8,21 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberImagePainter
-import com.jdagnogo.welovemarathon.R
+import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.Primary
-import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryDark
 import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryLight
 import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
@@ -42,30 +31,31 @@ import com.jdagnogo.welovemarathon.map.domain.MapChip
 @Composable
 fun MapHeaderComponent(
     mapChips: List<MapChip>,
+    screenName: String,
     currentSelected: String,
     onBackPressed: () -> Unit = {},
     onChipClicked: (String) -> Unit = {},
     modifier: Modifier
 ) {
     Column(modifier = modifier) {
-        Icon(
-            painterResource(id = R.drawable.ic_back),
-            contentDescription = "back",
-            tint = Color.White,
-            modifier = modifier
-                .clickable {
-                    onBackPressed()
-                }
-                .background(Color(R.color.black), CircleShape)
-                .padding(MaterialTheme.spacing.small)
-        )
-
+        Row(
+            verticalAlignment = CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Primary).padding(bottom = MaterialTheme.spacing.medium)
+        ) {
+            TitleComponent(
+                title = screenName,
+                onLeftIconClicked = onBackPressed,
+                iconRight = null
+            )
+        }
         LazyRow(
-            contentPadding = PaddingValues(top = 16.dp, start = 16.dp, end = 16.dp),
+            contentPadding = PaddingValues( horizontal = MaterialTheme.spacing.medium),
             verticalAlignment = CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
             modifier = modifier
-                .fillMaxWidth()
+                .fillMaxWidth().padding(top = MaterialTheme.spacing.medium)
         ) {
 
             itemsIndexed(mapChips) { index, chip ->
@@ -76,6 +66,7 @@ fun MapHeaderComponent(
                     modifier = modifier,
                 )
             }
+
         }
     }
 }
@@ -95,21 +86,6 @@ fun MapChip(
         .padding(vertical = MaterialTheme.spacing.small)
         .padding(horizontal = MaterialTheme.spacing.extraMedium)
     ) {
-        Image(
-            painter = rememberImagePainter(
-                data = mapChip.iconUrl,
-                builder = {
-                    crossfade(true)
-                    error(R.drawable.ic_wlm_logo)
-                },
-            ),
-            contentDescription = mapChip.name,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.size(MaterialTheme.spacing.huge).padding(
-                horizontal = MaterialTheme.spacing.small
-            )
-        )
-
         Text(
             text = mapChip.name,
             modifier = Modifier
@@ -139,6 +115,10 @@ fun MapHeaderComponentPreview() {
         MapChip(id = "toto4", iconUrl = "", "toto4"),
     )
     MaterialTheme {
-        MapHeaderComponent(mapChips = chips, currentSelected = "toto2",modifier = Modifier)
+        MapHeaderComponent(
+            mapChips = chips,
+            screenName = "Map title",
+            currentSelected = "toto2", modifier = Modifier
+        )
     }
 }

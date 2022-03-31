@@ -18,6 +18,14 @@ val fonts = FontFamily(
     Font(R.font.wlm_font)
 )
 
+val normal_font = FontFamily(
+    Font(R.font.arial_bold, weight = FontWeight.Bold),
+    Font(R.font.arial, weight = FontWeight.Light),
+    Font(R.font.arial, weight = FontWeight.Thin),
+    Font(R.font.arial, weight = FontWeight.Normal, style = FontStyle.Italic),
+    Font(R.font.arial)
+)
+
 // Set of Material typography styles to start with
 val Typography = Typography(
 
@@ -69,18 +77,18 @@ val ActivityTitleStyle = TextStyle(
 )
 
 val ActivitySubTitleStyle = TextStyle(
-    fontFamily = fonts,
-    fontWeight = FontWeight.Normal,
+    fontFamily = normal_font,
+    fontWeight = FontWeight.Bold,
     color = White,
     textAlign = TextAlign.Center,
-    fontSize = 10.sp
+    fontSize = 12.sp
 )
 
 val CategoryGridTagStyle = TextStyle(
-    fontFamily = fonts,
+    fontFamily = normal_font,
     fontWeight = FontWeight.Normal,
     color = Primary,
-    fontSize = 10.sp
+    fontSize = 12.sp
 )
 
 val SplashScreenTitleStyle = TextStyle(
@@ -99,14 +107,33 @@ val RecommendedCategoryTitleStyle = TextStyle(
 )
 
 val tagsTitleStyle = TextStyle(
-    fontFamily = fonts,
-    fontWeight = FontWeight.Normal,
+    fontFamily = normal_font,
+    fontWeight = FontWeight.Bold,
     color = ShoppingColor,
     fontSize = 12.sp
 )
 
+val recommendedCategoryContentStyle = TextStyle(
+    fontFamily = normal_font,
+    fontWeight = FontWeight.Normal,
+    fontSize = 14.sp
+)
+
+val tagStyle = TextStyle(
+    fontFamily = normal_font,
+    fontWeight = FontWeight.Bold,
+    fontSize = 14.sp
+)
+
+val filterButtonStyle = TextStyle(
+    fontFamily = normal_font,
+    fontWeight = FontWeight.Bold,
+    color = White,
+    fontSize = 14.sp
+)
+
 val contactStyle = TextStyle(
-    fontFamily = fonts,
+    fontFamily = normal_font,
     fontWeight = FontWeight.Normal,
     color = White,
     fontSize = 16.sp

@@ -55,27 +55,11 @@ fun MapScaffoldComponent(
     sheetContent: @Composable ColumnScope.() -> Unit = {},
     content: @Composable (PaddingValues) -> Unit = {}
 ) {
-    val scope = rememberCoroutineScope()
     val scaffoldState = rememberBottomSheetScaffoldState()
     BottomSheetScaffold(
         sheetContent = sheetContent,
         scaffoldState = scaffoldState,
         sheetShape = RoundedCornerShape(16.dp, 16.dp, 0.dp, 0.dp),
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    // show snackbar as a suspend function
-                    scope.launch {
-                        scaffoldState.snackbarHostState.showSnackbar("Added to favorite ")
-                    }
-                }
-            ) {
-                Icon(
-                    painterResource(id = R.drawable.ic_back),
-                    contentDescription = "Localized description"
-                )
-            }
-        },
         floatingActionButtonPosition = FabPosition.End,
         sheetPeekHeight = 128.dp,
     ) { innerPadding ->

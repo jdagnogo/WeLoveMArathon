@@ -151,6 +151,14 @@ class ShoppingViewModel @Inject constructor(
                 )
                 _state.value = reducer.reduce(state.value, partialState)
             }
+            ShoppingUiEvent.OnResetClicked ->{
+                fetchShopping(
+                    state.value.currentSelected,
+                    emptyList()
+                )
+                val partialState = ShoppingPartialState.OnFilterReset
+                _state.value = reducer.reduce(state.value, partialState)
+            }
         }
     }
 }
@@ -192,6 +200,7 @@ data class ShoppingState(
 sealed class ShoppingPartialState {
     data class Error(val message: String) : ShoppingPartialState()
     object Loading : ShoppingPartialState()
+    object OnFilterReset : ShoppingPartialState()
     data class OnBannerSuccess(val banner: GifBanner?) : ShoppingPartialState()
     data class OnRecommendedDialog(val item: RecommendedCategoryDetails?) : ShoppingPartialState()
     data class OnFilterDialog(val isVisible: Boolean) : ShoppingPartialState()
@@ -213,6 +222,7 @@ sealed class ShoppingPartialState {
 sealed class ShoppingUiEvent {
     data class OnCategoryClicked(val position: Int) : ShoppingUiEvent()
     data class OnFilterClicked(val isVisible: Boolean) : ShoppingUiEvent()
+    object OnResetClicked : ShoppingUiEvent()
     data class OnFiltersSelected(val filters: List<String>) : ShoppingUiEvent()
     data class OnRecommendedItemSelected(val id: String) : ShoppingUiEvent()
     object OnRecommendedDialogClosed : ShoppingUiEvent()

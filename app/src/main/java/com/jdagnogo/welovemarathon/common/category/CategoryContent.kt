@@ -27,6 +27,7 @@ fun CategoryScreen(
     items: List<CategoryItem>,
     tags: List<CategoryTag>,
     onFiltersSelected: (ids: List<String>) -> Unit = {},
+    onResetSelected: () -> Unit = {},
     currentShoppingSelected: RecommendedCategoryDetails?,
     shouldOpenRecommenderDialog: Boolean,
     shouldOpenFilterDialog: Boolean,
@@ -52,7 +53,7 @@ fun CategoryScreen(
         RecommendedCategoryComponent(
             recommendedItems = recommendedItems,
             onItemSelected = onItemSelected,
-            modifier = Modifier.padding(top = MaterialTheme.spacing.medium)
+            modifier = Modifier.padding(top = MaterialTheme.spacing.huge)
         )
 
         CategoryComponent(
@@ -72,6 +73,7 @@ fun CategoryScreen(
                 tags = tags,
                 onFiltersSelected = onFiltersSelected,
                 onDismissRequest = onRecommendedDialogClosed,
+                onResetSelected = onResetSelected,
             )
         }
     }
@@ -101,6 +103,7 @@ fun CategoryScreenPreview() {
             items = items,
             tags = listOf(),
             onFiltersSelected = {},
+            {},
             currentShoppingSelected = RecommendedCategoryDetailsFake,
             false,
             false,

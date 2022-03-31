@@ -20,7 +20,8 @@ class MapReducer : IReducer<MapState, MapPartialState> {
             }
             is MapPartialState.OnChipsSuccess -> {
                 state.copy(
-                    chips = partialState.data
+                    chips = partialState.data,
+                    screenName = partialState.screenName
                 )
             }
         }

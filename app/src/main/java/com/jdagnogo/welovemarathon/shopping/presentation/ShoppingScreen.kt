@@ -31,6 +31,9 @@ fun ShoppingScreen(
         onFilterClicked = {
             viewModel.dispatchEvent(ShoppingUiEvent.OnFilterClicked(it))
         },
+        onResetSelected = {
+            viewModel.dispatchEvent(ShoppingUiEvent.OnResetClicked)
+        },
         onMapSelected = {
             navController.navigate(MainDestinations.Map.route)
         },

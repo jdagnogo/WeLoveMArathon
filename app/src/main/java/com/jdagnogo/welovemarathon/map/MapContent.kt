@@ -30,7 +30,8 @@ fun MapContent(
         ) {
             state.items.filter {
                 it.latLng.latitude != 0.0
-                        && it.latLng.longitude != 0.0}
+                        && it.latLng.longitude != 0.0
+            }
                 .forEach {
                     Marker(
                         position = it.latLng!!,
@@ -41,6 +42,7 @@ fun MapContent(
         }
         MapHeaderComponent(
             mapChips = state.chips,
+            screenName = state.screenName,
             currentSelected = state.currentSelected,
             onChipClicked = onCategorySelected,
             onBackPressed = onBackPressed, modifier = Modifier

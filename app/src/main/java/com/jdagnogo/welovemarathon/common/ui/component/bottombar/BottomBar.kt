@@ -61,7 +61,7 @@ fun BottomBarPreview() {
             BottomBar(
                 tabs = arrayOf(
                     HomeSections.HOME,
-                    HomeSections.FAVS,
+                    HomeSections.FAVORITES,
                     HomeSections.TIPS,
                     HomeSections.ABOUT
                 ),

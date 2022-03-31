@@ -16,10 +16,10 @@ enum class Activities(
     val icon: Int,
     val backgroundColor: Color
 ) {
-    ACTIVITIES("Activities", "Let's explore", R.drawable.sports, ActivityColor),
-    BEACHES("Beaches", "Dive into", R.drawable.culture, BeachColor),
+    ACTIVITIES("Activities", "Let's explore", R.drawable.ic_activity, ActivityColor),
+    BEACHES("Beaches", "Dive into", R.drawable.ic_beach, BeachColor),
     CULTURE("Culture", "Find treasures", R.drawable.culture, CultureColor),
     SHOPPING("Shopping", "Therapy time", R.drawable.shopping, ShoppingColor),
-    FOOD("Food&Drink", "Yummy", R.drawable.wine, FoodColor),
+    FOOD("Food&Drink", "Yummy", R.drawable.food, FoodColor),
     WINES("Wine", "Deserve it", R.drawable.wine, WineColor),
 }
