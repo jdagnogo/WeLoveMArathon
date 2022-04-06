@@ -43,7 +43,7 @@ fun FilterDialogComponent(
     tags: List<CategoryTag>,
     onFiltersSelected: (ids: List<String>) -> Unit = {},
     onResetSelected: () -> Unit = {},
-    onDismissRequest: () -> Unit = {},
+    onDismissRequest: () -> Unit,
 ) {
     Dialog(onDismissRequest = { onDismissRequest() }) {
         FilterDetailsDialogContent(

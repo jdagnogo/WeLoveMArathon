@@ -10,10 +10,12 @@ import com.jdagnogo.welovemarathon.shopping.domain.ShoppingTag
 @Entity(tableName = TABLE)
 data class ShoppingTagEntity(
     @PrimaryKey val name: String = "",
+    val category: String = "",
 ) {
     fun toDomainCategory(): ShoppingTag {
         return ShoppingTag(
             name,
+            category
         )
     }
 

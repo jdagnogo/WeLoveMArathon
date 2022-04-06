@@ -7,9 +7,11 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class GetShoppingTagUseCase @Inject constructor(private val repository: ShoppingRepository) {
-    suspend operator fun invoke(): Flow<Resource<List<ShoppingTag>>> {
+    suspend operator fun invoke(category: String): Flow<Resource<List<ShoppingTag>>> {
         return repository.tags.map { list ->
-            Resource.Success(list.data?.sortedBy { it.name } ?: listOf())
+            Resource.Success(list.data?.sortedBy { it.name }?.filter {
+                it.category.contains(category, ignoreCase = true)
+            } ?: listOf())
         }
     }
 }

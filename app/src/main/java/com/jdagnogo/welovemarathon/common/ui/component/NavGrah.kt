@@ -152,7 +152,7 @@ enum class HomeSections(
 ) {
     HOME("Home", R.drawable.home, "home/activities"),
     TIPS("Tips", R.drawable.tips, "home/tips"),
-    FAVORITES("Liked", R.drawable.fav, "home/favorites"),
+    FAVORITES("Favs", R.drawable.fav, "home/favorites"),
     RUN("Run", R.drawable.run, "home/run"),
     ABOUT("About", R.drawable.about, "home/food")
 }

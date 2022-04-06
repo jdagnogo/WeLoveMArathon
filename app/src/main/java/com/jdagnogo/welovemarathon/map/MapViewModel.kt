@@ -34,7 +34,18 @@ class MapViewModel @Inject constructor(
             is MapUiEvent.OnInit -> {
                 onInit(event.type)
             }
+            is MapUiEvent.OnMarkerSelected -> {
+                onMarkerSelected(event.mapItem)
+            }
         }
+    }
+
+    private fun onMarkerSelected(mapItem: MapItem) {
+        val partialState = MapPartialState.OnNewCameraPosition(
+            zoom = 16f,
+            position = mapItem.latLng
+        )
+        _state.value = reducer.reduce(state.value, partialState)
     }
 
     private fun onInit(type: MapType) {
@@ -121,25 +132,37 @@ class MapViewModel @Inject constructor(
     }
 }
 
+const val START_LATITUDE = 38.143414
+const val START_LONGITUDE = 23.9830504
+
 @Keep
 data class MapState(
     val error: String = "",
     val screenName: String = "",
+    val currentPosition: LatLng = LatLng(START_LATITUDE, START_LONGITUDE),
+    val zoom: Float = 10f,
     val chips: List<MapChip> = emptyList(),
     val items: List<MapItem> = emptyList(),
     val currentSelected: String = "",
 )
+
+sealed class MapEffect{
+
+}
 
 @Keep
 sealed class MapPartialState {
     object Loading : MapPartialState()
     data class Error(val message: String) : MapPartialState()
     data class OnDataSuccess(val data: List<MapItem>) : MapPartialState()
-    data class OnChipsSuccess(val data: List<MapChip>,val screenName: String) : MapPartialState()
+    data class OnNewCameraPosition(val zoom: Float, val position: LatLng) : MapPartialState()
+    data class OnChipsSuccess(val data: List<MapChip>, val screenName: String) : MapPartialState()
 }
+
 @Keep
 sealed class MapUiEvent {
     data class OnCategorySelected(val id: String) : MapUiEvent()
+    data class OnMarkerSelected(val mapItem: MapItem) : MapUiEvent()
     data class OnInit(val type: MapType) : MapUiEvent()
 }
 

@@ -41,7 +41,7 @@ import java.util.*
         SportCategoryEntity::class,
         SportEntity::class,
         TipsEntity::class],
-    version = 8
+    version = 9
 )
 abstract class WLMDatabase : RoomDatabase() {
     abstract fun getBlogDao(): BlogDao

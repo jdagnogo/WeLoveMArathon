@@ -111,7 +111,7 @@ fun RecommendedCategoryContent(
             contentDescription = item.name,
             modifier = Modifier
                 .fillMaxSize(),
-            contentScale = ContentScale.FillBounds
+            contentScale = ContentScale.Fit
         )
         Text(
             modifier = Modifier.background(Neutral3),

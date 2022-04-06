@@ -22,8 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.theme.ActivitySubTitleStyle
@@ -90,11 +92,7 @@ fun SubMenuGridComponent(
                         )
                     )
                 )
-                .padding(horizontal = MaterialTheme.spacing.medium)
-                .padding(
-                    bottom = MaterialTheme.spacing.medium,
-                    top = MaterialTheme.spacing.medium,
-                )
+                .padding( MaterialTheme.spacing.small)
         ) {
             Image(
                 painter = rememberImagePainter(
@@ -114,8 +112,6 @@ fun SubMenuGridComponent(
                 style = ActivitySubTitleStyle,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                modifier = Modifier
-                    .padding(top = MaterialTheme.spacing.small)
             )
         }
     }

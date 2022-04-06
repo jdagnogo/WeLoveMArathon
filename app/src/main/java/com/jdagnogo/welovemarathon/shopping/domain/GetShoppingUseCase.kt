@@ -14,7 +14,7 @@ class GetShoppingUseCase @Inject constructor(
             var result =
                 list.data?.sortedBy { it.name }?.toMutableList() ?: listOf()
             if (type != null) {
-                result = result.filter { it.category == type }
+                result = result.filter { it.category.contains(type) }
             }
 
             if (tags.isNotEmpty()) {

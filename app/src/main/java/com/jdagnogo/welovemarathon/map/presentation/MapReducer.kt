@@ -24,6 +24,12 @@ class MapReducer : IReducer<MapState, MapPartialState> {
                     screenName = partialState.screenName
                 )
             }
+            is MapPartialState.OnNewCameraPosition -> {
+                state.copy(
+                    zoom = partialState.zoom,
+                    currentPosition = partialState.position
+                )
+            }
         }
     }
 }

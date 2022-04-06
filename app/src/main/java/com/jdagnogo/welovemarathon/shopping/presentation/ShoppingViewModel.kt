@@ -37,7 +37,6 @@ class ShoppingViewModel @Inject constructor(
     init {
         fetchCategories()
         fetchBanner()
-        fetchTags()
     }
 
     private var currentSelected: ShoppingCategory? = null
@@ -57,10 +56,10 @@ class ShoppingViewModel @Inject constructor(
         }
     }
 
-    private fun fetchTags() {
+    private fun fetchTags(category: String) {
         viewModelScope.launch {
             handleResource(
-                useCases.getShoppingTagUseCase.invoke(),
+                useCases.getShoppingTagUseCase.invoke(category = category),
                 { ShoppingPartialState.OnTagSuccess(it) },
                 ShoppingPartialState.Loading,
                 { ShoppingPartialState.Error("") },
@@ -123,7 +122,7 @@ class ShoppingViewModel @Inject constructor(
         when (event) {
             is ShoppingUiEvent.OnCategoryClicked -> {
                 val category = state.value.categories[event.position]
-                fetchTags()
+                fetchTags(category = category.name)
                 fetchShopping(category)
                 val partialState = ShoppingPartialState.OnCategoriesSelected(category)
                 _state.value = reducer.reduce(state.value, partialState)

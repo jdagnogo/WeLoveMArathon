@@ -38,6 +38,9 @@ fun MapScreen(
                 onCategorySelected = {
                     viewModel.dispatchEvent(MapUiEvent.OnCategorySelected(it))
                 },
+                OnMarkerSelected = {
+                  viewModel.dispatchEvent(MapUiEvent.OnMarkerSelected(it))
+                },
                 onBackPressed = { navController.popBackStack() })
         },
         sheetContent = {

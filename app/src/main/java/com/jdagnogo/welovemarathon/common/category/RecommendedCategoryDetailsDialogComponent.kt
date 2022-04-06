@@ -80,10 +80,12 @@ fun RecommendedCategoryDetailsDialogContent(
                 ),
                 contentDescription = item.name,
                 modifier = Modifier
-                    .padding(MaterialTheme.spacing.medium)
+                    .padding(
+                        bottom = MaterialTheme.spacing.medium,
+                    )
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(20))
-                    .height(120.dp),
+                    .clip(RoundedCornerShape(10, 10, 0,0))
+                    .height(250.dp),
                 contentScale = ContentScale.FillWidth
             )
             Row(
@@ -131,7 +133,8 @@ fun RecommendedCategoryDetailsDialogContent(
                 icon = R.drawable.location,
                 iconSize = 24.dp,
                 onClicked = { redirectToLink(uriHandler, item.locationLink) },
-                text = item.location, modifier = Modifier
+                text = item.location,
+                modifier = Modifier
                     .padding(top = 16.dp)
                     .padding(horizontal = MaterialTheme.spacing.medium),
             )
