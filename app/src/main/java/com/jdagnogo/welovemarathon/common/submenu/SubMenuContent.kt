@@ -25,7 +25,7 @@ import com.google.accompanist.insets.statusBarsPadding
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.banner.GifBannerComponent
 import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
-import com.jdagnogo.welovemarathon.common.ui.theme.ShoppingColor
+import com.jdagnogo.welovemarathon.common.ui.theme.TagColor
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 
 @ExperimentalMaterialApi
@@ -108,7 +108,7 @@ fun SubMenuScreenPreview() {
         items = SubMenuShopping.values().toList().map { it.subMenuItem },
         image = 0,
         banner = null,
-        backgroundColor = ShoppingColor
+        backgroundColor = TagColor
     )
     MaterialTheme {
         SubMenuScreen(

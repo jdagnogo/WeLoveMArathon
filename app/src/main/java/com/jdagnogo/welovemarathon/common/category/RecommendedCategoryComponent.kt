@@ -58,27 +58,18 @@ fun RecommendedCategoryComponent(
                 LazyRow(
                     verticalAlignment = Alignment.CenterVertically,
                     contentPadding = PaddingValues(
-                        start = MaterialTheme.spacing.huge,
+                        start = MaterialTheme.spacing.small,
+                        end = MaterialTheme.spacing.huge,
                     ),
                     horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(end = MaterialTheme.spacing.huge)
                         .animateContentSize()
                 ) {
                     itemsIndexed(recommendedItems) { _, category ->
                         RecommendedCategoryContent(item = category, onItemSelected = onItemSelected)
                     }
                 }
-
-                Icon(
-                    painterResource(id = R.drawable.ic_forward),
-                    contentDescription = "Swipe to right",
-                    tint = Color.White,
-                    modifier = Modifier
-                        .size(MaterialTheme.spacing.huge)
-                        .align(Alignment.CenterEnd)
-                )
             }
         }
     }

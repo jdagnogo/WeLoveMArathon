@@ -182,7 +182,7 @@ data class ShoppingState(
     val subMenuUiModel = SubMenuUiModel(
         screenName = "Shopping",
         items = categories.map { it.toSubMenuItem() },
-        image = R.drawable.beach,
+        image = R.drawable.bg_shopping,
         backgroundColor = ShoppingColor,
         banner = banner,
     )

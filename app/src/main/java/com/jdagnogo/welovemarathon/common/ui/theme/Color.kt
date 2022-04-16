@@ -25,12 +25,13 @@ val Background = Color(0xE1E1E1)
 val BackgroundLight = Primary
 val ContentBackgroundLight = Primary
 val ContentBackgroundDark = Color(0xFF161616)
-val ActivityColor = Color(0xFFA584FA)
-val BeachColor = Color(0xFFF6921E)
-val CultureColor = Color(0xFFE7CD4E)
-val ShoppingColor = Color(0xFF94CDFD)
-val FoodColor = Color(0xFF93DB9B)
+val ActivityColor = Color(0xFF93DB9B)
+val BeachColor = Color(0xFFFAAF3F)
+val CultureColor = Color(0xFF94CDFD)
+val ShoppingColor = Color(0xFFA584FA)
+val FoodColor = Color(0xFFE7CD4E)
 val WineColor = Color(0xFFFF9EA5)
+val TagColor = Color(0xFF94CDFD)
 
 class WLMColors(
     val gradient: List<Color>,

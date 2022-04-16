@@ -1,10 +1,12 @@
 package com.jdagnogo.welovemarathon.shopping.domain
 
 import androidx.annotation.Keep
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.firestore.GeoPoint
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
-import com.jdagnogo.welovemarathon.common.domain.SimpleListItem
+import com.jdagnogo.welovemarathon.map.domain.MapChip
+import com.jdagnogo.welovemarathon.map.domain.MapItem
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingEntity
 
 @Keep
@@ -40,9 +42,14 @@ data class Shopping(
         )
     }
 
-    fun toSimpleListItem(): SimpleListItem {
-        return SimpleListItem(
-            id, name, location, locationLink, number
+    fun toMapItem(): MapItem {
+        return MapItem(
+            name = name,
+            tags = tags,
+            latLng = LatLng(
+                coordinate?.latitude ?: 0.0,
+                coordinate?.longitude ?: 0.0,
+            )
         )
     }
 

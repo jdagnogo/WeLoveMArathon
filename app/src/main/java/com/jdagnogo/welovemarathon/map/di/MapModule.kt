@@ -1,7 +1,7 @@
 package com.jdagnogo.welovemarathon.map.di
 
 import com.jdagnogo.welovemarathon.map.domain.MapUseCases
-import com.jdagnogo.welovemarathon.map.presentation.MapReducer
+import com.jdagnogo.welovemarathon.map.viewmodel.MapReducer
 import com.jdagnogo.welovemarathon.shopping.domain.GetShoppingCategoriesUseCase
 import com.jdagnogo.welovemarathon.shopping.domain.GetShoppingUseCase
 import dagger.Module

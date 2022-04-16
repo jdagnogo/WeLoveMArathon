@@ -32,7 +32,7 @@ import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryDark
 import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryLight
 import com.jdagnogo.welovemarathon.common.ui.theme.RecommendedCategoryItemTitleStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
-import com.jdagnogo.welovemarathon.common.ui.theme.ShoppingColor
+import com.jdagnogo.welovemarathon.common.ui.theme.TagColor
 import com.jdagnogo.welovemarathon.common.ui.theme.White
 import com.jdagnogo.welovemarathon.common.ui.theme.filterButtonStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
@@ -125,7 +125,7 @@ fun FilterDialogButton(
         ),
         colors = ButtonDefaults.buttonColors(
             contentColor = Color.White,
-            backgroundColor = ShoppingColor
+            backgroundColor = TagColor
         ),
         onClick = {
             onClicked()

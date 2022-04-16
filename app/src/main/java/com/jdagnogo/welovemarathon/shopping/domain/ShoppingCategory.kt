@@ -2,6 +2,7 @@ package com.jdagnogo.welovemarathon.shopping.domain
 
 import androidx.annotation.Keep
 import com.jdagnogo.welovemarathon.common.submenu.SubMenuItem
+import com.jdagnogo.welovemarathon.map.domain.MapChip
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingCategoryEntity
 @Keep
 data class ShoppingCategory(
@@ -20,6 +21,13 @@ data class ShoppingCategory(
             title = name,
             iconUrl = icon,
             ordinal = ordinal
+        )
+    }
+
+    fun toMapChip(): MapChip {
+        return MapChip(
+            name = name,
+            key = name,
         )
     }
 }

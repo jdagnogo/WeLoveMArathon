@@ -2,6 +2,7 @@ package com.jdagnogo.welovemarathon.common.category
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -9,6 +10,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -23,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
@@ -30,6 +34,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.component.ContactComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.CategoryGridTagStyle
@@ -53,6 +58,9 @@ fun CategoryComponent(
     Column(modifier = modifier) {
         FilterComponent(
             onFilterClicked = onFilterClicked,
+            modifier = Modifier.padding(
+                horizontal = MaterialTheme.spacing.huge
+            )
         )
 
         CategoryGridComponent(
@@ -150,40 +158,14 @@ fun FilterComponent(
     onFilterClicked: (isVisible: Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier
-    ) {
-        Divider(
-            color = Color.White, thickness = 1.dp,
-            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.huge)
-        )
-
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .width(150.dp)
-                .clickable { onFilterClicked(true) }
-                .background(Secondary)
-                .padding(
-                    vertical = MaterialTheme.spacing.small
-                )
-        ) {
-            Text(
-                style = CategoryGridTagStyle,
-                text = "Filter"
-            )
-            Icon(
-                painterResource(id = R.drawable.ic_filter),
-                contentDescription = "Filter",
-                tint = Primary,
-                modifier = modifier
-                    .padding(start = MaterialTheme.spacing.extraSmall)
-                    .size(MaterialTheme.spacing.medium)
-            )
-        }
-    }
+    Image(
+        painter = rememberImagePainter(
+            data = R.drawable.filter,
+        ),
+        contentDescription = "Filter menu",
+        modifier = modifier.fillMaxWidth().clickable { onFilterClicked(true) },
+        contentScale = ContentScale.FillWidth
+    )
 }
 
 @ExperimentalMaterialApi
