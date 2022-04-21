@@ -37,6 +37,6 @@ fun ShoppingContent(
         shouldOpenRecommenderDialog = state.shouldOpenRecommendedDialog,
         shouldOpenFilterDialog = state.shouldOpenFilterDialog,
         onRecommendedDialogClosed = onRecommendedDialogClosed,
-        currentShoppingSelected = state.currentShoppingSelected,
+        currentRecommended = state.currentShoppingSelected,
     )
 }

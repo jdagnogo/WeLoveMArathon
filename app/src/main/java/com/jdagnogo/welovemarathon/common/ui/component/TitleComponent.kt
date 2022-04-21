@@ -28,7 +28,7 @@ import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 fun TitleComponent(
     iconLeft: Int? = R.drawable.ic_back,
     onLeftIconClicked: () -> Unit = {},
-    iconRight: Int? = R.drawable.location,
+    iconRight: Int? = R.drawable.map,
     onRightIconClicked: () -> Unit = {},
     title: String,
     modifier: Modifier = Modifier

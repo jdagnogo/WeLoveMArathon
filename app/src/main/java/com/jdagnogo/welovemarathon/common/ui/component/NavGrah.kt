@@ -22,6 +22,7 @@ import com.jdagnogo.welovemarathon.beach.presentation.BeachDetailsScreen
 import com.jdagnogo.welovemarathon.beach.presentation.BeachViewModel
 import com.jdagnogo.welovemarathon.common.ui.MenuContent
 import com.jdagnogo.welovemarathon.favorites.FavoritesScreen
+import com.jdagnogo.welovemarathon.food.presentation.FoodMenuScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodViewModel
 import com.jdagnogo.welovemarathon.home.presentation.HomeScreen
@@ -68,7 +69,10 @@ fun NavGraph() {
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
-fun NavGraphBuilder.wlmNavGraph(navController: NavController, viewModelStoreOwner : ViewModelStoreOwner) {
+fun NavGraphBuilder.wlmNavGraph(
+    navController: NavController,
+    viewModelStoreOwner: ViewModelStoreOwner
+) {
     navigation(
         route = MainDestinations.Home.route,
         startDestination = HomeSections.HOME.route
@@ -89,6 +93,16 @@ fun NavGraphBuilder.wlmNavGraph(navController: NavController, viewModelStoreOwne
     composable(MainDestinations.ShoppingSubMenu.route) {
         val viewModel = hiltViewModel<ShoppingViewModel>(viewModelStoreOwner = viewModelStoreOwner)
         ShoppingMenuScreen(viewModel, navController)
+    }
+
+    composable(MainDestinations.FoodSubMenu.route) {
+        val viewModel = hiltViewModel<FoodViewModel>(viewModelStoreOwner = viewModelStoreOwner)
+        FoodMenuScreen(viewModel, navController)
+    }
+
+    composable(MainDestinations.Food.route) {
+        val viewModel = hiltViewModel<FoodViewModel>(viewModelStoreOwner = viewModelStoreOwner)
+        FoodScreen(viewModel, navController)
     }
 
     composable(MainDestinations.Shopping.route) {
@@ -122,8 +136,8 @@ fun NavGraphBuilder.homeGraph(
         HomeScreen(viewModel, navController, modifier)
     }
     composable(HomeSections.FAVORITES.route) {
-        val viewModel = hiltViewModel<FoodViewModel>()
-        FoodScreen(viewModel = viewModel, modifier)
+        val viewModel = hiltViewModel<TipsViewModel>()
+        TipsScreen(viewModel, modifier)
     }
     composable(HomeSections.TIPS.route) {
         val viewModel = hiltViewModel<TipsViewModel>()
@@ -157,7 +171,9 @@ enum class HomeSections(
 @Keep
 sealed class MainDestinations(val route: String) {
     object Home : MainDestinations("home")
+    object Food : MainDestinations("food")
     object ShoppingSubMenu : MainDestinations("shoppingSubMenu")
+    object FoodSubMenu : MainDestinations("foodSubMenu")
     object Shopping : MainDestinations("shopping")
     object Map : MainDestinations("map")
     object Sport : MainDestinations("sport")

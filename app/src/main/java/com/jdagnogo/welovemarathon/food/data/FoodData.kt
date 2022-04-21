@@ -1,12 +1,12 @@
 package com.jdagnogo.welovemarathon.food.data
 
 import androidx.annotation.Keep
-import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantDao
-import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantMapper
-import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantRemoteData
+import com.jdagnogo.welovemarathon.common.domain.DataFreshnessUseCase
+
 @Keep
 data class FoodData(
-    val restaurantDao: RestaurantDao,
-    val restaurantMapper: RestaurantMapper,
-    val restaurantRemoteData: RestaurantRemoteData
+    val dao: FoodDao,
+    val remoteData: FoodRemoteData,
+    val dataFreshnessUseCase: DataFreshnessUseCase,
+    val mapper: FoodMapper
 )

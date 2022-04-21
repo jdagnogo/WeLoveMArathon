@@ -14,34 +14,23 @@ import com.jdagnogo.welovemarathon.common.ui.component.MainDestinations
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
 @Composable
-fun FoodScreen(
-    viewModel: FoodViewModel,
+fun FoodMenuScreen(
+    foodViewModel: FoodViewModel,
     navController: NavController,
     modifier: Modifier = Modifier,
 ) {
-    val state by viewModel.state.collectAsState()
-    FoodContent(
+    val state by foodViewModel.state.collectAsState()
+    FoodMenuContent(
         state = state,
-        onItemSelected = { id ->
-            viewModel.dispatchEvent(FoodUiEvent.OnRecommendedItemSelected(id))
-        },
-        onFiltersSelected = {
-            viewModel.dispatchEvent(FoodUiEvent.OnFiltersSelected(it))
-        },
-        onFilterClicked = {
-            viewModel.dispatchEvent(FoodUiEvent.OnFilterClicked(it))
-        },
-        onResetSelected = {
-            viewModel.dispatchEvent(FoodUiEvent.OnResetClicked)
+        onItemSelected = {
+            foodViewModel.dispatchEvent(event = FoodUiEvent.OnCategoryClicked(it))
+            navController.navigate(MainDestinations.Food.route)
         },
         onMapSelected = {
             navController.navigate(MainDestinations.Map.route)
         },
         onBackPressed = {
             navController.popBackStack()
-        },
-        onRecommendedDialogClosed = {
-            viewModel.dispatchEvent(FoodUiEvent.OnRecommendedDialogClosed)
         },
         modifier = modifier
     )

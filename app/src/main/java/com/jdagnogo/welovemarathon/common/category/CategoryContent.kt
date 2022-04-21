@@ -28,7 +28,7 @@ fun CategoryScreen(
     tags: List<CategoryTag>,
     onFiltersSelected: (ids: List<String>) -> Unit = {},
     onResetSelected: () -> Unit = {},
-    currentShoppingSelected: RecommendedCategoryDetails?,
+    currentRecommended: RecommendedCategoryDetails?,
     shouldOpenRecommenderDialog: Boolean,
     shouldOpenFilterDialog: Boolean,
     onItemSelected: (String) -> Unit,
@@ -63,7 +63,7 @@ fun CategoryScreen(
         )
         if (shouldOpenRecommenderDialog) {
             RecommendedCategoryDetailsDialogComponent(
-                item = currentShoppingSelected,
+                item = currentRecommended,
                 onDismissRequest = onRecommendedDialogClosed,
             )
         }
@@ -104,7 +104,7 @@ fun CategoryScreenPreview() {
             tags = listOf(),
             onFiltersSelected = {},
             {},
-            currentShoppingSelected = RecommendedCategoryDetailsFake,
+            currentRecommended = RecommendedCategoryDetailsFake,
             false,
             false,
             {},

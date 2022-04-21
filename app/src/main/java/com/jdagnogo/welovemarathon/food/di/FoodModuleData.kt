@@ -1,9 +1,9 @@
 package com.jdagnogo.welovemarathon.food.di
 
+import com.jdagnogo.welovemarathon.food.data.FoodFirebaseData
+import com.jdagnogo.welovemarathon.food.data.FoodRemoteData
 import com.jdagnogo.welovemarathon.food.data.FoodRepository
-import com.jdagnogo.welovemarathon.food.data.FoodRepositoryIml
-import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantFirebaseData
-import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantRemoteData
+import com.jdagnogo.welovemarathon.food.data.FoodRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,11 +14,11 @@ import dagger.hilt.components.SingletonComponent
 abstract class FoodModuleData {
     @Binds
     abstract fun bindFoodRepository(
-        foodRepositoryImpl: FoodRepositoryIml,
+        foodRepositoryImpl: FoodRepositoryImpl,
     ): FoodRepository
 
     @Binds
     abstract fun bindBlogFirebaseData(
-        restaurantFirebaseData: RestaurantFirebaseData,
-    ): RestaurantRemoteData
+        restaurantFirebaseData: FoodFirebaseData,
+    ): FoodRemoteData
 }

@@ -1,16 +1,34 @@
 package com.jdagnogo.welovemarathon.food.domain
 
-import androidx.compose.ui.graphics.Color
-import com.jdagnogo.welovemarathon.R
-import com.jdagnogo.welovemarathon.common.ui.theme.Primary
+import androidx.annotation.Keep
+import com.jdagnogo.welovemarathon.common.submenu.SubMenuItem
+import com.jdagnogo.welovemarathon.food.data.FoodCategoryEntity
+import com.jdagnogo.welovemarathon.map.domain.MapChip
 
-enum class FoodCategory(
-    val icon: Int,
-    val color: Color,
-    val title: String = "",
-    val route: String,
+@Keep
+data class FoodCategory(
+    val name: String = "",
+    val icon: String = "",
+    val ordinal: Int = 0,
 ) {
-    RESTAURANT(R.drawable.food, Primary, "Restaurant", "food/Restaurant"),
-    COFFEE(R.drawable.capuchino, Primary, "Coffee", "food/Coffees"),
-    DESSERT(R.drawable.dessert, Primary, "Desert", "food/Deserts"),
+    fun toCategoryEntity(): FoodCategoryEntity {
+        return FoodCategoryEntity(
+            name, icon, ordinal
+        )
+    }
+
+    fun toSubMenuItem(): SubMenuItem {
+        return SubMenuItem(
+            title = name,
+            iconUrl = icon,
+            ordinal = ordinal
+        )
+    }
+
+    fun toMapChip(): MapChip {
+        return MapChip(
+            name = name,
+            key = name,
+        )
+    }
 }

@@ -11,8 +11,10 @@ import com.jdagnogo.welovemarathon.blog.data.BlogDao
 import com.jdagnogo.welovemarathon.blog.data.BlogEntity
 import com.jdagnogo.welovemarathon.common.banner.BannerDao
 import com.jdagnogo.welovemarathon.common.banner.GifBannerEntity
-import com.jdagnogo.welovemarathon.food.data.restaurant.FoodEntity
-import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantDao
+import com.jdagnogo.welovemarathon.food.data.FoodCategoryEntity
+import com.jdagnogo.welovemarathon.food.data.FoodEntity
+import com.jdagnogo.welovemarathon.food.data.FoodDao
+import com.jdagnogo.welovemarathon.food.data.FoodTagEntity
 import com.jdagnogo.welovemarathon.run.data.RunDao
 import com.jdagnogo.welovemarathon.run.data.RunEntity
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingCategoryEntity
@@ -31,6 +33,8 @@ import java.util.*
         BlogEntity::class,
         RunEntity::class,
         FoodEntity::class,
+        FoodCategoryEntity::class,
+        FoodTagEntity::class,
         GifBannerEntity::class,
         BeachEntity::class,
         ShoppingEntity::class,
@@ -41,12 +45,12 @@ import java.util.*
         SportCategoryEntity::class,
         SportEntity::class,
         TipsEntity::class],
-    version = 9
+    version = 10
 )
 abstract class WLMDatabase : RoomDatabase() {
     abstract fun getBlogDao(): BlogDao
     abstract fun getRunDao(): RunDao
-    abstract fun getRestaurantDao(): RestaurantDao
+    abstract fun getFoodDao(): FoodDao
     abstract fun getBannerDao(): BannerDao
     abstract fun getBeachDao(): BeachDao
     abstract fun getShoppingDao(): ShoppingDao

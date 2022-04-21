@@ -1,4 +1,4 @@
-package com.jdagnogo.welovemarathon.shopping.presentation
+package com.jdagnogo.welovemarathon.food.presentation
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -12,8 +12,8 @@ import com.jdagnogo.welovemarathon.common.submenu.SubMenuScreen
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable
-fun ShoppingMenuContent(
-    state: ShoppingState,
+fun FoodMenuContent(
+    state: FoodState,
     onItemSelected: (Int) -> Unit = {},
     onMapSelected: () -> Unit,
     onBackPressed: () -> Unit,
@@ -33,22 +33,22 @@ fun ShoppingMenuContent(
 @ExperimentalAnimationApi
 @Preview(name = "Full content")
 @Composable
-fun ShoppingContentPreview() {
-    val reducer = ShoppingReducer()
+fun FoodContentPreview() {
+    val reducer = FoodReducer()
     val state =
         reducer.reduce(
-            ShoppingState(),
-            ShoppingPartialState.Error("")
+            FoodState(),
+            FoodPartialState.Error("")
         )
     val finalState =
         reducer.reduce(
-            state, ShoppingPartialState.OnShoppingsSuccess(
+            state, FoodPartialState.OnFoodsSuccess(
                 items = emptyList(),
                 recommendedItems = emptyList()
             )
         )
     MaterialTheme {
-        ShoppingMenuContent(
+        FoodMenuContent(
             state = finalState,
             modifier = Modifier,
             onMapSelected = {},

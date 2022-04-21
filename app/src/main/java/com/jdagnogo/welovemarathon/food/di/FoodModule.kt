@@ -1,14 +1,17 @@
 package com.jdagnogo.welovemarathon.food.di
 
+import com.jdagnogo.welovemarathon.common.banner.GetBannerUseCase
 import com.jdagnogo.welovemarathon.common.data.WLMDatabase
+import com.jdagnogo.welovemarathon.common.domain.DataFreshnessUseCase
+import com.jdagnogo.welovemarathon.food.data.FoodDao
 import com.jdagnogo.welovemarathon.food.data.FoodData
+import com.jdagnogo.welovemarathon.food.data.FoodMapper
+import com.jdagnogo.welovemarathon.food.data.FoodRemoteData
 import com.jdagnogo.welovemarathon.food.data.FoodRepository
-import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantDao
-import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantMapper
 import com.jdagnogo.welovemarathon.food.domain.FoodUseCase
-import com.jdagnogo.welovemarathon.food.domain.restaurant.GetFoodOthersUseCase
-import com.jdagnogo.welovemarathon.food.domain.restaurant.GetFoodRecommendedUseCase
-import com.jdagnogo.welovemarathon.food.data.restaurant.RestaurantRemoteData
+import com.jdagnogo.welovemarathon.food.domain.GetFoodCategoriesUseCase
+import com.jdagnogo.welovemarathon.food.domain.GetFoodTagUseCase
+import com.jdagnogo.welovemarathon.food.domain.GetFoodUseCase
 import com.jdagnogo.welovemarathon.food.presentation.FoodReducer
 import dagger.Module
 import dagger.Provides
@@ -22,26 +25,52 @@ object FoodModule {
 
     @Provides
     @Singleton
-    fun provideGetFoodRecommendedUseCase(
+    fun provideGetFoodUseCase(
         repository: FoodRepository,
-    ): GetFoodRecommendedUseCase {
-        return GetFoodRecommendedUseCase(repository)
+    ): GetFoodUseCase {
+        return GetFoodUseCase(repository)
     }
 
     @Provides
     @Singleton
-    fun provideGetFoodOthersUseCase(
+    fun provideGetFoodTagUseCase(
         repository: FoodRepository,
-    ): GetFoodOthersUseCase {
-        return GetFoodOthersUseCase(repository)
+    ): GetFoodTagUseCase {
+        return GetFoodTagUseCase(repository)
     }
 
     @Provides
     @Singleton
-    fun provideFoodUseCases(
-        getFoodRecommendedUseCase: GetFoodRecommendedUseCase,
-        getFoodOthersUseCase: GetFoodOthersUseCase,
-    ) = FoodUseCase(getFoodRecommendedUseCase, getFoodOthersUseCase)
+    fun provideFoodData(
+        foodDao: FoodDao,
+        foodRemoteData: FoodRemoteData,
+        foodMapper: FoodMapper,
+        dataFreshnessUseCase: DataFreshnessUseCase,
+    ) = FoodData(foodDao, foodRemoteData, dataFreshnessUseCase, foodMapper)
+
+    @Provides
+    @Singleton
+    fun provideFoodMapper(): FoodMapper {
+        return FoodMapper()
+    }
+
+    @Singleton
+    @Provides
+    fun provideFoodDao(db: WLMDatabase): FoodDao = db.getFoodDao()
+
+    @Provides
+    @Singleton
+    fun provideFoodUseCase(
+        getFoodUseCase: GetFoodUseCase,
+        getFoodCategoriesUseCase: GetFoodCategoriesUseCase,
+        getFoodTagUseCase: GetFoodTagUseCase,
+        getBannerUseCase: GetBannerUseCase,
+    ) = FoodUseCase(
+        getFoodUseCase = getFoodUseCase,
+        getFoodCategoriesUseCase = getFoodCategoriesUseCase,
+        getBannerUseCase = getBannerUseCase,
+        getFoodTagUseCase = getFoodTagUseCase,
+    )
 
     @Provides
     @Singleton
@@ -49,19 +78,6 @@ object FoodModule {
 
     @Provides
     @Singleton
-    fun provideFoodData(
-        restaurantDao: RestaurantDao,
-        restaurantMapper: RestaurantMapper,
-        restaurantRemoteData: RestaurantRemoteData,
-    ) = FoodData(restaurantDao, restaurantMapper, restaurantRemoteData)
-
-    @Provides
-    @Singleton
-    fun provideRestaurantMapper(): RestaurantMapper {
-        return RestaurantMapper()
-    }
-
-    @Singleton
-    @Provides
-    fun provideRestaurantDao(db: WLMDatabase): RestaurantDao = db.getRestaurantDao()
+    fun provideGetFoodCategoriesUseCase(repository: FoodRepository) =
+        GetFoodCategoriesUseCase(repository)
 }

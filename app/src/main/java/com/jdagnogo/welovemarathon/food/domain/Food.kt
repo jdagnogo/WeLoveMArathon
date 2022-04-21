@@ -1,16 +1,15 @@
-package com.jdagnogo.welovemarathon.shopping.domain
+package com.jdagnogo.welovemarathon.food.domain
 
 import androidx.annotation.Keep
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.firestore.GeoPoint
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
-import com.jdagnogo.welovemarathon.map.domain.MapChip
+import com.jdagnogo.welovemarathon.food.data.FoodEntity
 import com.jdagnogo.welovemarathon.map.domain.MapItem
-import com.jdagnogo.welovemarathon.shopping.data.ShoppingEntity
 
 @Keep
-data class Shopping(
+data class Food(
     var id: String = "",
     var name: String = "",
     var website: String = "",
@@ -24,8 +23,8 @@ data class Shopping(
     var tags: String = "",
     var coordinate: GeoPoint? = null,
 ) {
-    fun toShoppingEntity(): ShoppingEntity {
-        return ShoppingEntity(
+    fun toFoodEntity(): FoodEntity {
+        return FoodEntity(
             id = id,
             name = name,
             website = website,
@@ -77,3 +76,4 @@ data class Shopping(
         )
     }
 }
+

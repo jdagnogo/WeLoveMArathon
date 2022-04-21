@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import com.jdagnogo.welovemarathon.shopping.domain.ShoppingCategories
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -30,9 +29,6 @@ interface ShoppingDao {
 
     @Query(QUERY_GET_ALL_TAG)
     fun getAllTags(): Flow<List<ShoppingTagEntity>>
-
-    @Query("SELECT * FROM ${ShoppingEntity.TABLE} WHERE category = :shoppingCategory")
-    fun getAll(shoppingCategory: ShoppingCategories): Flow<List<ShoppingEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllCategories(entities: List<ShoppingCategoryEntity>)

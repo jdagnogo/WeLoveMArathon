@@ -1,15 +1,15 @@
-package com.jdagnogo.welovemarathon.shopping.data
+package com.jdagnogo.welovemarathon.food.data
 
 import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.firestore.GeoPoint
-import com.jdagnogo.welovemarathon.shopping.data.ShoppingEntity.Companion.TABLE
-import com.jdagnogo.welovemarathon.shopping.domain.Shopping
+import com.jdagnogo.welovemarathon.food.data.FoodEntity.Companion.TABLE
+import com.jdagnogo.welovemarathon.food.domain.Food
 
 @Keep
 @Entity(tableName = TABLE)
-data class ShoppingEntity(
+data class FoodEntity(
     @PrimaryKey val id: String = "",
     val name: String = "",
     val website: String = "",
@@ -18,14 +18,14 @@ data class ShoppingEntity(
     val number: String = "",
     val description: String = "",
     val image: String = "",
-    val isRecommended: Boolean = false,
     val category: String = "",
+    val isRecommended: Boolean = false,
     var tags: String = "",
     var longitude: Double = 0.0,
     var latitude: Double = 0.0,
 ) {
-    fun toShopping(): Shopping {
-        return Shopping(
+    fun toFood(): Food {
+        return Food(
             id = id,
             name = name,
             website = website,
@@ -42,6 +42,6 @@ data class ShoppingEntity(
     }
 
     companion object {
-        const val TABLE = "Shopping"
+        const val TABLE = "food"
     }
 }
