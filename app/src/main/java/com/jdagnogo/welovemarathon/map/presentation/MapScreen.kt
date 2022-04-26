@@ -14,20 +14,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.jdagnogo.welovemarathon.map.domain.MapType
 import com.jdagnogo.welovemarathon.map.viewmodel.MapUiEvent
 import com.jdagnogo.welovemarathon.map.viewmodel.MapViewModel
 
 @ExperimentalMaterialApi
 @Composable
 fun MapScreen(
+    mapType: String,
     viewModel: MapViewModel,
     navController: NavController,
 ) {
     val state by viewModel.state.collectAsState()
-    if (state.items.isEmpty()) {
-        viewModel.dispatchEvent(MapUiEvent.OnInit(MapType.Shopping))
-    }
+    viewModel.dispatchEvent(MapUiEvent.OnInit(mapType))
     MapScaffoldComponent(
         content = {
             MapContent(
@@ -36,7 +34,7 @@ fun MapScreen(
                     viewModel.dispatchEvent(MapUiEvent.OnCategorySelected(it))
                 },
                 OnMarkerSelected = {
-                  viewModel.dispatchEvent(MapUiEvent.OnMarkerSelected(it))
+                    viewModel.dispatchEvent(MapUiEvent.OnMarkerSelected(it))
                 },
                 onBackPressed = { navController.popBackStack() })
         },

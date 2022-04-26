@@ -110,9 +110,14 @@ fun NavGraphBuilder.wlmNavGraph(
         ShoppingScreen(viewModel, navController)
     }
 
-    composable(MainDestinations.Map.route) {
+    composable(
+        MainDestinations.Map.route,
+        arguments = listOf(navArgument(KEY_MAP_TYPE) { type = NavType.StringType })
+    ) { backStackEntry ->
+        val arguments = requireNotNull(backStackEntry.arguments)
+        val mapType = arguments.getString(KEY_MAP_TYPE) ?: ""
         val viewModel = hiltViewModel<MapViewModel>(viewModelStoreOwner = viewModelStoreOwner)
-        MapScreen(viewModel, navController)
+        MapScreen(mapType, viewModel, navController)
     }
 
     composable(MainDestinations.Sport.route) {
@@ -175,7 +180,9 @@ sealed class MainDestinations(val route: String) {
     object ShoppingSubMenu : MainDestinations("shoppingSubMenu")
     object FoodSubMenu : MainDestinations("foodSubMenu")
     object Shopping : MainDestinations("shopping")
-    object Map : MainDestinations("map")
+    object Map : MainDestinations("map/{$KEY_MAP_TYPE}"){
+        fun createRoute(mapType: String) = "map/$mapType"
+    }
     object Sport : MainDestinations("sport")
     object Wine : MainDestinations("wine")
     object Beaches : MainDestinations("beaches/{currentPage}") {
@@ -187,3 +194,5 @@ sealed class GlobalDestinations(val route: String) {
     object SplashScreen : MainDestinations("splash_screen")
     object MainScreen : MainDestinations("main_screen")
 }
+
+const val KEY_MAP_TYPE = "mapType"

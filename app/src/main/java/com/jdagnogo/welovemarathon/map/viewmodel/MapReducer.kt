@@ -31,6 +31,11 @@ class MapReducer : IReducer<MapState, MapPartialState> {
                     currentPosition = partialState.position
                 )
             }
+            is MapPartialState.OnNewMapType -> {
+                state.copy(
+                    currentType = partialState.mapType
+                )
+            }
         }
     }
 }

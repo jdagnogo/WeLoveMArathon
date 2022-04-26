@@ -41,12 +41,16 @@ class MapViewModel @Inject constructor(
         }
     }
 
-    private fun onCategorySelected(type: MapType, key: String?) {
+    private fun onCategorySelected(type: String, key: String?) {
         when (type) {
-            MapType.Food -> {
-
+            MapType.Food.key -> {
+                fetchData(
+                    useCase = { useCases.getFoodUseCase.invoke(key) },
+                    mapper = { it.map { food -> food.toMapItem() } },
+                    currentSelected = key
+                )
             }
-            MapType.Shopping -> {
+            MapType.Shopping.key -> {
                 fetchData(
                     useCase = { useCases.getShoppingUseCase.invoke(key) },
                     mapper = { it.map { shopping -> shopping.toMapItem() } },
@@ -64,26 +68,45 @@ class MapViewModel @Inject constructor(
         _state.value = reducer.reduce(state.value, partialState)
     }
 
-    private fun onInit(type: MapType) {
+    private fun onInit(type: String) {
+        if (state.value.currentType != type) {
+            loadData(type)
+            _state.value = reducer.reduce(state.value, MapPartialState.OnNewMapType(type))
+        } else {
+            return
+        }
+    }
+
+    private fun loadData(type: String) {
         when (type) {
-            MapType.Food -> {
+            MapType.Food.key -> {
+                fetchData(
+                    useCase = { useCases.getFoodUseCase.invoke() },
+                    mapper = { it.map { food -> food.toMapItem() } },
+                )
+
+                fetchCategory(
+                    screenName = MapType.Food.screenName,
+                    useCase = { useCases.getFoodCategoriesUseCase.invoke() },
+                    mapper = { createAllChip().plus(it.map { food -> food.toMapChip() }) },
+                )
             }
-            MapType.Shopping -> {
+            MapType.Shopping.key -> {
                 fetchData(
                     useCase = { useCases.getShoppingUseCase.invoke() },
                     mapper = { it.map { shopping -> shopping.toMapItem() } },
                 )
 
                 fetchCategory(
-                    screenName = type.screenName,
+                    screenName = MapType.Shopping.screenName,
                     useCase = { useCases.getShoppingCategoriesUseCase.invoke() },
-                    mapper = { createChips().plus(it.map { shopping -> shopping.toMapChip() }) },
+                    mapper = { createAllChip().plus(it.map { shopping -> shopping.toMapChip() }) },
                 )
             }
         }
     }
 
-    private fun createChips(): List<MapChip> {
+    private fun createAllChip(): List<MapChip> {
         return listOf(MapChip("All"))
     }
 
@@ -143,7 +166,7 @@ data class MapState(
     val chips: List<MapChip> = emptyList(),
     val items: List<MapItem> = emptyList(),
     val currentSelected: String? = null,
-    val currentType: MapType = MapType.Shopping,
+    val currentType: String = "",
 )
 
 sealed class MapEffect {
@@ -154,8 +177,10 @@ sealed class MapEffect {
 sealed class MapPartialState {
     object Loading : MapPartialState()
     data class Error(val message: String) : MapPartialState()
+    data class OnNewMapType(val mapType: String) : MapPartialState()
     data class OnDataSuccess(
-        val data: List<MapItem>, val currentSelected: String?
+        val data: List<MapItem>,
+        val currentSelected: String?
     ) : MapPartialState()
 
     data class OnNewCameraPosition(val zoom: Float, val position: LatLng) : MapPartialState()
@@ -166,5 +191,5 @@ sealed class MapPartialState {
 sealed class MapUiEvent {
     data class OnCategorySelected(val key: String?) : MapUiEvent()
     data class OnMarkerSelected(val mapItem: MapItem) : MapUiEvent()
-    data class OnInit(val type: MapType) : MapUiEvent()
+    data class OnInit(val type: String) : MapUiEvent()
 }

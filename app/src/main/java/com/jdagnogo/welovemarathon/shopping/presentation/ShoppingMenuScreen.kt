@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.jdagnogo.welovemarathon.common.ui.component.MainDestinations
+import com.jdagnogo.welovemarathon.map.domain.MapType
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
@@ -27,7 +28,7 @@ fun ShoppingMenuScreen(
             navController.navigate(MainDestinations.Shopping.route)
         },
         onMapSelected = {
-            navController.navigate(MainDestinations.Map.route)
+            navController.navigate(MainDestinations.Map.createRoute(MapType.Shopping.key))
         },
         onBackPressed = {
             navController.popBackStack()
