@@ -44,7 +44,7 @@ import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 @Composable
 fun RecommendedCategoryComponent(
     recommendedItems: List<RecommendedCategoryDetails>,
-    onItemSelected: (String) -> Unit,
+    onRecommendedSelected: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     AnimatedVisibility(recommendedItems.isNotEmpty()) {
@@ -67,7 +67,7 @@ fun RecommendedCategoryComponent(
                         .animateContentSize()
                 ) {
                     itemsIndexed(recommendedItems) { _, category ->
-                        RecommendedCategoryContent(item = category, onItemSelected = onItemSelected)
+                        RecommendedCategoryContent(item = category, onRecommendedSelected = onRecommendedSelected)
                     }
                 }
             }
@@ -80,7 +80,7 @@ fun RecommendedCategoryComponent(
 @Composable
 fun RecommendedCategoryContent(
     item: RecommendedCategoryDetails,
-    onItemSelected: (String) -> Unit,
+    onRecommendedSelected: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -89,7 +89,7 @@ fun RecommendedCategoryContent(
             .height(150.dp)
             .width(150.dp)
             .clip(MaterialTheme.shapes.medium)
-            .clickable { onItemSelected(item.id) }
+            .clickable { onRecommendedSelected(item.id) }
     ) {
         Image(
             painter = rememberImagePainter(

@@ -26,19 +26,22 @@ fun HomeScreen(
         onActivitySelected = {
             when (it) {
                 0 -> {
-                  //  navController.navigate(MainDestinations.Shopping.route)
+                    //  navController.navigate(MainDestinations.Shopping.route)
                 }
                 1 -> {
-                    navController.navigate(MainDestinations.Wine.route)
+                    navController.navigate(MainDestinations.Beaches.route)
                 }
                 2 -> {
                     navController.navigate(MainDestinations.Sport.route)
                 }
-                3 ->{
+                3 -> {
                     navController.navigate(MainDestinations.ShoppingSubMenu.route)
                 }
-                4 ->{
+                4 -> {
                     navController.navigate(MainDestinations.FoodSubMenu.route)
+                }
+                5 -> {
+                    navController.navigate(MainDestinations.Wine.route)
                 }
             }
         },

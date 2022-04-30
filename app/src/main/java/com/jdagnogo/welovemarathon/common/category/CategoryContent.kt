@@ -52,7 +52,7 @@ fun CategoryScreen(
 
         RecommendedCategoryComponent(
             recommendedItems = recommendedItems,
-            onItemSelected = onItemSelected,
+            onRecommendedSelected = onItemSelected,
             modifier = Modifier.padding(top = MaterialTheme.spacing.huge)
         )
 

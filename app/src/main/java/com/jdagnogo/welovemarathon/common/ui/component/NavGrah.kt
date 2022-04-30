@@ -18,8 +18,9 @@ import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.jdagnogo.welovemarathon.R
-import com.jdagnogo.welovemarathon.beach.presentation.BeachDetailsScreen
+import com.jdagnogo.welovemarathon.beach.presentation.BeachScreen
 import com.jdagnogo.welovemarathon.beach.presentation.BeachViewModel
+import com.jdagnogo.welovemarathon.beach.presentation.BeachesBarScreen
 import com.jdagnogo.welovemarathon.common.ui.MenuContent
 import com.jdagnogo.welovemarathon.favorites.FavoritesScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodMenuScreen
@@ -79,15 +80,16 @@ fun NavGraphBuilder.wlmNavGraph(
     ) {
         homeGraph(navController = navController)
     }
-    composable(
-        MainDestinations.Beaches.route,
-        arguments = listOf(navArgument("currentPage") { type = NavType.IntType })
-    )
-    { backStackEntry ->
-        val arguments = requireNotNull(backStackEntry.arguments)
-        val viewModel = hiltViewModel<BeachViewModel>()
-        val page = arguments.getInt("currentPage")
-        BeachDetailsScreen(viewModel = viewModel, currentPage = page)
+    composable(MainDestinations.Beaches.route)
+    {
+        val viewModel = hiltViewModel<BeachViewModel>(viewModelStoreOwner = viewModelStoreOwner)
+        BeachScreen(viewModel = viewModel, navController = navController)
+    }
+
+    composable(MainDestinations.BeachesBar.route)
+    {
+        val viewModel = hiltViewModel<BeachViewModel>(viewModelStoreOwner = viewModelStoreOwner)
+        BeachesBarScreen(viewModel = viewModel, navController = navController)
     }
 
     composable(MainDestinations.ShoppingSubMenu.route) {
@@ -180,14 +182,13 @@ sealed class MainDestinations(val route: String) {
     object ShoppingSubMenu : MainDestinations("shoppingSubMenu")
     object FoodSubMenu : MainDestinations("foodSubMenu")
     object Shopping : MainDestinations("shopping")
-    object Map : MainDestinations("map/{$KEY_MAP_TYPE}"){
+    object Map : MainDestinations("map/{$KEY_MAP_TYPE}") {
         fun createRoute(mapType: String) = "map/$mapType"
     }
+    object BeachesBar : MainDestinations("beachesBar")
     object Sport : MainDestinations("sport")
     object Wine : MainDestinations("wine")
-    object Beaches : MainDestinations("beaches/{currentPage}") {
-        fun createRoute(currentPage: Int) = "beaches/$currentPage"
-    }
+    object Beaches : MainDestinations("beaches")
 }
 
 sealed class GlobalDestinations(val route: String) {

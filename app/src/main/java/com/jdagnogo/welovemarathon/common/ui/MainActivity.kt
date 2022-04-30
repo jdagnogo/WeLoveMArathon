@@ -20,16 +20,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @ExperimentalAnimationApi
+@InternalCoroutinesApi
+@ExperimentalMaterialApi
+@ExperimentalPagerApi
+@ExperimentalFoundationApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @InternalCoroutinesApi
-    @ExperimentalMaterialApi
-    @ExperimentalPagerApi
-    @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
         setContent {
             MainContent()
         }

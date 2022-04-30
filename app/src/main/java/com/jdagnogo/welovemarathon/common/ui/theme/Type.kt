@@ -91,6 +91,14 @@ val CategoryGridTagStyle = TextStyle(
     fontSize = 12.sp
 )
 
+val BeachTitleStyle = TextStyle(
+    fontFamily = normal_font,
+    fontWeight = FontWeight.Bold,
+    color = White,
+    textAlign = TextAlign.Center,
+    fontSize = 16.sp
+)
+
 val SplashScreenTitleStyle = TextStyle(
     fontFamily = fonts,
     fontWeight = FontWeight.Normal,

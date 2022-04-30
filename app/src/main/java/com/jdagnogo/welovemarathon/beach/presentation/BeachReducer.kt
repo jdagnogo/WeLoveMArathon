@@ -6,9 +6,11 @@ class BeachReducer : IReducer<BeachState, BeachPartialState> {
     override fun reduce(state: BeachState, partialState: BeachPartialState): BeachState {
         return when (partialState) {
             is BeachPartialState.Error -> state.copy()
-            is BeachPartialState.OnBeachSuccess -> state.copy(beaches = partialState.beaches)
+            is BeachPartialState.OnBeachSuccess -> state.copy(
+                beaches = partialState.beaches
+            )
             BeachPartialState.Loading -> state.copy()
-            is BeachPartialState.OnPrivateBeachSuccess -> state.copy(privateBeaches = partialState.privateBeaches)
+            is BeachPartialState.OnPrivateBeachSuccess -> state.copy()
         }
     }
 }

@@ -2,6 +2,7 @@ package com.jdagnogo.welovemarathon.beach.domain
 
 import androidx.annotation.Keep
 import com.jdagnogo.welovemarathon.beach.data.BeachEntity
+import com.jdagnogo.welovemarathon.common.category.LongCategoryItem
 
 @Keep
 data class Beach(
@@ -22,12 +23,13 @@ data class Beach(
             image = image
         )
     }
-}
 
-fun Beach.toFakeList(): List<Beach> {
-    return listOf(
-        Beach(id = "toto", name = "name1"),
-        Beach(id = "toto2", name = "name2"),
-        Beach(id = "toto3", name = "name3")
-    )
+    fun toLongCategoryItem(): LongCategoryItem {
+        return LongCategoryItem(
+            id = id,
+            name = name,
+            locationLink = locationLink,
+            image = image,
+        )
+    }
 }
