@@ -4,19 +4,21 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,7 +34,6 @@ import androidx.compose.ui.window.Dialog
 import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.component.ContactComponent
-import com.jdagnogo.welovemarathon.common.ui.theme.Primary
 import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryLight
 import com.jdagnogo.welovemarathon.common.ui.theme.SplashScreenTitleStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.recommendedCategoryContentStyle
@@ -84,7 +85,7 @@ fun RecommendedCategoryDetailsDialogContent(
                         bottom = MaterialTheme.spacing.medium,
                     )
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(10, 10, 0,0))
+                    .clip(RoundedCornerShape(10, 10, 0, 0))
                     .height(250.dp),
                 contentScale = ContentScale.FillWidth
             )
@@ -92,6 +93,9 @@ fun RecommendedCategoryDetailsDialogContent(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
+                    .clickable{
+                        redirectToLink(uriHandler, item.website)
+                    }
                     .padding(horizontal = MaterialTheme.spacing.medium)
             ) {
                 Text(
@@ -101,16 +105,13 @@ fun RecommendedCategoryDetailsDialogContent(
                     text = item.name,
                 )
                 Icon(
-                    painterResource(id = R.drawable.ic_wlm_logo),
+                    painterResource(id = R.drawable.ic_link),
                     contentDescription = "back",
                     tint = Color.White,
                     modifier = modifier
                         .padding(start = MaterialTheme.spacing.extraMedium)
-                        .clickable {
-                            // redirect to website
-                        }
-                        .size(MaterialTheme.spacing.large)
-                        .background(Primary, CircleShape)
+                        .size(MaterialTheme.spacing.medium)
+
                 )
             }
             Text(

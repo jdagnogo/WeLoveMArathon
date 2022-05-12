@@ -2,10 +2,14 @@ package com.jdagnogo.welovemarathon.beach.di
 
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
-import com.jdagnogo.welovemarathon.beach.data.*
+import com.jdagnogo.welovemarathon.beach.data.BeachDao
+import com.jdagnogo.welovemarathon.beach.data.BeachData
+import com.jdagnogo.welovemarathon.beach.data.BeachMapper
+import com.jdagnogo.welovemarathon.beach.data.BeachRemoteData
+import com.jdagnogo.welovemarathon.beach.data.BeachRepository
 import com.jdagnogo.welovemarathon.beach.domain.BeachUseCases
 import com.jdagnogo.welovemarathon.beach.domain.GetBeachesUseCase
-import com.jdagnogo.welovemarathon.beach.domain.GetPrivateBeachesUseCase
+import com.jdagnogo.welovemarathon.beach.domain.GetRecommendedBeachesBarsUseCase
 import com.jdagnogo.welovemarathon.beach.presentation.BeachReducer
 import com.jdagnogo.welovemarathon.common.data.WLMDatabase
 import com.jdagnogo.welovemarathon.common.domain.DataFreshnessUseCase
@@ -57,9 +61,11 @@ object BeachModule {
     @Singleton
     fun provideBeachUseCases(
         getBeachesUseCase: GetBeachesUseCase,
-        getPrivateBeachesUseCase: GetPrivateBeachesUseCase,
-    ) = BeachUseCases(getBeachesUseCase = getBeachesUseCase,
-        getPrivateBeachesUseCase = getPrivateBeachesUseCase)
+        getRecommendedBeachesBarsUseCase: GetRecommendedBeachesBarsUseCase
+    ) = BeachUseCases(
+        getBeachesUseCase = getBeachesUseCase,
+        getRecommendedBeachesBarsUseCase = getRecommendedBeachesBarsUseCase
+    )
 
     @Singleton
     @Provides

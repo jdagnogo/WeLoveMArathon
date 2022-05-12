@@ -6,7 +6,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.jdagnogo.welovemarathon.beach.data.BeachDao
 import com.jdagnogo.welovemarathon.beach.data.BeachEntity
-import com.jdagnogo.welovemarathon.beach.data.PrivateBeachEntity
 import com.jdagnogo.welovemarathon.blog.data.BlogDao
 import com.jdagnogo.welovemarathon.blog.data.BlogEntity
 import com.jdagnogo.welovemarathon.common.banner.BannerDao
@@ -40,12 +39,11 @@ import java.util.*
         ShoppingEntity::class,
         ShoppingCategoryEntity::class,
         ShoppingTagEntity::class,
-        PrivateBeachEntity::class,
         DataFreshnessEntity::class,
         SportCategoryEntity::class,
         SportEntity::class,
         TipsEntity::class],
-    version = 10
+    version = 11
 )
 abstract class WLMDatabase : RoomDatabase() {
     abstract fun getBlogDao(): BlogDao

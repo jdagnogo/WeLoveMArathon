@@ -3,6 +3,7 @@ package com.jdagnogo.welovemarathon.food.domain
 import androidx.annotation.Keep
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.firestore.GeoPoint
+import com.jdagnogo.welovemarathon.beach.domain.BeachBar
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
 import com.jdagnogo.welovemarathon.food.data.FoodEntity
@@ -22,6 +23,8 @@ data class Food(
     var category: String = "",
     var tags: String = "",
     var coordinate: GeoPoint? = null,
+    @field:JvmField val isBeachBar: Boolean = false,
+    val parent: String = "",
 ) {
     fun toFoodEntity(): FoodEntity {
         return FoodEntity(
@@ -38,6 +41,8 @@ data class Food(
             tags = tags,
             longitude = coordinate?.longitude ?: 0.0,
             latitude = coordinate?.latitude ?: 0.0,
+            isBeachBar = isBeachBar,
+            parent = parent
         )
     }
 
@@ -49,6 +54,23 @@ data class Food(
                 coordinate?.latitude ?: 0.0,
                 coordinate?.longitude ?: 0.0,
             )
+        )
+    }
+
+    fun toBeachBar(): BeachBar {
+        return BeachBar(
+            id = id,
+            name = name,
+            website = website,
+            location = location,
+            locationLink = locationLink,
+            number = number,
+            description = description,
+            image = image,
+            isRecommended = isRecommended,
+            category = category,
+            tags = tags,
+            coordinate = coordinate
         )
     }
 

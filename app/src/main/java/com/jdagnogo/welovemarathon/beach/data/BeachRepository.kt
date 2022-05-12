@@ -1,7 +1,6 @@
 package com.jdagnogo.welovemarathon.beach.data
 
 import com.jdagnogo.welovemarathon.beach.domain.Beach
-import com.jdagnogo.welovemarathon.beach.domain.PrivateBeach
 import com.jdagnogo.welovemarathon.common.domain.DataType
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.common.utils.resourceAsFlow
@@ -15,7 +14,6 @@ import javax.inject.Inject
 
 interface BeachRepository {
     val beaches: StateFlow<Resource<List<Beach>>>
-    val privateBeaches: StateFlow<Resource<List<PrivateBeach>>>
 }
 
 class BeachRepositoryImpl @Inject constructor(
@@ -27,14 +25,8 @@ class BeachRepositoryImpl @Inject constructor(
     override val beaches: StateFlow<Resource<List<Beach>>>
         get() = _beaches
 
-    private val _privateBeaches: MutableStateFlow<Resource<List<PrivateBeach>>> =
-        MutableStateFlow(Resource.Loading(listOf()))
-    override val privateBeaches: StateFlow<Resource<List<PrivateBeach>>>
-        get() = _privateBeaches
-
     init {
         fetchBeaches()
-        fetchPrivatesBeaches()
     }
 
     private fun fetchBeaches(forceFetch: Boolean = false) {
@@ -52,32 +44,6 @@ class BeachRepositoryImpl @Inject constructor(
 
                 beaches.collectLatest {
                     _beaches.value = it
-                }
-            }
-        }
-    }
-
-    private fun fetchPrivatesBeaches(
-        forceFetch: Boolean = false,
-    ) {
-        with(beachData) {
-            coroutineScope.launch {
-                val privatesBeaches = resourceAsFlow(
-                    forceFetch = forceFetch,
-                    fetchFromLocal = {
-                        beachDao.getPrivateBeaches()
-                            .map { beachMapper.toPrivateBeaches(it) }
-                    },
-                    networkCall = { beachRemoteData.getPrivateBeaches() },
-                    saveCallResource = { beaches ->
-                        val beachEntities = beachMapper.toPrivateBeachEntities(beaches)
-                        beachDao.updatePrivateBeaches(beachEntities)
-                    },
-                    checkDataFreshness = { false }
-                )
-
-                privatesBeaches.collectLatest {
-                    _privateBeaches.value = it
                 }
             }
         }

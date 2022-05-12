@@ -23,6 +23,8 @@ data class FoodEntity(
     var tags: String = "",
     var longitude: Double = 0.0,
     var latitude: Double = 0.0,
+    val isBeachBar: Boolean = false,
+    val parent: String = "",
 ) {
     fun toFood(): Food {
         return Food(
@@ -37,7 +39,9 @@ data class FoodEntity(
             isRecommended = isRecommended,
             category = category,
             tags = tags,
-            coordinate = GeoPoint(latitude, longitude)
+            coordinate = GeoPoint(latitude, longitude),
+            isBeachBar = isBeachBar,
+            parent = parent
         )
     }
 

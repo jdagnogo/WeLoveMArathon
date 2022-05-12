@@ -10,7 +10,11 @@ class BeachReducer : IReducer<BeachState, BeachPartialState> {
                 beaches = partialState.beaches
             )
             BeachPartialState.Loading -> state.copy()
-            is BeachPartialState.OnPrivateBeachSuccess -> state.copy()
+            is BeachPartialState.OnBeachesBarsSuccess -> {
+                state.copy(
+                    recommendedItems = partialState.recommendedItems
+                )
+            }
         }
     }
 }
