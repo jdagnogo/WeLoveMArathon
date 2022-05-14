@@ -102,6 +102,7 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:2.4.0-beta02"
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.6.10"
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+    debugImplementation("androidx.compose.ui:ui-test-manifest:$compose_version")
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-util:$compose_version"
 

@@ -19,10 +19,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.SemanticsPropertyKey
+import androidx.compose.ui.semantics.SemanticsPropertyReceiver
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.theme.TitleStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
+import com.jdagnogo.welovemarathon.common.utils.drawableID
 
 @Composable
 fun TitleComponent(
@@ -43,9 +48,10 @@ fun TitleComponent(
         if (iconLeft != null) {
             Icon(
                 painterResource(id = iconLeft),
-                contentDescription = "back",
+                contentDescription = "iconLeft",
                 tint = Color.White,
                 modifier = modifier
+                    .semantics { drawableID = iconLeft }
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = rememberRipple(bounded = false),
@@ -66,9 +72,10 @@ fun TitleComponent(
         if (iconRight != null) {
             Icon(
                 painterResource(id = iconRight),
-                contentDescription = "map",
+                contentDescription = "iconRight",
                 tint = Color.White,
                 modifier = modifier
+                    .semantics { drawableID = iconRight }
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = rememberRipple(bounded = false),

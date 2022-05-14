@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
@@ -27,6 +28,8 @@ import com.jdagnogo.welovemarathon.common.banner.GifBannerComponent
 import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.TagColor
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
+import com.jdagnogo.welovemarathon.common.utils.backgroundColor
+import com.jdagnogo.welovemarathon.common.utils.drawableID
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
@@ -39,6 +42,7 @@ fun SubMenuScreen(
     if (subMenuUiModel == null) return
     Box(
         modifier = modifier
+            .semantics { backgroundColor = subMenuUiModel.backgroundColor }
             .fillMaxSize()
             .statusBarsPadding()
             .background(subMenuUiModel.backgroundColor)
