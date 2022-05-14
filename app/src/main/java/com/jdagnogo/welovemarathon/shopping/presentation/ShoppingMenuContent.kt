@@ -7,6 +7,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.jdagnogo.welovemarathon.common.submenu.SubMenuInteractions
 import com.jdagnogo.welovemarathon.common.submenu.SubMenuScreen
 
 @ExperimentalMaterialApi
@@ -14,17 +15,13 @@ import com.jdagnogo.welovemarathon.common.submenu.SubMenuScreen
 @Composable
 fun ShoppingMenuContent(
     state: ShoppingState,
-    onItemSelected: (Int) -> Unit = {},
-    onMapSelected: () -> Unit,
-    onBackPressed: () -> Unit,
+    subMenuInteractions: SubMenuInteractions,
     modifier: Modifier = Modifier,
 ) {
     SubMenuScreen(
         subMenuUiModel = state.subMenuUiModel,
         modifier = modifier,
-        onItemSelected = onItemSelected,
-        onMapSelected = onMapSelected,
-        onBackPressed = onBackPressed
+        subMenuInteractions = subMenuInteractions,
     )
 }
 
@@ -50,9 +47,12 @@ fun ShoppingContentPreview() {
     MaterialTheme {
         ShoppingMenuContent(
             state = finalState,
-            modifier = Modifier,
-            onMapSelected = {},
-            onBackPressed = {},
-            onItemSelected = {})
+            subMenuInteractions = SubMenuInteractions(
+                onMapSelected = {},
+                onBackPressed = {},
+                onItemSelected = {}
+            ),
+            modifier = Modifier
+        )
     }
 }

@@ -33,9 +33,7 @@ import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 @Composable
 fun SubMenuScreen(
     subMenuUiModel: SubMenuUiModel?,
-    onItemSelected: (Int) -> Unit,
-    onMapSelected: () -> Unit,
-    onBackPressed: () -> Unit,
+    subMenuInteractions: SubMenuInteractions,
     modifier: Modifier,
 ) {
     if (subMenuUiModel == null) return
@@ -70,8 +68,8 @@ fun SubMenuScreen(
         }
         TitleComponent(
             title = subMenuUiModel.screenName,
-            onLeftIconClicked = onBackPressed,
-            onRightIconClicked = onMapSelected
+            onLeftIconClicked = subMenuInteractions.onBackPressed,
+            onRightIconClicked = subMenuInteractions.onMapSelected
         )
         Column(
             modifier = Modifier
@@ -83,7 +81,7 @@ fun SubMenuScreen(
         ) {
             SubMenuComponent(
                 items = subMenuUiModel.items,
-                onItemSelected = onItemSelected,
+                onItemSelected = subMenuInteractions.onItemSelected,
             )
         }
 
@@ -114,9 +112,11 @@ fun SubMenuScreenPreview() {
         SubMenuScreen(
             subMenuUiModel = subMenuUiModel,
             modifier = Modifier,
-            onItemSelected = {},
-            onBackPressed = {},
-            onMapSelected = {}
+            subMenuInteractions = SubMenuInteractions(
+                onItemSelected = {},
+                onBackPressed = {},
+                onMapSelected = {}
+            )
         )
     }
 }

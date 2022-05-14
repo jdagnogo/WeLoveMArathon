@@ -7,6 +7,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.jdagnogo.welovemarathon.common.submenu.SubMenuInteractions
 import com.jdagnogo.welovemarathon.common.submenu.SubMenuScreen
 
 @ExperimentalMaterialApi
@@ -22,9 +23,11 @@ fun FoodMenuContent(
     SubMenuScreen(
         subMenuUiModel = state.subMenuUiModel,
         modifier = modifier,
-        onItemSelected = onItemSelected,
-        onMapSelected = onMapSelected,
-        onBackPressed = onBackPressed
+        subMenuInteractions = SubMenuInteractions(
+            onItemSelected = onItemSelected,
+            onMapSelected = onMapSelected,
+            onBackPressed = onBackPressed
+        )
     )
 }
 

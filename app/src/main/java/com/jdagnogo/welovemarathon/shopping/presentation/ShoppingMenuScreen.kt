@@ -8,6 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.jdagnogo.welovemarathon.common.submenu.SubMenuInteractions
 import com.jdagnogo.welovemarathon.common.ui.component.MainDestinations
 import com.jdagnogo.welovemarathon.map.domain.MapType
 
@@ -23,16 +24,18 @@ fun ShoppingMenuScreen(
     val state by shoppingViewModel.state.collectAsState()
     ShoppingMenuContent(
         state = state,
-        onItemSelected = {
-            shoppingViewModel.dispatchEvent(event = ShoppingUiEvent.OnCategoryClicked(it))
-            navController.navigate(MainDestinations.Shopping.route)
-        },
-        onMapSelected = {
-            navController.navigate(MainDestinations.Map.createRoute(MapType.Shopping.key))
-        },
-        onBackPressed = {
-            navController.popBackStack()
-        },
+        SubMenuInteractions(
+            onItemSelected = {
+                shoppingViewModel.dispatchEvent(event = ShoppingUiEvent.OnCategoryClicked(it))
+                navController.navigate(MainDestinations.Shopping.route)
+            },
+            onMapSelected = {
+                navController.navigate(MainDestinations.Map.createRoute(MapType.Shopping.key))
+            },
+            onBackPressed = {
+                navController.popBackStack()
+            },
+        ),
         modifier = modifier
     )
 }
