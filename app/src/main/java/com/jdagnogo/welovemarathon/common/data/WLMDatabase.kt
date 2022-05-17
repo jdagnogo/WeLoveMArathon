@@ -4,6 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.jdagnogo.welovemarathon.activities.data.ActivitiesCategoryEntity
+import com.jdagnogo.welovemarathon.activities.data.ActivitiesDao
+import com.jdagnogo.welovemarathon.activities.data.ActivitiesEntity
+import com.jdagnogo.welovemarathon.activities.data.ActivitiesTagEntity
 import com.jdagnogo.welovemarathon.beach.data.BeachDao
 import com.jdagnogo.welovemarathon.beach.data.BeachEntity
 import com.jdagnogo.welovemarathon.blog.data.BlogDao
@@ -34,6 +38,9 @@ import java.util.*
         FoodEntity::class,
         FoodCategoryEntity::class,
         FoodTagEntity::class,
+        ActivitiesEntity::class,
+        ActivitiesCategoryEntity::class,
+        ActivitiesTagEntity::class,
         GifBannerEntity::class,
         BeachEntity::class,
         ShoppingEntity::class,
@@ -43,12 +50,13 @@ import java.util.*
         SportCategoryEntity::class,
         SportEntity::class,
         TipsEntity::class],
-    version = 11
+    version = 12
 )
 abstract class WLMDatabase : RoomDatabase() {
     abstract fun getBlogDao(): BlogDao
     abstract fun getRunDao(): RunDao
     abstract fun getFoodDao(): FoodDao
+    abstract fun getActivitiesDao(): ActivitiesDao
     abstract fun getBannerDao(): BannerDao
     abstract fun getBeachDao(): BeachDao
     abstract fun getShoppingDao(): ShoppingDao

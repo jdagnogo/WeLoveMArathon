@@ -26,7 +26,7 @@ fun HomeScreen(
         onActivitySelected = {
             when (it) {
                 0 -> {
-                    //  navController.navigate(MainDestinations.Shopping.route)
+                    navController.navigate(MainDestinations.ActivitiesSubMenu.route)
                 }
                 1 -> {
                     navController.navigate(MainDestinations.Beaches.route)

@@ -18,6 +18,9 @@ import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.jdagnogo.welovemarathon.R
+import com.jdagnogo.welovemarathon.activities.presentation.ActivitiesMenuScreen
+import com.jdagnogo.welovemarathon.activities.presentation.ActivitiesScreen
+import com.jdagnogo.welovemarathon.activities.presentation.ActivitiesViewModel
 import com.jdagnogo.welovemarathon.beach.presentation.BeachScreen
 import com.jdagnogo.welovemarathon.beach.presentation.BeachViewModel
 import com.jdagnogo.welovemarathon.beach.presentation.BeachesBarScreen
@@ -107,6 +110,18 @@ fun NavGraphBuilder.wlmNavGraph(
         FoodScreen(viewModel, navController)
     }
 
+    composable(MainDestinations.ActivitiesSubMenu.route) {
+        val viewModel =
+            hiltViewModel<ActivitiesViewModel>(viewModelStoreOwner = viewModelStoreOwner)
+        ActivitiesMenuScreen(viewModel, navController)
+    }
+
+    composable(MainDestinations.Activities.route) {
+        val viewModel =
+            hiltViewModel<ActivitiesViewModel>(viewModelStoreOwner = viewModelStoreOwner)
+        ActivitiesScreen(viewModel, navController)
+    }
+
     composable(MainDestinations.Shopping.route) {
         val viewModel = hiltViewModel<ShoppingViewModel>(viewModelStoreOwner = viewModelStoreOwner)
         ShoppingScreen(viewModel, navController)
@@ -179,12 +194,15 @@ enum class HomeSections(
 sealed class MainDestinations(val route: String) {
     object Home : MainDestinations("home")
     object Food : MainDestinations("food")
+    object Activities : MainDestinations("activities")
     object ShoppingSubMenu : MainDestinations("shoppingSubMenu")
     object FoodSubMenu : MainDestinations("foodSubMenu")
+    object ActivitiesSubMenu : MainDestinations("activitiesSubMenu")
     object Shopping : MainDestinations("shopping")
     object Map : MainDestinations("map/{$KEY_MAP_TYPE}") {
         fun createRoute(mapType: String) = "map/$mapType"
     }
+
     object BeachesBar : MainDestinations("beachesBar")
     object Sport : MainDestinations("sport")
     object Wine : MainDestinations("wine")
