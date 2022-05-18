@@ -8,6 +8,7 @@ import com.jdagnogo.welovemarathon.beach.data.BeachMapper
 import com.jdagnogo.welovemarathon.beach.data.BeachRemoteData
 import com.jdagnogo.welovemarathon.beach.data.BeachRepository
 import com.jdagnogo.welovemarathon.beach.domain.BeachUseCases
+import com.jdagnogo.welovemarathon.beach.domain.GetBeachesBarUseCase
 import com.jdagnogo.welovemarathon.beach.domain.GetBeachesUseCase
 import com.jdagnogo.welovemarathon.beach.domain.GetRecommendedBeachesBarsUseCase
 import com.jdagnogo.welovemarathon.beach.presentation.BeachReducer
@@ -61,10 +62,12 @@ object BeachModule {
     @Singleton
     fun provideBeachUseCases(
         getBeachesUseCase: GetBeachesUseCase,
-        getRecommendedBeachesBarsUseCase: GetRecommendedBeachesBarsUseCase
+        getRecommendedBeachesBarsUseCase: GetRecommendedBeachesBarsUseCase,
+        getBeachesBarUseCase: GetBeachesBarUseCase,
     ) = BeachUseCases(
         getBeachesUseCase = getBeachesUseCase,
-        getRecommendedBeachesBarsUseCase = getRecommendedBeachesBarsUseCase
+        getRecommendedBeachesBarsUseCase = getRecommendedBeachesBarsUseCase,
+        getBeachesBarUseCase = getBeachesBarUseCase,
     )
 
     @Singleton

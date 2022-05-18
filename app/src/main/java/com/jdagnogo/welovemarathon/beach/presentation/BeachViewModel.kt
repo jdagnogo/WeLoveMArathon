@@ -7,7 +7,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.jdagnogo.welovemarathon.beach.domain.Beach
 import com.jdagnogo.welovemarathon.beach.domain.BeachUseCases
 import com.jdagnogo.welovemarathon.common.banner.GifBanner
-import com.jdagnogo.welovemarathon.common.category.LongCategoryItem
+import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
 import com.jdagnogo.welovemarathon.common.utils.IModel
 import com.jdagnogo.welovemarathon.common.utils.handleResource
@@ -35,11 +35,32 @@ class BeachViewModel @Inject constructor(
 
     override fun dispatchEvent(event: BeachUiEvent) {
         when (event) {
-            BeachUiEvent.FetchBeaches -> {
-                fetchBeaches()
+            is BeachUiEvent.OnBeachSelected -> {
+                fetchBeachesBar(event.parentId)
             }
-            is BeachUiEvent.FetchBeachesBars -> {
-            }
+        }
+    }
+
+    private fun fetchBeachesBar(parentId: String) {
+        viewModelScope.launch {
+            val beach =
+                state.value.beaches.firstOrNull { it.id == parentId }
+                    ?: state.value.beaches.first()
+            handleResource(
+                beachesUseCase.getBeachesBarUseCase.invoke(beach.name),
+                { beaches ->
+                    BeachPartialState.OnBeachesBarsSuccess(
+                        categories = beaches.map { it.toCategoryItem() },
+                        currentSelected = beach,
+                    )
+                },
+                BeachPartialState.Loading,
+                { BeachPartialState.Error("") },
+                { partialState ->
+                    _state.value = reducer.reduce(state.value, partialState)
+                },
+                this
+            )
         }
     }
 
@@ -48,7 +69,7 @@ class BeachViewModel @Inject constructor(
             handleResource(
                 beachesUseCase.getRecommendedBeachesBarsUseCase.invoke(),
                 { beaches ->
-                    BeachPartialState.OnBeachesBarsSuccess(
+                    BeachPartialState.OnBeachesBarsRecommendedSuccess(
                         recommendedItems = beaches.map { it.toRecommendedCategoryItem() },
                     )
                 },
@@ -68,7 +89,7 @@ class BeachViewModel @Inject constructor(
                 beachesUseCase.getBeachesUseCase.invoke(),
                 { beaches ->
                     BeachPartialState.OnBeachSuccess(
-                        beaches = beaches.map { it.toLongCategoryItem() },
+                        beaches = beaches,
                     )
                 },
                 BeachPartialState.Loading,
@@ -85,26 +106,33 @@ class BeachViewModel @Inject constructor(
 @Keep
 data class BeachState(
     val currentSelected: Beach = Beach(name = "Beaches"),
-    val categories: List<Beach> = listOf(),
-    val beaches: List<LongCategoryItem> = listOf(),
+    val categories: List<CategoryItem> = listOf(),
+    val beaches: List<Beach> = listOf(),
     val currentBeachSelected: RecommendedCategoryDetails? = null,
     val recommendedItems: List<RecommendedCategoryDetails> = emptyList(),
     val shouldOpenRecommendedDialog: Boolean = false,
     val banner: GifBanner? = null,
     val error: String = "",
-)
+) {
+    val longCategoryItems = beaches.map { it.toLongCategoryItem() }
+    val typeTwoItem = currentSelected.toTypeTwoItem()
+}
 
 @Keep
 sealed class BeachPartialState {
     object Loading : BeachPartialState()
     data class Error(val message: String) : BeachPartialState()
-    data class OnBeachSuccess(val beaches: List<LongCategoryItem>) : BeachPartialState()
-    data class OnBeachesBarsSuccess(val recommendedItems: List<RecommendedCategoryDetails>) :
+    data class OnBeachSuccess(val beaches: List<Beach>) : BeachPartialState()
+    data class OnBeachesBarsSuccess(
+        val categories: List<CategoryItem>,
+        val currentSelected: Beach
+    ) : BeachPartialState()
+
+    data class OnBeachesBarsRecommendedSuccess(val recommendedItems: List<RecommendedCategoryDetails>) :
         BeachPartialState()
 }
 
 @Keep
 sealed class BeachUiEvent {
-    object FetchBeaches : BeachUiEvent()
-    data class FetchBeachesBars(val parentId: String) : BeachUiEvent()
+    data class OnBeachSelected(val parentId: String) : BeachUiEvent()
 }

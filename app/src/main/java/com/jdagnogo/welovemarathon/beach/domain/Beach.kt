@@ -3,7 +3,7 @@ package com.jdagnogo.welovemarathon.beach.domain
 import androidx.annotation.Keep
 import com.jdagnogo.welovemarathon.beach.data.BeachEntity
 import com.jdagnogo.welovemarathon.common.category.LongCategoryItem
-import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
+import com.jdagnogo.welovemarathon.common.type_two.TypeTwoItem
 
 @Keep
 data class Beach(
@@ -31,6 +31,16 @@ data class Beach(
             name = name,
             locationLink = locationLink,
             image = image,
+        )
+    }
+
+    fun toTypeTwoItem(): TypeTwoItem {
+        return TypeTwoItem(
+            name = name,
+            description = description,
+            locationLink = locationLink,
+            location = location,
+            image = image
         )
     }
 }

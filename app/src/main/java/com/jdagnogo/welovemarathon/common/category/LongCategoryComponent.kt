@@ -63,27 +63,7 @@ fun LongCategoryItemComponent(
         .clickable {
             onItemSelected(item.id)
         }) {
-        Card(
-            elevation = MaterialTheme.spacing.small,
-            shape = MaterialTheme.shapes.large,
-            modifier = Modifier
-                .height(120.dp)
-                .fillMaxWidth()
-                .padding(vertical = MaterialTheme.spacing.extraSmall)
-        ) {
-            Image(
-                painter = rememberImagePainter(
-                    data = item.image,
-                    builder = {
-                        crossfade(true)
-                        error(R.drawable.ic_wlm_logo)
-                    }
-                ),
-                contentDescription = item.name,
-                modifier = Modifier.fillMaxWidth(),
-                contentScale = ContentScale.FillWidth,
-            )
-        }
+        LongImage(image = item.image, name = item.name)
         Card(
             elevation = MaterialTheme.spacing.small,
             shape = MaterialTheme.shapes.large,
@@ -98,6 +78,35 @@ fun LongCategoryItemComponent(
                 modifier = Modifier.padding(MaterialTheme.spacing.small)
             )
         }
+    }
+}
+
+@Composable
+fun LongImage(
+    image: String,
+    name: String,
+    modifier: Modifier = Modifier,
+) {
+    Card(
+        elevation = MaterialTheme.spacing.small,
+        shape = MaterialTheme.shapes.large,
+        modifier = modifier
+            .height(120.dp)
+            .fillMaxWidth()
+            .padding(vertical = MaterialTheme.spacing.extraSmall)
+    ) {
+        Image(
+            painter = rememberImagePainter(
+                data = image,
+                builder = {
+                    crossfade(true)
+                    error(R.drawable.ic_wlm_logo)
+                }
+            ),
+            contentDescription = name,
+            modifier = Modifier.fillMaxWidth(),
+            contentScale = ContentScale.FillWidth,
+        )
     }
 }
 

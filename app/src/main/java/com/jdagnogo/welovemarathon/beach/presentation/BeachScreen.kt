@@ -31,7 +31,7 @@ fun BeachScreen(
         },
         state = state,
         onBeachSelected = {
-            viewModel.dispatchEvent(BeachUiEvent.FetchBeachesBars(it))
+            viewModel.dispatchEvent(BeachUiEvent.OnBeachSelected(it))
             navController.navigate(MainDestinations.BeachesBar.route)
         },
         onRecommendedSelected = {

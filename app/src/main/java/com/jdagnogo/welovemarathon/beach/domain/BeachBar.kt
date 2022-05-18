@@ -2,6 +2,7 @@ package com.jdagnogo.welovemarathon.beach.domain
 
 import androidx.annotation.Keep
 import com.google.firebase.firestore.GeoPoint
+import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
 
 @Keep
@@ -19,7 +20,7 @@ data class BeachBar(
     var tags: String = "",
     var coordinate: GeoPoint? = null,
     val number: String = "",
-){
+) {
     fun toRecommendedCategoryItem(): RecommendedCategoryDetails {
         return RecommendedCategoryDetails(
             id = id,
@@ -31,6 +32,16 @@ data class BeachBar(
             number = number,
             description = description,
             tags = tags,
+        )
+    }
+
+    fun toCategoryItem(): CategoryItem {
+        return CategoryItem(
+            id = id,
+            name = name,
+            locationLink = locationLink,
+            number = number,
+            tags = tags
         )
     }
 }

@@ -27,7 +27,7 @@ fun BeachContent(
     LongCategoryScreen(
         title = state.currentSelected.name,
         recommendedItems = state.recommendedItems,
-        items = state.beaches,
+        items = state.longCategoryItems,
         onItemSelected = onBeachSelected,
         onRecommendedSelected = onRecommendedSelected,
         onMapSelected = onMapSelected,
