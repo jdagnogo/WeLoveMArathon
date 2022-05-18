@@ -1,9 +1,11 @@
 package com.jdagnogo.welovemarathon.beach.domain
 
 import androidx.annotation.Keep
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.firestore.GeoPoint
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
+import com.jdagnogo.welovemarathon.map.domain.MapItem
 
 @Keep
 data class BeachBar(
@@ -42,6 +44,17 @@ data class BeachBar(
             locationLink = locationLink,
             number = number,
             tags = tags
+        )
+    }
+
+    fun toMapItem(): MapItem {
+        return MapItem(
+            name = name,
+            tags = tags,
+            latLng = LatLng(
+                coordinate?.latitude ?: 0.0,
+                coordinate?.longitude ?: 0.0,
+            )
         )
     }
 }

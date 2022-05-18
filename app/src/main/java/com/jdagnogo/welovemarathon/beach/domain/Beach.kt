@@ -4,6 +4,7 @@ import androidx.annotation.Keep
 import com.jdagnogo.welovemarathon.beach.data.BeachEntity
 import com.jdagnogo.welovemarathon.common.category.LongCategoryItem
 import com.jdagnogo.welovemarathon.common.type_two.TypeTwoItem
+import com.jdagnogo.welovemarathon.map.domain.MapChip
 
 @Keep
 data class Beach(
@@ -41,6 +42,13 @@ data class Beach(
             locationLink = locationLink,
             location = location,
             image = image
+        )
+    }
+
+    fun toMapChip(): MapChip {
+        return MapChip(
+            name = name,
+            key = name,
         )
     }
 }

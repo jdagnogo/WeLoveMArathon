@@ -11,6 +11,8 @@ import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
 import com.jdagnogo.welovemarathon.common.utils.IModel
 import com.jdagnogo.welovemarathon.common.utils.handleResource
+import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingPartialState
+import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingUiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,6 +39,15 @@ class BeachViewModel @Inject constructor(
         when (event) {
             is BeachUiEvent.OnBeachSelected -> {
                 fetchBeachesBar(event.parentId)
+            }
+            is BeachUiEvent.OnRecommendedItemSelected -> {
+                val item = state.value.recommendedItems.firstOrNull { it.id == event.id }
+                val partialState = BeachPartialState.OnRecommendedDialog(item = item)
+                _state.value = reducer.reduce(state.value, partialState)
+            }
+            BeachUiEvent.OnRecommendedDialogClosed -> {
+                val partialState = BeachPartialState.OnRecommendedDialog(item = null)
+                _state.value = reducer.reduce(state.value, partialState)
             }
         }
     }
@@ -121,6 +132,7 @@ data class BeachState(
 @Keep
 sealed class BeachPartialState {
     object Loading : BeachPartialState()
+    data class OnRecommendedDialog(val item: RecommendedCategoryDetails?) : BeachPartialState()
     data class Error(val message: String) : BeachPartialState()
     data class OnBeachSuccess(val beaches: List<Beach>) : BeachPartialState()
     data class OnBeachesBarsSuccess(
@@ -135,4 +147,6 @@ sealed class BeachPartialState {
 @Keep
 sealed class BeachUiEvent {
     data class OnBeachSelected(val parentId: String) : BeachUiEvent()
+    data class OnRecommendedItemSelected(val id: String) : BeachUiEvent()
+    object OnRecommendedDialogClosed : BeachUiEvent()
 }

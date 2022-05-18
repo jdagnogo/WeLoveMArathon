@@ -18,7 +18,13 @@ class BeachReducer : IReducer<BeachState, BeachPartialState> {
             }
             is BeachPartialState.OnBeachesBarsRecommendedSuccess -> {
                 state.copy(
-                    recommendedItems = partialState.recommendedItems
+                    recommendedItems = partialState.recommendedItems,
+                )
+            }
+            is BeachPartialState.OnRecommendedDialog -> {
+                state.copy(
+                    shouldOpenRecommendedDialog = partialState.item != null,
+                    currentBeachSelected = partialState.item
                 )
             }
         }
