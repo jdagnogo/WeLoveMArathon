@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
@@ -22,8 +24,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jdagnogo.welovemarathon.R
-import com.jdagnogo.welovemarathon.common.category.CategoryComponent
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
+import com.jdagnogo.welovemarathon.common.category.CategoryItemComponent
+import com.jdagnogo.welovemarathon.common.category.FilterComponent
 import com.jdagnogo.welovemarathon.common.category.LongImage
 import com.jdagnogo.welovemarathon.common.ui.component.ContactComponent
 import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
@@ -45,37 +48,63 @@ fun TypeTwoComponent(
     onFilterClicked: (isVisible: Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(
+    LazyColumn(
         modifier = modifier
             .fillMaxSize()
             .background(Primary),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        TitleComponent(
-            title = title,
-            onLeftIconClicked = onBackPressed,
-            onRightIconClicked = onMapSelected
-        )
-
-        LongImage(
-            item.image, item.name, modifier = Modifier
-                .padding(top = MaterialTheme.spacing.huge)
-                .padding(horizontal = MaterialTheme.spacing.huge)
-        )
-
-        TypeTwoItemPresentation(
-            item = item, modifier = Modifier
-                .padding(
-                    horizontal = MaterialTheme.spacing.huge,
+        item {
+            TitleComponent(
+                title = title,
+                onLeftIconClicked = onBackPressed,
+                onRightIconClicked = onMapSelected
+            )
+        }
+        item {
+            LongImage(
+                item.image, item.name, modifier = Modifier
+                    .padding(top = MaterialTheme.spacing.huge)
+                    .padding(horizontal = MaterialTheme.spacing.huge)
+            )
+        }
+        item {
+            TypeTwoItemPresentation(
+                item = item, modifier = Modifier
+                    .padding(
+                        horizontal = MaterialTheme.spacing.huge,
+                    )
+                    .padding(top = MaterialTheme.spacing.medium)
+            )
+        }
+        item {
+            Column {
+                FilterComponent(
+                    onFilterClicked = onFilterClicked,
+                    modifier = Modifier
+                        .height(MaterialTheme.spacing.extraHuge)
+                        .fillMaxWidth()
+                        .padding(
+                            horizontal = MaterialTheme.spacing.huge
+                        )
                 )
-                .padding(top = MaterialTheme.spacing.medium)
-        )
+            }
+        }
 
-        CategoryComponent(
-            items = categoryItems,
-            onFilterClicked = onFilterClicked,
-            Modifier.padding(top = MaterialTheme.spacing.medium)
-        )
+
+        items(categoryItems.size) { index ->
+            val categoryItem = categoryItems[index]
+            CategoryItemComponent(
+                item = categoryItem,
+                modifier = Modifier.padding(
+                    start = MaterialTheme.spacing.huge,
+                    end = MaterialTheme.spacing.huge,
+                    top = MaterialTheme.spacing.medium,
+                    bottom = MaterialTheme.spacing.medium,
+                )
+            )
+
+        }
     }
 }
 
@@ -88,7 +117,7 @@ fun TypeTwoItemPresentation(item: TypeTwoItem, modifier: Modifier = Modifier) {
         modifier = modifier.fillMaxWidth()
     ) {
         Column(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
-            Row (verticalAlignment = Alignment.CenterVertically){
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     textAlign = TextAlign.Start,
                     modifier = Modifier.weight(1f),

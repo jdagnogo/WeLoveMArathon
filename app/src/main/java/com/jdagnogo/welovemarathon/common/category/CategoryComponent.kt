@@ -69,8 +69,9 @@ fun CategoryItemComponent(
         elevation = MaterialTheme.spacing.small,
         shape = MaterialTheme.shapes.large,
         backgroundColor = PrimaryLight,
+        modifier = modifier
     ) {
-        Column(modifier.padding(MaterialTheme.spacing.small)) {
+        Column(Modifier.padding(MaterialTheme.spacing.small)) {
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
