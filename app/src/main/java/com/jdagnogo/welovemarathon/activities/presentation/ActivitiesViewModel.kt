@@ -182,7 +182,7 @@ data class ActivitiesState(
     val subMenuUiModel = SubMenuUiModel(
         screenName = "Activities",
         items = categories.map { it.toSubMenuItem() },
-        image = R.drawable.bg_food,
+        image = R.drawable.bg_activities,
         backgroundColor = ActivityColor,
         banner = banner,
     )

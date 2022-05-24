@@ -23,7 +23,7 @@ data class GifBanner(
 
 const val HOME = "Home"
 const val SHOPPING = "Shopping"
-
+const val ACTIVITIES = "Activities"
 fun GifBanner.fakeBanner(): GifBanner {
     return GifBanner(
         id = "fakeID",

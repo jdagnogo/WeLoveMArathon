@@ -46,13 +46,14 @@ fun CategoryComponent(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
-        FilterComponent(
-            onFilterClicked = onFilterClicked,
-            modifier = Modifier.padding(
-                horizontal = MaterialTheme.spacing.huge
+        if (items.size > 1) {
+            FilterComponent(
+                onFilterClicked = onFilterClicked,
+                modifier = Modifier.padding(
+                    horizontal = MaterialTheme.spacing.huge
+                )
             )
-        )
-
+        }
         CategoryGridComponent(
             items = items,
         )

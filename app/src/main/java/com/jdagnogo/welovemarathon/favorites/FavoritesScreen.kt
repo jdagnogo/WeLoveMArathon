@@ -8,6 +8,5 @@ import androidx.compose.ui.Modifier
 @Composable
 fun FavoritesScreen(modifier: Modifier = Modifier) {
     Box(modifier = modifier) {
-        Text(text = "FavoritesScreen")
     }
 }

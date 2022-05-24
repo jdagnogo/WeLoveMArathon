@@ -77,17 +77,19 @@ fun TypeTwoComponent(
                     .padding(top = MaterialTheme.spacing.medium)
             )
         }
-        item {
-            Column {
-                FilterComponent(
-                    onFilterClicked = onFilterClicked,
-                    modifier = Modifier
-                        .height(MaterialTheme.spacing.extraHuge)
-                        .fillMaxWidth()
-                        .padding(
-                            horizontal = MaterialTheme.spacing.huge
-                        )
-                )
+        if (categoryItems.size > 1) {
+            item {
+                Column {
+                    FilterComponent(
+                        onFilterClicked = onFilterClicked,
+                        modifier = Modifier
+                            .height(MaterialTheme.spacing.extraHuge)
+                            .fillMaxWidth()
+                            .padding(
+                                horizontal = MaterialTheme.spacing.huge
+                            )
+                    )
+                }
             }
         }
 
