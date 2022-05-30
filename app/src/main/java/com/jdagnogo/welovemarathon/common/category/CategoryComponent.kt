@@ -4,6 +4,7 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -17,6 +18,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -43,17 +45,17 @@ import com.jdagnogo.welovemarathon.common.utils.redirectToPhone
 fun CategoryComponent(
     items: List<CategoryItem>,
     onFilterClicked: (isVisible: Boolean) -> Unit,
+    shouldDisplayFilter: Boolean,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
-        if (items.size > 1) {
-            FilterComponent(
-                onFilterClicked = onFilterClicked,
-                modifier = Modifier.padding(
-                    horizontal = MaterialTheme.spacing.huge
-                )
+        FilterComponent(
+            onFilterClicked = onFilterClicked,
+            shouldDisplayFilter = shouldDisplayFilter,
+            modifier = Modifier.padding(
+                horizontal = MaterialTheme.spacing.huge
             )
-        }
+        )
         CategoryGridComponent(
             items = items,
         )
@@ -147,19 +149,27 @@ fun CategoryGridComponent(
 
 @Composable
 fun FilterComponent(
+    shouldDisplayFilter: Boolean,
     onFilterClicked: (isVisible: Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Image(
-        painter = rememberImagePainter(
-            data = R.drawable.filter,
-        ),
-        contentDescription = "Filter menu",
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable { onFilterClicked(true) },
-        contentScale = ContentScale.FillWidth
-    )
+    if (shouldDisplayFilter) {
+        val interactionSource = remember { MutableInteractionSource() }
+        Image(
+            painter = rememberImagePainter(
+                data = R.drawable.filter,
+            ),
+            contentDescription = "Filter menu",
+            modifier = modifier
+                .fillMaxWidth()
+                .clickable(interactionSource = interactionSource, indication = null) {
+                    onFilterClicked(
+                        true
+                    )
+                },
+            contentScale = ContentScale.FillWidth
+        )
+    }
 }
 
 @ExperimentalMaterialApi
@@ -168,7 +178,9 @@ fun FilterComponent(
 @Composable
 fun FilterComponentPreview() {
     MaterialTheme {
-        FilterComponent({})
+        FilterComponent(
+            shouldDisplayFilter = true,
+            {})
     }
 }
 
@@ -186,7 +198,8 @@ fun CategoryComponentPreview() {
     )
     MaterialTheme {
         CategoryComponent(
-            items = items, onFilterClicked = {})
+            items = items, onFilterClicked = {}, true
+        )
     }
 }
 

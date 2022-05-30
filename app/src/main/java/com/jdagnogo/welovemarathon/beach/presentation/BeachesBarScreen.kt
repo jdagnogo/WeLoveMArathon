@@ -23,7 +23,10 @@ fun BeachesBarScreen(
         state = state,
         onMapSelected = { navController.navigate(MainDestinations.Map.createRoute(MapType.Beach.key)) },
         onBackPressed = { navController.popBackStack() },
-        onFilterClicked = {},
+        onFilterClicked = { viewModel.dispatchEvent(BeachUiEvent.OnFilterClicked(it)) },
+        onResetSelected = { viewModel.dispatchEvent(BeachUiEvent.OnResetClicked) },
+        onFiltersSelected = { viewModel.dispatchEvent(BeachUiEvent.OnFiltersSelected(it)) },
+        onDismissFilterRequest = { viewModel.dispatchEvent(BeachUiEvent.OnFilterClicked(false)) },
         modifier = modifier
     )
 }

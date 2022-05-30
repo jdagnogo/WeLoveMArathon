@@ -47,7 +47,8 @@ fun ActivitiesContentPreview() {
         reducer.reduce(
             state, ActivitiesPartialState.OnActivitiessSuccess(
                 items = emptyList(),
-                recommendedItems = emptyList()
+                recommendedItems = emptyList(),
+                shouldDisplayFilter = true
             )
         )
     MaterialTheme {

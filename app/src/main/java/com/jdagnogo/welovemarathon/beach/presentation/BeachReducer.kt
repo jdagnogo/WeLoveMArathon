@@ -13,7 +13,8 @@ class BeachReducer : IReducer<BeachState, BeachPartialState> {
             is BeachPartialState.OnBeachesBarsSuccess -> {
                 state.copy(
                     categories = partialState.categories,
-                    currentSelected = partialState.currentSelected
+                    currentSelected = partialState.currentSelected,
+                    shouldDisplayFilter = partialState.shouldDisplayFilter
                 )
             }
             is BeachPartialState.OnBeachesBarsRecommendedSuccess -> {
@@ -25,6 +26,18 @@ class BeachReducer : IReducer<BeachState, BeachPartialState> {
                 state.copy(
                     shouldOpenRecommendedDialog = partialState.item != null,
                     currentBeachSelected = partialState.item
+                )
+            }
+            is BeachPartialState.OnTagSuccess ->{
+                state.copy(tags = partialState.data)
+            }
+            is BeachPartialState.OnFilterDialog -> {
+                state.copy(shouldOpenFilterDialog = partialState.isVisible)
+            }
+            is BeachPartialState.OnFiltersSelected -> {
+                state.copy(
+                    shouldOpenFilterDialog = false,
+                    currentSelectedTags = partialState.data
                 )
             }
         }

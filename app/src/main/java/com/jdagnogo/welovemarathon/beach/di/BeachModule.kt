@@ -14,6 +14,7 @@ import com.jdagnogo.welovemarathon.beach.domain.GetRecommendedBeachesBarsUseCase
 import com.jdagnogo.welovemarathon.beach.presentation.BeachReducer
 import com.jdagnogo.welovemarathon.common.data.WLMDatabase
 import com.jdagnogo.welovemarathon.common.domain.DataFreshnessUseCase
+import com.jdagnogo.welovemarathon.food.domain.GetFoodTagUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -64,8 +65,10 @@ object BeachModule {
         getBeachesUseCase: GetBeachesUseCase,
         getRecommendedBeachesBarsUseCase: GetRecommendedBeachesBarsUseCase,
         getBeachesBarUseCase: GetBeachesBarUseCase,
+        getFoodTagUseCase: GetFoodTagUseCase,
     ) = BeachUseCases(
         getBeachesUseCase = getBeachesUseCase,
+        getFoodTagUseCase = getFoodTagUseCase,
         getRecommendedBeachesBarsUseCase = getRecommendedBeachesBarsUseCase,
         getBeachesBarUseCase = getBeachesBarUseCase,
     )

@@ -9,19 +9,34 @@ import javax.inject.Inject
 class GetBeachesBarUseCase @Inject constructor(
     private val repository: FoodRepository,
 ) {
-    operator fun invoke(parent: String? = null): Flow<Resource<List<BeachBar>>> {
+    operator fun invoke(
+        parent: String? = null,
+        tags: List<String> = emptyList()
+    ): Flow<Resource<List<BeachBar>>> {
         return repository.data.map { list ->
             var result =
                 list.data?.filter {
                     it.isBeachBar
                 }
-
             if (parent != null) {
                 result = result?.filter { it.parent == parent }
             }
-            return@map Resource.Success(result?.sortedBy { it.name }?.toMutableList()?.map {
+            val beaches = result?.sortedBy { it.name }?.toMutableList()?.map {
                 it.toBeachBar()
-            } ?: listOf())
+            } ?: listOf()
+            if (tags.isNotEmpty()) {
+                return@map Resource.Success(beaches.filter { food ->
+                    var containsTags = false
+                    tags.forEach { tag ->
+                        if (food.tags.contains(tag, ignoreCase = true)) {
+                            containsTags = true
+                            return@forEach
+                        }
+                    }
+                    containsTags
+                })
+            }
+            return@map Resource.Success(beaches)
         }
     }
 }

@@ -29,6 +29,7 @@ fun ShoppingContent(
         tags = state.categoryTags,
         onFiltersSelected = onFiltersSelected,
         modifier = modifier,
+        shouldDisplayFilter = true,
         onItemSelected = onItemSelected,
         onMapSelected = onMapSelected,
         onBackPressed = onBackPressed,

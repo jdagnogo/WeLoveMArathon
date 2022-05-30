@@ -4,6 +4,9 @@ import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jdagnogo.welovemarathon.R
+import com.jdagnogo.welovemarathon.activities.domain.ActivitiesCategory
+import com.jdagnogo.welovemarathon.activities.domain.ActivitiesTag
+import com.jdagnogo.welovemarathon.activities.domain.ActivitiesUseCase
 import com.jdagnogo.welovemarathon.common.banner.GifBanner
 import com.jdagnogo.welovemarathon.common.banner.SHOPPING
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
@@ -14,9 +17,6 @@ import com.jdagnogo.welovemarathon.common.ui.theme.ActivityColor
 import com.jdagnogo.welovemarathon.common.utils.IModel
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.common.utils.handleResource
-import com.jdagnogo.welovemarathon.activities.domain.ActivitiesCategory
-import com.jdagnogo.welovemarathon.activities.domain.ActivitiesTag
-import com.jdagnogo.welovemarathon.activities.domain.ActivitiesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -100,11 +100,13 @@ class ActivitiesViewModel @Inject constructor(
                 handleResource(
                     useCases.getActivitiesUseCase.invoke(category.name, tags),
                     {
+                        val activities = it.filter { it.isRecommended.not() }
+                            .map { it.toCategoryItem() }
                         ActivitiesPartialState.OnActivitiessSuccess(
-                            items = it.filter { it.isRecommended.not() }
-                                .map { it.toCategoryItem() },
+                            items = activities,
                             recommendedItems = it.filter { it.isRecommended }
-                                .map { it.toRecommendedCategoryItem() }
+                                .map { it.toRecommendedCategoryItem() },
+                            shouldDisplayFilter = activities.size > 1
                         )
                     },
                     ActivitiesPartialState.Loading,
@@ -172,6 +174,7 @@ data class ActivitiesState(
     val currentSelectedTags: List<ActivitiesTag> = listOf(),
     val tags: List<ActivitiesTag> = listOf(),
     val activitiess: List<CategoryItem> = listOf(),
+    val shouldDisplayFilter: Boolean = false,
     val currentActivitiesSelected: RecommendedCategoryDetails? = null,
     val recommendedItems: List<RecommendedCategoryDetails> = emptyList(),
     val shouldOpenRecommendedDialog: Boolean = false,
@@ -209,7 +212,8 @@ sealed class ActivitiesPartialState {
     data class OnTagSuccess(val data: List<ActivitiesTag>) : ActivitiesPartialState()
     data class OnActivitiessSuccess(
         val items: List<CategoryItem>,
-        val recommendedItems: List<RecommendedCategoryDetails>
+        val recommendedItems: List<RecommendedCategoryDetails>,
+        val shouldDisplayFilter: Boolean,
     ) : ActivitiesPartialState()
 }
 

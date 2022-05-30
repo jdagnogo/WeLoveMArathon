@@ -26,7 +26,9 @@ import androidx.compose.ui.unit.dp
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.CategoryItemComponent
+import com.jdagnogo.welovemarathon.common.category.CategoryTag
 import com.jdagnogo.welovemarathon.common.category.FilterComponent
+import com.jdagnogo.welovemarathon.common.category.FilterDialogComponent
 import com.jdagnogo.welovemarathon.common.category.LongImage
 import com.jdagnogo.welovemarathon.common.ui.component.ContactComponent
 import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
@@ -46,6 +48,12 @@ fun TypeTwoComponent(
     onMapSelected: () -> Unit,
     onBackPressed: () -> Unit,
     onFilterClicked: (isVisible: Boolean) -> Unit,
+    shouldDisplayFilter: Boolean,
+    shouldOpenFilterDialog: Boolean,
+    tags: List<CategoryTag>,
+    onFiltersSelected: (ids: List<String>) -> Unit = {},
+    onResetSelected: () -> Unit = {},
+    onDismissFilterRequest: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -77,20 +85,20 @@ fun TypeTwoComponent(
                     .padding(top = MaterialTheme.spacing.medium)
             )
         }
-        if (categoryItems.size > 1) {
-            item {
-                Column {
-                    FilterComponent(
-                        onFilterClicked = onFilterClicked,
-                        modifier = Modifier
-                            .height(MaterialTheme.spacing.extraHuge)
-                            .fillMaxWidth()
-                            .padding(
-                                horizontal = MaterialTheme.spacing.huge
-                            )
-                    )
-                }
+        item {
+            Column {
+                FilterComponent(
+                    shouldDisplayFilter = shouldDisplayFilter,
+                    onFilterClicked = onFilterClicked,
+                    modifier = Modifier
+                        .height(MaterialTheme.spacing.extraHuge)
+                        .fillMaxWidth()
+                        .padding(
+                            horizontal = MaterialTheme.spacing.huge
+                        )
+                )
             }
+
         }
 
 
@@ -107,6 +115,15 @@ fun TypeTwoComponent(
             )
 
         }
+    }
+
+    if (shouldOpenFilterDialog) {
+        FilterDialogComponent(
+            tags = tags,
+            onFiltersSelected = onFiltersSelected,
+            onDismissRequest = onDismissFilterRequest,
+            onResetSelected = onResetSelected,
+        )
     }
 }
 
@@ -195,6 +212,12 @@ fun TypeTwoComponentPreview() {
             onBackPressed = {},
             onMapSelected = {},
             onFilterClicked = {},
+            onDismissFilterRequest = {},
+            shouldDisplayFilter = true,
+            shouldOpenFilterDialog = false,
+            onResetSelected = {},
+            onFiltersSelected = {},
+            tags = emptyList(),
         )
     }
 }

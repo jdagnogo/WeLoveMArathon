@@ -12,6 +12,7 @@ fun BeachesBarContent(
     onBackPressed: () -> Unit,
     onFiltersSelected: (ids: List<String>) -> Unit = {},
     onResetSelected: () -> Unit = {},
+    onDismissFilterRequest: () -> Unit = {},
     onFilterClicked: (isVisible: Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -22,6 +23,12 @@ fun BeachesBarContent(
         onMapSelected = onMapSelected,
         onBackPressed = onBackPressed,
         onFilterClicked = onFilterClicked,
+        shouldDisplayFilter = state.shouldDisplayFilter,
+        shouldOpenFilterDialog =state.shouldOpenFilterDialog,
+        tags = state.categoryTags,
+        onResetSelected = onResetSelected,
+        onFiltersSelected = onFiltersSelected,
+        onDismissFilterRequest= onDismissFilterRequest,
         modifier = modifier,
     )
 }

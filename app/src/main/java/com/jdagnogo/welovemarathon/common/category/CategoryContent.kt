@@ -30,6 +30,7 @@ fun CategoryScreen(
     onResetSelected: () -> Unit = {},
     currentRecommended: RecommendedCategoryDetails?,
     shouldOpenRecommenderDialog: Boolean,
+    shouldDisplayFilter: Boolean,
     shouldOpenFilterDialog: Boolean,
     onItemSelected: (String) -> Unit,
     onMapSelected: () -> Unit,
@@ -59,6 +60,7 @@ fun CategoryScreen(
         CategoryComponent(
             items = items,
             onFilterClicked = onFilterClicked,
+            shouldDisplayFilter= shouldDisplayFilter,
             Modifier.padding(top = MaterialTheme.spacing.medium)
         )
         if (shouldOpenRecommenderDialog) {
@@ -106,7 +108,8 @@ fun CategoryScreenPreview() {
             {},
             currentRecommended = RecommendedCategoryDetailsFake,
             false,
-            false,
+            shouldDisplayFilter = false,
+            shouldOpenFilterDialog = true,
             {},
             {},
             {},

@@ -60,6 +60,7 @@ fun ActivitiesContent(
         onBackPressed = onBackPressed,
         onFilterClicked = onFilterClicked,
         onResetSelected = onResetSelected,
+        shouldDisplayFilter = state.shouldDisplayFilter,
         shouldOpenRecommenderDialog = state.shouldOpenRecommendedDialog,
         shouldOpenFilterDialog = state.shouldOpenFilterDialog,
         onRecommendedDialogClosed = onRecommendedDialogClosed,

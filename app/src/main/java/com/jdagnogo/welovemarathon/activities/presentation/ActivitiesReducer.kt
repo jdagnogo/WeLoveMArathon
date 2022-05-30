@@ -12,6 +12,7 @@ class ActivitiesReducer : IReducer<ActivitiesState, ActivitiesPartialState> {
                 state.copy(
                     activitiess = partialState.items,
                     recommendedItems = partialState.recommendedItems,
+                    shouldDisplayFilter = partialState.shouldDisplayFilter
                 )
             }
             is ActivitiesPartialState.OnCategoriesSuccess -> {
