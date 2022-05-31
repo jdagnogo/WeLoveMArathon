@@ -5,4 +5,5 @@ sealed class MapType(val key: String, val screenName: String) {
     object Food : MapType("Food", "Food & Drink")
     object Activities : MapType("Activities", "Activities")
     object Beach : MapType("Beach", "Beaches")
+    object Culture : MapType("Beach", "Beaches")
 }

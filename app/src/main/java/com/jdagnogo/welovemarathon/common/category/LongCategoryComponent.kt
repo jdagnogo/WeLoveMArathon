@@ -105,7 +105,7 @@ fun LongImage(
             ),
             contentDescription = name,
             modifier = Modifier.fillMaxWidth(),
-            contentScale = ContentScale.FillWidth,
+            contentScale = ContentScale.Crop,
         )
     }
 }

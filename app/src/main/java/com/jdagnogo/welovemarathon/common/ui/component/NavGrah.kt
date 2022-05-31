@@ -25,6 +25,9 @@ import com.jdagnogo.welovemarathon.beach.presentation.BeachScreen
 import com.jdagnogo.welovemarathon.beach.presentation.BeachViewModel
 import com.jdagnogo.welovemarathon.beach.presentation.BeachesBarScreen
 import com.jdagnogo.welovemarathon.common.ui.MenuContent
+import com.jdagnogo.welovemarathon.culture.presentation.CulturesBarScreen
+import com.jdagnogo.welovemarathon.culture.presentation.CultureScreen
+import com.jdagnogo.welovemarathon.culture.presentation.CultureViewModel
 import com.jdagnogo.welovemarathon.favorites.FavoritesScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodMenuScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodScreen
@@ -33,16 +36,12 @@ import com.jdagnogo.welovemarathon.home.presentation.HomeScreen
 import com.jdagnogo.welovemarathon.home.presentation.HomeViewModel
 import com.jdagnogo.welovemarathon.map.presentation.MapScreen
 import com.jdagnogo.welovemarathon.map.viewmodel.MapViewModel
-import com.jdagnogo.welovemarathon.run.presentation.RunScreen
-import com.jdagnogo.welovemarathon.run.presentation.RunViewModel
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingMenuScreen
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingScreen
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingViewModel
 import com.jdagnogo.welovemarathon.splash.SplashScreen
 import com.jdagnogo.welovemarathon.sport.presentation.SportScreen
 import com.jdagnogo.welovemarathon.sport.presentation.SportViewModel
-import com.jdagnogo.welovemarathon.tips.presentation.TipsScreen
-import com.jdagnogo.welovemarathon.tips.presentation.TipsViewModel
 import com.jdagnogo.welovemarathon.wine.presentation.WineScreen
 import kotlinx.coroutines.InternalCoroutinesApi
 
@@ -87,6 +86,18 @@ fun NavGraphBuilder.wlmNavGraph(
     {
         val viewModel = hiltViewModel<BeachViewModel>(viewModelStoreOwner = viewModelStoreOwner)
         BeachScreen(viewModel = viewModel, navController = navController)
+    }
+
+    composable(MainDestinations.Cultures.route)
+    {
+        val viewModel = hiltViewModel<CultureViewModel>(viewModelStoreOwner = viewModelStoreOwner)
+        CultureScreen(viewModel = viewModel, navController = navController)
+    }
+
+    composable(MainDestinations.CulturesDetails.route)
+    {
+        val viewModel = hiltViewModel<CultureViewModel>(viewModelStoreOwner = viewModelStoreOwner)
+        CulturesBarScreen(viewModel = viewModel, navController = navController)
     }
 
     composable(MainDestinations.BeachesBar.route)
@@ -204,6 +215,8 @@ sealed class MainDestinations(val route: String) {
     object Sport : MainDestinations("sport")
     object Wine : MainDestinations("wine")
     object Beaches : MainDestinations("beaches")
+    object Cultures : MainDestinations("cultures")
+    object CulturesDetails : MainDestinations("culturesDetails")
 }
 
 sealed class GlobalDestinations(val route: String) {

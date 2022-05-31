@@ -1,0 +1,65 @@
+package com.jdagnogo.welovemarathon.culture.domain
+
+import androidx.annotation.Keep
+import com.jdagnogo.welovemarathon.common.category.LongCategoryItem
+import com.jdagnogo.welovemarathon.common.type_two.TypeTwoItem
+import com.jdagnogo.welovemarathon.culture.data.CultureEntity
+import com.jdagnogo.welovemarathon.map.domain.MapChip
+
+@Keep
+data class Culture(
+    val id: String = "",
+    val name: String = "",
+    val description: String = "",
+    val location: String = "",
+    val locationLink: String = "",
+    val image: String = "",
+) {
+    fun toCulture(): Culture {
+        return Culture(
+            id = id,
+            name = name,
+            description = description,
+            locationLink = locationLink,
+            location = location,
+            image = image
+        )
+    }
+
+    fun toCultureEntity(): CultureEntity {
+        return CultureEntity(
+            id = id,
+            name = name,
+            description = description,
+            locationLink = locationLink,
+            location = location,
+            image = image
+        )
+    }
+
+    fun toLongCategoryItem(): LongCategoryItem {
+        return LongCategoryItem(
+            id = id,
+            name = name,
+            locationLink = locationLink,
+            image = image,
+        )
+    }
+
+    fun toTypeTwoItem(): TypeTwoItem {
+        return TypeTwoItem(
+            name = name,
+            description = description,
+            locationLink = locationLink,
+            location = location,
+            image = image
+        )
+    }
+
+    fun toMapChip(): MapChip {
+        return MapChip(
+            name = name,
+            key = name,
+        )
+    }
+}

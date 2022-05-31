@@ -77,6 +77,10 @@ class BeachViewModel @Inject constructor(
                 val partialState = BeachPartialState.OnFiltersSelected(emptyList())
                 _state.value = reducer.reduce(state.value, partialState)
             }
+            BeachUiEvent.OnRecommendedDialogClosed -> {
+                val partialState = BeachPartialState.OnRecommendedDialog(item = null)
+                _state.value = reducer.reduce(state.value, partialState)
+            }
         }
     }
 
@@ -169,7 +173,8 @@ class BeachViewModel @Inject constructor(
 
 @Keep
 data class BeachState(
-    val currentSelected: Beach = Beach(name = "Beaches"),
+    val mainScreenName: String = "Beaches",
+    val currentSelected: Beach = Beach(),
     val categories: List<CategoryItem> = listOf(),
     val beaches: List<Beach> = listOf(),
     val currentBeachSelected: RecommendedCategoryDetails? = null,

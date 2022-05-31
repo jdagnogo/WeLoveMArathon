@@ -14,6 +14,8 @@ import com.jdagnogo.welovemarathon.blog.data.BlogDao
 import com.jdagnogo.welovemarathon.blog.data.BlogEntity
 import com.jdagnogo.welovemarathon.common.banner.BannerDao
 import com.jdagnogo.welovemarathon.common.banner.GifBannerEntity
+import com.jdagnogo.welovemarathon.culture.data.CultureDao
+import com.jdagnogo.welovemarathon.culture.data.CultureEntity
 import com.jdagnogo.welovemarathon.food.data.FoodCategoryEntity
 import com.jdagnogo.welovemarathon.food.data.FoodEntity
 import com.jdagnogo.welovemarathon.food.data.FoodDao
@@ -49,8 +51,9 @@ import java.util.*
         DataFreshnessEntity::class,
         SportCategoryEntity::class,
         SportEntity::class,
+        CultureEntity::class,
         TipsEntity::class],
-    version = 12
+    version = 13
 )
 abstract class WLMDatabase : RoomDatabase() {
     abstract fun getBlogDao(): BlogDao
@@ -63,10 +66,10 @@ abstract class WLMDatabase : RoomDatabase() {
     abstract fun getTipsDao(): TipsDao
     abstract fun getDataFreshnessDao(): DataFreshnessDao
     abstract fun getSportDao(): SportDao
+    abstract fun getCultureDao(): CultureDao
 
     companion object {
         private const val DB_NAME = "wlm_db"
-        const val SMALL_ITEM_COUNT = 2
         private lateinit var INSTANCE: WLMDatabase
 
         fun getAppDataBase(context: Context): WLMDatabase {

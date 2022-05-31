@@ -32,7 +32,7 @@ fun HomeScreen(
                     navController.navigate(MainDestinations.Beaches.route)
                 }
                 2 -> {
-                    navController.navigate(MainDestinations.Sport.route)
+                    navController.navigate(MainDestinations.Cultures.route)
                 }
                 3 -> {
                     navController.navigate(MainDestinations.ShoppingSubMenu.route)

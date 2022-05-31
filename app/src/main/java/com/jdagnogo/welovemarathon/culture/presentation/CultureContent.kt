@@ -1,4 +1,4 @@
-package com.jdagnogo.welovemarathon.beach.presentation
+package com.jdagnogo.welovemarathon.culture.presentation
 
 import android.content.res.Configuration
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -14,9 +14,9 @@ import com.jdagnogo.welovemarathon.common.category.LongCategoryScreen
 @ExperimentalAnimationApi
 @ExperimentalFoundationApi
 @Composable
-fun BeachContent(
-    state: BeachState,
-    onBeachSelected: (id: String) -> Unit,
+fun CultureContent(
+    state: CultureState,
+    onCultureSelected: (id: String) -> Unit,
     onRecommendedSelected: (id: String) -> Unit,
     onMapSelected: () -> Unit,
     onBackPressed: () -> Unit,
@@ -28,13 +28,13 @@ fun BeachContent(
         title = state.mainScreenName,
         recommendedItems = state.recommendedItems,
         items = state.longCategoryItems,
-        onItemSelected = onBeachSelected,
+        onItemSelected = onCultureSelected,
         onRecommendedSelected = onRecommendedSelected,
         onMapSelected = onMapSelected,
         onBackPressed = onBackPressed,
         shouldOpenRecommenderDialog = state.shouldOpenRecommendedDialog,
         onRecommendedDialogClosed = onRecommendedDialogClosed,
-        currentRecommended = state.currentBeachSelected,
+        currentRecommended = state.currentCultureSelected,
         modifier = modifier,
     )
 }
@@ -45,26 +45,26 @@ fun BeachContent(
 @Preview(name = "FoodContent")
 @Preview("Dark : FoodContent", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun BeachDetailsContentPreview() {
-    val reducer = BeachReducer()
+fun CultureDetailsContentPreview() {
+    val reducer = CultureReducer()
     val state =
         reducer.reduce(
-            BeachState(),
-            BeachPartialState.Error("")
+            CultureState(),
+            CulturePartialState.Error("")
         )
     val finalState =
         reducer.reduce(
-            state, BeachPartialState.OnBeachSuccess(
-                beaches = emptyList()
+            state, CulturePartialState.OnCultureSuccess(
+                cultures = emptyList()
             )
         )
     MaterialTheme {
-        BeachContent(
+        CultureContent(
             finalState,
             onMapSelected = {},
             onBackPressed = {},
             onRecommendedSelected = {},
-            onBeachSelected = {},
+            onCultureSelected = {},
             onRecommendedDialogClosed = {},
             modifier = Modifier
         )
