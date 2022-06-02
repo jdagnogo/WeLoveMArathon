@@ -25,7 +25,7 @@ object TipsModule {
 
     @Provides
     @Singleton
-    fun provideHomeData(
+    fun provideTipsData(
         dao: TipsDao,
         remoteData: TipsRemoteData,
         mapper: TipsMapper,

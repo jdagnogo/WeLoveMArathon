@@ -32,6 +32,7 @@ val ShoppingColor = Color(0xFFA584FA)
 val FoodColor = Color(0xFFE7CD4E)
 val WineColor = Color(0xFFFF9EA5)
 val TagColor = Color(0xFF94CDFD)
+val TipsColor = Primary
 
 class WLMColors(
     val gradient: List<Color>,

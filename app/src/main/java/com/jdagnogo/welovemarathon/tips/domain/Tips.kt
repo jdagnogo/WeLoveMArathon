@@ -1,28 +1,29 @@
 package com.jdagnogo.welovemarathon.tips.domain
 
 import androidx.annotation.Keep
+import com.jdagnogo.welovemarathon.common.submenu.SubMenuItem
 import com.jdagnogo.welovemarathon.tips.data.TipsEntity
 
 @Keep
 data class Tips(
-    var id: String = "",
-    var title: String = "",
+    val id: String = "",
+    val title: String = "",
     var description: String = "",
-    var imageDescription: String = "",
-    var image: String = "",
+    val ordinal: Int = 0,
+    val image: String = "",
+    val icon: String = "",
 ) {
     fun toTipsEntity(): TipsEntity {
         return TipsEntity(
-            id, title, description, imageDescription, image
+            id, title, description, image = image, icon = icon
         )
     }
-}
 
-fun Tips.toFakeList(): List<Tips> {
-    return listOf(
-        Tips("toto1", "toto", "description", "image"),
-        Tips("toto2", "toto", "description", "image"),
-        Tips("toto3", "toto", "description", "image"),
-        Tips("toto4", "toto", "description", "image"),
-    )
+    fun toSubMenuItem(): SubMenuItem {
+        return SubMenuItem(
+            title = title,
+            iconUrl = icon,
+            ordinal = ordinal
+        )
+    }
 }

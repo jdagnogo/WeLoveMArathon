@@ -25,9 +25,9 @@ import com.jdagnogo.welovemarathon.beach.presentation.BeachScreen
 import com.jdagnogo.welovemarathon.beach.presentation.BeachViewModel
 import com.jdagnogo.welovemarathon.beach.presentation.BeachesBarScreen
 import com.jdagnogo.welovemarathon.common.ui.MenuContent
-import com.jdagnogo.welovemarathon.culture.presentation.CulturesBarScreen
 import com.jdagnogo.welovemarathon.culture.presentation.CultureScreen
 import com.jdagnogo.welovemarathon.culture.presentation.CultureViewModel
+import com.jdagnogo.welovemarathon.culture.presentation.CulturesBarScreen
 import com.jdagnogo.welovemarathon.favorites.FavoritesScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodMenuScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodScreen
@@ -42,6 +42,8 @@ import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingViewModel
 import com.jdagnogo.welovemarathon.splash.SplashScreen
 import com.jdagnogo.welovemarathon.sport.presentation.SportScreen
 import com.jdagnogo.welovemarathon.sport.presentation.SportViewModel
+import com.jdagnogo.welovemarathon.tips.presentation.TipsScreen
+import com.jdagnogo.welovemarathon.tips.presentation.TipsViewModel
 import com.jdagnogo.welovemarathon.wine.presentation.WineScreen
 import kotlinx.coroutines.InternalCoroutinesApi
 
@@ -172,7 +174,8 @@ fun NavGraphBuilder.homeGraph(
         FavoritesScreen(modifier)
     }
     composable(HomeSections.TIPS.route) {
-        FavoritesScreen(modifier)
+        val viewModel = hiltViewModel<TipsViewModel>()
+        TipsScreen(viewModel, modifier)
     }
     composable(HomeSections.RUN.route) {
         FavoritesScreen(modifier)

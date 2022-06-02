@@ -60,7 +60,7 @@ class ActivitiesRepositoryImpl @Inject constructor(
                         val tipsEntities = mapper.toEntitiesCategories(categories)
                         dao.updateCategories(tipsEntities)
                     },
-                    checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.SHOPPING_CATEGORIES) })
+                    checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.ACTIVITIES_CATEGORIES) })
 
                 categories.collectLatest {
                     _categories.value = it
@@ -104,7 +104,7 @@ class ActivitiesRepositoryImpl @Inject constructor(
                         val sportEntities = mapper.toEntities(sports)
                         dao.update(sportEntities)
                     },
-                    checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.SHOPPING) })
+                    checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.ACTIVITIES) })
 
                 categories.collectLatest {
                     _data.value = it

@@ -19,8 +19,8 @@ class TipsRepositoryImpl @Inject constructor(private val tipsData: TipsData) : T
                 forceFetch = forceFetch,
                 fetchFromLocal = { dao.getAll().map { mapper.toTips(it) } },
                 networkCall = { remoteData.getTips() },
-                saveCallResource = { tipses ->
-                    val tipsEntities = mapper.toTipsEntities(tipses)
+                saveCallResource = { tips ->
+                    val tipsEntities = mapper.toTipsEntities(tips)
                     dao.update(tipsEntities)
                 },
                 checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.TIPS) })

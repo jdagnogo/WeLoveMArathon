@@ -11,6 +11,16 @@ class TipsReducer : IReducer<TipsState, TipsPartialState> {
             is TipsPartialState.OnTipsSuccess -> {
                 state.copy(tips = partialState.data)
             }
+            is TipsPartialState.OnTipSelected -> {
+                state.copy(
+                    currentSelected = partialState.tips,
+                )
+            }
+            TipsPartialState.OnCloseDialog -> {
+                state.copy(
+                    currentSelected = null,
+                )
+            }
         }
     }
 }

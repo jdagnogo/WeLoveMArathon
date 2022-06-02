@@ -12,12 +12,12 @@ data class TipsEntity(
     @PrimaryKey var id: String = "",
     var title: String = "",
     var description: String = "",
-    var imageDescription: String = "",
     var image: String = "",
+    var icon: String = "",
 ) {
     fun toTips(): Tips {
         return Tips(
-            id, title, description, imageDescription, image
+            id, title, description, image = image, icon = icon
         )
     }
 

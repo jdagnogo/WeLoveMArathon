@@ -40,7 +40,7 @@ class CultureRepositoryImpl @Inject constructor(
                         val cultureEntities = cultureMapper.toCultureEntities(cultures)
                         cultureDao.update(cultureEntities)
                     },
-                    checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.BEACH) })
+                    checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.CULTURE) })
 
                 cultures.collectLatest {
                     _cultures.value = it

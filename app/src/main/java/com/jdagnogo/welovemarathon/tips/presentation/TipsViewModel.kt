@@ -3,6 +3,9 @@ package com.jdagnogo.welovemarathon.tips.presentation
 import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jdagnogo.welovemarathon.R
+import com.jdagnogo.welovemarathon.common.submenu.SubMenuUiModel
+import com.jdagnogo.welovemarathon.common.ui.theme.TipsColor
 import com.jdagnogo.welovemarathon.common.utils.IModel
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.tips.domain.GetTipsUseCase
@@ -23,7 +26,6 @@ class TipsViewModel @Inject constructor(
 
     private val _state = MutableStateFlow(TipsState())
     override val state: StateFlow<TipsState> get() = _state
-
 
     init {
         viewModelScope.launch {
@@ -50,6 +52,15 @@ class TipsViewModel @Inject constructor(
     override fun dispatchEvent(event: TipsUiEvent) {
         when (event) {
             is TipsUiEvent.FetchTips -> fetchTips()
+            is TipsUiEvent.OnTipSelected -> {
+                val tips = state.value.tips.firstOrNull { it.ordinal == event.position }
+                val partialState = TipsPartialState.OnTipSelected(tips)
+                _state.value = reducer.reduce(_state.value, partialState)
+            }
+            TipsUiEvent.OnCloseDialog -> {
+                val partialState = TipsPartialState.OnCloseDialog
+                _state.value = reducer.reduce(_state.value, partialState)
+            }
         }
     }
 }
@@ -59,13 +70,25 @@ class TipsViewModel @Inject constructor(
  */
 @Keep
 data class TipsState(
+    val currentSelected: Tips? = null,
     val tips: List<Tips> = listOf(),
     val error: String = "",
-)
+) {
+    val subMenuUiModel = SubMenuUiModel(
+        screenName = "Tips",
+        items = tips.map { it.toSubMenuItem() },
+        image = R.drawable.bg_shopping,
+        backgroundColor = TipsColor,
+        banner = null,
+    )
+    val shouldOpenDialog: Boolean = currentSelected != null
+}
 
 @Keep
 sealed class TipsPartialState {
+    object OnCloseDialog : TipsPartialState()
     data class Error(val message: String) : TipsPartialState()
+    data class OnTipSelected(val tips: Tips?) : TipsPartialState()
     data class OnTipsSuccess(val data: List<Tips>) : TipsPartialState()
 }
 
@@ -75,4 +98,6 @@ sealed class TipsPartialState {
  */
 sealed class TipsUiEvent {
     object FetchTips : TipsUiEvent()
+    object OnCloseDialog : TipsUiEvent()
+    data class OnTipSelected(val position: Int) : TipsUiEvent()
 }

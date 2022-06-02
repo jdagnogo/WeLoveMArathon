@@ -29,12 +29,12 @@ import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.TagColor
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 import com.jdagnogo.welovemarathon.common.utils.backgroundColor
-import com.jdagnogo.welovemarathon.common.utils.drawableID
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable
 fun SubMenuScreen(
+    shouldDisplayTitle: Boolean = true,
     subMenuUiModel: SubMenuUiModel?,
     subMenuInteractions: SubMenuInteractions,
     modifier: Modifier,
@@ -70,11 +70,13 @@ fun SubMenuScreen(
                 contentScale = ContentScale.Crop,
             )
         }
-        TitleComponent(
-            title = subMenuUiModel.screenName,
-            onLeftIconClicked = subMenuInteractions.onBackPressed,
-            onRightIconClicked = subMenuInteractions.onMapSelected
-        )
+        if (shouldDisplayTitle) {
+            TitleComponent(
+                title = subMenuUiModel.screenName,
+                onLeftIconClicked = subMenuInteractions.onBackPressed,
+                onRightIconClicked = subMenuInteractions.onMapSelected
+            )
+        }
         Column(
             modifier = Modifier
                 .fillMaxSize()
