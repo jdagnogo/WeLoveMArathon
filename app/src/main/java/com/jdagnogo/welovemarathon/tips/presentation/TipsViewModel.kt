@@ -3,11 +3,9 @@ package com.jdagnogo.welovemarathon.tips.presentation
 import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jdagnogo.welovemarathon.R
-import com.jdagnogo.welovemarathon.common.submenu.SubMenuUiModel
-import com.jdagnogo.welovemarathon.common.ui.theme.TipsColor
 import com.jdagnogo.welovemarathon.common.utils.IModel
 import com.jdagnogo.welovemarathon.common.utils.Resource
+import com.jdagnogo.welovemarathon.home.domain.Activities
 import com.jdagnogo.welovemarathon.tips.domain.GetTipsUseCase
 import com.jdagnogo.welovemarathon.tips.domain.Tips
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -74,13 +72,6 @@ data class TipsState(
     val tips: List<Tips> = listOf(),
     val error: String = "",
 ) {
-    val subMenuUiModel = SubMenuUiModel(
-        screenName = "Tips",
-        items = tips.map { it.toSubMenuItem() },
-        image = R.drawable.bg_shopping,
-        backgroundColor = TipsColor,
-        banner = null,
-    )
     val shouldOpenDialog: Boolean = currentSelected != null
 }
 

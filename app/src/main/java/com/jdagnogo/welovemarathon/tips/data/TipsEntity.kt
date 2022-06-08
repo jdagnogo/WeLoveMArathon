@@ -14,10 +14,11 @@ data class TipsEntity(
     var description: String = "",
     var image: String = "",
     var icon: String = "",
+    var color: String = "",
 ) {
     fun toTips(): Tips {
         return Tips(
-            id, title, description, image = image, icon = icon
+            id, title, description, image = image, icon = icon, color = color
         )
     }
 

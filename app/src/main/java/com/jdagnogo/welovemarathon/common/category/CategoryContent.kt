@@ -109,7 +109,7 @@ fun CategoryScreenPreview() {
             currentRecommended = RecommendedCategoryDetailsFake,
             false,
             shouldDisplayFilter = false,
-            shouldOpenFilterDialog = true,
+            shouldOpenFilterDialog = false,
             {},
             {},
             {},
