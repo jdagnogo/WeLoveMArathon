@@ -20,6 +20,9 @@ fun TipsScreen(
         onTipsSelected = {
             viewModel.dispatchEvent(TipsUiEvent.OnTipSelected(it))
         },
+        onDismissRequest = {
+            viewModel.dispatchEvent(TipsUiEvent.OnCloseDialog)
+        },
         modifier = modifier
     )
 }

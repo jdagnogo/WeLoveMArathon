@@ -40,10 +40,13 @@ import com.jdagnogo.welovemarathon.tips.domain.Tips
 fun TipsContent(
     state: TipsState,
     onTipsSelected: (Int) -> Unit = {},
+    onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = MaterialTheme.spacing.medium),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = MaterialTheme.spacing.medium),
         verticalArrangement = Arrangement.Center
     ) {
         Text(
@@ -107,7 +110,15 @@ fun TipsContent(
             }
         }
     }
+    if (state.shouldOpenDialog) {
+        TipsDialogComponent(
+            item = state.currentSelected,
+            onDismissRequest = onDismissRequest,
+            modifier = Modifier
+        )
+    }
 }
+
 val String.toColor
     get() = Color(android.graphics.Color.parseColor(this))
 
@@ -127,6 +138,9 @@ fun TipsContentPreview() {
                     Tips("2", "title2"),
                 )
             ),
+            onTipsSelected = {},
+            onDismissRequest = {},
+            modifier = Modifier,
         )
     }
 }

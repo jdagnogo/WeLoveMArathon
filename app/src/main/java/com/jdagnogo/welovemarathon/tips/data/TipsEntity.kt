@@ -13,12 +13,15 @@ data class TipsEntity(
     var title: String = "",
     var description: String = "",
     var image: String = "",
+    val ordinal: Int = 0,
     var icon: String = "",
     var color: String = "",
 ) {
     fun toTips(): Tips {
         return Tips(
-            id, title, description, image = image, icon = icon, color = color
+            id, title, description, image = image, icon = icon,
+            color = color,
+            ordinal = ordinal,
         )
     }
 

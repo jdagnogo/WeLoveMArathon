@@ -15,7 +15,8 @@ data class Tips(
 ) {
     fun toTipsEntity(): TipsEntity {
         return TipsEntity(
-            id, title, description, image = image, icon = icon, color = color
+            id, title, description, image = image, icon = icon, color = color,
+            ordinal = ordinal,
         )
     }
 }
