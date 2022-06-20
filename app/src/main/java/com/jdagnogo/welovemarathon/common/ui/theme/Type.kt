@@ -147,6 +147,21 @@ val contactStyle = TextStyle(
     fontSize = 16.sp
 )
 
+val emptyScreenTitle = TextStyle(
+    fontFamily = normal_font,
+    fontWeight = FontWeight.Bold,
+    color = White,
+    fontSize = 18.sp
+)
+
+val emptyScreenSubTitle = TextStyle(
+    fontFamily = normal_font,
+    fontWeight = FontWeight.Normal,
+    color = White,
+    textAlign = TextAlign.Center,
+    fontSize = 14.sp
+)
+
 val RecommendedCategoryItemTitleStyle = TextStyle(
     fontFamily = fonts,
     fontWeight = FontWeight.Normal,

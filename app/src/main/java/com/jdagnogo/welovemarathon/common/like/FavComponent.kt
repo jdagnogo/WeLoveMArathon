@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.jdagnogo.welovemarathon.R
+import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 
 @Composable
@@ -29,6 +30,7 @@ fun LikeComponent(
         Icon(
             painterResource(if (targetState) R.drawable.fav else R.drawable.ic_fav_unselected),
             contentDescription = "icon",
+            tint = Secondary,
             modifier = modifier.clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null,

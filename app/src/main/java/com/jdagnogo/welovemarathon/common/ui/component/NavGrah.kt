@@ -28,7 +28,8 @@ import com.jdagnogo.welovemarathon.common.ui.MenuContent
 import com.jdagnogo.welovemarathon.culture.presentation.CultureScreen
 import com.jdagnogo.welovemarathon.culture.presentation.CultureViewModel
 import com.jdagnogo.welovemarathon.culture.presentation.CulturesBarScreen
-import com.jdagnogo.welovemarathon.favorites.FavoritesScreen
+import com.jdagnogo.welovemarathon.favorites.presentation.FavViewModel
+import com.jdagnogo.welovemarathon.favorites.presentation.FavoritesScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodMenuScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodViewModel
@@ -171,17 +172,18 @@ fun NavGraphBuilder.homeGraph(
         HomeScreen(viewModel, navController, modifier)
     }
     composable(HomeSections.FAVORITES.route) {
-        FavoritesScreen(modifier)
+        val viewModel = hiltViewModel<FavViewModel>()
+        FavoritesScreen(viewModel, modifier)
     }
     composable(HomeSections.TIPS.route) {
         val viewModel = hiltViewModel<TipsViewModel>()
         TipsScreen(viewModel, modifier)
     }
     composable(HomeSections.RUN.route) {
-        FavoritesScreen(modifier)
+
     }
     composable(HomeSections.ABOUT.route) {
-        FavoritesScreen(modifier)
+
     }
 }
 
