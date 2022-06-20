@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../layout/compose-model-1655727858273.xml" value="0.25" />
+        <entry key="../../../../../layout/compose-model-1655727957219.xml" value="0.5583333333333333" />
         <entry key="..\:/WeLoveMarathon/app/src/main/res/drawable-anydpi/ic_back.xml" value="0.22239583333333332" />
         <entry key="..\:/WeLoveMarathon/app/src/main/res/drawable/ic_launcher_background.xml" value="0.20185185185185187" />
         <entry key="..\:/WeLoveMarathon/app/src/main/res/drawable/ic_wlm_logo.xml" value="0.1388888888888889" />
@@ -10,7 +12,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

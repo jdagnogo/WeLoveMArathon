@@ -57,6 +57,13 @@ class MapViewModel @Inject constructor(
                     currentSelected = key
                 )
             }
+            MapType.Activities.key -> {
+                fetchData(
+                    useCase = { useCases.getActivitiesUseCase.invoke(key) },
+                    mapper = { it.map { activities -> activities.toMapItem() } },
+                    currentSelected = key
+                )
+            }
             MapType.Beach.key -> {
                 fetchData(
                     useCase = { useCases.getBeachesBarUseCase.invoke(key) },
@@ -108,6 +115,18 @@ class MapViewModel @Inject constructor(
                     screenName = MapType.Shopping.screenName,
                     useCase = { useCases.getShoppingCategoriesUseCase.invoke() },
                     mapper = { createAllChip().plus(it.map { shopping -> shopping.toMapChip() }) },
+                )
+            }
+            MapType.Activities.key -> {
+                fetchData(
+                    useCase = { useCases.getActivitiesUseCase.invoke() },
+                    mapper = { it.map { act -> act.toMapItem() } },
+                )
+
+                fetchCategory(
+                    screenName = MapType.Activities.screenName,
+                    useCase = { useCases.getActivitiesCategoriesUseCase.invoke() },
+                    mapper = { createAllChip().plus(it.map { act -> act.toMapChip() }) },
                 )
             }
             MapType.Beach.key -> {

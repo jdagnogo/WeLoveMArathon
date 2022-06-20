@@ -4,6 +4,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,14 +46,16 @@ fun ShoppingContentPreview() {
             )
         )
     MaterialTheme {
-        ShoppingMenuContent(
-            state = finalState,
-            subMenuInteractions = SubMenuInteractions(
-                onMapSelected = {},
-                onBackPressed = {},
-                onItemSelected = {}
-            ),
-            modifier = Modifier
-        )
+        Surface {
+            ShoppingMenuContent(
+                state = finalState,
+                subMenuInteractions = SubMenuInteractions(
+                    onMapSelected = {},
+                    onBackPressed = {},
+                    onItemSelected = {}
+                ),
+                modifier = Modifier
+            )
+        }
     }
 }

@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
@@ -93,12 +94,12 @@ fun TitleComponent(
 @Composable
 fun RunTitleRightComponentPreview() {
     MaterialTheme {
-        TitleComponent(
-            R.drawable.ic_wlm_logo,
-            {},
-            R.drawable.ic_wlm_logo,
-            {},
-            "Title"
-        )
+        Surface {
+            TitleComponent(
+                onRightIconClicked = {},
+                onLeftIconClicked = {},
+                title = "Title",
+            )
+        }
     }
 }

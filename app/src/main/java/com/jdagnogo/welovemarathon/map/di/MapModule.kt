@@ -1,5 +1,7 @@
 package com.jdagnogo.welovemarathon.map.di
 
+import com.jdagnogo.welovemarathon.activities.domain.GetActivitiesCategoriesUseCase
+import com.jdagnogo.welovemarathon.activities.domain.GetActivitiesUseCase
 import com.jdagnogo.welovemarathon.beach.domain.GetBeachesBarUseCase
 import com.jdagnogo.welovemarathon.beach.domain.GetBeachesUseCase
 import com.jdagnogo.welovemarathon.food.domain.GetFoodCategoriesUseCase
@@ -27,6 +29,8 @@ object MapModule {
         getFoodUseCase: GetFoodUseCase,
         getBeachesBarUseCase: GetBeachesBarUseCase,
         getBeachesUseCase: GetBeachesUseCase,
+        getActivitiesUseCase: GetActivitiesUseCase,
+        getActivitiesCategoriesUseCase: GetActivitiesCategoriesUseCase
     ): MapUseCases {
         return MapUseCases(
             getShoppingCategoriesUseCase = getShoppingCategoriesUseCase,
@@ -35,6 +39,8 @@ object MapModule {
             getFoodUseCase = getFoodUseCase,
             getBeachesBarUseCase = getBeachesBarUseCase,
             getBeachesUseCase = getBeachesUseCase,
+            getActivitiesUseCase = getActivitiesUseCase,
+            getActivitiesCategoriesUseCase = getActivitiesCategoriesUseCase,
         )
     }
 
