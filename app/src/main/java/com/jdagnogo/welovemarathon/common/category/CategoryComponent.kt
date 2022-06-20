@@ -11,11 +11,13 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -31,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
+import com.jdagnogo.welovemarathon.common.like.LikeComponent
 import com.jdagnogo.welovemarathon.common.ui.component.ContactComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryLight
 import com.jdagnogo.welovemarathon.common.ui.theme.RecommendedCategoryItemTitleStyle
@@ -44,6 +47,7 @@ import com.jdagnogo.welovemarathon.common.utils.redirectToPhone
 @Composable
 fun CategoryComponent(
     items: List<CategoryItem>,
+    onLikeClicked: (String) -> Unit,
     onFilterClicked: (isVisible: Boolean) -> Unit,
     shouldDisplayFilter: Boolean,
     modifier: Modifier = Modifier,
@@ -58,6 +62,7 @@ fun CategoryComponent(
         )
         CategoryGridComponent(
             items = items,
+            onLikeClicked = onLikeClicked,
         )
     }
 }
@@ -66,57 +71,71 @@ fun CategoryComponent(
 @Composable
 fun CategoryItemComponent(
     item: CategoryItem,
+    onLikeClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Card(
-        elevation = MaterialTheme.spacing.small,
-        shape = MaterialTheme.shapes.large,
-        backgroundColor = PrimaryLight,
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
     ) {
-        Column(Modifier.padding(MaterialTheme.spacing.small)) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+        LikeComponent(
+            id = item.id,
+            isFavItem = item.isFavItem,
+            onLikeClicked = onLikeClicked,
+            modifier = Modifier.size(MaterialTheme.spacing.huge)
+        )
+        Card(
+            elevation = MaterialTheme.spacing.small,
+            shape = MaterialTheme.shapes.large,
+            backgroundColor = PrimaryLight,
+            modifier = Modifier
+                .padding(start = MaterialTheme.spacing.small)
+                .weight(1f)
+        ) {
+            Column(Modifier.padding(MaterialTheme.spacing.small)) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        textAlign = TextAlign.Start,
+                        modifier = Modifier.weight(1f),
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 1,
+                        style = RecommendedCategoryItemTitleStyle,
+                        text = item.name
+                    )
+                    val uriHandler = LocalUriHandler.current
+                    val context = LocalContext.current
+                    ContactComponent(
+                        modifier = Modifier.padding(MaterialTheme.spacing.extraSmall),
+                        icon = R.drawable.location,
+                        iconSize = 24.dp,
+                        onClicked = { redirectToLink(uriHandler, item.locationLink) },
+                    )
+                    ContactComponent(
+                        modifier = Modifier.padding(MaterialTheme.spacing.extraSmall),
+                        icon = R.drawable.ic_phone,
+                        iconSize = 24.dp,
+                        onClicked = {
+                            redirectToPhone(context, item.number)
+                        },
+                    )
+                }
+                Divider(color = Color.White, thickness = 1.dp)
                 Text(
-                    textAlign = TextAlign.Start,
-                    modifier = Modifier.weight(1f),
                     overflow = TextOverflow.Ellipsis,
+                    style = tagsTitleStyle,
+                    text = item.tags,
                     maxLines = 1,
-                    style = RecommendedCategoryItemTitleStyle,
-                    text = item.name
-                )
-                val uriHandler = LocalUriHandler.current
-                val context = LocalContext.current
-                ContactComponent(
-                    modifier = Modifier.padding(MaterialTheme.spacing.extraSmall),
-                    icon = R.drawable.location,
-                    iconSize = 24.dp,
-                    onClicked = { redirectToLink(uriHandler, item.locationLink) },
-                )
-                ContactComponent(
-                    modifier = Modifier.padding(MaterialTheme.spacing.extraSmall),
-                    icon = R.drawable.ic_phone,
-                    iconSize = 24.dp,
-                    onClicked = {
-                        redirectToPhone(context, item.number)
-                    },
+                    modifier = Modifier
+                        .padding(
+                            top = MaterialTheme.spacing.medium
+                        )
+                        .padding(
+                            horizontal = MaterialTheme.spacing.small
+                        )
                 )
             }
-            Divider(color = Color.White, thickness = 1.dp)
-            Text(
-                overflow = TextOverflow.Ellipsis,
-                style = tagsTitleStyle,
-                text = item.tags,
-                maxLines = 1,
-                modifier = Modifier
-                    .padding(
-                        top = MaterialTheme.spacing.medium
-                    )
-                    .padding(
-                        horizontal = MaterialTheme.spacing.small
-                    )
-            )
         }
     }
 }
@@ -126,11 +145,12 @@ fun CategoryItemComponent(
 @Composable
 fun CategoryGridComponent(
     items: List<CategoryItem>,
+    onLikeClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
         contentPadding = PaddingValues(
-            start = MaterialTheme.spacing.huge,
+            start = MaterialTheme.spacing.small,
             end = MaterialTheme.spacing.huge,
             top = MaterialTheme.spacing.large,
             bottom = MaterialTheme.spacing.large,
@@ -142,6 +162,7 @@ fun CategoryGridComponent(
             val item = items[index]
             CategoryItemComponent(
                 item = item,
+                onLikeClicked = onLikeClicked
             )
         }
     }
@@ -178,9 +199,11 @@ fun FilterComponent(
 @Composable
 fun FilterComponentPreview() {
     MaterialTheme {
-        FilterComponent(
-            shouldDisplayFilter = true,
-            {})
+        Surface {
+            FilterComponent(
+                shouldDisplayFilter = true,
+                {})
+        }
     }
 }
 
@@ -198,7 +221,7 @@ fun CategoryComponentPreview() {
     )
     MaterialTheme {
         CategoryComponent(
-            items = items, onFilterClicked = {}, true
+            items = items, onFilterClicked = {}, onLikeClicked = {}, shouldDisplayFilter = true
         )
     }
 }
@@ -211,7 +234,8 @@ fun CategoryItemComponentPreview() {
     val item = CategoryItem("id", "name", tags = "#toto #titi")
     MaterialTheme {
         CategoryItemComponent(
-            item = item
+            item = item,
+            onLikeClicked = {}
         )
     }
 }

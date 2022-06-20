@@ -3,10 +3,10 @@ package com.jdagnogo.welovemarathon.activities.domain
 import androidx.annotation.Keep
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.firestore.GeoPoint
+import com.jdagnogo.welovemarathon.activities.data.ActivitiesEntity
 import com.jdagnogo.welovemarathon.beach.domain.BeachBar
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
-import com.jdagnogo.welovemarathon.activities.data.ActivitiesEntity
 import com.jdagnogo.welovemarathon.map.domain.MapItem
 
 @Keep
@@ -88,12 +88,13 @@ data class Activities(
         )
     }
 
-    fun toCategoryItem(): CategoryItem {
+    fun toCategoryItem(isFavItem: Boolean): CategoryItem {
         return CategoryItem(
             id = id,
             name = name,
             locationLink = locationLink,
             number = number,
+            isFavItem = isFavItem,
             tags = tags
         )
     }

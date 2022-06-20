@@ -8,6 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.jdagnogo.welovemarathon.activities.presentation.ActivitiesUiEvent
 import com.jdagnogo.welovemarathon.common.ui.component.MainDestinations
 import com.jdagnogo.welovemarathon.map.domain.MapType
 
@@ -43,6 +44,9 @@ fun ShoppingScreen(
         },
         onRecommendedDialogClosed = {
             viewModel.dispatchEvent(ShoppingUiEvent.OnRecommendedDialogClosed)
+        },
+        onLikeClicked = {
+            viewModel.dispatchEvent(ShoppingUiEvent.OnLikeClicked(it))
         },
         modifier = modifier
     )

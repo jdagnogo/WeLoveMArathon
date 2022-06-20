@@ -13,6 +13,7 @@ import com.jdagnogo.welovemarathon.activities.presentation.ActivitiesReducer
 import com.jdagnogo.welovemarathon.common.banner.GetBannerUseCase
 import com.jdagnogo.welovemarathon.common.data.WLMDatabase
 import com.jdagnogo.welovemarathon.common.domain.DataFreshnessUseCase
+import com.jdagnogo.welovemarathon.common.like.domain.FavUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -65,11 +66,13 @@ object ActivitiesModule {
         getActivitiesCategoriesUseCase: GetActivitiesCategoriesUseCase,
         getActivitiesTagUseCase: GetActivitiesTagUseCase,
         getBannerUseCase: GetBannerUseCase,
+        favUseCase: FavUseCase
     ) = ActivitiesUseCase(
         getActivitiesUseCase = getActivitiesUseCase,
         getActivitiesCategoriesUseCase = getActivitiesCategoriesUseCase,
         getBannerUseCase = getBannerUseCase,
         getActivitiesTagUseCase = getActivitiesTagUseCase,
+        favUseCase = favUseCase
     )
 
     @Provides

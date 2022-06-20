@@ -30,7 +30,6 @@ class CultureViewModel @Inject constructor(
 
     init {
         fetchCultures()
-        // fetchRecommendedCulturesBars()
     }
 
     override fun dispatchEvent(event: CultureUiEvent) {
@@ -48,25 +47,6 @@ class CultureViewModel @Inject constructor(
             }
         }
     }
-
-    /*private fun fetchRecommendedCulturesBars() {
-        viewModelScope.launch {
-            handleResource(
-                culturesUseCase.getRecommendedCulturesBarsUseCase.invoke(),
-                { cultures ->
-                    CulturePartialState.OnCulturesBarsRecommendedSuccess(
-                        recommendedItems = cultures.map { it.toRecommendedCategoryItem() },
-                    )
-                },
-                CulturePartialState.Loading,
-                { CulturePartialState.Error("") },
-                { partialState ->
-                    _state.value = reducer.reduce(state.value, partialState)
-                },
-                this
-            )
-        }
-    }*/
 
     private fun fetchCultures() {
         viewModelScope.launch {
@@ -90,7 +70,7 @@ class CultureViewModel @Inject constructor(
 
 @Keep
 data class CultureState(
-    val mainScreenName: String = "Cultures",
+    val mainScreenName: String = "Culture",
     val currentSelected: Culture = Culture(),
     val categories: List<CategoryItem> = listOf(),
     val cultures: List<Culture> = listOf(),

@@ -47,6 +47,7 @@ fun TypeTwoComponent(
     categoryItems: List<CategoryItem>,
     onMapSelected: () -> Unit,
     onBackPressed: () -> Unit,
+    onLikeClicked: (String) -> Unit,
     onFilterClicked: (isVisible: Boolean) -> Unit,
     shouldDisplayFilter: Boolean,
     shouldOpenFilterDialog: Boolean,
@@ -59,7 +60,8 @@ fun TypeTwoComponent(
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .background(Primary),
+            .background(Primary)
+            .padding(start = MaterialTheme.spacing.small),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         item {
@@ -106,8 +108,9 @@ fun TypeTwoComponent(
             val categoryItem = categoryItems[index]
             CategoryItemComponent(
                 item = categoryItem,
+                onLikeClicked = onLikeClicked,
                 modifier = Modifier.padding(
-                    start = MaterialTheme.spacing.huge,
+                    start = MaterialTheme.spacing.small,
                     end = MaterialTheme.spacing.huge,
                     top = MaterialTheme.spacing.medium,
                     bottom = MaterialTheme.spacing.medium,
@@ -217,6 +220,7 @@ fun TypeTwoComponentPreview() {
             shouldOpenFilterDialog = false,
             onResetSelected = {},
             onFiltersSelected = {},
+            onLikeClicked = {},
             tags = emptyList(),
         )
     }

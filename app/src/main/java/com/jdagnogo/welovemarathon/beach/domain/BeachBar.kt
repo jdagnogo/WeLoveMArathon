@@ -37,12 +37,13 @@ data class BeachBar(
         )
     }
 
-    fun toCategoryItem(): CategoryItem {
+    fun toCategoryItem(isFavItem: Boolean = false): CategoryItem {
         return CategoryItem(
             id = id,
             name = name,
             locationLink = locationLink,
             number = number,
+            isFavItem = isFavItem,
             tags = tags
         )
     }

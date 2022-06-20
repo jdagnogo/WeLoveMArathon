@@ -44,6 +44,9 @@ fun FoodScreen(
         onRecommendedDialogClosed = {
             viewModel.dispatchEvent(FoodUiEvent.OnRecommendedDialogClosed)
         },
+        onLikeClicked = {
+            viewModel.dispatchEvent(FoodUiEvent.OnLikeClicked(it))
+        },
         modifier = modifier
     )
 }

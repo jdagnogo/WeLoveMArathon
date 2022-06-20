@@ -44,6 +44,9 @@ fun ActivitiesScreen(
         onRecommendedDialogClosed = {
             viewModel.dispatchEvent(ActivitiesUiEvent.OnRecommendedDialogClosed)
         },
+        onLikeClicked = {
+            viewModel.dispatchEvent(ActivitiesUiEvent.OnLikeClicked(it))
+        },
         modifier = modifier
     )
 }

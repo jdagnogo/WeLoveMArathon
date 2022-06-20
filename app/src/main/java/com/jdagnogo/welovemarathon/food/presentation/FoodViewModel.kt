@@ -14,9 +14,11 @@ import com.jdagnogo.welovemarathon.common.ui.theme.FoodColor
 import com.jdagnogo.welovemarathon.common.utils.IModel
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.common.utils.handleResource
+import com.jdagnogo.welovemarathon.common.utils.handleResourceWithFav
 import com.jdagnogo.welovemarathon.food.domain.FoodCategory
 import com.jdagnogo.welovemarathon.food.domain.FoodTag
 import com.jdagnogo.welovemarathon.food.domain.FoodUseCase
+import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingUiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -97,12 +99,13 @@ class FoodViewModel @Inject constructor(
         viewModelScope.launch {
             currentSelected = category
             viewModelScope.launch {
-                handleResource(
+                handleResourceWithFav(
                     useCases.getFoodUseCase.invoke(category.name, tags),
-                    {
+                    useCases.favUseCase.getAllFavUseCases(),
+                    { it, favorites ->
                         FoodPartialState.OnFoodsSuccess(
                             items = it.filter { it.isRecommended.not() }
-                                .map { it.toCategoryItem() },
+                                .map { it.toCategoryItem(favorites.firstOrNull { fav -> fav.id == it.id } != null) },
                             recommendedItems = it.filter { it.isRecommended }
                                 .map { it.toRecommendedCategoryItem() }
                         )
@@ -157,6 +160,14 @@ class FoodViewModel @Inject constructor(
                 )
                 val partialState = FoodPartialState.OnFilterReset
                 _state.value = reducer.reduce(state.value, partialState)
+            }
+            is FoodUiEvent.OnLikeClicked -> {
+                viewModelScope.launch {
+                    val activities = state.value.foods.firstOrNull {
+                        it.id == event.id
+                    }
+                    useCases.favUseCase.updateFavUseCase(activities)
+                }
             }
         }
     }
@@ -222,6 +233,7 @@ sealed class FoodUiEvent {
     data class OnCategoryClicked(val position: Int) : FoodUiEvent()
     data class OnFilterClicked(val isVisible: Boolean) : FoodUiEvent()
     object OnResetClicked : FoodUiEvent()
+    data class OnLikeClicked(val id: String) : FoodUiEvent()
     data class OnFiltersSelected(val filters: List<String>) : FoodUiEvent()
     data class OnRecommendedItemSelected(val id: String) : FoodUiEvent()
     object OnRecommendedDialogClosed : FoodUiEvent()

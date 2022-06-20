@@ -14,6 +14,7 @@ import com.jdagnogo.welovemarathon.common.ui.theme.ShoppingColor
 import com.jdagnogo.welovemarathon.common.utils.IModel
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.common.utils.handleResource
+import com.jdagnogo.welovemarathon.common.utils.handleResourceWithFav
 import com.jdagnogo.welovemarathon.shopping.domain.ShoppingCategory
 import com.jdagnogo.welovemarathon.shopping.domain.ShoppingTag
 import com.jdagnogo.welovemarathon.shopping.domain.ShoppingUseCase
@@ -97,12 +98,13 @@ class ShoppingViewModel @Inject constructor(
         viewModelScope.launch {
             currentSelected = category
             viewModelScope.launch {
-                handleResource(
+                handleResourceWithFav(
                     useCases.getShoppingUseCase.invoke(category.name, tags),
-                    {
+                    useCases.favUseCase.getAllFavUseCases(),
+                    { it, favorites ->
                         ShoppingPartialState.OnShoppingsSuccess(
                             items = it.filter { it.isRecommended.not() }
-                                .map { it.toCategoryItem() },
+                                .map { it.toCategoryItem(favorites.firstOrNull { fav -> fav.id == it.id } != null) },
                             recommendedItems = it.filter { it.isRecommended }
                                 .map { it.toRecommendedCategoryItem() }
                         )
@@ -150,7 +152,15 @@ class ShoppingViewModel @Inject constructor(
                 )
                 _state.value = reducer.reduce(state.value, partialState)
             }
-            ShoppingUiEvent.OnResetClicked ->{
+            is ShoppingUiEvent.OnLikeClicked -> {
+                viewModelScope.launch {
+                    val activities = state.value.shoppings.firstOrNull {
+                        it.id == event.id
+                    }
+                    useCases.favUseCase.updateFavUseCase(activities)
+                }
+            }
+            ShoppingUiEvent.OnResetClicked -> {
                 fetchShopping(
                     state.value.currentSelected,
                     emptyList()
@@ -222,6 +232,7 @@ sealed class ShoppingUiEvent {
     data class OnCategoryClicked(val position: Int) : ShoppingUiEvent()
     data class OnFilterClicked(val isVisible: Boolean) : ShoppingUiEvent()
     object OnResetClicked : ShoppingUiEvent()
+    data class OnLikeClicked(val id: String) : ShoppingUiEvent()
     data class OnFiltersSelected(val filters: List<String>) : ShoppingUiEvent()
     data class OnRecommendedItemSelected(val id: String) : ShoppingUiEvent()
     object OnRecommendedDialogClosed : ShoppingUiEvent()

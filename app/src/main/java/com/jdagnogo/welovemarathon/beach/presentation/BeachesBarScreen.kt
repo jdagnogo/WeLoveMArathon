@@ -6,6 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.jdagnogo.welovemarathon.activities.presentation.ActivitiesUiEvent
 import com.jdagnogo.welovemarathon.common.ui.component.MainDestinations
 import com.jdagnogo.welovemarathon.map.domain.MapType
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -27,6 +28,9 @@ fun BeachesBarScreen(
         onResetSelected = { viewModel.dispatchEvent(BeachUiEvent.OnResetClicked) },
         onFiltersSelected = { viewModel.dispatchEvent(BeachUiEvent.OnFiltersSelected(it)) },
         onDismissFilterRequest = { viewModel.dispatchEvent(BeachUiEvent.OnFilterClicked(false)) },
+        onLikeClicked = {
+           viewModel.dispatchEvent(BeachUiEvent.OnLikeClicked(it))
+        },
         modifier = modifier
     )
 }

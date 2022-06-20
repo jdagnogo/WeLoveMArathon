@@ -13,7 +13,9 @@ import com.jdagnogo.welovemarathon.common.category.CategoryTag
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
 import com.jdagnogo.welovemarathon.common.utils.IModel
 import com.jdagnogo.welovemarathon.common.utils.handleResource
+import com.jdagnogo.welovemarathon.common.utils.handleResourceWithFav
 import com.jdagnogo.welovemarathon.food.domain.FoodTag
+import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingUiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -81,6 +83,14 @@ class BeachViewModel @Inject constructor(
                 val partialState = BeachPartialState.OnRecommendedDialog(item = null)
                 _state.value = reducer.reduce(state.value, partialState)
             }
+            is BeachUiEvent.OnLikeClicked -> {
+                viewModelScope.launch {
+                    val activities = state.value.categories.firstOrNull {
+                        it.id == event.id
+                    }
+                    beachesUseCase.favUseCase.updateFavUseCase(activities)
+                }
+            }
         }
     }
 
@@ -105,11 +115,12 @@ class BeachViewModel @Inject constructor(
                 state.value.beaches.firstOrNull { it.id == parentId }
                     ?: state.value.beaches.first()
 
-            handleResource(
-                beachesUseCase.getBeachesBarUseCase.invoke(beach.name, tags = tags),
-                { beaches ->
+            handleResourceWithFav(
+                beachesUseCase.getBeachesBarUseCase.invoke(beach.name, tags),
+                beachesUseCase.favUseCase.getAllFavUseCases(),
+                { beaches, favorites ->
                     BeachPartialState.OnBeachesBarsSuccess(
-                        categories = beaches.map { it.toCategoryItem() },
+                        categories = beaches.map { it.toCategoryItem(favorites.firstOrNull { fav -> fav.id == it.id } != null) },
                         currentSelected = beach,
                         shouldDisplayFilter = shouldDisplayFilter(tags, beaches),
                     )
@@ -221,6 +232,7 @@ sealed class BeachUiEvent {
     data class OnBeachSelected(val parentId: String) : BeachUiEvent()
     data class OnRecommendedItemSelected(val id: String) : BeachUiEvent()
     object OnResetClicked : BeachUiEvent()
+    data class OnLikeClicked(val id: String) : BeachUiEvent()
     object OnDismissFilterRequest : BeachUiEvent()
     data class OnFilterClicked(val isVisible: Boolean) : BeachUiEvent()
     data class OnFiltersSelected(val filters: List<String>) : BeachUiEvent()

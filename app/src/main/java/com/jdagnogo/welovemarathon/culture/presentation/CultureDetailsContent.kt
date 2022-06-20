@@ -9,6 +9,7 @@ import com.jdagnogo.welovemarathon.culture.presentation.CultureState
 @Composable
 fun CulturesDetailsContent(
     state: CultureState,
+    onLikeClicked: (String) -> Unit,
     onMapSelected: () -> Unit,
     onBackPressed: () -> Unit,
     modifier: Modifier = Modifier
@@ -20,6 +21,7 @@ fun CulturesDetailsContent(
         onMapSelected = onMapSelected,
         onBackPressed = onBackPressed,
         onFilterClicked = {},
+        onLikeClicked = onLikeClicked,
         shouldDisplayFilter = false,
         shouldOpenFilterDialog =false,
         tags = emptyList(),

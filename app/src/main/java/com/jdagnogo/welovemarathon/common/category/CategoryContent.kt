@@ -26,6 +26,7 @@ fun CategoryScreen(
     recommendedItems: List<RecommendedCategoryDetails>,
     items: List<CategoryItem>,
     tags: List<CategoryTag>,
+    onLikeClicked: (String) -> Unit,
     onFiltersSelected: (ids: List<String>) -> Unit = {},
     onResetSelected: () -> Unit = {},
     currentRecommended: RecommendedCategoryDetails?,
@@ -59,6 +60,7 @@ fun CategoryScreen(
 
         CategoryComponent(
             items = items,
+            onLikeClicked = onLikeClicked,
             onFilterClicked = onFilterClicked,
             shouldDisplayFilter= shouldDisplayFilter,
             Modifier.padding(top = MaterialTheme.spacing.medium)
@@ -104,6 +106,7 @@ fun CategoryScreenPreview() {
             recommendedItems = recommendedItems,
             items = items,
             tags = listOf(),
+            onLikeClicked = {},
             onFiltersSelected = {},
             {},
             currentRecommended = RecommendedCategoryDetailsFake,

@@ -88,11 +88,12 @@ data class Food(
         )
     }
 
-    fun toCategoryItem(): CategoryItem {
+    fun toCategoryItem(isFavItem: Boolean): CategoryItem {
         return CategoryItem(
             id = id,
             name = name,
             locationLink = locationLink,
+            isFavItem = isFavItem,
             number = number,
             tags = tags
         )

@@ -21,6 +21,7 @@ fun CulturesBarScreen(
     val state by viewModel.state.collectAsState()
     CulturesDetailsContent(
         state = state,
+        onLikeClicked = {},
         onMapSelected = { navController.navigate(MainDestinations.Map.createRoute(MapType.Culture.key)) },
         onBackPressed = { navController.popBackStack() },
         modifier = modifier

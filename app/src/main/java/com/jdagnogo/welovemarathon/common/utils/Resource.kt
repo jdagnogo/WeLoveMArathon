@@ -1,7 +1,10 @@
 package com.jdagnogo.welovemarathon.common.utils
 
+import com.jdagnogo.welovemarathon.common.like.domain.Favorite
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -34,6 +37,29 @@ fun <Entity, PartialState> handleResource(
             }
         }
         //  _state.value = reducer.reduce(_state.value, partialState)
+        sendToReducer(partialState)
+    }.launchIn(scope)
+}
+
+fun <Entity, PartialState> handleResourceWithFav(
+    useCase: Flow<Resource<List<Entity>>>,
+    fav: StateFlow<List<Favorite>>,
+    onSuccess: (toto: List<Entity>, fav: List<Favorite>) -> PartialState,
+    onLoading: PartialState,
+    onError: () -> PartialState,
+    sendToReducer: (PartialState) -> Unit,
+    scope: CoroutineScope,
+) {
+    useCase.combine(fav) { entity, favorite ->
+        val partialState = when (entity) {
+            is Resource.Success -> {
+                onSuccess(entity.data ?: listOf(), favorite)
+            }
+            is Resource.Loading -> onLoading
+            else -> {
+                onError()
+            }
+        }
         sendToReducer(partialState)
     }.launchIn(scope)
 }

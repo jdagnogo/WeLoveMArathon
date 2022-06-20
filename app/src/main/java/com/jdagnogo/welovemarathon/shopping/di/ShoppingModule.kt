@@ -3,6 +3,7 @@ package com.jdagnogo.welovemarathon.shopping.di
 import com.jdagnogo.welovemarathon.common.banner.GetBannerUseCase
 import com.jdagnogo.welovemarathon.common.data.WLMDatabase
 import com.jdagnogo.welovemarathon.common.domain.DataFreshnessUseCase
+import com.jdagnogo.welovemarathon.common.like.domain.FavUseCase
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingDao
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingData
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingMapper
@@ -65,10 +66,12 @@ object ShoppingModule {
         getShoppingCategoriesUseCase: GetShoppingCategoriesUseCase,
         getShoppingTagUseCase: GetShoppingTagUseCase,
         getBannerUseCase: GetBannerUseCase,
+        favUseCase: FavUseCase,
     ) = ShoppingUseCase(
         getShoppingUseCase = getShoppingUseCase,
         getShoppingCategoriesUseCase = getShoppingCategoriesUseCase,
         getBannerUseCase = getBannerUseCase,
+        favUseCase = favUseCase,
         getShoppingTagUseCase = getShoppingTagUseCase,
     )
 

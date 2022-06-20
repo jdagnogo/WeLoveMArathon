@@ -46,6 +46,7 @@ fun FoodContent(
     onResetSelected: () -> Unit = {},
     onFilterClicked: (isVisible: Boolean) -> Unit,
     onRecommendedDialogClosed: () -> Unit,
+    onLikeClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     CategoryScreen(
@@ -65,5 +66,6 @@ fun FoodContent(
         shouldOpenFilterDialog = state.shouldOpenFilterDialog,
         onRecommendedDialogClosed = onRecommendedDialogClosed,
         currentRecommended = state.currentFoodSelected,
+        onLikeClicked = onLikeClicked,
     )
 }

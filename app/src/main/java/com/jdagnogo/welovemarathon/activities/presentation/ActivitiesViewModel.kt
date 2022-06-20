@@ -17,6 +17,7 @@ import com.jdagnogo.welovemarathon.common.ui.theme.ActivityColor
 import com.jdagnogo.welovemarathon.common.utils.IModel
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.common.utils.handleResource
+import com.jdagnogo.welovemarathon.common.utils.handleResourceWithFav
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -97,11 +98,12 @@ class ActivitiesViewModel @Inject constructor(
         viewModelScope.launch {
             currentSelected = category
             viewModelScope.launch {
-                handleResource(
+                handleResourceWithFav(
                     useCases.getActivitiesUseCase.invoke(category.name, tags),
-                    {
+                    useCases.favUseCase.getAllFavUseCases(),
+                    { it, favorites ->
                         val activities = it.filter { it.isRecommended.not() }
-                            .map { it.toCategoryItem() }
+                            .map { it.toCategoryItem(favorites.firstOrNull { fav -> fav.id == it.id } != null) }
                         ActivitiesPartialState.OnActivitiessSuccess(
                             items = activities,
                             recommendedItems = it.filter { it.isRecommended }
@@ -159,6 +161,14 @@ class ActivitiesViewModel @Inject constructor(
                 )
                 val partialState = ActivitiesPartialState.OnFilterReset
                 _state.value = reducer.reduce(state.value, partialState)
+            }
+            is ActivitiesUiEvent.OnLikeClicked -> {
+                viewModelScope.launch {
+                    val activities = state.value.activitiess.firstOrNull {
+                        it.id == event.id
+                    }
+                    useCases.favUseCase.updateFavUseCase(activities)
+                }
             }
         }
     }
@@ -225,6 +235,7 @@ sealed class ActivitiesPartialState {
 sealed class ActivitiesUiEvent {
     data class OnCategoryClicked(val position: Int) : ActivitiesUiEvent()
     data class OnFilterClicked(val isVisible: Boolean) : ActivitiesUiEvent()
+    data class OnLikeClicked(val id: String) : ActivitiesUiEvent()
     object OnResetClicked : ActivitiesUiEvent()
     data class OnFiltersSelected(val filters: List<String>) : ActivitiesUiEvent()
     data class OnRecommendedItemSelected(val id: String) : ActivitiesUiEvent()

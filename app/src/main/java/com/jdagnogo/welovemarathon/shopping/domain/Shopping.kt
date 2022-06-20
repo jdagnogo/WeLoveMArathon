@@ -5,7 +5,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.firestore.GeoPoint
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
-import com.jdagnogo.welovemarathon.map.domain.MapChip
 import com.jdagnogo.welovemarathon.map.domain.MapItem
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingEntity
 
@@ -67,10 +66,11 @@ data class Shopping(
         )
     }
 
-    fun toCategoryItem(): CategoryItem {
+    fun toCategoryItem(isFavItem: Boolean): CategoryItem {
         return CategoryItem(
             id = id,
             name = name,
+            isFavItem = isFavItem,
             locationLink = locationLink,
             number = number,
             tags = tags

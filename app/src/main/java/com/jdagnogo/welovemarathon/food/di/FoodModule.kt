@@ -3,6 +3,7 @@ package com.jdagnogo.welovemarathon.food.di
 import com.jdagnogo.welovemarathon.common.banner.GetBannerUseCase
 import com.jdagnogo.welovemarathon.common.data.WLMDatabase
 import com.jdagnogo.welovemarathon.common.domain.DataFreshnessUseCase
+import com.jdagnogo.welovemarathon.common.like.domain.FavUseCase
 import com.jdagnogo.welovemarathon.food.data.FoodDao
 import com.jdagnogo.welovemarathon.food.data.FoodData
 import com.jdagnogo.welovemarathon.food.data.FoodMapper
@@ -65,11 +66,13 @@ object FoodModule {
         getFoodCategoriesUseCase: GetFoodCategoriesUseCase,
         getFoodTagUseCase: GetFoodTagUseCase,
         getBannerUseCase: GetBannerUseCase,
+        favUseCase: FavUseCase,
     ) = FoodUseCase(
         getFoodUseCase = getFoodUseCase,
         getFoodCategoriesUseCase = getFoodCategoriesUseCase,
         getBannerUseCase = getBannerUseCase,
         getFoodTagUseCase = getFoodTagUseCase,
+        favUseCase = favUseCase,
     )
 
     @Provides
