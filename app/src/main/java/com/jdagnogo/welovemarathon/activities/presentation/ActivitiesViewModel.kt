@@ -102,13 +102,12 @@ class ActivitiesViewModel @Inject constructor(
                     useCases.getActivitiesUseCase.invoke(category.name, tags),
                     useCases.favUseCase.getAllFavUseCases(),
                     { it, favorites ->
-                        val activities = it.filter { it.isRecommended.not() }
-                            .map { it.toCategoryItem(favorites.firstOrNull { fav -> fav.id == it.id } != null) }
+                        val activities = it.map { it.toCategoryItem(favorites.firstOrNull { fav -> fav.id == it.id } != null) }
                         ActivitiesPartialState.OnActivitiessSuccess(
                             items = activities,
                             recommendedItems = it.filter { it.isRecommended }
                                 .map { it.toRecommendedCategoryItem() },
-                            shouldDisplayFilter = activities.size > 1
+                            shouldDisplayFilter = activities.size > 1 && tags.isNotEmpty()
                         )
                     },
                     ActivitiesPartialState.Loading,

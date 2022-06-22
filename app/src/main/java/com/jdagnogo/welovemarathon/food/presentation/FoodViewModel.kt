@@ -104,8 +104,7 @@ class FoodViewModel @Inject constructor(
                     useCases.favUseCase.getAllFavUseCases(),
                     { it, favorites ->
                         FoodPartialState.OnFoodsSuccess(
-                            items = it.filter { it.isRecommended.not() }
-                                .map { it.toCategoryItem(favorites.firstOrNull { fav -> fav.id == it.id } != null) },
+                            items = it.map { it.toCategoryItem(favorites.firstOrNull { fav -> fav.id == it.id } != null) },
                             recommendedItems = it.filter { it.isRecommended }
                                 .map { it.toRecommendedCategoryItem() }
                         )

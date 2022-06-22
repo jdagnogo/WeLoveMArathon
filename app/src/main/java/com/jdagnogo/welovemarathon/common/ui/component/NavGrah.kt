@@ -173,7 +173,7 @@ fun NavGraphBuilder.homeGraph(
     }
     composable(HomeSections.FAVORITES.route) {
         val viewModel = hiltViewModel<FavViewModel>()
-        FavoritesScreen(viewModel, modifier)
+        FavoritesScreen(viewModel, navController, modifier)
     }
     composable(HomeSections.TIPS.route) {
         val viewModel = hiltViewModel<TipsViewModel>()
