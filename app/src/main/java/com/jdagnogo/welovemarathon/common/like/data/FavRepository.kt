@@ -1,5 +1,6 @@
 package com.jdagnogo.welovemarathon.common.like.data
 
+import androidx.room.Query
 import com.jdagnogo.welovemarathon.common.like.domain.Favorite
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,6 +12,7 @@ import javax.inject.Inject
 interface FavRepository {
     val favorite: StateFlow<List<Favorite>>
     suspend fun addToFavorite(favorite: Favorite)
+    suspend fun deleteAllFavorite()
     suspend fun removeFromFavorite(favorite: Favorite)
 }
 
@@ -26,6 +28,10 @@ class FavRepositoryImpl @Inject constructor(
 
     override suspend fun addToFavorite(favorite: Favorite) {
         favData.dao.insert(favData.mapper.toEntity(favorite))
+    }
+
+    override suspend fun deleteAllFavorite() {
+        favData.dao.deleteAll()
     }
 
     override suspend fun removeFromFavorite(favorite: Favorite) {

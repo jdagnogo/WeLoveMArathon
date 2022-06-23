@@ -1,6 +1,7 @@
 package com.jdagnogo.welovemarathon.common.ui.theme
 
 import androidx.compose.material.Typography
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -158,6 +159,14 @@ val emptyScreenSubTitle = TextStyle(
     fontFamily = normal_font,
     fontWeight = FontWeight.Normal,
     color = White,
+    textAlign = TextAlign.Center,
+    fontSize = 14.sp
+)
+
+val clearAllStyle = TextStyle(
+    fontFamily = normal_font,
+    fontWeight = FontWeight.Bold,
+    color = Color.Red,
     textAlign = TextAlign.Center,
     fontSize = 14.sp
 )

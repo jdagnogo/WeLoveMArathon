@@ -5,11 +5,7 @@ import com.jdagnogo.welovemarathon.common.like.FavMapper
 import com.jdagnogo.welovemarathon.common.like.data.FavDao
 import com.jdagnogo.welovemarathon.common.like.data.FavData
 import com.jdagnogo.welovemarathon.common.like.data.FavRepository
-import com.jdagnogo.welovemarathon.common.like.domain.AddToFavoriteUseCase
-import com.jdagnogo.welovemarathon.common.like.domain.FavUseCase
-import com.jdagnogo.welovemarathon.common.like.domain.GetAllFavUseCases
-import com.jdagnogo.welovemarathon.common.like.domain.RemoveFromFavoriteUseCase
-import com.jdagnogo.welovemarathon.common.like.domain.UpdateFavUseCase
+import com.jdagnogo.welovemarathon.common.like.domain.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,6 +30,14 @@ object FavModule {
         repository: FavRepository,
     ): RemoveFromFavoriteUseCase {
         return RemoveFromFavoriteUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeleteAllFavoriteUseCase(
+        repository: FavRepository,
+    ): DeleteAllFavoriteUseCase {
+        return DeleteAllFavoriteUseCase(repository)
     }
 
     @Provides
@@ -65,10 +69,12 @@ object FavModule {
     @Singleton
     fun provideFavUseCase(
         getAllFavUseCases: GetAllFavUseCases,
-        updateFavUseCase: UpdateFavUseCase
+        updateFavUseCase: UpdateFavUseCase,
+        deleteAllFavoriteUseCase: DeleteAllFavoriteUseCase,
     ) = FavUseCase(
         getAllFavUseCases = getAllFavUseCases,
         updateFavUseCase = updateFavUseCase,
+        deleteAllFavoriteUseCase = deleteAllFavoriteUseCase
     )
 
     @Provides

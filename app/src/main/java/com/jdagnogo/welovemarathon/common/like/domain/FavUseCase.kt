@@ -6,4 +6,5 @@ import androidx.annotation.Keep
 data class FavUseCase (
     val getAllFavUseCases : GetAllFavUseCases,
     val updateFavUseCase : UpdateFavUseCase,
+    val deleteAllFavoriteUseCase: DeleteAllFavoriteUseCase,
 )

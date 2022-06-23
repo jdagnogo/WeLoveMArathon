@@ -3,6 +3,7 @@ package com.jdagnogo.welovemarathon.favorites.presentation
 import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jdagnogo.welovemarathon.beach.presentation.BeachUiEvent
 import com.jdagnogo.welovemarathon.common.like.domain.FavUseCase
 import com.jdagnogo.welovemarathon.common.like.domain.Favorite
 import com.jdagnogo.welovemarathon.common.utils.IModel
@@ -35,9 +36,17 @@ class FavViewModel @Inject constructor(
         }
     }
 
+    private fun clearAll(){
+        viewModelScope.launch {
+            useCases.deleteAllFavoriteUseCase()
+        }
+    }
+
     override fun dispatchEvent(event: FavUiEvent) {
         when (event) {
-
+            FavUiEvent.OnClearAllClicked -> {
+                clearAll()
+            }
         }
     }
 
@@ -49,6 +58,7 @@ class FavViewModel @Inject constructor(
         val favorites: List<Favorite> = emptyList(),
     ){
         val hasFavorites = favorites.isNotEmpty()
+        val categories = favorites.map { it.toCategoryItem(true) }
     }
 
     @Keep
@@ -59,7 +69,7 @@ class FavViewModel @Inject constructor(
 
     @Keep
     sealed class FavUiEvent {
-
+        object OnClearAllClicked : FavUiEvent()
     }
 
 }

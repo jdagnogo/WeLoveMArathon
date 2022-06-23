@@ -17,6 +17,9 @@ fun FavoritesScreen(
 
     FavContent(
         state = state,
+        onClearAllClicked = {
+            viewModel.dispatchEvent(FavViewModel.FavUiEvent.OnClearAllClicked)
+        },
         onRedirectToHomeClicked = {
             navController.navigate(MainDestinations.Home.route)
         },
