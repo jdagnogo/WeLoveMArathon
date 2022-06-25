@@ -8,14 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModelStoreOwner
-import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
+import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import androidx.navigation.navigation
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.activities.presentation.ActivitiesMenuScreen
@@ -46,6 +42,7 @@ import com.jdagnogo.welovemarathon.sport.presentation.SportViewModel
 import com.jdagnogo.welovemarathon.tips.presentation.TipsScreen
 import com.jdagnogo.welovemarathon.tips.presentation.TipsViewModel
 import com.jdagnogo.welovemarathon.wine.presentation.WineScreen
+import com.jdagnogo.welovemarathon.wine.presentation.WineViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @InternalCoroutinesApi
@@ -156,7 +153,8 @@ fun NavGraphBuilder.wlmNavGraph(
         SportScreen(viewModel)
     }
     composable(MainDestinations.Wine.route) {
-        WineScreen()
+        val viewModel = hiltViewModel<WineViewModel>()
+        WineScreen(viewModel = viewModel, navController)
     }
 }
 

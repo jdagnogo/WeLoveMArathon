@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.jdagnogo.welovemarathon.activities.data.ActivitiesCategoryEntity
 import com.jdagnogo.welovemarathon.activities.data.ActivitiesDao
 import com.jdagnogo.welovemarathon.activities.data.ActivitiesEntity
@@ -16,6 +17,7 @@ import com.jdagnogo.welovemarathon.common.banner.BannerDao
 import com.jdagnogo.welovemarathon.common.banner.GifBannerEntity
 import com.jdagnogo.welovemarathon.common.like.data.FavDao
 import com.jdagnogo.welovemarathon.common.like.data.FavoriteEntity
+import com.jdagnogo.welovemarathon.common.utils.Converters
 import com.jdagnogo.welovemarathon.culture.data.CultureDao
 import com.jdagnogo.welovemarathon.culture.data.CultureEntity
 import com.jdagnogo.welovemarathon.food.data.FoodCategoryEntity
@@ -33,6 +35,11 @@ import com.jdagnogo.welovemarathon.sport.data.SportDao
 import com.jdagnogo.welovemarathon.sport.data.SportEntity
 import com.jdagnogo.welovemarathon.tips.data.TipsDao
 import com.jdagnogo.welovemarathon.tips.data.TipsEntity
+import com.jdagnogo.welovemarathon.wine.data.WineDao
+import com.jdagnogo.welovemarathon.wine.data.WineSocialEntity
+import com.jdagnogo.welovemarathon.wine.data.WineTourEntity
+import com.jdagnogo.welovemarathon.wine.domain.WineSocial
+import com.jdagnogo.welovemarathon.wine.domain.WineTour
 import java.util.*
 
 @Database(
@@ -55,9 +62,12 @@ import java.util.*
         SportEntity::class,
         CultureEntity::class,
         FavoriteEntity::class,
+        WineTourEntity::class,
+        WineSocialEntity::class,
         TipsEntity::class],
-    version = 15
+    version = 16
 )
+@TypeConverters(Converters::class)
 abstract class WLMDatabase : RoomDatabase() {
     abstract fun getBlogDao(): BlogDao
     abstract fun getRunDao(): RunDao
@@ -70,6 +80,7 @@ abstract class WLMDatabase : RoomDatabase() {
     abstract fun getTipsDao(): TipsDao
     abstract fun getDataFreshnessDao(): DataFreshnessDao
     abstract fun getSportDao(): SportDao
+    abstract fun getWineDao(): WineDao
     abstract fun getCultureDao(): CultureDao
 
     companion object {

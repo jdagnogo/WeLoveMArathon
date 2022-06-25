@@ -6,7 +6,6 @@ import java.util.*
 
 @Keep
 enum class DataType(val timeType: Int, val value: Int) {
-    // TODO : move the value to Build Type ?
     BEACH(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
     BLOG(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
     FOOD(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
@@ -22,6 +21,8 @@ enum class DataType(val timeType: Int, val value: Int) {
     TIPS(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
     CULTURE(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
     SPORT(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
+    WINE_TOUR(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
+    WINE_SOCIAL(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
     SPORT_CATEGORIES(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
 }
 
