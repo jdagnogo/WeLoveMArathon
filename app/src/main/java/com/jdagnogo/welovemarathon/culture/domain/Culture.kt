@@ -4,7 +4,6 @@ import androidx.annotation.Keep
 import com.jdagnogo.welovemarathon.common.category.LongCategoryItem
 import com.jdagnogo.welovemarathon.common.type_two.TypeTwoItem
 import com.jdagnogo.welovemarathon.culture.data.CultureEntity
-import com.jdagnogo.welovemarathon.map.domain.MapChip
 
 @Keep
 data class Culture(
@@ -14,18 +13,10 @@ data class Culture(
     val location: String = "",
     val locationLink: String = "",
     val image: String = "",
+    val phone: String = "",
+    val website: String = "",
+    val ordinal: Int = 0,
 ) {
-    fun toCulture(): Culture {
-        return Culture(
-            id = id,
-            name = name,
-            description = description,
-            locationLink = locationLink,
-            location = location,
-            image = image
-        )
-    }
-
     fun toCultureEntity(): CultureEntity {
         return CultureEntity(
             id = id,
@@ -33,7 +24,10 @@ data class Culture(
             description = description,
             locationLink = locationLink,
             location = location,
-            image = image
+            image = image,
+            ordinal = ordinal,
+            phone = phone,
+            website = website,
         )
     }
 
@@ -52,14 +46,9 @@ data class Culture(
             description = description,
             locationLink = locationLink,
             location = location,
+            phone = phone,
+            website = website,
             image = image
-        )
-    }
-
-    fun toMapChip(): MapChip {
-        return MapChip(
-            name = name,
-            key = name,
         )
     }
 }

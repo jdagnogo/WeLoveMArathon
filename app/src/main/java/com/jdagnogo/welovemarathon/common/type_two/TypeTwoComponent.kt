@@ -1,43 +1,31 @@
 package com.jdagnogo.welovemarathon.common.type_two
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Card
-import androidx.compose.material.Divider
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ChainStyle
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.jdagnogo.welovemarathon.R
-import com.jdagnogo.welovemarathon.common.category.CategoryItem
-import com.jdagnogo.welovemarathon.common.category.CategoryItemComponent
-import com.jdagnogo.welovemarathon.common.category.CategoryTag
-import com.jdagnogo.welovemarathon.common.category.FilterComponent
-import com.jdagnogo.welovemarathon.common.category.FilterDialogComponent
-import com.jdagnogo.welovemarathon.common.category.LongImage
+import com.jdagnogo.welovemarathon.common.category.*
 import com.jdagnogo.welovemarathon.common.ui.component.ContactComponent
+import com.jdagnogo.welovemarathon.common.ui.component.HtmlTextComponent
 import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
-import com.jdagnogo.welovemarathon.common.ui.theme.ActivitySubTitleStyle
-import com.jdagnogo.welovemarathon.common.ui.theme.Primary
-import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryLight
-import com.jdagnogo.welovemarathon.common.ui.theme.RecommendedCategoryItemTitleStyle
-import com.jdagnogo.welovemarathon.common.ui.theme.spacing
+import com.jdagnogo.welovemarathon.common.ui.theme.*
 import com.jdagnogo.welovemarathon.common.utils.redirectToLink
+import com.jdagnogo.welovemarathon.common.utils.redirectToPhone
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
 @Composable
@@ -55,6 +43,7 @@ fun TypeTwoComponent(
     onFiltersSelected: (ids: List<String>) -> Unit = {},
     onResetSelected: () -> Unit = {},
     onDismissFilterRequest: () -> Unit = {},
+    itemType: ItemType = ItemType.ItemPresentation,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -79,13 +68,22 @@ fun TypeTwoComponent(
             )
         }
         item {
-            TypeTwoItemPresentation(
-                item = item, modifier = Modifier
-                    .padding(
-                        horizontal = MaterialTheme.spacing.huge,
+            when (itemType) {
+                ItemType.Description -> {
+                    TypeTwoItemDescription(
+                        item = item, modifier = Modifier
+                            .padding(horizontal = MaterialTheme.spacing.medium)
+                            .padding(top = MaterialTheme.spacing.medium)
                     )
-                    .padding(top = MaterialTheme.spacing.medium)
-            )
+                }
+                else -> {
+                    TypeTwoItemPresentation(
+                        item = item, modifier = Modifier
+                            .padding(horizontal = MaterialTheme.spacing.huge)
+                            .padding(top = MaterialTheme.spacing.medium)
+                    )
+                }
+            }
         }
         item {
             Column {
@@ -100,7 +98,6 @@ fun TypeTwoComponent(
                         )
                 )
             }
-
         }
 
 
@@ -126,6 +123,81 @@ fun TypeTwoComponent(
             onFiltersSelected = onFiltersSelected,
             onDismissRequest = onDismissFilterRequest,
             onResetSelected = onResetSelected,
+        )
+    }
+}
+
+@Composable
+fun TypeTwoItemDescription(item: TypeTwoItem, modifier: Modifier = Modifier) {
+    ConstraintLayout(
+        modifier = modifier
+            .fillMaxWidth()
+            .animateContentSize()
+    ) {
+        val uriHandler = LocalUriHandler.current
+        val context = LocalContext.current
+        val (card, map, website, phone) = createRefs()
+        Card(
+            elevation = MaterialTheme.spacing.small,
+            shape = MaterialTheme.shapes.large,
+            backgroundColor = PrimaryLight,
+            modifier = modifier
+                .fillMaxWidth()
+                .constrainAs(card) {
+                    linkTo(parent.start, parent.end)
+                    top.linkTo(parent.top)
+                }
+        ) {
+            HtmlTextComponent(
+                text = item.description,
+                modifier = Modifier
+                    .padding(
+                        top = MaterialTheme.spacing.medium,
+                        bottom = MaterialTheme.spacing.huge,
+                    )
+                    .padding(horizontal = MaterialTheme.spacing.small)
+            )
+        }
+
+        createHorizontalChain(phone, website, map, chainStyle = ChainStyle.Packed)
+
+        ContactComponent(
+            modifier = Modifier
+                .padding(MaterialTheme.spacing.medium)
+                .constrainAs(phone) {
+                    top.linkTo(card.bottom)
+                    bottom.linkTo(card.bottom)
+                },
+            icon = R.drawable.ic_phone,
+            iconSize = 24.dp,
+            backgroundColor = Color.White,
+            onClicked = { redirectToPhone(context, item.phone) },
+        )
+
+        ContactComponent(
+            modifier = Modifier
+                .padding(MaterialTheme.spacing.medium)
+                .constrainAs(website) {
+                    top.linkTo(card.bottom)
+                    bottom.linkTo(card.bottom)
+                },
+            icon = R.drawable.ic_link,
+            backgroundColor = Color.White,
+            iconSize = 24.dp,
+            onClicked = { redirectToLink(uriHandler, item.website) },
+        )
+
+        ContactComponent(
+            modifier = Modifier
+                .padding(MaterialTheme.spacing.medium)
+                .constrainAs(map) {
+                    top.linkTo(card.bottom)
+                    bottom.linkTo(card.bottom)
+                },
+            icon = R.drawable.location,
+            backgroundColor = Color.White,
+            iconSize = 24.dp,
+            onClicked = { redirectToLink(uriHandler, item.locationLink) },
         )
     }
 }
@@ -175,6 +247,11 @@ fun TypeTwoItemPresentation(item: TypeTwoItem, modifier: Modifier = Modifier) {
     }
 }
 
+sealed class ItemType {
+    object Description : ItemType()
+    object ItemPresentation : ItemType()
+}
+
 @Preview
 @Composable
 fun TypeTwoItemPresentationPreview() {
@@ -185,6 +262,22 @@ fun TypeTwoItemPresentationPreview() {
                 location = "location",
                 locationLink = "locationLink",
                 description = "looooong description",
+                image = "image"
+            ),
+        )
+    }
+}
+
+@Preview
+@Composable
+fun TypeTwoItemDescriptionPreview() {
+    MaterialTheme {
+        TypeTwoItemDescription(
+            item = TypeTwoItem(
+                name = "name",
+                location = "location",
+                locationLink = "locationLink",
+                description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with ",
                 image = "image"
             ),
         )

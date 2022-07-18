@@ -65,7 +65,10 @@ fun RecommendedCategoryComponent(
                         start = MaterialTheme.spacing.small,
                         end = MaterialTheme.spacing.huge,
                     ),
-                    horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+                    horizontalArrangement = Arrangement.spacedBy(
+                        MaterialTheme.spacing.medium,
+                        Alignment.CenterHorizontally
+                    ),
                     modifier = Modifier
                         .fillMaxWidth()
                         .animateContentSize()

@@ -2,6 +2,7 @@ package com.jdagnogo.welovemarathon.culture.presentation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.jdagnogo.welovemarathon.common.type_two.ItemType
 import com.jdagnogo.welovemarathon.common.type_two.TypeTwoComponent
 import com.jdagnogo.welovemarathon.culture.presentation.CultureState
 
@@ -23,11 +24,12 @@ fun CulturesDetailsContent(
         onFilterClicked = {},
         onLikeClicked = onLikeClicked,
         shouldDisplayFilter = false,
-        shouldOpenFilterDialog =false,
+        shouldOpenFilterDialog = false,
         tags = emptyList(),
         onResetSelected = {},
         onFiltersSelected = {},
-        onDismissFilterRequest= {},
+        onDismissFilterRequest = {},
+        itemType = ItemType.Description,
         modifier = modifier,
     )
 }

@@ -22,4 +22,10 @@
     <style name="Theme.WeLoveMarathon.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.WeLoveMarathon.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="htmlText">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>

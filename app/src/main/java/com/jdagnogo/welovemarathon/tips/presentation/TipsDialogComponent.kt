@@ -1,6 +1,7 @@
 package com.jdagnogo.welovemarathon.tips.presentation
 
 import android.annotation.SuppressLint
+import android.text.method.LinkMovementMethod
 import android.widget.TextView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -19,14 +20,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.window.Dialog
+import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
+import com.jdagnogo.welovemarathon.common.ui.theme.Primary
 import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryLight
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 import com.jdagnogo.welovemarathon.tips.domain.Tips
@@ -100,6 +104,8 @@ fun HtmlText(text: String) {
     AndroidView(factory = { context ->
         TextView(context).apply {
             setText(HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY))
+            movementMethod = LinkMovementMethod.getInstance()
+            setLinkTextColor(ContextCompat.getColor(context, R.color.secondary))
         }
     }, modifier = Modifier.padding(MaterialTheme.spacing.medium))
 }

@@ -14,6 +14,7 @@ data class Beach(
     val location: String = "",
     val locationLink: String = "",
     val image: String = "",
+    val ordinal: Int = 0,
 ) {
     fun toBeachEntity(): BeachEntity {
         return BeachEntity(
@@ -22,7 +23,8 @@ data class Beach(
             description = description,
             locationLink = locationLink,
             location = location,
-            image = image
+            image = image,
+            ordinal = ordinal,
         )
     }
 

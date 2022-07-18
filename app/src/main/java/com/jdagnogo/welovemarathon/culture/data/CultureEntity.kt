@@ -15,6 +15,9 @@ class CultureEntity(
     val location: String = "",
     val locationLink: String = "",
     val image: String = "",
+    val ordinal: Int = 0,
+    val phone: String = "",
+    val website: String = "",
 ) {
     fun toCulture(): Culture {
         return Culture(
@@ -23,7 +26,10 @@ class CultureEntity(
             description = description,
             locationLink = locationLink,
             location = location,
-            image = image
+            image = image,
+            ordinal = ordinal,
+            phone = phone,
+            website = website,
         )
     }
 
