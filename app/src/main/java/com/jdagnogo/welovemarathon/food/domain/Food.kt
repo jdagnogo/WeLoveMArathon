@@ -6,6 +6,7 @@ import com.google.firebase.firestore.GeoPoint
 import com.jdagnogo.welovemarathon.beach.domain.BeachBar
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
+import com.jdagnogo.welovemarathon.common.ui.component.HorizontalCarouselItem
 import com.jdagnogo.welovemarathon.food.data.FoodEntity
 import com.jdagnogo.welovemarathon.map.domain.MapItem
 
@@ -78,7 +79,11 @@ data class Food(
         return RecommendedCategoryDetails(
             id = id,
             name = name,
-            image = image,
+            images = listOf(
+                HorizontalCarouselItem(image, name),
+                HorizontalCarouselItem(image, name),
+                HorizontalCarouselItem(image, name),
+            ),
             website = website,
             locationLink = locationLink,
             location = location,

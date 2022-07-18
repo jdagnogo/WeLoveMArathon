@@ -7,6 +7,7 @@ import com.jdagnogo.welovemarathon.activities.data.ActivitiesEntity
 import com.jdagnogo.welovemarathon.beach.domain.BeachBar
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
+import com.jdagnogo.welovemarathon.common.ui.component.HorizontalCarouselItem
 import com.jdagnogo.welovemarathon.map.domain.MapItem
 
 @Keep
@@ -78,7 +79,11 @@ data class Activities(
         return RecommendedCategoryDetails(
             id = id,
             name = name,
-            image = image,
+            images = listOf(
+                HorizontalCarouselItem(image, name),
+                HorizontalCarouselItem(image, name),
+                HorizontalCarouselItem(image, name),
+            ),
             website = website,
             locationLink = locationLink,
             location = location,

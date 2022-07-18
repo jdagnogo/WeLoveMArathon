@@ -5,6 +5,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.firestore.GeoPoint
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
+import com.jdagnogo.welovemarathon.common.ui.component.HorizontalCarouselItem
 import com.jdagnogo.welovemarathon.map.domain.MapItem
 
 @Keep
@@ -27,7 +28,11 @@ data class BeachBar(
         return RecommendedCategoryDetails(
             id = id,
             name = name,
-            image = image,
+            images = listOf(
+                HorizontalCarouselItem(image, name),
+                HorizontalCarouselItem(image, name),
+                HorizontalCarouselItem(image, name),
+            ),
             website = website,
             locationLink = locationLink,
             location = location,

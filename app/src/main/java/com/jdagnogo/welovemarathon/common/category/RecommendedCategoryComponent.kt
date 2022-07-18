@@ -34,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
+import com.jdagnogo.welovemarathon.common.ui.component.HorizontalCarouselItem
 import com.jdagnogo.welovemarathon.common.ui.theme.Neutral3
 import com.jdagnogo.welovemarathon.common.ui.theme.Primary
 import com.jdagnogo.welovemarathon.common.ui.theme.RecommendedCategoryItemTitleStyle
@@ -104,7 +105,7 @@ fun RecommendedCategoryContent(
     ) {
         Image(
             painter = rememberImagePainter(
-                data = item.image,
+                data = item.images.first().url,
                 builder = {
                     crossfade(true)
                     error(R.drawable.food)
@@ -128,7 +129,12 @@ fun RecommendedCategoryContent(
 @Preview
 @Composable
 fun RecommendedCategoryContentPreview() {
-    val item = RecommendedCategoryDetails("id", "name", "")
+    val item = RecommendedCategoryDetails(
+        "id", "name", "",
+        images = listOf(
+            HorizontalCarouselItem("", "")
+        ),
+    )
     MaterialTheme {
         RecommendedCategoryContent(
             item = item, {}
