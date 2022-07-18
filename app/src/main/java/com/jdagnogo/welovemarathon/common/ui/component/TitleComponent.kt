@@ -25,6 +25,7 @@ import androidx.compose.ui.semantics.SemanticsPropertyReceiver
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.theme.TitleStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
@@ -69,6 +70,7 @@ fun TitleComponent(
             modifier = Modifier
                 .weight(1f)
                 .align(Alignment.CenterVertically)
+                .padding(horizontal = 8.dp)
         )
         if (iconRight != null) {
             Icon(

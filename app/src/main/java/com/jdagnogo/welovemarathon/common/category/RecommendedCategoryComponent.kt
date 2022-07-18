@@ -23,6 +23,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -55,6 +56,9 @@ fun RecommendedCategoryComponent(
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.huge)
             )
             Box(modifier = Modifier.padding(top = MaterialTheme.spacing.medium)) {
+                val items = remember {
+                    recommendedItems.shuffled()
+                }
                 LazyRow(
                     verticalAlignment = Alignment.CenterVertically,
                     contentPadding = PaddingValues(
@@ -66,8 +70,12 @@ fun RecommendedCategoryComponent(
                         .fillMaxWidth()
                         .animateContentSize()
                 ) {
-                    itemsIndexed(recommendedItems) { _, category ->
-                        RecommendedCategoryContent(item = category, onRecommendedSelected = onRecommendedSelected)
+
+                    itemsIndexed(items) { _, category ->
+                        RecommendedCategoryContent(
+                            item = category,
+                            onRecommendedSelected = onRecommendedSelected
+                        )
                     }
                 }
             }

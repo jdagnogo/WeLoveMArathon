@@ -36,7 +36,7 @@ fun FavContent(
         Box(modifier = modifier.fillMaxSize()) {
             Image(
                 painter = rememberImagePainter(
-                    data = R.drawable.bg_food,
+                    data = R.drawable.bg_favorites,
                     builder = {
                         crossfade(true)
                         error(R.drawable.ic_wlm_logo)
