@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.jdagnogo.welovemarathon.about.data.AboutEntity
 import com.jdagnogo.welovemarathon.activities.data.ActivitiesCategoryEntity
 import com.jdagnogo.welovemarathon.activities.data.ActivitiesDao
 import com.jdagnogo.welovemarathon.activities.data.ActivitiesEntity

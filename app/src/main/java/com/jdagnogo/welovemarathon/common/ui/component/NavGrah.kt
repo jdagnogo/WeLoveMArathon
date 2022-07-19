@@ -1,3 +1,5 @@
+@file:OptIn(InternalCoroutinesApi::class, ExperimentalPagerApi::class)
+
 package com.jdagnogo.welovemarathon.common.ui.component
 
 import androidx.annotation.Keep
@@ -14,6 +16,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.jdagnogo.welovemarathon.R
+import com.jdagnogo.welovemarathon.about.presentation.AboutScreen
+import com.jdagnogo.welovemarathon.about.presentation.AboutViewModel
 import com.jdagnogo.welovemarathon.activities.presentation.ActivitiesMenuScreen
 import com.jdagnogo.welovemarathon.activities.presentation.ActivitiesScreen
 import com.jdagnogo.welovemarathon.activities.presentation.ActivitiesViewModel
@@ -181,7 +185,8 @@ fun NavGraphBuilder.homeGraph(
 
     }
     composable(HomeSections.ABOUT.route) {
-
+        val viewModel = hiltViewModel<AboutViewModel>()
+        AboutScreen(viewModel, navController, modifier)
     }
 }
 

@@ -69,6 +69,15 @@ val TitleStyle = TextStyle(
     fontSize = 20.sp
 )
 
+
+val SubTitleStyle = TextStyle(
+    fontFamily = fonts,
+    fontWeight = FontWeight.Normal,
+    color = White,
+    textAlign = TextAlign.Center,
+    fontSize = 14.sp
+)
+
 val ActivityTitleStyle = TextStyle(
     fontFamily = fonts,
     fontWeight = FontWeight.Normal,
