@@ -27,7 +27,7 @@ fun PhotosComponent(
         ),
         contentDescription = null,
         modifier = modifier
-            .heightIn(min = 0.dp, max = 300.dp)
+            .heightIn(min = 0.dp, max = 500.dp)
             .fillMaxWidth(),
         contentScale = ContentScale.FillWidth
     )

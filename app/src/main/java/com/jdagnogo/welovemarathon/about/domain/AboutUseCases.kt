@@ -1,4 +1,8 @@
 package com.jdagnogo.welovemarathon.about.domain
 
-class AboutUseCases {
-}
+import androidx.annotation.Keep
+
+@Keep
+data class AboutUseCases(
+    val getDataUseCase: GetAboutUseCase,
+)

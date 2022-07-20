@@ -22,6 +22,7 @@ import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.about.domain.SocialMedia
 import com.jdagnogo.welovemarathon.common.ui.theme.SubTitleStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.TitleStyle
+import com.jdagnogo.welovemarathon.common.ui.theme.emptyScreenSubTitle
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 import kotlin.math.log
 
@@ -30,7 +31,7 @@ fun AboutHeaderComponent(socialMedias: List<SocialMedia>, modifier: Modifier = M
     ConstraintLayout(
         modifier = modifier.animateContentSize()
     ) {
-        val (image, logo, title, subtitle,row1, row2) = createRefs()
+        val (image, logo, title, subtitle, row1, follow) = createRefs()
         Image(
             painter = rememberImagePainter(
                 data = R.drawable.bg_team,
@@ -64,7 +65,7 @@ fun AboutHeaderComponent(socialMedias: List<SocialMedia>, modifier: Modifier = M
         )
 
         Text(
-            text = "We loves Marathon",
+            text = "We love Marathon",
             style = TitleStyle,
             modifier = Modifier.constrainAs(title) {
                 top.linkTo(logo.bottom, 16.dp)
@@ -79,37 +80,27 @@ fun AboutHeaderComponent(socialMedias: List<SocialMedia>, modifier: Modifier = M
                 linkTo(parent.start, parent.end)
             }
         )
-
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(
-                MaterialTheme.spacing.medium,
-                Alignment.CenterHorizontally
-            ),
-            modifier = Modifier.constrainAs(row1){
-                bottom.linkTo(row2.top, 8.dp)
-                linkTo(parent.start, parent.end)
+        if (socialMedias.isNotEmpty()) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(
+                    MaterialTheme.spacing.medium,
+                    Alignment.CenterHorizontally
+                ),
+                modifier = Modifier.constrainAs(row1) {
+                    bottom.linkTo(parent.bottom, 16.dp)
+                    linkTo(parent.start, parent.end)
+                }
+            ) {
+                repeat(socialMedias.size) {
+                    SocialComponent(socialMedia = socialMedias[it])
+                }
             }
-        ) {
-            repeat(3) {
-                SocialComponent(socialMedia = socialMedias[it])
-            }
-        }
-
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(
-                MaterialTheme.spacing.medium,
-                Alignment.CenterHorizontally
-            ),
-            modifier = Modifier.constrainAs(row2){
-                bottom.linkTo(parent.bottom, 16.dp)
-                linkTo(parent.start, parent.end)
-            }
-        ) {
-            repeat(2) {
-                SocialComponent(socialMedia = socialMedias[it + 3])
-            }
+            Text(text = "Follow us ! ", style = emptyScreenSubTitle,
+                modifier = Modifier.constrainAs(follow) {
+                    linkTo(parent.start, parent.end)
+                    bottom.linkTo(row1.top, 8.dp)
+                })
         }
     }
 }

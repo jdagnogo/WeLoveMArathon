@@ -6,6 +6,7 @@ import java.util.*
 
 @Keep
 enum class DataType(val timeType: Int, val value: Int) {
+    ABOUT(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
     BEACH(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
     BLOG(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
     FOOD(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),

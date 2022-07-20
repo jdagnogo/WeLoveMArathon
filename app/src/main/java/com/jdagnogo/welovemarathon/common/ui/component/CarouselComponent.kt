@@ -193,4 +193,4 @@ private fun CarouselFullScreen(
     }
 }
 
-private data class DetailUrl(val url: String, val index: Int)
+data class DetailUrl(val url: String, val index: Int)

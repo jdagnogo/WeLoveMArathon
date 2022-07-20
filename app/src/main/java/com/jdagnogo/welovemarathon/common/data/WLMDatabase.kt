@@ -5,6 +5,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.jdagnogo.welovemarathon.about.data.AboutDao
+import com.jdagnogo.welovemarathon.about.data.AboutData
 import com.jdagnogo.welovemarathon.about.data.AboutEntity
 import com.jdagnogo.welovemarathon.activities.data.ActivitiesCategoryEntity
 import com.jdagnogo.welovemarathon.activities.data.ActivitiesDao
@@ -65,6 +67,7 @@ import java.util.*
         FavoriteEntity::class,
         WineTourEntity::class,
         WineSocialEntity::class,
+        AboutEntity::class,
         TipsEntity::class],
     version = 1
 )
@@ -82,6 +85,7 @@ abstract class WLMDatabase : RoomDatabase() {
     abstract fun getDataFreshnessDao(): DataFreshnessDao
     abstract fun getSportDao(): SportDao
     abstract fun getWineDao(): WineDao
+    abstract fun getAboutDao(): AboutDao
     abstract fun getCultureDao(): CultureDao
 
     companion object {

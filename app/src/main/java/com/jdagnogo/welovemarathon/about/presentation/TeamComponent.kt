@@ -51,7 +51,7 @@ fun TeamComponent(
                         .border(width = 1.dp, color = PrimaryLight, shape = CircleShape)
                         .size(60.dp)
                         .clip(CircleShape),
-                    contentScale = ContentScale.Fit,
+                    contentScale = ContentScale.Crop,
                 )
 
                 Text(

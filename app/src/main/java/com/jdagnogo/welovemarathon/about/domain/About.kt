@@ -5,12 +5,13 @@ import com.jdagnogo.welovemarathon.about.data.AboutEntity
 
 @Keep
 data class About(
-    val members: List<Member>,
-    val socialMedias: List<SocialMedia>,
-    val photos: List<String>
+    val members: List<Member> = emptyList(),
+    val socialMedias: List<SocialMedia> = emptyList(),
+    val photos: List<String> = emptyList()
 ) {
     fun toAboutEntity(): AboutEntity {
         return AboutEntity(
+            id = "id",
             members = members,
             socialMedias = socialMedias,
             photos = photos
