@@ -7,6 +7,8 @@ class AboutReducer : IReducer<AboutState, AboutPartialState> {
         return when (partialState) {
             is AboutPartialState.Error -> state.copy()
             is AboutPartialState.OnDataSuccess -> state.copy(
+                phone = partialState.data.phone,
+                mail = partialState.data.mail,
                 members = partialState.data.members,
                 socialMedias = partialState.data.socialMedias,
                 photos = partialState.data.photos,

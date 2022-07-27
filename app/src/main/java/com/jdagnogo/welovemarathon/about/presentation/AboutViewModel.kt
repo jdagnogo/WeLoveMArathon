@@ -56,6 +56,8 @@ class AboutViewModel @Inject constructor(
 
 @Keep
 data class AboutState(
+    val mail: String = "",
+    val phone: String = "",
     val members: List<Member> = listOf(
         Member(
             "jeff",

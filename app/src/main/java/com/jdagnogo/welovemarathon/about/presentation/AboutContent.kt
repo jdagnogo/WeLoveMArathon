@@ -24,6 +24,8 @@ fun AboutContent(
     ) {
         item {
             AboutHeaderComponent(
+                mail = state.mail,
+                phone = state.phone,
                 socialMedias = state.socialMedias,
                 modifier = Modifier
                     .fillMaxWidth()

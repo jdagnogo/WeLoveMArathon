@@ -1,9 +1,7 @@
 package com.jdagnogo.welovemarathon.common.category
 
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -74,6 +72,7 @@ fun CategoryItemComponent(
     onLikeClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val scroll = rememberScrollState(0)
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
@@ -127,7 +126,7 @@ fun CategoryItemComponent(
                     style = tagsTitleStyle,
                     text = item.tags,
                     maxLines = 1,
-                    modifier = Modifier
+                    modifier = Modifier.horizontalScroll(scroll)
                         .padding(
                             top = MaterialTheme.spacing.medium
                         )

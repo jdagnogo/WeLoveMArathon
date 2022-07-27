@@ -37,6 +37,7 @@ import com.jdagnogo.welovemarathon.home.presentation.HomeScreen
 import com.jdagnogo.welovemarathon.home.presentation.HomeViewModel
 import com.jdagnogo.welovemarathon.map.presentation.MapScreen
 import com.jdagnogo.welovemarathon.map.viewmodel.MapViewModel
+import com.jdagnogo.welovemarathon.run.RunScreen
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingMenuScreen
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingScreen
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingViewModel
@@ -182,7 +183,7 @@ fun NavGraphBuilder.homeGraph(
         TipsScreen(viewModel, modifier)
     }
     composable(HomeSections.RUN.route) {
-
+        RunScreen()
     }
     composable(HomeSections.ABOUT.route) {
         val viewModel = hiltViewModel<AboutViewModel>()

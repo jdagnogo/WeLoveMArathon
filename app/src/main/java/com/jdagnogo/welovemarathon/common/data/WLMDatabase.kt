@@ -66,7 +66,7 @@ import java.util.*
         WineSocialEntity::class,
         AboutEntity::class,
         TipsEntity::class],
-    version = 2
+    version = 3
 )
 @TypeConverters(Converters::class)
 abstract class WLMDatabase : RoomDatabase() {

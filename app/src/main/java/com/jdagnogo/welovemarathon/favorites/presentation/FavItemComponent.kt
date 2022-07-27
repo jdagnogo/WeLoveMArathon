@@ -1,8 +1,10 @@
 package com.jdagnogo.welovemarathon.favorites.presentation
 
 import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -53,6 +55,7 @@ fun FavItem(
     item: Favorite,
     modifier: Modifier = Modifier,
 ) {
+    val scroll = rememberScrollState(0)
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
@@ -112,7 +115,7 @@ fun FavItem(
                     style = tagsTitleStyle,
                     text = item.tags,
                     maxLines = 1,
-                    modifier = Modifier
+                    modifier = Modifier.horizontalScroll(scroll)
                         .padding(
                             top = MaterialTheme.spacing.medium
                         )

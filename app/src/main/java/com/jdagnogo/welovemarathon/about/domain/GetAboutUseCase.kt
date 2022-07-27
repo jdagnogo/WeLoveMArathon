@@ -10,6 +10,8 @@ class GetAboutUseCase @Inject constructor(private val repository: AboutRepositor
     operator fun invoke(): Flow<Resource<About>> {
         return repository.about.transformContent { about ->
             About(
+                mail = about?.mail ?: "",
+                phone = about?.phone ?: "",
                 members = about?.members?.sortedBy { it.ordinal } ?: emptyList(),
                 socialMedias = about?.socialMedias?.sortedBy { it.ordinal } ?: emptyList(),
                 photos = about?.photos ?: emptyList(),

@@ -16,14 +16,18 @@ class AboutEntity (
     @PrimaryKey val id : String,
     val members: List<Member>,
     val socialMedias: List<SocialMedia>,
-    val photos: List<String>
+    val photos: List<String>,
+    val mail: String = "",
+    val phone: String ="",
 ){
 
     fun toAbout(): About {
         return About(
             members = members,
             socialMedias = socialMedias,
-            photos = photos
+            photos = photos,
+            mail = mail,
+            phone = phone
         )
     }
 

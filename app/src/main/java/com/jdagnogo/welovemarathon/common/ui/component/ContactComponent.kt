@@ -37,6 +37,7 @@ fun ContactComponent(
     text: String = "",
     style: TextStyle = contactStyle,
     iconSize: Dp = 32.dp,
+    tint : Color = Secondary,
     onClicked: () -> Unit = {},
     backgroundColor: Color? = null,
     modifier: Modifier = Modifier,
@@ -51,7 +52,7 @@ fun ContactComponent(
         Icon(
             painterResource(id = icon),
             contentDescription = "map",
-            tint = Secondary,
+            tint = tint,
             modifier = Modifier
                 .size(iconSize)
                 .conditional(backgroundColor != null) {
