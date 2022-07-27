@@ -128,7 +128,7 @@ val tagsTitleStyle = TextStyle(
     fontFamily = normal_font,
     fontWeight = FontWeight.Bold,
     color = TagColor,
-    fontSize = 12.sp
+    fontSize = 10.sp
 )
 
 val recommendedCategoryContentStyle = TextStyle(

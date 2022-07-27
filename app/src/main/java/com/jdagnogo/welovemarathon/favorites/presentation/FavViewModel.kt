@@ -58,7 +58,6 @@ class FavViewModel @Inject constructor(
         val favorites: List<Favorite> = emptyList(),
     ){
         val hasFavorites = favorites.isNotEmpty()
-        val categories = favorites.map { it.toCategoryItem(true) }
     }
 
     @Keep

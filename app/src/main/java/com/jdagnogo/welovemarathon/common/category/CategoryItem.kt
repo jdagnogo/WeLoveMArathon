@@ -11,6 +11,7 @@ data class CategoryItem(
     val locationLink: String = "",
     val number: String = "",
     val tags: String = "",
+    val parentIcon: Int = 0,
 ) {
     fun toFavorite(): Favorite {
         return Favorite(
@@ -18,6 +19,8 @@ data class CategoryItem(
             name = name,
             locationLink = locationLink,
             number = number,
+            tags = tags,
+            parentIcon = parentIcon
         )
     }
 }

@@ -1,6 +1,7 @@
 package com.jdagnogo.welovemarathon.common.like.domain
 
 import androidx.annotation.Keep
+import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
 
 @Keep
@@ -9,15 +10,6 @@ data class Favorite(
     val name: String = "",
     val locationLink: String = "",
     val number: String = "",
-){
-    fun toCategoryItem(isFavItem: Boolean): CategoryItem {
-        return CategoryItem(
-            id = id,
-            name = name,
-            locationLink = locationLink,
-            number = number,
-            isFavItem = isFavItem,
-            tags = ""
-        )
-    }
-}
+    val parentIcon: Int = R.drawable.ic_wlm_logo,
+    val tags: String = "",
+)

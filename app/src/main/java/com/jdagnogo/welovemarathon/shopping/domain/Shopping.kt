@@ -3,6 +3,7 @@ package com.jdagnogo.welovemarathon.shopping.domain
 import androidx.annotation.Keep
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.firestore.GeoPoint
+import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
 import com.jdagnogo.welovemarathon.common.ui.component.HorizontalCarouselItem
@@ -78,7 +79,8 @@ data class Shopping(
             isFavItem = isFavItem,
             locationLink = locationLink,
             number = number,
-            tags = tags
+            tags = tags,
+            parentIcon = R.drawable.shopping,
         )
     }
 }

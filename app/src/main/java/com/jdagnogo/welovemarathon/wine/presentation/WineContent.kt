@@ -33,36 +33,32 @@ fun WineContent(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         item {
-            TitleComponent(
-                onLeftIconClicked = onBackPressed,
-                onRightIconClicked = onMapSelected,
-                title = state.title
-            )
-        }
+            Box(modifier = Modifier.fillMaxWidth()) {
+                TitleComponent(
+                    onLeftIconClicked = onBackPressed,
+                    onRightIconClicked = onMapSelected,
+                    title = ""
+                )
 
-        item {
-            Spacer(modifier = Modifier.padding(MaterialTheme.spacing.medium))
-        }
-
-        item {
-            Image(
-                painter = rememberImagePainter(
-                    data = R.drawable.ic_wlm_logo,
-                    builder = {
-                        crossfade(true)
-                        error(R.drawable.ic_wlm_logo)
-                    }
-                ),
-                contentDescription = "Logo",
-                modifier = Modifier
-                    .padding(bottom = MaterialTheme.spacing.medium)
-                    .height(250.dp),
-            )
+                Image(
+                    painter = rememberImagePainter(
+                        data = R.drawable.ic_wlm_logo,
+                        builder = {
+                            crossfade(true)
+                            error(R.drawable.ic_wlm_logo)
+                        }
+                    ),
+                    contentDescription = "Logo",
+                    modifier = Modifier.align(Alignment.Center)
+                        .padding(top = MaterialTheme.spacing.huge)
+                        .height(250.dp),
+                )
+            }
         }
 
         item {
             Text(
-                modifier = Modifier,
+                modifier = Modifier.padding(top = MaterialTheme.spacing.medium),
                 style = wineDescription,
                 text = "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchan"
             )
@@ -92,7 +88,6 @@ fun WineContentPreview() {
     WeLoveMarathonTheme {
         Surface {
             val state = WineState(
-                title = "Zeginis Winery",
                 socials = listOf(),
                 tours = listOf(),
             )

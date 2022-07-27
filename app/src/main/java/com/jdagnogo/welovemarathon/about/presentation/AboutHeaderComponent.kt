@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -50,18 +51,16 @@ fun AboutHeaderComponent(socialMedias: List<SocialMedia>, modifier: Modifier = M
             contentScale = ContentScale.Crop,
         )
 
-        Image(
+        Icon(
             painter = rememberImagePainter(data = R.drawable.ic_wlm_logo),
             contentDescription = null,
             modifier = Modifier
-                .size(80.dp)
-                .clip(CircleShape)
-                .background(Color.White)
+                .size(100.dp)
                 .constrainAs(logo) {
                     linkTo(parent.start, parent.end)
                     top.linkTo(parent.top, 30.dp)
                 },
-            contentScale = ContentScale.Crop,
+            tint = Color.White,
         )
 
         Text(

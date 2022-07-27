@@ -120,7 +120,9 @@ class BeachViewModel @Inject constructor(
                 beachesUseCase.favUseCase.getAllFavUseCases(),
                 { beaches, favorites ->
                     BeachPartialState.OnBeachesBarsSuccess(
-                        categories = beaches.map { it.toCategoryItem(favorites.firstOrNull { fav -> fav.id == it.id } != null) },
+                        categories = beaches.map {
+                            it.toCategoryItem(favorites.firstOrNull { fav -> fav.id == it.id } != null)
+                        },
                         currentSelected = beach,
                         shouldDisplayFilter = shouldDisplayFilter(tags, beaches),
                     )

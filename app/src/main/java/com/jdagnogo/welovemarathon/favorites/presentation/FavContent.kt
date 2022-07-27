@@ -62,7 +62,8 @@ fun FavContent(
                         text = "Clear all",
                         style = clearAllStyle,
                         modifier =
-                        Modifier.align(alignment = Alignment.End)
+                        Modifier
+                            .align(alignment = Alignment.End)
                             .padding(top = MaterialTheme.spacing.medium)
                             .padding(horizontal = MaterialTheme.spacing.semiHuge)
                             .clickable {
@@ -70,12 +71,7 @@ fun FavContent(
                             }
                     )
                     Spacer(modifier = Modifier)
-                    CategoryComponent(
-                        items = state.categories,
-                        onLikeClicked = {},
-                        onFilterClicked = {},
-                        shouldDisplayFilter = false,
-                    )
+                    FavItemsComponent(items = state.favorites)
                 }
 
             }

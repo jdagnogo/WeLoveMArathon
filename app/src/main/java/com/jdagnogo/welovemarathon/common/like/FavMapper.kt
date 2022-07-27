@@ -10,7 +10,9 @@ class FavMapper {
                 id = id,
                 name = name,
                 locationLink = locationLink,
-                number = number
+                number = number,
+                parentIcon = parentIcon,
+                tags = tags
             )
         }
     }
@@ -21,7 +23,9 @@ class FavMapper {
                 id = it.id,
                 name = it.name,
                 locationLink = it.locationLink,
-                number = it.number
+                number = it.number,
+                parentIcon = it.parentIcon,
+                tags = it.tags
             )
         }
     }

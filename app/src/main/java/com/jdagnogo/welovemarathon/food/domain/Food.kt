@@ -3,6 +3,7 @@ package com.jdagnogo.welovemarathon.food.domain
 import androidx.annotation.Keep
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.firestore.GeoPoint
+import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.beach.domain.BeachBar
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
@@ -100,7 +101,8 @@ data class Food(
             locationLink = locationLink,
             isFavItem = isFavItem,
             number = number,
-            tags = tags
+            tags = tags,
+            parentIcon = R.drawable.food
         )
     }
 }

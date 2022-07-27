@@ -71,7 +71,7 @@ class WineViewModel @Inject constructor(
  */
 @Keep
 data class WineState(
-    val title: String = "Zeginis Winery",
+    val firstDescription : String = "",
     val tours: List<WineTour> = emptyList(),
     val socials: List<WineSocial> = emptyList(),
     val error: String = "",
