@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.flowlayout.FlowCrossAxisAlignment
+import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
@@ -43,6 +44,7 @@ fun AboutContent(
                 mainAxisSpacing = 30.dp,
                 crossAxisAlignment = FlowCrossAxisAlignment.Center,
                 crossAxisSpacing = 8.dp,
+                lastLineMainAxisAlignment = FlowMainAxisAlignment.Center,
                 modifier = Modifier.padding(horizontal = 30.dp)
             ) {
                 repeat(state.members.size) { index ->

@@ -117,7 +117,7 @@ fun AboutHeaderComponent(
                 },
             icon = R.drawable.ic_phone,
             tint = Color.White,
-            iconSize = 32.dp,
+            iconSize = 28.dp,
             onClicked = { redirectToPhone(context, phone) },
         )
 
@@ -130,7 +130,7 @@ fun AboutHeaderComponent(
                 },
             icon = R.drawable.email,
             tint = Color.White,
-            iconSize = 32.dp,
+            iconSize = 28.dp,
             onClicked = { redirectToLink(uriHandler, mail) },
         )
     }

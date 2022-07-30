@@ -12,7 +12,7 @@ class GetAboutUseCase @Inject constructor(private val repository: AboutRepositor
             About(
                 mail = about?.mail ?: "",
                 phone = about?.phone ?: "",
-                members = about?.members?.sortedBy { it.ordinal } ?: emptyList(),
+                members = about?.members?.sortedBy { it.name } ?: emptyList(),
                 socialMedias = about?.socialMedias?.sortedBy { it.ordinal } ?: emptyList(),
                 photos = about?.photos ?: emptyList(),
             )

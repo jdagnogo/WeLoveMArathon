@@ -8,4 +8,5 @@ data class Member(
     val name: String = "",
     val icon: String = "",
     val ordinal: Int = 0,
+    val link: String = "",
 ) : Serializable
