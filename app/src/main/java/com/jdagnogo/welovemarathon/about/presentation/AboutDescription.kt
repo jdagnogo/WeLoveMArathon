@@ -5,8 +5,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.jdagnogo.welovemarathon.common.ui.component.DescriptionItemFactory
 import com.jdagnogo.welovemarathon.common.ui.component.ExpandableComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.emptyScreenSubTitle
 
@@ -32,26 +32,5 @@ fun AboutDescription(
                     "The application is designed voluntarily to help Marathon visitors better organize their holidays in our city. Lots of recommendations for food, drink, beaches and activities in the area of Marathon with detailed information! If you think there is room for improvement (there always is) don't hesitate to email us with your suggestions! The application was launched this summer 2022 as a pilot.",
             color = Color.White,
         )
-    }
-}
-
-private data class DescriptionItem(
-    val overflow: TextOverflow,
-    val maxLines: Int,
-)
-
-private class DescriptionItemFactory(val isExpanded: Boolean) {
-    fun create(): DescriptionItem {
-        return if (isExpanded) {
-            DescriptionItem(
-                overflow = TextOverflow.Clip,
-                maxLines = Int.MAX_VALUE,
-            )
-        } else {
-            DescriptionItem(
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 3,
-            )
-        }
     }
 }

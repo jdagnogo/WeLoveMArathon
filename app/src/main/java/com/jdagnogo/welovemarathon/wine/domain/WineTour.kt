@@ -9,14 +9,18 @@ data class WineTour(
     val images: List<String> = emptyList(),
     val description: String = "",
     val hour: String = "",
+    val pack: String = "",
+    val link: String = "",
     val ordinal: Int = 0,
-    ){
+) {
     fun toWineTourEntity(): WineTourEntity {
         return WineTourEntity(
             id = id,
             name = name,
             icon = icon,
             images = images,
+            link = link,
+            pack = pack,
             description = description,
             hour = hour,
             ordinal = ordinal

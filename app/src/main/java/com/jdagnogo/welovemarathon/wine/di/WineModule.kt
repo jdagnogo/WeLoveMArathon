@@ -3,6 +3,7 @@ package com.jdagnogo.welovemarathon.wine.di
 import com.jdagnogo.welovemarathon.common.data.WLMDatabase
 import com.jdagnogo.welovemarathon.common.domain.DataFreshnessUseCase
 import com.jdagnogo.welovemarathon.wine.data.*
+import com.jdagnogo.welovemarathon.wine.domain.GetWineInfoUseCase
 import com.jdagnogo.welovemarathon.wine.domain.GetWineSocialUseCase
 import com.jdagnogo.welovemarathon.wine.domain.GetWineTourUseCase
 import com.jdagnogo.welovemarathon.wine.domain.WineUseCases
@@ -29,11 +30,13 @@ object WineModule {
     @Singleton
     fun provideWineUseCases(
         getWineTourUseCase: GetWineTourUseCase,
-        getWineSocialUseCase: GetWineSocialUseCase
+        getWineSocialUseCase: GetWineSocialUseCase,
+        getWineInfoUseCase: GetWineInfoUseCase,
     ): WineUseCases {
         return WineUseCases(
             getWineSocialUseCase = getWineSocialUseCase,
             getWineTourUseCase = getWineTourUseCase,
+            getWineInfoUseCase = getWineInfoUseCase,
         )
     }
 
@@ -43,6 +46,14 @@ object WineModule {
         repository: WineRepository,
     ): GetWineSocialUseCase {
         return GetWineSocialUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetWineInfoUseCaseUseCase(
+        repository: WineRepository,
+    ): GetWineInfoUseCase {
+        return GetWineInfoUseCase(repository)
     }
 
     @Provides

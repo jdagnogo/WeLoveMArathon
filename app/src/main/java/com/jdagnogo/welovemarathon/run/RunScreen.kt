@@ -42,7 +42,7 @@ fun RunScreen() {
             val (image, icon) = createRefs()
             Image(
                 painter = rememberImagePainter(
-                    data = R.drawable.bg_team,
+                    data = R.drawable.bg_run,
                     builder = {
                         crossfade(true)
                         error(R.drawable.ic_wlm_logo)

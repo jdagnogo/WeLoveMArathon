@@ -1,23 +1,31 @@
 package com.jdagnogo.welovemarathon.wine.presentation
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
+import com.jdagnogo.welovemarathon.common.ui.component.CarouselWithPreview
+import com.jdagnogo.welovemarathon.common.ui.component.DescriptionItemFactory
+import com.jdagnogo.welovemarathon.common.ui.component.ExpandableComponent
 import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
-import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
-import com.jdagnogo.welovemarathon.common.ui.theme.spacing
-import com.jdagnogo.welovemarathon.common.ui.theme.wineDescription
-import com.jdagnogo.welovemarathon.wine.domain.WineSocial
+import com.jdagnogo.welovemarathon.common.ui.theme.*
 
 @Composable
 fun WineContent(
@@ -28,58 +36,141 @@ fun WineContent(
 ) {
     LazyColumn(
         modifier = modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(vertical = MaterialTheme.spacing.medium),
+        contentPadding = PaddingValues(bottom = MaterialTheme.spacing.medium),
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        item {
+        item("Carousel") {
             Box(modifier = Modifier.fillMaxWidth()) {
+                CarouselWithPreview(
+                    urls = state.info.images,
+                    shape = RoundedCornerShape(0, 0, 0, 0),
+                    modifier = Modifier.padding(bottom = MaterialTheme.spacing.medium)
+                )
+
                 TitleComponent(
                     onLeftIconClicked = onBackPressed,
                     onRightIconClicked = onMapSelected,
-                    title = ""
-                )
-
-                Image(
-                    painter = rememberImagePainter(
-                        data = R.drawable.ic_wlm_logo,
-                        builder = {
-                            crossfade(true)
-                            error(R.drawable.ic_wlm_logo)
-                        }
-                    ),
-                    contentDescription = "Logo",
-                    modifier = Modifier.align(Alignment.Center)
-                        .padding(top = MaterialTheme.spacing.huge)
-                        .height(250.dp),
+                    title = state.info.title
                 )
             }
         }
 
-        item {
-            Text(
-                modifier = Modifier.padding(top = MaterialTheme.spacing.medium),
-                style = wineDescription,
-                text = "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchan"
+        item("Description") {
+            ExpandableComponent(
+                modifier = modifier
+                    .padding(top = MaterialTheme.spacing.medium)
+                    .padding(horizontal = MaterialTheme.spacing.medium),
+            ) { isExpanded ->
+                val descriptionItem = DescriptionItemFactory(isExpanded).create()
+
+                Text(
+                    overflow = descriptionItem.overflow,
+                    maxLines = descriptionItem.maxLines,
+                    style = wineDescription,
+                    text = state.info.description,
+                )
+            }
+        }
+
+        item("WineTour") { //rendre clickable
+            WineTourComponent(
+                items = state.tours,
+                modifier = Modifier
+                    .padding(top = MaterialTheme.spacing.medium)
             )
         }
 
-        item {
-            WineTourComponent(wineTours = state.tours)
+        item("Language") {
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp)
+            ) {
+                Text(text = "Languages :")
+                Language(icon = R.drawable.uk)
+                Language(icon = R.drawable.greece)
+                Language(icon = R.drawable.france)
+            }
+
+            Text(
+                modifier = Modifier
+                    .padding(top = MaterialTheme.spacing.huge)
+                    .padding(horizontal = MaterialTheme.spacing.medium),
+                style = wineDescription,
+                text = state.info.moreInfo
+            )
+
+
         }
 
-        item {
+        item("more info") {
             Text(
-                modifier = Modifier,
+                text = "Useful information", style = emptyScreenTitle,
+                modifier = Modifier
+                    .padding(top = MaterialTheme.spacing.huge)
+                    .padding(horizontal = MaterialTheme.spacing.medium),
+            )
+
+            Text(
+                modifier = Modifier
+                    .padding(top = MaterialTheme.spacing.medium)
+                    .padding(horizontal = MaterialTheme.spacing.medium),
                 style = wineDescription,
-                text = "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchan"
+                text = state.info.tourInfos
+            )
+
+            Text(
+                modifier = Modifier
+                    .padding(top = MaterialTheme.spacing.medium)
+                    .padding(horizontal = MaterialTheme.spacing.medium),
+                style = wineDescription, text = state.info.usefulInfos
             )
         }
 
-        item {
+        item("our wines") {
+            Text(
+                text = "Our wines", style = emptyScreenTitle,
+                modifier = Modifier
+                    .padding(top = MaterialTheme.spacing.huge)
+                    .padding(bottom = MaterialTheme.spacing.medium)
+                    .padding(horizontal = MaterialTheme.spacing.medium),
+            )
+
+            WineComponent(items = state.info.wines)
+
+            Text( // pas en maj
+                modifier = Modifier
+                    .padding(top = MaterialTheme.spacing.huge)
+                    .padding(horizontal = MaterialTheme.spacing.medium),
+                textAlign = TextAlign.Center,
+                style = wineDescription, text = state.info.wineMoreInfo
+            )
+        }
+
+        item("Social") {
             SocialMediaComponent(wineSocial = state.socials)
         }
     }
+}
+
+@Composable
+fun Language(
+    modifier: Modifier = Modifier,
+    icon: Int,
+) {
+    Image(
+        painter = rememberImagePainter(data = icon),
+        contentDescription = null,
+        modifier = modifier
+            .padding(horizontal = 8.dp)
+            .border(width = 1.dp, color = PrimaryLight, shape = CircleShape)
+            .size(32.dp)
+            .clip(CircleShape),
+        contentScale = ContentScale.Crop,
+    )
 }
 
 @Preview

@@ -21,6 +21,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -40,6 +41,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun CarouselWithPreview(
     modifier: Modifier = Modifier,
+    shape: Shape = RoundedCornerShape(10, 10, 0, 0),
     urls: List<String>,
     onImageClick: ((index: Int) -> Unit)? = null
 ) {
@@ -47,7 +49,7 @@ fun CarouselWithPreview(
     val pagerState = rememberPagerState(0)
     val scope = rememberCoroutineScope()
 
-    Carousel(modifier, urls, pagerState = pagerState, onImageClick = { index ->
+    Carousel(modifier, urls, shape = shape, pagerState = pagerState, onImageClick = { index ->
         detailUrl = DetailUrl(urls[index], index)
         onImageClick?.invoke(index)
     })
@@ -84,6 +86,7 @@ fun Carousel(
     modifier: Modifier = Modifier,
     urls: List<String>,
     initialPage: Int = 0,
+    shape: Shape,
     pagerState: PagerState = rememberPagerState(initialPage),
     onImageClick: ((index: Int) -> Unit)? = null
 ) {
@@ -117,7 +120,7 @@ fun Carousel(
                             }
                         } else Modifier
                     )
-                    .clip(RoundedCornerShape(10, 10, 0, 0)),
+                    .clip(shape = shape),
                 contentScale = ContentScale.FillWidth
             )
         }
@@ -151,6 +154,7 @@ private fun CarouselFullScreen(
                         error(R.drawable.food)
                     }
                 ),
+                modifier = Modifier.fillMaxSize(),
                 contentDescription = null,
                 contentScale = ContentScale.Fit
             )

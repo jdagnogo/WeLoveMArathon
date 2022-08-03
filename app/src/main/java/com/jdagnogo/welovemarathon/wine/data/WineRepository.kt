@@ -1,9 +1,12 @@
 package com.jdagnogo.welovemarathon.wine.data
 
+import com.jdagnogo.welovemarathon.common.domain.DataType
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.common.utils.resourceAsFlow
+import com.jdagnogo.welovemarathon.shopping.domain.transformContent
 import com.jdagnogo.welovemarathon.wine.domain.WineSocial
 import com.jdagnogo.welovemarathon.wine.domain.WineTour
+import com.jdagnogo.welovemarathon.wine.domain.WineryInfo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,6 +18,7 @@ import javax.inject.Inject
 interface WineRepository {
     val tour: StateFlow<Resource<List<WineTour>>>
     val social: StateFlow<Resource<List<WineSocial>>>
+    val info: StateFlow<Resource<List<WineryInfo>>>
 }
 
 class WineRepositoryImpl @Inject constructor(
@@ -31,9 +35,37 @@ class WineRepositoryImpl @Inject constructor(
     override val social: StateFlow<Resource<List<WineSocial>>>
         get() = _social
 
+    private val _info: MutableStateFlow<Resource<List<WineryInfo>>> =
+        MutableStateFlow(Resource.Loading(emptyList()))
+    override val info: StateFlow<Resource<List<WineryInfo>>>
+        get() = _info
+
     init {
+        fetchWineInfo()
         fetchWineTour()
         fetchWineSocial()
+    }
+
+    private fun fetchWineInfo(forceFetch: Boolean = false) {
+        coroutineScope.launch {
+            with(wineData) {
+                val info = resourceAsFlow(
+                    forceFetch = forceFetch,
+                    fetchFromLocal = {
+                        dao.getWineInfo().map { it.map { info -> info.toWineryInfo() } }
+                    },
+                    networkCall = {
+                        remoteData.getWineInfo()
+                    },
+                    saveCallResource = { infos ->
+                        val entities = infos.map { it.toWineryInfoEntity() }
+                        dao.updateWineInfo(entities)
+                    },
+                    checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.WINE_INFO) })
+
+                info.collectLatest { _info.value = it }
+            }
+        }
     }
 
     private fun fetchWineTour(forceFetch: Boolean = false) {
@@ -51,7 +83,7 @@ class WineRepositoryImpl @Inject constructor(
                         val entities = mapper.toWineTourEntities(categories)
                         dao.updateWineTour(entities)
                     },
-                    checkDataFreshness = { dataFreshnessUseCase.isDataFresh(com.jdagnogo.welovemarathon.common.domain.DataType.FOOD_CATEGORIES) })
+                    checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.WINE_TOUR) })
 
                 categories.collectLatest {
                     _tour.value = it
@@ -75,7 +107,7 @@ class WineRepositoryImpl @Inject constructor(
                         val entities = mapper.toWineSocialEntities(categories)
                         dao.updateWineSocial(entities)
                     },
-                    checkDataFreshness = { dataFreshnessUseCase.isDataFresh(com.jdagnogo.welovemarathon.common.domain.DataType.FOOD_CATEGORIES) })
+                    checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.WINE_SOCIAL) })
 
                 categories.collectLatest {
                     _social.value = it

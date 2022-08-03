@@ -15,7 +15,7 @@ fun HtmlTextComponent(
     text: String,
     textAlignment: Int = View.TEXT_ALIGNMENT_TEXT_START,
     style: Int = R.style.htmlText,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
 ) {
     AndroidView(factory = { context ->
         TextView(context).apply {

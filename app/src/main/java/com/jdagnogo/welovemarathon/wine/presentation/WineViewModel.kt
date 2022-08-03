@@ -9,6 +9,7 @@ import com.jdagnogo.welovemarathon.food.presentation.FoodPartialState
 import com.jdagnogo.welovemarathon.wine.domain.WineSocial
 import com.jdagnogo.welovemarathon.wine.domain.WineTour
 import com.jdagnogo.welovemarathon.wine.domain.WineUseCases
+import com.jdagnogo.welovemarathon.wine.domain.WineryInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,8 +26,24 @@ class WineViewModel @Inject constructor(
     override val state: StateFlow<WineState> get() = _state
 
     init {
+        fetchInfo()
         fetchTour()
         fetchSocial()
+    }
+
+    private fun fetchInfo() {
+        viewModelScope.launch {
+            handleResource(
+                useCases.getWineInfoUseCase.invoke(),
+                { WinePartialState.OnWineInfoSuccess(it.firstOrNull() ?: WineryInfo()) },
+                WinePartialState.Loading,
+                { WinePartialState.Error("") },
+                {
+                    _state.value = reducer.reduce(state.value, it)
+                },
+                this
+            )
+        }
     }
 
     private fun fetchTour() {
@@ -71,9 +88,10 @@ class WineViewModel @Inject constructor(
  */
 @Keep
 data class WineState(
-    val firstDescription : String = "",
+    val firstDescription: String = "",
     val tours: List<WineTour> = emptyList(),
     val socials: List<WineSocial> = emptyList(),
+    val info: WineryInfo = WineryInfo(),
     val error: String = "",
 ) {
 }
@@ -81,6 +99,7 @@ data class WineState(
 @Keep
 sealed class WinePartialState {
     data class OnWineTourSuccess(val data: List<WineTour>) : WinePartialState()
+    data class OnWineInfoSuccess(val data: WineryInfo) : WinePartialState()
     object Loading : WinePartialState()
     data class OnWineSocialSuccess(val data: List<WineSocial>) : WinePartialState()
     data class Error(val message: String) : WinePartialState()

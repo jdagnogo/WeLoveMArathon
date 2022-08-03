@@ -6,4 +6,5 @@ import androidx.annotation.Keep
 data class WineUseCases(
     val getWineSocialUseCase: GetWineSocialUseCase,
     val getWineTourUseCase: GetWineTourUseCase,
+    val getWineInfoUseCase: GetWineInfoUseCase,
 )

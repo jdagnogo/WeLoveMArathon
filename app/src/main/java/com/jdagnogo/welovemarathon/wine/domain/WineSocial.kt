@@ -1,5 +1,6 @@
 package com.jdagnogo.welovemarathon.wine.domain
 
+import com.jdagnogo.welovemarathon.about.domain.SocialMedia
 import com.jdagnogo.welovemarathon.wine.data.WineSocialEntity
 
 data class WineSocial(
@@ -18,4 +19,10 @@ data class WineSocial(
             ordinal = ordinal
         )
     }
+
+    fun toSocialMedia() = SocialMedia(
+        icon = icon,
+        link = link,
+    )
+
 }

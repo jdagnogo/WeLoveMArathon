@@ -16,11 +16,9 @@ class WineReducer : IReducer<WineState, WinePartialState> {
                     socials = partialState.data
                 )
             }
-            is WinePartialState.OnWineTourSuccess -> {
-                state.copy(
-                    tours = partialState.data
-                )
-            }
+            is WinePartialState.OnWineTourSuccess -> state.copy(tours = partialState.data)
+            is WinePartialState.OnWineInfoSuccess -> state.copy(info = partialState.data)
+
         }
     }
 }

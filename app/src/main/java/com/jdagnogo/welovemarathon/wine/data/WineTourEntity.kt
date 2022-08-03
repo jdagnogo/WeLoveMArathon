@@ -13,6 +13,8 @@ data class WineTourEntity(
     val icon: String,
     val images: List<String>,
     val description: String,
+    val pack: String,
+    val link: String,
     val hour: String,
     val ordinal: Int = 0,
 ) {
@@ -21,6 +23,8 @@ data class WineTourEntity(
             id = id,
             name = name,
             icon = icon,
+            pack = pack,
+            link = link,
             images = images,
             description = description,
             hour = hour,

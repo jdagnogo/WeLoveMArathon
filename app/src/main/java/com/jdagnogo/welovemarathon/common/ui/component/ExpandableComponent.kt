@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import com.jdagnogo.welovemarathon.common.ui.theme.SubTitleStyle
@@ -68,5 +69,26 @@ internal fun MoreLessComponent(
                 .padding(start = 4.dp),
             tint = Secondary,
         )
+    }
+}
+
+data class DescriptionItem(
+    val overflow: TextOverflow,
+    val maxLines: Int,
+)
+
+class DescriptionItemFactory(private val isExpanded: Boolean) {
+    fun create(): DescriptionItem {
+        return if (isExpanded) {
+            DescriptionItem(
+                overflow = TextOverflow.Clip,
+                maxLines = Int.MAX_VALUE,
+            )
+        } else {
+            DescriptionItem(
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 3,
+            )
+        }
     }
 }

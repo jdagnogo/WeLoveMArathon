@@ -84,7 +84,7 @@ class FoodRepositoryImpl @Inject constructor(
                         val tipsEntities = mapper.toEntitiesTag(categories)
                         dao.updateTags(tipsEntities)
                     },
-                    checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.SHOPPING_TAG) })
+                    checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.FOOD_TAG) })
 
                 categories.collectLatest {
                     _tags.value = it

@@ -39,6 +39,7 @@ import com.jdagnogo.welovemarathon.tips.data.TipsEntity
 import com.jdagnogo.welovemarathon.wine.data.WineDao
 import com.jdagnogo.welovemarathon.wine.data.WineSocialEntity
 import com.jdagnogo.welovemarathon.wine.data.WineTourEntity
+import com.jdagnogo.welovemarathon.wine.data.WineryInfoEntity
 import com.jdagnogo.welovemarathon.wine.domain.WineSocial
 import com.jdagnogo.welovemarathon.wine.domain.WineTour
 import java.util.*
@@ -64,9 +65,10 @@ import java.util.*
         FavoriteEntity::class,
         WineTourEntity::class,
         WineSocialEntity::class,
+        WineryInfoEntity::class,
         AboutEntity::class,
         TipsEntity::class],
-    version = 3
+    version = 4
 )
 @TypeConverters(Converters::class)
 abstract class WLMDatabase : RoomDatabase() {
