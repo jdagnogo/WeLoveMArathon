@@ -7,6 +7,7 @@ import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.activities.domain.ActivitiesCategory
 import com.jdagnogo.welovemarathon.activities.domain.ActivitiesTag
 import com.jdagnogo.welovemarathon.activities.domain.ActivitiesUseCase
+import com.jdagnogo.welovemarathon.common.banner.ACTIVITIES
 import com.jdagnogo.welovemarathon.common.banner.GifBanner
 import com.jdagnogo.welovemarathon.common.banner.SHOPPING
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
@@ -74,7 +75,7 @@ class ActivitiesViewModel @Inject constructor(
 
     private fun fetchBanner() {
         viewModelScope.launch {
-            useCases.getBannerUseCase.invoke(SHOPPING).onEach { resource ->
+            useCases.getBannerUseCase.invoke(ACTIVITIES).onEach { resource ->
                 val partialState = when (resource) {
                     is Resource.Success -> {
                         ActivitiesPartialState.OnBannerSuccess(

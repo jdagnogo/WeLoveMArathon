@@ -1,8 +1,9 @@
 package com.jdagnogo.welovemarathon.wine.domain
 
+import androidx.annotation.Keep
 import com.jdagnogo.welovemarathon.about.domain.SocialMedia
 import com.jdagnogo.welovemarathon.wine.data.WineSocialEntity
-
+@Keep
 data class WineSocial(
     val id: String = "",
     val name: String = "",

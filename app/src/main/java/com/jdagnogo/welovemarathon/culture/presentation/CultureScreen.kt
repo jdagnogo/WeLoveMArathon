@@ -39,7 +39,7 @@ fun CultureScreen(
             viewModel.dispatchEvent(CultureUiEvent.OnRecommendedItemSelected(it))
         },
         onMapSelected = {
-            navController.navigate(MainDestinations.Map.createRoute(MapType.Culture.key))
+           // navController.navigate(MainDestinations.Map.createRoute(MapType.Culture.key))
         },
         onBackPressed = {
             navController.popBackStack()

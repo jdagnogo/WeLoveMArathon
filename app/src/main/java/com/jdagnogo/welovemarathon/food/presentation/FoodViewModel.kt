@@ -4,6 +4,7 @@ import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jdagnogo.welovemarathon.R
+import com.jdagnogo.welovemarathon.common.banner.FOOD
 import com.jdagnogo.welovemarathon.common.banner.GifBanner
 import com.jdagnogo.welovemarathon.common.banner.SHOPPING
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
@@ -75,7 +76,7 @@ class FoodViewModel @Inject constructor(
 
     private fun fetchBanner() {
         viewModelScope.launch {
-            useCases.getBannerUseCase.invoke(SHOPPING).onEach { resource ->
+            useCases.getBannerUseCase.invoke(FOOD).onEach { resource ->
                 val partialState = when (resource) {
                     is Resource.Success -> {
                         FoodPartialState.OnBannerSuccess(

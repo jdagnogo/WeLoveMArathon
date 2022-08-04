@@ -27,12 +27,14 @@ import com.jdagnogo.welovemarathon.common.ui.theme.TitleStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.emptyScreenSubTitle
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 import com.jdagnogo.welovemarathon.common.utils.redirectToLink
+import com.jdagnogo.welovemarathon.common.utils.redirectToMail
 import com.jdagnogo.welovemarathon.common.utils.redirectToPhone
 
 @Composable
 fun AboutHeaderComponent(
     socialMedias: List<SocialMedia>, modifier: Modifier = Modifier,
-    mail: String = "", phone: String = ""
+    mail: String = "",
+    phone: String = ""
 ) {
     ConstraintLayout(
         modifier = modifier.animateContentSize()
@@ -131,7 +133,7 @@ fun AboutHeaderComponent(
             icon = R.drawable.email,
             tint = Color.White,
             iconSize = 28.dp,
-            onClicked = { redirectToLink(uriHandler, mail) },
+            onClicked = { redirectToMail(context, mail) },
         )
     }
 }

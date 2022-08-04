@@ -6,7 +6,6 @@ import com.google.firebase.firestore.GeoPoint
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
-import com.jdagnogo.welovemarathon.common.ui.component.HorizontalCarouselItem
 import com.jdagnogo.welovemarathon.map.domain.MapItem
 
 @Keep
@@ -18,7 +17,8 @@ data class BeachBar(
     val locationLink: String = "",
     var website: String = "",
     var description: String = "",
-    var image: String = "",
+    var images: List<String> = emptyList(),
+    var bigImages: List<String> = emptyList(),
     @field:JvmField var isRecommended: Boolean = false,
     var category: String = "",
     var tags: String = "",
@@ -29,11 +29,8 @@ data class BeachBar(
         return RecommendedCategoryDetails(
             id = id,
             name = name,
-            images = listOf(
-                HorizontalCarouselItem(image, name),
-                HorizontalCarouselItem(image, name),
-                HorizontalCarouselItem(image, name),
-            ),
+            images = images,
+            bigImages = bigImages,
             website = website,
             locationLink = locationLink,
             location = location,

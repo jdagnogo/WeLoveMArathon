@@ -60,7 +60,8 @@ fun RecommendedCategoryDetailsDialogContent(
         ) {
             val images = remember { item.images }
             CarouselWithPreview(
-                urls = images.map { it.url },
+                urls = images,
+                bigImages = images,
                 modifier = Modifier.padding(bottom = MaterialTheme.spacing.medium)
             )
             Row(

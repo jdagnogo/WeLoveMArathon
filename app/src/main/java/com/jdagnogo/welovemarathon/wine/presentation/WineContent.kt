@@ -1,11 +1,9 @@
 package com.jdagnogo.welovemarathon.wine.presentation
 
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -16,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,6 +25,7 @@ import com.jdagnogo.welovemarathon.common.ui.component.DescriptionItemFactory
 import com.jdagnogo.welovemarathon.common.ui.component.ExpandableComponent
 import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.*
+import com.jdagnogo.welovemarathon.common.utils.redirectToLink
 
 @Composable
 fun WineContent(
@@ -44,13 +44,14 @@ fun WineContent(
             Box(modifier = Modifier.fillMaxWidth()) {
                 CarouselWithPreview(
                     urls = state.info.images,
+                    bigImages = state.info.bigImages,
                     shape = RoundedCornerShape(0, 0, 0, 0),
                     modifier = Modifier.padding(bottom = MaterialTheme.spacing.medium)
                 )
-
+                val uriHandler = LocalUriHandler.current
                 TitleComponent(
                     onLeftIconClicked = onBackPressed,
-                    onRightIconClicked = onMapSelected,
+                    onRightIconClicked ={ redirectToLink(uriHandler, state.info.locationLink)},
                     title = state.info.title
                 )
             }
@@ -118,15 +119,7 @@ fun WineContent(
                 modifier = Modifier
                     .padding(top = MaterialTheme.spacing.medium)
                     .padding(horizontal = MaterialTheme.spacing.medium),
-                style = wineDescription,
-                text = state.info.tourInfos
-            )
-
-            Text(
-                modifier = Modifier
-                    .padding(top = MaterialTheme.spacing.medium)
-                    .padding(horizontal = MaterialTheme.spacing.medium),
-                style = wineDescription, text = state.info.usefulInfos
+                style = wineDescription, text = state.info.usefulInfos.replace("\\n", "\n")
             )
         }
 

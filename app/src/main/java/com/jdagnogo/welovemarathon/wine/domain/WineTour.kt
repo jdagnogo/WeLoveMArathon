@@ -1,7 +1,8 @@
 package com.jdagnogo.welovemarathon.wine.domain
 
+import androidx.annotation.Keep
 import com.jdagnogo.welovemarathon.wine.data.WineTourEntity
-
+@Keep
 data class WineTour(
     val id: String = "",
     val name: String = "",

@@ -90,8 +90,8 @@ fun CategoryScreen(
 @Composable
 fun CategoryScreenPreview() {
     val recommendedItems = listOf(
-        RecommendedCategoryDetails("id", "name", ""),
-        RecommendedCategoryDetails("id2", "name2", "")
+        RecommendedCategoryDetails("id", "name", "", images = listOf(), bigImages =  listOf()),
+        RecommendedCategoryDetails("id2", "name2", "",images = listOf(), bigImages =  listOf())
     )
     val items = listOf(
         CategoryItem("id", "name", tags = "#toto #titi"),

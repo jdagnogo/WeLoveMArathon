@@ -43,6 +43,7 @@ fun CarouselWithPreview(
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(10, 10, 0, 0),
     urls: List<String>,
+    bigImages: List<String>,
     onImageClick: ((index: Int) -> Unit)? = null
 ) {
     var detailUrl: DetailUrl? by remember { mutableStateOf(null) }
@@ -50,7 +51,7 @@ fun CarouselWithPreview(
     val scope = rememberCoroutineScope()
 
     Carousel(modifier, urls, shape = shape, pagerState = pagerState, onImageClick = { index ->
-        detailUrl = DetailUrl(urls[index], index)
+        detailUrl = DetailUrl(bigImages[index], index)
         onImageClick?.invoke(index)
     })
 
@@ -72,7 +73,7 @@ fun CarouselWithPreview(
             Surface(modifier = Modifier.fillMaxSize()) {
                 CarouselFullScreen(
                     Modifier.fillMaxSize(),
-                    urls,
+                    bigImages,
                     pagerState = detailPagerState,
                     onDismiss = onDismiss
                 )

@@ -7,6 +7,7 @@ import com.jdagnogo.welovemarathon.about.data.AboutEntity
 data class About(
     val mail: String = "",
     val phone: String = "",
+    val policy: String = "",
     val members: List<Member> = emptyList(),
     val socialMedias: List<SocialMedia> = emptyList(),
     val photos: List<String> = emptyList()
@@ -19,6 +20,7 @@ data class About(
             photos = photos,
             mail = mail,
             phone = phone,
+            policy = policy,
         )
     }
 }

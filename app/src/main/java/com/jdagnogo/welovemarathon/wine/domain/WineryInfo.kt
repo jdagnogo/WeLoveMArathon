@@ -16,6 +16,7 @@ data class WineryInfo(
     val wineMoreInfo: String = "",
     val moreInfo: String = "",
     val images: List<String> = emptyList(),
+    val bigImages: List<String> = emptyList(),
 ) {
     fun toWineryInfoEntity(): WineryInfoEntity {
         return WineryInfoEntity(
@@ -29,7 +30,8 @@ data class WineryInfo(
             moreInfo = moreInfo,
             tourInfos = tourInfos,
             locationLink = locationLink,
-            images = images
+            images = images,
+            bigImages = bigImages,
         )
     }
 }

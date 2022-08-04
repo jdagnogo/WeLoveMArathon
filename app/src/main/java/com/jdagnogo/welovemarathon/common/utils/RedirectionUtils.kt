@@ -17,6 +17,13 @@ fun redirectToLink(uriHandler: UriHandler, locationLink: String) {
     }
 }
 
+fun redirectToMail(context: Context, mail: String) {
+    val intent = Intent(Intent.ACTION_SENDTO)
+    intent.data = Uri.parse("mailto:$mail")
+    ContextCompat.startActivity(context, intent, bundleOf())
+}
+
+
 fun redirectToPhone(context: Context, number: String) {
     val intent = Intent(Intent.ACTION_DIAL)
     intent.data = Uri.parse("tel: $number")

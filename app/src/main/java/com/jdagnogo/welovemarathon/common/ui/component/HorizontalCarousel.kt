@@ -19,7 +19,7 @@ import com.jdagnogo.welovemarathon.R
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun HorizontalCarousel(
-    item: List<HorizontalCarouselItem>,
+    item: List<String>,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -36,7 +36,7 @@ fun HorizontalCarousel(
                 .fillMaxWidth()
         ) { page ->
             PagerSampleItem(
-                item = item[page],
+                url = item[page],
                 modifier = Modifier
                     .fillMaxWidth()
                     .aspectRatio(1f)
@@ -57,18 +57,18 @@ fun HorizontalCarousel(
  */
 @Composable
 internal fun PagerSampleItem(
-    item: HorizontalCarouselItem,
+    url: String,
     modifier: Modifier = Modifier,
 ) {
     Image(
         painter = rememberImagePainter(
-            data = item.url,
+            data = url,
             builder = {
                 crossfade(true)
                 error(R.drawable.food)
             }
         ),
-        contentDescription = item.name,
+        contentDescription = null,
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(10, 10, 0, 0)),
@@ -76,9 +76,3 @@ internal fun PagerSampleItem(
     )
 
 }
-
-
-data class HorizontalCarouselItem(
-    val url: String,
-    val name: String,
-)

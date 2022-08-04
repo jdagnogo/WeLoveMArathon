@@ -20,6 +20,7 @@ import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.about.presentation.SocialComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import com.jdagnogo.welovemarathon.common.ui.theme.SubTitleStyle
+import com.jdagnogo.welovemarathon.common.utils.redirectToMail
 import com.jdagnogo.welovemarathon.common.utils.redirectToPhone
 import com.jdagnogo.welovemarathon.wine.domain.WineSocial
 
@@ -59,7 +60,7 @@ fun SocialMediaComponent(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = rememberRipple(bounded = false),
                 ) {
-
+                    redirectToMail(context, "zeginiswinery@gmail.com")
                 }
                 .size(50.dp)
         )

@@ -6,7 +6,6 @@ import com.google.firebase.firestore.GeoPoint
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
-import com.jdagnogo.welovemarathon.common.ui.component.HorizontalCarouselItem
 import com.jdagnogo.welovemarathon.map.domain.MapItem
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingEntity
 
@@ -19,7 +18,8 @@ data class Shopping(
     var locationLink: String = "",
     var number: String = "",
     var description: String = "",
-    var image: String = "",
+    var images: List<String> = emptyList(),
+    var bigImages: List<String> = emptyList(),
     @field:JvmField var isRecommended: Boolean = false,
     var category: String = "",
     var tags: String = "",
@@ -34,7 +34,7 @@ data class Shopping(
             locationLink = locationLink,
             number = number,
             description = description,
-            image = image,
+            images = images,
             isRecommended = isRecommended,
             category = category,
             tags = tags,
@@ -58,11 +58,8 @@ data class Shopping(
         return RecommendedCategoryDetails(
             id = id,
             name = name,
-            images = listOf(
-                HorizontalCarouselItem(image, name),
-                HorizontalCarouselItem(image, name),
-                HorizontalCarouselItem(image, name),
-            ),
+            images = images,
+            bigImages = bigImages,
             website = website,
             locationLink = locationLink,
             location = location,

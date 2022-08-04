@@ -12,14 +12,15 @@ import com.jdagnogo.welovemarathon.about.domain.SocialMedia
 
 @Keep
 @Entity(tableName = AboutEntity.TABLE)
-class AboutEntity (
-    @PrimaryKey val id : String,
+class AboutEntity(
+    @PrimaryKey val id: String,
     val members: List<Member>,
     val socialMedias: List<SocialMedia>,
     val photos: List<String>,
     val mail: String = "",
-    val phone: String ="",
-){
+    val phone: String = "",
+    val policy: String = "",
+) {
 
     fun toAbout(): About {
         return About(
@@ -27,7 +28,8 @@ class AboutEntity (
             socialMedias = socialMedias,
             photos = photos,
             mail = mail,
-            phone = phone
+            phone = phone,
+            policy = policy,
         )
     }
 
