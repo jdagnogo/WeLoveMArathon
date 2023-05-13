@@ -24,7 +24,6 @@ import androidx.compose.ui.window.Dialog
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.component.CarouselWithPreview
 import com.jdagnogo.welovemarathon.common.ui.component.ContactComponent
-import com.jdagnogo.welovemarathon.common.ui.component.HorizontalCarousel
 import com.jdagnogo.welovemarathon.common.ui.theme.*
 import com.jdagnogo.welovemarathon.common.utils.redirectToLink
 import com.jdagnogo.welovemarathon.common.utils.redirectToPhone
@@ -61,7 +60,7 @@ fun RecommendedCategoryDetailsDialogContent(
             val images = remember { item.images }
             CarouselWithPreview(
                 urls = images,
-                bigImages = images,
+                bigImages = item.bigImages,
                 modifier = Modifier.padding(bottom = MaterialTheme.spacing.medium)
             )
             Row(
