@@ -1,6 +1,7 @@
 package com.jdagnogo.welovemarathon.wine.domain
 
 import androidx.annotation.Keep
+import com.jdagnogo.welovemarathon.common.domain.ImageList
 import com.jdagnogo.welovemarathon.wine.data.WineryInfoEntity
 
 @Keep
@@ -23,15 +24,15 @@ data class WineryInfo(
             id = id,
             title = title,
             description = description,
-            wines = wines,
+            wines = Wines(wines),
             usefulInfos = usefulInfos,
             location = location,
             wineMoreInfo = wineMoreInfo,
             moreInfo = moreInfo,
             tourInfos = tourInfos,
             locationLink = locationLink,
-            images = images,
-            bigImages = bigImages,
+            images = ImageList(images),
+            bigImages = ImageList(bigImages),
         )
     }
 }

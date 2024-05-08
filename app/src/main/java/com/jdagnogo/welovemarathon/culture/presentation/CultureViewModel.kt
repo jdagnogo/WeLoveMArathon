@@ -45,6 +45,8 @@ class CultureViewModel @Inject constructor(
                 val partialState = CulturePartialState.OnRecommendedDialog(item = item)
                 _state.value = reducer.reduce(state.value, partialState)
             }
+
+            CultureUiEvent.OnRecommendedDialogClosed -> {}
         }
     }
 

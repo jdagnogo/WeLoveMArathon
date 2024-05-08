@@ -1,18 +1,19 @@
 
 buildscript {
     ext {
-        compose_version = '1.1.1'
+        compose_version = '1.6.7'
+        kotlin_version = '1.9.23'
     }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:7.0.0"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
-        classpath 'com.google.gms:google-services:4.3.5'
+        classpath 'com.android.tools.build:gradle:8.1.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
+        classpath 'com.google.gms:google-services:4.4.1'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.0'
-        classpath("com.google.dagger:hilt-android-gradle-plugin:2.38.1")
+        classpath('com.google.dagger:hilt-android-gradle-plugin:2.51.1')
     }
 }
 

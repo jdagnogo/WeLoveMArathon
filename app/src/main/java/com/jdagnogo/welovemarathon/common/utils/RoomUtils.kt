@@ -3,32 +3,37 @@ package com.jdagnogo.welovemarathon.common.utils
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.jdagnogo.welovemarathon.about.domain.Member
-import com.jdagnogo.welovemarathon.about.domain.SocialMedia
-import com.jdagnogo.welovemarathon.wine.domain.Wine
+import com.jdagnogo.welovemarathon.about.domain.Members
+import com.jdagnogo.welovemarathon.about.domain.SocialMedias
+import com.jdagnogo.welovemarathon.common.domain.ImageList
+import com.jdagnogo.welovemarathon.wine.domain.Wines
 
 class Converters {
     @TypeConverter
-    fun listToJson(value: List<String>?) = Gson().toJson(value)
+    fun convertImageListToJSONString(invoiceList: ImageList): String = Gson().toJson(invoiceList)
 
     @TypeConverter
-    fun jsonToList(value: String) = Gson().fromJson(value, Array<String>::class.java).toList()
+    fun convertJSONStringToImageList(jsonString: String): ImageList =
+        Gson().fromJson(jsonString, ImageList::class.java)
 
     @TypeConverter
-    fun socialMediasToJson(value: List<SocialMedia>?) = Gson().toJson(value)
+    fun winesToString(wines: Wines): String = Gson().toJson(wines)
 
     @TypeConverter
-    fun jsonTosocialMedias(value: String) =
-        Gson().fromJson(value, Array<SocialMedia>::class.java).toList()
+    fun stringToWines(jsonString: String): Wines =
+        Gson().fromJson(jsonString, Wines::class.java)
 
     @TypeConverter
-    fun membersToJson(value: List<Member>?) = Gson().toJson(value)
+    fun socialMediaToString(data: SocialMedias): String = Gson().toJson(data)
 
     @TypeConverter
-    fun jsonToMembers(value: String) = Gson().fromJson(value, Array<Member>::class.java).toList()
+    fun stringToSocialMedia(data: String): SocialMedias =
+        Gson().fromJson(data, SocialMedias::class.java)
 
     @TypeConverter
-    fun winesToJson(value: List<Wine>?) = Gson().toJson(value)
+    fun memberToString(data: Members): String = Gson().toJson(data)
 
     @TypeConverter
-    fun jsonToWines(value: String) = Gson().fromJson(value, Array<Wine>::class.java).toList()
+    fun stringToSocialMember(data: String): Members =
+        Gson().fromJson(data, Members::class.java)
 }

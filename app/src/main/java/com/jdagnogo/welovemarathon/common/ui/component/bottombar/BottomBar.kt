@@ -62,7 +62,6 @@ fun BottomBarPreview() {
                 tabs = arrayOf(
                     HomeSections.HOME,
                     HomeSections.FAVORITES,
-                    HomeSections.TIPS,
                     HomeSections.ABOUT
                 ),
                 currentRoute = HomeSections.ABOUT.route,

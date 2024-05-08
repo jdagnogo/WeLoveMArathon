@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 import com.google.firebase.firestore.GeoPoint
 import com.jdagnogo.welovemarathon.activities.data.ActivitiesEntity.Companion.TABLE
 import com.jdagnogo.welovemarathon.activities.domain.Activities
+import com.jdagnogo.welovemarathon.common.domain.ImageList
 
 @Keep
 @Entity(tableName = TABLE)
@@ -17,8 +18,8 @@ data class ActivitiesEntity(
     val locationLink: String = "",
     val number: String = "",
     val description: String = "",
-    var images: List<String> = emptyList(),
-    var bigImages: List<String> = emptyList(),
+    var images: ImageList,
+    var bigImages: ImageList,
     val category: String = "",
     val isRecommended: Boolean = false,
     var tags: String = "",
@@ -36,8 +37,8 @@ data class ActivitiesEntity(
             locationLink = locationLink,
             number = number,
             description = description,
-            images = images,
-            bigImages = bigImages,
+            images = images.images,
+            bigImages = bigImages.images,
             isRecommended = isRecommended,
             category = category,
             tags = tags,

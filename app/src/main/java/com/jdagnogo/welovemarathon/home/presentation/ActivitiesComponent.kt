@@ -1,7 +1,6 @@
 package com.jdagnogo.welovemarathon.home.presentation
 
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -11,14 +10,13 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,9 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
-import com.jdagnogo.welovemarathon.common.ui.theme.ActivitySubTitleStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.ActivityTitleStyle
-import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 import com.jdagnogo.welovemarathon.home.domain.Activities
 
@@ -43,7 +39,7 @@ fun ActivitiesGridComponent(
 ) {
     Column(modifier = modifier) {
         LazyVerticalGrid(
-            cells = GridCells.Fixed(2),
+            columns = GridCells.Fixed(2),
             contentPadding = PaddingValues(
                 start = MaterialTheme.spacing.medium,
                 end = MaterialTheme.spacing.medium,
@@ -82,7 +78,7 @@ fun ActivityItem(
             modifier = modifier
                 .fillMaxSize()
                 .background(color = activities.backgroundColor)
-                .padding( horizontal = MaterialTheme.spacing.medium)
+                .padding(horizontal = MaterialTheme.spacing.medium)
                 .padding(vertical = MaterialTheme.spacing.medium)
         ) {
             Image(
@@ -93,7 +89,7 @@ fun ActivityItem(
                         error(R.drawable.ic_wlm_logo)
                     }
                 ),
-                colorFilter= ColorFilter.tint(Color.White),
+                colorFilter = ColorFilter.tint(Color.White),
                 contentDescription = activities.title,
                 modifier = Modifier.size(70.dp)
             )

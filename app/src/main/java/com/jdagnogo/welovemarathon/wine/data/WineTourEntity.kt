@@ -3,6 +3,7 @@ package com.jdagnogo.welovemarathon.wine.data
 import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.jdagnogo.welovemarathon.common.domain.ImageList
 import com.jdagnogo.welovemarathon.wine.domain.WineTour
 
 @Keep
@@ -11,7 +12,7 @@ data class WineTourEntity(
     @PrimaryKey val id: String,
     val name: String,
     val icon: String,
-    val images: List<String>,
+    var images: ImageList,
     val description: String,
     val pack: String,
     val link: String,
@@ -25,7 +26,7 @@ data class WineTourEntity(
             icon = icon,
             pack = pack,
             link = link,
-            images = images,
+            images = images.images,
             description = description,
             hour = hour,
             ordinal = ordinal

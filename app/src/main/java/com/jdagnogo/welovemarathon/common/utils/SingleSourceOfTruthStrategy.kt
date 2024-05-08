@@ -32,6 +32,8 @@ fun <T, A> resourceAsFlow(
             }
             is Resource.Loading -> {
             }
+
+            else -> {}
         }
     } else {
         emitAll(fetchFromLocal().map { dbData ->

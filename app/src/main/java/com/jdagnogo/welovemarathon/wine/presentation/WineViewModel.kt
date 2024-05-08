@@ -78,7 +78,7 @@ class WineViewModel @Inject constructor(
 
     override fun dispatchEvent(event: WineUiEvent) {
         when (event) {
-
+            else -> {}
         }
     }
 }

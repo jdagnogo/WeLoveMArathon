@@ -7,6 +7,7 @@ import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.beach.domain.BeachBar
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
+import com.jdagnogo.welovemarathon.common.domain.ImageList
 import com.jdagnogo.welovemarathon.food.data.FoodEntity
 import com.jdagnogo.welovemarathon.map.domain.MapItem
 
@@ -37,8 +38,8 @@ data class Food(
             locationLink = locationLink,
             number = number,
             description = description,
-            images = images,
-            bigImages = bigImages,
+            images = ImageList(images),
+            bigImages = ImageList(bigImages),
             isRecommended = isRecommended,
             category = category,
             tags = tags,
