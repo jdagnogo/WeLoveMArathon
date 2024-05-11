@@ -45,8 +45,7 @@ fun BottomBar(
         ) {
             tabs.forEach { section ->
                 val isSelected = section == currentSection
-                BottomNavItem(section = section, isSelected = isSelected,
-                    onItemClicked = { navigateToRoute(section.route) })
+
             }
         }
     }

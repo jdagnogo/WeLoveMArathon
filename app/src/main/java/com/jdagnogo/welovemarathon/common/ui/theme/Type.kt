@@ -171,6 +171,13 @@ val wineDescription = TextStyle(
     fontSize = 16.sp
 )
 
+val descriptionStyle = TextStyle(
+    fontFamily = normal_font,
+    fontWeight = FontWeight.Normal,
+    color = White,
+    fontSize = 14.sp
+)
+
 val emptyScreenSubTitle = TextStyle(
     fontFamily = normal_font,
     fontWeight = FontWeight.Normal,

@@ -35,6 +35,7 @@ import com.jdagnogo.welovemarathon.common.utils.conditional
 fun ContactComponent(
     icon: Int = R.drawable.ic_location,
     text: String = "",
+    textColor: Color = Color.White,
     style: TextStyle = contactStyle,
     iconSize: Dp = 32.dp,
     tint : Color = Secondary,
@@ -65,6 +66,7 @@ fun ContactComponent(
             Text(
                 text = text,
                 maxLines = 2,
+                color = textColor,
                 style = style,
                 modifier = Modifier
                     .padding(start = 16.dp)

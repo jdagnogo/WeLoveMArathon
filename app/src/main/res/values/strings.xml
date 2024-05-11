@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">WeLoveMarathon</string>
+    <string name="food">Food</string>
+    <string name="filter">Filters</string>
+    <string name="amenitiesTitle">Amenities</string>
+    <string name="typeOf">Type of</string>
 </resources>

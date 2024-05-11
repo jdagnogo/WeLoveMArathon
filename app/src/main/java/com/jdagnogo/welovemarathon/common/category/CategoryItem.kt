@@ -23,4 +23,11 @@ data class CategoryItem(
             parentIcon = parentIcon
         )
     }
+    fun toFakeCategoryItemList() = listOf(
+        CategoryItem("id", "name", tags = "#toto #titi"),
+        CategoryItem("id2", "name", tags = "#toto #titi"),
+        CategoryItem("id3", "name", tags = "#toto #titi"),
+        CategoryItem("id4", "name", tags = "#toto #titi"),
+        CategoryItem("id5", "name", tags = "#toto #titi"),
+    )
 }

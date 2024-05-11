@@ -73,8 +73,6 @@ fun RecommendedCategoryComponent(
     }
 }
 
-@ExperimentalMaterialApi
-@ExperimentalAnimationApi
 @Composable
 fun RecommendedCategoryContent(
     item: RecommendedCategoryDetails,

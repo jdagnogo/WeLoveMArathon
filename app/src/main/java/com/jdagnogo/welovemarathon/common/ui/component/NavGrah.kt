@@ -10,10 +10,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModelStoreOwner
-import androidx.navigation.*
+import androidx.navigation.NavController
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import androidx.navigation.navigation
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.about.presentation.AboutScreen
@@ -37,15 +41,16 @@ import com.jdagnogo.welovemarathon.home.presentation.HomeScreen
 import com.jdagnogo.welovemarathon.home.presentation.HomeViewModel
 import com.jdagnogo.welovemarathon.map.presentation.MapScreen
 import com.jdagnogo.welovemarathon.map.viewmodel.MapViewModel
-import com.jdagnogo.welovemarathon.run.RunScreen
+import com.jdagnogo.welovemarathon.restaurant.presentation.filter.FilterScreen
+import com.jdagnogo.welovemarathon.restaurant.presentation.RestaurantDetailsScreen
+import com.jdagnogo.welovemarathon.restaurant.presentation.RestaurantScreen
+import com.jdagnogo.welovemarathon.restaurant.presentation.RestaurantViewModel
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingMenuScreen
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingScreen
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingViewModel
 import com.jdagnogo.welovemarathon.splash.SplashScreen
 import com.jdagnogo.welovemarathon.sport.presentation.SportScreen
 import com.jdagnogo.welovemarathon.sport.presentation.SportViewModel
-import com.jdagnogo.welovemarathon.tips.presentation.TipsScreen
-import com.jdagnogo.welovemarathon.tips.presentation.TipsViewModel
 import com.jdagnogo.welovemarathon.wine.presentation.WineScreen
 import com.jdagnogo.welovemarathon.wine.presentation.WineViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -126,6 +131,24 @@ fun NavGraphBuilder.wlmNavGraph(
         FoodScreen(viewModel, navController)
     }
 
+    composable(MainDestinations.Restaurant.route) {
+        val viewModel =
+            hiltViewModel<RestaurantViewModel>(viewModelStoreOwner = viewModelStoreOwner)
+        RestaurantScreen(viewModel, navController)
+    }
+
+    composable(MainDestinations.RestaurantFilter.route) {
+        val viewModel =
+            hiltViewModel<RestaurantViewModel>(viewModelStoreOwner = viewModelStoreOwner)
+        FilterScreen(viewModel, navController)
+    }
+
+    composable(MainDestinations.RestaurantDetails.route) {
+        val viewModel =
+            hiltViewModel<RestaurantViewModel>(viewModelStoreOwner = viewModelStoreOwner)
+        RestaurantDetailsScreen(viewModel, navController)
+    }
+
     composable(MainDestinations.ActivitiesSubMenu.route) {
         val viewModel =
             hiltViewModel<ActivitiesViewModel>(viewModelStoreOwner = viewModelStoreOwner)
@@ -202,6 +225,9 @@ enum class HomeSections(
 sealed class MainDestinations(val route: String) {
     object Home : MainDestinations("home")
     object Food : MainDestinations("food")
+    object Restaurant : MainDestinations("restaurant")
+    object RestaurantFilter : MainDestinations("restaurantFilter")
+    object RestaurantDetails : MainDestinations("restaurantDetails")
     object Activities : MainDestinations("activities")
     object ShoppingSubMenu : MainDestinations("shoppingSubMenu")
     object FoodSubMenu : MainDestinations("foodSubMenu")

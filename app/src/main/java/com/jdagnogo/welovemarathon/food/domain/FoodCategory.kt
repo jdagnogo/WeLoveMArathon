@@ -11,6 +11,11 @@ data class FoodCategory(
     val icon: String = "",
     val ordinal: Int = 0,
 ) {
+    companion object {
+        const val ALL = "all"
+        val allCategory = FoodCategory(name = ALL, ordinal = 99)
+    }
+
     fun toCategoryEntity(): FoodCategoryEntity {
         return FoodCategoryEntity(
             name, icon, ordinal
@@ -31,4 +36,11 @@ data class FoodCategory(
             key = name,
         )
     }
+
+    fun toFakeFoodCategoryList() = listOf(
+        FoodCategory(name = "Fefref", icon = "litora", ordinal = 0),
+        FoodCategory(name = "Ferdinand", icon = "litora", ordinal = 1),
+        FoodCategory(name = "Huff", icon = "litora", ordinal = 2),
+        FoodCategory(name = "Ftotof", icon = "litora", ordinal = 4),
+    )
 }
