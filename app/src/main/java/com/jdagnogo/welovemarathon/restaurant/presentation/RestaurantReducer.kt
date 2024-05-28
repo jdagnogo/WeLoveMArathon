@@ -28,9 +28,9 @@ class RestaurantReducer : IReducer<RestaurantState, RestaurantPartialState> {
                 )
             }
 
-            is RestaurantPartialState.OnFoodsSuccess -> {
+            is RestaurantPartialState.OnRestaurantsSuccess -> {
                 state.copy(
-                    recommendedItems = partialState.recommendedItems,
+                    items = partialState.restaurants,
                 )
             }
 

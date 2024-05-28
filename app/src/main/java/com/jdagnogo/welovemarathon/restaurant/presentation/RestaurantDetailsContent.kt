@@ -135,10 +135,7 @@ private fun RestaurantDetailsContentPreview() {
             currentCategorySelected = itemSelected,
             categories = FoodCategory().toFakeFoodCategoryList().plus(itemSelected),
             foods = CategoryItem().toFakeCategoryItemList(),
-            recommendedItems = listOf(
-                RecommendedCategoryDetailsFake,
-                RecommendedCategoryDetailsFake.copy(id = "2"),
-                RecommendedCategoryDetailsFake.copy(id = "3"),
+            items = listOf(
             ),
             currentRestaurantSelected = Restaurant(
                 id = "id",

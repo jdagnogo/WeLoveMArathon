@@ -2,7 +2,6 @@
 
 package com.jdagnogo.welovemarathon.restaurant.presentation.sections
 
-import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -14,13 +13,13 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryContent
-import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
+import com.jdagnogo.welovemarathon.restaurant.domain.Restaurant
 
 @Composable
 fun RestaurantSection(
     modifier: Modifier = Modifier,
-    items: List<RecommendedCategoryDetails>,
+    items: List<Restaurant>,
     onRecommendedSelected: (String) -> Unit,
 ) {
     LazyVerticalGrid(
@@ -35,12 +34,12 @@ fun RestaurantSection(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         modifier = modifier
     ) {
-        itemsIndexed(items) { _, category ->
+        itemsIndexed(items) { _, restaurant ->
             RecommendedCategoryContent(
                 modifier = Modifier.animateItemPlacement(
                     tween(durationMillis = 250)
                 ),
-                item = category,
+                item = restaurant.toRecommendedCategoryDetails(),
                 onRecommendedSelected = onRecommendedSelected
             )
         }

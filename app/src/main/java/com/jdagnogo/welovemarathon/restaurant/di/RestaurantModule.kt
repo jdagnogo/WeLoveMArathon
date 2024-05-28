@@ -4,16 +4,15 @@ import com.jdagnogo.welovemarathon.common.banner.GetBannerUseCase
 import com.jdagnogo.welovemarathon.common.data.WLMDatabase
 import com.jdagnogo.welovemarathon.common.domain.DataFreshnessUseCase
 import com.jdagnogo.welovemarathon.common.like.domain.FavUseCase
-import com.jdagnogo.welovemarathon.food.data.FoodDao
-import com.jdagnogo.welovemarathon.food.data.FoodData
-import com.jdagnogo.welovemarathon.food.data.FoodMapper
-import com.jdagnogo.welovemarathon.food.data.FoodRemoteData
-import com.jdagnogo.welovemarathon.food.data.FoodRepository
-import com.jdagnogo.welovemarathon.food.domain.FoodUseCase
 import com.jdagnogo.welovemarathon.food.domain.GetFoodCategoriesUseCase
-import com.jdagnogo.welovemarathon.food.domain.GetFoodTagUseCase
-import com.jdagnogo.welovemarathon.food.domain.GetFoodUseCase
-import com.jdagnogo.welovemarathon.food.presentation.FoodReducer
+import com.jdagnogo.welovemarathon.restaurant.data.RestaurantDao
+import com.jdagnogo.welovemarathon.restaurant.data.RestaurantData
+import com.jdagnogo.welovemarathon.restaurant.data.RestaurantMapper
+import com.jdagnogo.welovemarathon.restaurant.data.RestaurantRemoteData
+import com.jdagnogo.welovemarathon.restaurant.data.RestaurantRepository
+import com.jdagnogo.welovemarathon.restaurant.domain.GetRestaurantUseCase
+import com.jdagnogo.welovemarathon.restaurant.domain.RestaurantUseCase
+import com.jdagnogo.welovemarathon.restaurant.presentation.RestaurantReducer
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,65 +21,51 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object FoodModule {
+object RestaurantModule {
+
 
     @Provides
     @Singleton
-    fun provideGetFoodUseCase(
-        repository: FoodRepository,
-    ): GetFoodUseCase {
-        return GetFoodUseCase(repository)
+    fun provideGetRestaurantUseCase(
+        repository: RestaurantRepository,
+    ): GetRestaurantUseCase {
+        return GetRestaurantUseCase(repository)
     }
 
-    @Provides
-    @Singleton
-    fun provideGetFoodTagUseCase(
-        repository: FoodRepository,
-    ): GetFoodTagUseCase {
-        return GetFoodTagUseCase(repository)
-    }
 
     @Provides
     @Singleton
-    fun provideFoodData(
-        foodDao: FoodDao,
-        foodRemoteData: FoodRemoteData,
-        foodMapper: FoodMapper,
+    fun provideRestaurantData(
+        foodDao: RestaurantDao,
+        foodRemoteData: RestaurantRemoteData,
+        foodMapper: RestaurantMapper,
         dataFreshnessUseCase: DataFreshnessUseCase,
-    ) = FoodData(foodDao, foodRemoteData, dataFreshnessUseCase, foodMapper)
+    ) = RestaurantData(foodDao, foodRemoteData, dataFreshnessUseCase, foodMapper)
 
     @Provides
     @Singleton
-    fun provideFoodMapper(): FoodMapper {
-        return FoodMapper()
+    fun provideRestaurantMapper(): RestaurantMapper {
+        return RestaurantMapper()
     }
 
     @Singleton
     @Provides
-    fun provideFoodDao(db: WLMDatabase): FoodDao = db.getFoodDao()
+    fun provideRestaurantDao(db: WLMDatabase): RestaurantDao = db.getRestaurantDao()
 
     @Provides
     @Singleton
-    fun provideFoodUseCase(
-        getFoodUseCase: GetFoodUseCase,
+    fun provideRestaurantUseCase(
+        getRestaurantUseCase: GetRestaurantUseCase,
         getFoodCategoriesUseCase: GetFoodCategoriesUseCase,
-        getFoodTagUseCase: GetFoodTagUseCase,
-        getBannerUseCase: GetBannerUseCase,
         favUseCase: FavUseCase,
-    ) = FoodUseCase(
-        getFoodUseCase = getFoodUseCase,
+    ) = RestaurantUseCase(
+        getRestaurantUseCase = getRestaurantUseCase,
         getFoodCategoriesUseCase = getFoodCategoriesUseCase,
-        getBannerUseCase = getBannerUseCase,
-        getFoodTagUseCase = getFoodTagUseCase,
         favUseCase = favUseCase,
     )
 
     @Provides
     @Singleton
-    fun provideFoodReducer() = FoodReducer()
+    fun provideRestaurantReducer() = RestaurantReducer()
 
-    @Provides
-    @Singleton
-    fun provideGetFoodCategoriesUseCase(repository: FoodRepository) =
-        GetFoodCategoriesUseCase(repository)
 }

@@ -58,7 +58,7 @@ fun RestaurantContent(
 
             RestaurantSection(
                 modifier = Modifier.padding(horizontal = 16.dp),
-                items = state.recommendedItems,
+                items = state.items,
                 onRecommendedSelected = onRecommendedSelected
             )
         }
@@ -79,10 +79,8 @@ private fun RestaurantContentPreview() {
             currentCategorySelected = itemSelected,
             categories = FoodCategory().toFakeFoodCategoryList().plus(itemSelected),
             foods = CategoryItem().toFakeCategoryItemList(),
-            recommendedItems = listOf(
-                RecommendedCategoryDetailsFake,
-                RecommendedCategoryDetailsFake.copy(id = "2"),
-                RecommendedCategoryDetailsFake.copy(id = "3"),
+            items = listOf(
+
             )
 
         )

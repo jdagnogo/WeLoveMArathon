@@ -6,5 +6,5 @@ import androidx.annotation.Keep
 data class Plates(
     val name: String = "",
     val image: String = "",
-    val bigImage: String = "",
+    val bigImage: String = "",//do we need this ?
 )
