@@ -2,7 +2,7 @@ package com.jdagnogo.welovemarathon.about.domain
 
 import androidx.annotation.Keep
 import com.jdagnogo.welovemarathon.about.data.AboutEntity
-import com.jdagnogo.welovemarathon.common.domain.ImageList
+import com.jdagnogo.welovemarathon.common.domain.EntityStringList
 
 @Keep
 data class About(
@@ -18,7 +18,7 @@ data class About(
             id = "id",
             members = Members(members),
             socialMedias = SocialMedias(socialMedias),
-            photos = ImageList(photos),
+            photos = EntityStringList(photos),
             mail = mail,
             phone = phone,
             policy = policy,

@@ -18,7 +18,9 @@ import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -26,14 +28,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.component.HomeSections
+import com.jdagnogo.welovemarathon.common.ui.theme.ActivitySubTitleStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.BottomNavTitleStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.Primary
 import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryLight
 import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
+import com.jdagnogo.welovemarathon.common.ui.theme.White
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 
 @Composable
@@ -44,7 +49,8 @@ fun TypeOfItem(
     isSelected: Boolean,
     onItemClicked: () -> Unit = {},
 ) {
-    val color = Secondary.takeIf { isSelected } ?: Primary
+    val color = Secondary.takeIf { isSelected } ?: PrimaryLight
+    val textColor = Secondary.takeIf { isSelected } ?: Color.White
     val scale = if (isSelected) 1.3f else 1f
     val animatedScale: Float by animateFloatAsState(
         targetValue = scale,
@@ -55,6 +61,13 @@ fun TypeOfItem(
     )
     val animatedColor by animateColorAsState(
         targetValue = color,
+        animationSpec = TweenSpec(
+            durationMillis = 800,
+            easing = FastOutSlowInEasing
+        ), label = ""
+    )
+    val animatedTextColor by animateColorAsState(
+        targetValue = textColor,
         animationSpec = TweenSpec(
             durationMillis = 800,
             easing = FastOutSlowInEasing
@@ -77,7 +90,7 @@ fun TypeOfItem(
 
         Surface(
             shape = CircleShape,
-            modifier = Modifier.size(30.dp).scale(animatedScale),
+            modifier = Modifier.scale(animatedScale),
             content = {
                 Icon(
                     painter = rememberImagePainter(
@@ -88,17 +101,17 @@ fun TypeOfItem(
                         }
                     ),
                     contentDescription = name,
-                    tint = Color.White,
-                    modifier = modifier.background(color = animatedColor)
-                        .padding(4.dp)
+                    tint = White,
+                    modifier = modifier.background(color = animatedColor).size(56.dp)
+
                 )
             }
         )
 
         Text(
             text = name,
-            color = color,
-            style = BottomNavTitleStyle,
+            color = animatedTextColor,
+            style = ActivitySubTitleStyle.copy(fontSize = 10.sp),
             modifier = Modifier.padding(top = MaterialTheme.spacing.extraSmall)
         )
     }

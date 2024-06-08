@@ -3,7 +3,7 @@ package com.jdagnogo.welovemarathon.wine.data
 import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.jdagnogo.welovemarathon.common.domain.ImageList
+import com.jdagnogo.welovemarathon.common.domain.EntityStringList
 import com.jdagnogo.welovemarathon.wine.domain.WineryInfo
 import com.jdagnogo.welovemarathon.wine.domain.Wines
 
@@ -20,8 +20,8 @@ data class WineryInfoEntity(
     val wineMoreInfo: String = "",
     val moreInfo: String = "",
     val tourInfos: String = "",
-    var images: ImageList,
-    var bigImages: ImageList,
+    var images: EntityStringList,
+    var bigImages: EntityStringList,
 ) {
 
     fun toWineryInfo(): WineryInfo {
@@ -36,8 +36,8 @@ data class WineryInfoEntity(
             moreInfo = moreInfo,
             wineMoreInfo = wineMoreInfo,
             locationLink = locationLink,
-            images = images.images,
-            bigImages = bigImages.images,
+            images = images.data,
+            bigImages = bigImages.data,
         )
     }
 

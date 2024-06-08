@@ -28,6 +28,7 @@ enum class DataType(val timeType: Int, val value: Int) {
     WINE_SOCIAL(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
     WINE_INFO(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
     RESTAURANT(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
+    RESTAURANT_FILTER(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
     SPORT_CATEGORIES(Calendar.MINUTE, BuildConfig.EXPIRATION_IN_MINUTES),
 }
 

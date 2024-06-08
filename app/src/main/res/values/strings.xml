@@ -4,4 +4,8 @@
     <string name="filter">Filters</string>
     <string name="amenitiesTitle">Amenities</string>
     <string name="typeOf">Type of</string>
+    <string name="cuisine">Cuisine</string>
+    <string name="plates">Plates</string>
+    <string name="drinks">Drinks</string>
+    <string name="services">Services</string>
 </resources>

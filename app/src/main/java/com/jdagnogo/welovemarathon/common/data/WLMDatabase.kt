@@ -29,6 +29,7 @@ import com.jdagnogo.welovemarathon.food.data.FoodDao
 import com.jdagnogo.welovemarathon.food.data.FoodTagEntity
 import com.jdagnogo.welovemarathon.restaurant.data.RestaurantDao
 import com.jdagnogo.welovemarathon.restaurant.data.RestaurantEntity
+import com.jdagnogo.welovemarathon.restaurant.data.RestaurantFilterEntity
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingCategoryEntity
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingDao
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingEntity
@@ -70,8 +71,9 @@ import java.util.*
         WineryInfoEntity::class,
         AboutEntity::class,
         RestaurantEntity::class,
+        RestaurantFilterEntity::class,
         TipsEntity::class],
-    version = 6
+    version = 7
 )
 @TypeConverters(Converters::class)
 abstract class WLMDatabase : RoomDatabase() {

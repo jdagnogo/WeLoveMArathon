@@ -4,6 +4,7 @@ import com.jdagnogo.welovemarathon.common.domain.DataType
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.common.utils.resourceAsFlow
 import com.jdagnogo.welovemarathon.restaurant.domain.Restaurant
+import com.jdagnogo.welovemarathon.restaurant.domain.RestaurantFilter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,6 +15,7 @@ import javax.inject.Inject
 
 interface RestaurantRepository {
     val data: StateFlow<Resource<List<Restaurant>>>
+    val filters: StateFlow<Resource<List<RestaurantFilter>>>
 }
 
 class RestaurantRepositoryImpl @Inject constructor(
@@ -25,8 +27,14 @@ class RestaurantRepositoryImpl @Inject constructor(
     override val data: StateFlow<Resource<List<Restaurant>>>
         get() = _data
 
+    private val _filters: MutableStateFlow<Resource<List<RestaurantFilter>>> =
+        MutableStateFlow(Resource.Loading(listOf()))
+    override val filters: StateFlow<Resource<List<RestaurantFilter>>>
+        get() = _filters
+
     init {
         fetchData()
+        fetchFilter()
     }
 
     private fun fetchData(forceFetch: Boolean = false) {
@@ -44,6 +52,26 @@ class RestaurantRepositoryImpl @Inject constructor(
 
                 categories.collectLatest {
                     _data.value = it
+                }
+            }
+        }
+    }
+
+    private fun fetchFilter(forceFetch: Boolean = false) {
+        coroutineScope.launch {
+            with(foodData) {
+                val categories = resourceAsFlow(
+                    forceFetch = forceFetch,
+                    fetchFromLocal = { dao.getAllFilter().map { mapper.toDomainFilter(it) } },
+                    networkCall = { remoteData.getFilter() },
+                    saveCallResource = { sports ->
+                        val sportEntities = mapper.toEntitiesFilter(sports)
+                        dao.updateFilter(sportEntities)
+                    },
+                    checkDataFreshness = { dataFreshnessUseCase.isDataFresh(DataType.RESTAURANT_FILTER) })
+
+                categories.collectLatest {
+                    _filters.value = it
                 }
             }
         }

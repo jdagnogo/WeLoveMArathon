@@ -2,25 +2,22 @@ package com.jdagnogo.welovemarathon.common.utils
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import com.jdagnogo.welovemarathon.about.domain.Member
 import com.jdagnogo.welovemarathon.about.domain.Members
 import com.jdagnogo.welovemarathon.about.domain.SocialMedias
-import com.jdagnogo.welovemarathon.common.domain.ImageList
+import com.jdagnogo.welovemarathon.common.domain.EntityStringList
 import com.jdagnogo.welovemarathon.restaurant.data.AmenitiesList
+import com.jdagnogo.welovemarathon.restaurant.data.IconNameFilterList
 import com.jdagnogo.welovemarathon.restaurant.data.PlatesList
 import com.jdagnogo.welovemarathon.restaurant.data.RestaurantServiceList
-import com.jdagnogo.welovemarathon.restaurant.domain.Amenities
-import com.jdagnogo.welovemarathon.restaurant.domain.Plates
-import com.jdagnogo.welovemarathon.restaurant.domain.RestaurantService
 import com.jdagnogo.welovemarathon.wine.domain.Wines
 
 class Converters {
     @TypeConverter
-    fun convertImageListToJSONString(invoiceList: ImageList): String = Gson().toJson(invoiceList)
+    fun convertImageListToJSONString(invoiceList: EntityStringList): String = Gson().toJson(invoiceList)
 
     @TypeConverter
-    fun convertJSONStringToImageList(jsonString: String): ImageList =
-        Gson().fromJson(jsonString, ImageList::class.java)
+    fun convertJSONStringToImageList(jsonString: String): EntityStringList =
+        Gson().fromJson(jsonString, EntityStringList::class.java)
 
     @TypeConverter
     fun winesToString(wines: Wines): String = Gson().toJson(wines)
@@ -35,6 +32,13 @@ class Converters {
     @TypeConverter
     fun stringToAmenties(jsonString: String): AmenitiesList =
         Gson().fromJson(jsonString, AmenitiesList::class.java)
+
+    @TypeConverter
+    fun iconNameFilterListToString(data: IconNameFilterList): String = Gson().toJson(data)
+
+    @TypeConverter
+    fun stringToIconNameFilterList(jsonString: String): IconNameFilterList =
+        Gson().fromJson(jsonString, IconNameFilterList::class.java)
 
     @TypeConverter
     fun platesToString(plates: PlatesList): String = Gson().toJson(plates)

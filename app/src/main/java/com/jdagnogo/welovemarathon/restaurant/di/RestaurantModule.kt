@@ -10,6 +10,7 @@ import com.jdagnogo.welovemarathon.restaurant.data.RestaurantData
 import com.jdagnogo.welovemarathon.restaurant.data.RestaurantMapper
 import com.jdagnogo.welovemarathon.restaurant.data.RestaurantRemoteData
 import com.jdagnogo.welovemarathon.restaurant.data.RestaurantRepository
+import com.jdagnogo.welovemarathon.restaurant.domain.GetRestaurantFilterUseCase
 import com.jdagnogo.welovemarathon.restaurant.domain.GetRestaurantUseCase
 import com.jdagnogo.welovemarathon.restaurant.domain.RestaurantUseCase
 import com.jdagnogo.welovemarathon.restaurant.presentation.RestaurantReducer
@@ -23,13 +24,20 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object RestaurantModule {
 
-
     @Provides
     @Singleton
     fun provideGetRestaurantUseCase(
         repository: RestaurantRepository,
     ): GetRestaurantUseCase {
         return GetRestaurantUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetRestaurantFilterUseCase(
+        repository: RestaurantRepository,
+    ): GetRestaurantFilterUseCase {
+        return GetRestaurantFilterUseCase(repository)
     }
 
 
@@ -57,10 +65,12 @@ object RestaurantModule {
     fun provideRestaurantUseCase(
         getRestaurantUseCase: GetRestaurantUseCase,
         getFoodCategoriesUseCase: GetFoodCategoriesUseCase,
+        getRestaurantFilterUseCase: GetRestaurantFilterUseCase,
         favUseCase: FavUseCase,
     ) = RestaurantUseCase(
         getRestaurantUseCase = getRestaurantUseCase,
         getFoodCategoriesUseCase = getFoodCategoriesUseCase,
+        getRestaurantFilterUseCase = getRestaurantFilterUseCase,
         favUseCase = favUseCase,
     )
 

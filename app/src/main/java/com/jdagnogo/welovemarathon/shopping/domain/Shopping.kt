@@ -6,7 +6,7 @@ import com.google.firebase.firestore.GeoPoint
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
-import com.jdagnogo.welovemarathon.common.domain.ImageList
+import com.jdagnogo.welovemarathon.common.domain.EntityStringList
 import com.jdagnogo.welovemarathon.map.domain.MapItem
 import com.jdagnogo.welovemarathon.shopping.data.ShoppingEntity
 
@@ -35,8 +35,8 @@ data class Shopping(
             locationLink = locationLink,
             number = number,
             description = description,
-            images = ImageList( images),
-            bigImages = ImageList(bigImages),
+            images = EntityStringList( images),
+            bigImages = EntityStringList(bigImages),
             isRecommended = isRecommended,
             category = category,
             tags = tags,

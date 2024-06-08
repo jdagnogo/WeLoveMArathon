@@ -4,11 +4,9 @@ import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.firestore.GeoPoint
-import com.jdagnogo.welovemarathon.common.domain.ImageList
-import com.jdagnogo.welovemarathon.restaurant.domain.Amenities
-import com.jdagnogo.welovemarathon.restaurant.domain.Plates
+import com.jdagnogo.welovemarathon.common.domain.EntityStringList
 import com.jdagnogo.welovemarathon.restaurant.domain.Restaurant
-import com.jdagnogo.welovemarathon.restaurant.domain.RestaurantService
+
 @Keep
 @Entity(tableName = RestaurantEntity.TABLE)
 data class RestaurantEntity(
@@ -25,8 +23,8 @@ data class RestaurantEntity(
     val services: RestaurantServiceList,
     val plates: PlatesList,
     val amenities: AmenitiesList,
-    var images: ImageList,
-    var bigImages: ImageList,
+    var images: EntityStringList,
+    var bigImages: EntityStringList,
 ) {
 
     fun toRestaurant() : Restaurant{
@@ -43,8 +41,8 @@ data class RestaurantEntity(
             services = services.restaurantService,
             plates = plates.plates,
             amenities = amenities.amenities,
-            images = images.images,
-            bigImages = bigImages.images
+            images = images.data,
+            bigImages = bigImages.data
 
         )
     }

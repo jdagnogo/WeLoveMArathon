@@ -1,6 +1,9 @@
 package com.jdagnogo.welovemarathon.restaurant.domain
 
 import androidx.annotation.Keep
+import com.jdagnogo.welovemarathon.common.domain.EntityStringList
+import com.jdagnogo.welovemarathon.restaurant.data.IconNameFilterList
+import com.jdagnogo.welovemarathon.restaurant.data.RestaurantFilterEntity
 
 @Keep
 data class RestaurantFilter(
@@ -12,9 +15,22 @@ data class RestaurantFilter(
     val location : List<String> = listOf(),
     val prices : List<String> = listOf(),
 ) {
+    fun toRestaurantFilterEntity() : RestaurantFilterEntity{
+        return RestaurantFilterEntity(
+            typeOfFilters = IconNameFilterList(typeOfFilters),
+            services = IconNameFilterList(services),
+            cuisines = EntityStringList(cuisines),
+            plates = EntityStringList(plates),
+            drinks = EntityStringList(drinks),
+            location = EntityStringList(location),
+            prices = EntityStringList(prices)
+
+        )
+    }
 }
 @Keep
 data class IconNameFilter(
-    val name : String,
-    val icon : String,
+    val name : String = "",
+    val icon : String = "",
+    val ordinal : Int = 0,
 )

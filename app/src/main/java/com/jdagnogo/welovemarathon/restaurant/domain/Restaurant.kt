@@ -3,7 +3,7 @@ package com.jdagnogo.welovemarathon.restaurant.domain
 import androidx.annotation.Keep
 import com.google.firebase.firestore.GeoPoint
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
-import com.jdagnogo.welovemarathon.common.domain.ImageList
+import com.jdagnogo.welovemarathon.common.domain.EntityStringList
 import com.jdagnogo.welovemarathon.restaurant.data.AmenitiesList
 import com.jdagnogo.welovemarathon.restaurant.data.PlatesList
 import com.jdagnogo.welovemarathon.restaurant.data.RestaurantEntity
@@ -41,8 +41,8 @@ data class Restaurant(
             services = RestaurantServiceList(services),
             plates = PlatesList(plates),
             amenities = AmenitiesList(amenities),
-            images = ImageList(images),
-            bigImages = ImageList(bigImages)
+            images = EntityStringList(images),
+            bigImages = EntityStringList(bigImages)
         )
     }
 

@@ -7,7 +7,7 @@ import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.activities.data.ActivitiesEntity
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
-import com.jdagnogo.welovemarathon.common.domain.ImageList
+import com.jdagnogo.welovemarathon.common.domain.EntityStringList
 import com.jdagnogo.welovemarathon.map.domain.MapItem
 
 @Keep
@@ -43,8 +43,8 @@ data class Activities(
             longitude = coordinate?.longitude ?: 0.0,
             latitude = coordinate?.latitude ?: 0.0,
             isBeachBar = isBeachBar,
-            images = ImageList( images),
-            bigImages = ImageList(bigImages),
+            images = EntityStringList( images),
+            bigImages = EntityStringList(bigImages),
             parent = parent
         )
     }

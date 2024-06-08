@@ -8,5 +8,6 @@ import com.jdagnogo.welovemarathon.food.domain.GetFoodCategoriesUseCase
 data class RestaurantUseCase(
     val favUseCase: FavUseCase,
     val getRestaurantUseCase: GetRestaurantUseCase,
+    val getRestaurantFilterUseCase: GetRestaurantFilterUseCase,
     val getFoodCategoriesUseCase: GetFoodCategoriesUseCase,
 )

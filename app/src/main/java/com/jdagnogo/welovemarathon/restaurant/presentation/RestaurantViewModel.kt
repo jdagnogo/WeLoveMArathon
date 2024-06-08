@@ -30,6 +30,7 @@ class RestaurantViewModel @Inject constructor(
 
     init {
         fetchCategories()
+        fetchFilters()
         dispatchEvent(event = RestaurantUiEvent.OnCategoryClicked(ALL))
     }
 
@@ -39,6 +40,23 @@ class RestaurantViewModel @Inject constructor(
                 useCases.getFoodCategoriesUseCase.invoke(),
                 {
                     RestaurantPartialState.OnCategoriesSuccess(it)
+                },
+                RestaurantPartialState.Loading,
+                { RestaurantPartialState.Error("") },
+                {
+                    _state.value = reducer.reduce(state.value, it)
+                },
+                this
+            )
+        }
+    }
+
+    private fun fetchFilters() {
+        viewModelScope.launch {
+            handleResource(
+                useCases.getRestaurantFilterUseCase.invoke(),
+                {
+                    RestaurantPartialState.OnRestaurantFilterSuccess(it)
                 },
                 RestaurantPartialState.Loading,
                 { RestaurantPartialState.Error("") },
@@ -94,6 +112,15 @@ class RestaurantViewModel @Inject constructor(
                 val partialState = RestaurantPartialState.OnRestaurantReset
                 _state.value = reducer.reduce(state.value, partialState)
             }
+
+            RestaurantUiEvent.OnResetFilter -> {
+                val partialState = RestaurantPartialState.OnResetFilter
+                _state.value = reducer.reduce(state.value, partialState)
+            }
+            is RestaurantUiEvent.OnValidateFilter -> {
+                val partialState = RestaurantPartialState.OnValidateFilter(event.appliedFilter)
+                _state.value = reducer.reduce(state.value, partialState)
+            }
         }
     }
 
@@ -117,10 +144,13 @@ data class RestaurantState(
 sealed class RestaurantPartialState {
     data class Error(val message: String) : RestaurantPartialState()
     data object Loading : RestaurantPartialState()
+    data class OnValidateFilter(val filter: RestaurantAppliedFilter) : RestaurantPartialState()
+    data object OnResetFilter : RestaurantPartialState()
     data class OnCategoriesSelected(val data: FoodCategory) : RestaurantPartialState()
     data class OnRestaurantSelected(val data: Restaurant) : RestaurantPartialState()
     data object OnRestaurantReset : RestaurantPartialState()
     data class OnCategoriesSuccess(val data: List<FoodCategory>) : RestaurantPartialState()
+    data class OnRestaurantFilterSuccess(val data: List<RestaurantFilter>) : RestaurantPartialState()
 
     data class OnRestaurantsSuccess(val restaurants: List<Restaurant>) :
         RestaurantPartialState()
@@ -131,6 +161,8 @@ sealed class RestaurantUiEvent {
     data class OnCategoryClicked(val name: String) : RestaurantUiEvent()
     data class OnRestaurantClicked(val id: String) : RestaurantUiEvent()
     data object OnRestaurantReset : RestaurantUiEvent()
+    data class OnValidateFilter(val appliedFilter: RestaurantAppliedFilter) : RestaurantUiEvent()
+    data object OnResetFilter : RestaurantUiEvent()
     data class OnFilterClicked(val isVisible: Boolean) : RestaurantUiEvent()
     data class OnLikeClicked(val id: String) : RestaurantUiEvent()
 }

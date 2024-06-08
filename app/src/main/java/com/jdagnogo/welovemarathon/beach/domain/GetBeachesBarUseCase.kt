@@ -19,7 +19,7 @@ class GetBeachesBarUseCase @Inject constructor(
                     it.isBeachBar
                 }
             if (parent != null) {
-                result = result?.filter { it.parent == parent }
+                result = result?.filter { it.parent.trim() == parent }
             }
             val beaches = result?.sortedBy { it.name }?.toMutableList()?.map {
                 it.toBeachBar()
