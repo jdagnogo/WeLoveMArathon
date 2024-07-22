@@ -1,7 +1,6 @@
 package com.jdagnogo.welovemarathon.restaurant.presentation
 
 import com.jdagnogo.welovemarathon.common.utils.IReducer
-import com.jdagnogo.welovemarathon.restaurant.domain.RestaurantAppliedFilter
 
 class RestaurantReducer : IReducer<RestaurantState, RestaurantPartialState> {
     override fun reduce(
@@ -40,24 +39,20 @@ class RestaurantReducer : IReducer<RestaurantState, RestaurantPartialState> {
                     currentRestaurantSelected = null,
                 )
             }
+
             is RestaurantPartialState.OnRestaurantSelected -> {
                 state.copy(
                     currentRestaurantSelected = partialState.data,
                 )
             }
 
-            RestaurantPartialState.OnResetFilter -> {
-                state.copy(
-                    currentFilterApplied = RestaurantAppliedFilter(),
-                )
-            }
             is RestaurantPartialState.OnValidateFilter -> {
                 state.copy(
                     currentFilterApplied = partialState.filter,
                 )
             }
 
-            is RestaurantPartialState.OnRestaurantFilterSuccess ->{
+            is RestaurantPartialState.OnRestaurantFilterSuccess -> {
                 state.copy(
                     filter = partialState.data.first(),
                 )

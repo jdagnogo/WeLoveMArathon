@@ -12,11 +12,12 @@ data class RestaurantFilterEntity(
     @PrimaryKey val id: String = "",
     val typeOfFilters: IconNameFilterList,
     val services: IconNameFilterList,
-    val cuisines : EntityStringList,
-    val plates : EntityStringList,
-    val drinks : EntityStringList,
-    val location : EntityStringList,
-    val prices : EntityStringList,
+    val cuisines: EntityStringList,
+    val plates: EntityStringList,
+    val drinks: EntityStringList,
+    val location: EntityStringList,
+    val prices: EntityStringList,
+    val handicapAccess: Boolean,
 ) {
     fun toRestaurantFilter(): RestaurantFilter {
         return RestaurantFilter(
@@ -26,8 +27,8 @@ data class RestaurantFilterEntity(
             plates = plates.data,
             drinks = drinks.data,
             location = location.data,
-            prices = prices.data
-
+            prices = prices.data,
+            handicapAccess = handicapAccess,
         )
     }
 

@@ -26,6 +26,5 @@ fun FilterScreen(
             viewModel.dispatchEvent(RestaurantUiEvent.OnValidateFilter(it))
             navController.popBackStack()
         },
-        onResetPressed = { viewModel.dispatchEvent(RestaurantUiEvent.OnResetFilter) },
-        )
+    )
 }

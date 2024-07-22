@@ -14,10 +14,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -33,6 +29,8 @@ fun FilterRowComponent(
     modifier: Modifier = Modifier,
     title: String,
     data: List<String>,
+    filterApplied: Set<String>,
+    onItemClicked: (Pair<String, Boolean>) -> Unit = {},
 ) {
     Text(
         modifier = modifier.padding(horizontal = 16.dp),
@@ -47,12 +45,12 @@ fun FilterRowComponent(
         modifier = modifier
     ) {
         repeat(data.size) { index ->
-            var selected by remember { mutableStateOf(false) }
-            val textColor = Color.White.takeIf { selected } ?: PrimaryLight
+            val isSelected = filterApplied.contains(data[index])
+            val textColor = Color.White.takeIf { isSelected } ?: PrimaryLight
             FilterChip(
                 modifier = Modifier,
                 border = FilterChipDefaults.filterChipBorder(
-                    selected = selected,
+                    selected = isSelected,
                     enabled = true,
                     borderColor = Secondary,
                     selectedBorderColor = Color.White,
@@ -61,8 +59,8 @@ fun FilterRowComponent(
                     backgroundColor = Color.White,
                     selectedBackgroundColor = Secondary,
                 ),
-                onClick = { selected = !selected },
-                selected = selected,
+                onClick = { onItemClicked(data[index] to isSelected.not())  },
+                selected = isSelected,
             ) {
                 Text(
                     text = data[index],

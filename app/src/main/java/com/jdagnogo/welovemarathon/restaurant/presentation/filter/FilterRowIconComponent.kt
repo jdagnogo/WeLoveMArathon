@@ -21,7 +21,8 @@ fun FilterRowIconComponent(
     modifier: Modifier = Modifier,
     title: String,
     data: List<IconNameFilter>,
-    filterApplied: Set<String>
+    filterApplied: Set<String>,
+    onItemClicked: (Pair<String, Boolean>) -> Unit = {},
 ) {
     Text(
         modifier = modifier,
@@ -37,11 +38,12 @@ fun FilterRowIconComponent(
         modifier = Modifier
     ) {
         items(data.size) { index ->
+            val isSelected = filterApplied.contains(data[index].name)
             TypeOfItem(
                 icon = data[index].icon,
                 name = data[index].name,
-                isSelected = filterApplied.contains(data[index].name),
-                onItemClicked = { filterApplied.plus(data[index].name) }
+                isSelected = isSelected,
+                onItemClicked = { onItemClicked(data[index].name to isSelected.not()) }
             )
         }
     }
