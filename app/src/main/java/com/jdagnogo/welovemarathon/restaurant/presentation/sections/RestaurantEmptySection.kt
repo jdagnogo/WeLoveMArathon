@@ -65,7 +65,7 @@ fun RestaurantEmptySection(
                 modifier = modifier
                     .padding(top = MaterialTheme.spacing.huge)
             ) {
-                Text(text = "Go to categories")
+                Text(text = stringResource(id = R.string.settings))
             }
         }
     }

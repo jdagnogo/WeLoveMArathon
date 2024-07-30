@@ -51,7 +51,8 @@ fun RestaurantContent(
                 modifier = Modifier.padding(top = 16.dp),
                 onCategoryClicked = onCategoryClicked,
                 categories = state.allCategories,
-                currentSelected = state.currentCategorySelected
+                currentSelected = state.currentCategorySelected,
+                onRedirectToFilterClicked = onRedirectToFilterClicked,
             )
 
             DividerComponent(modifier = Modifier.padding(top = 16.dp), color = Color.White)
@@ -61,6 +62,7 @@ fun RestaurantContent(
                 items = state.items,
                 onRecommendedSelected = onRecommendedSelected,
                 onRedirectToFilterClicked = onRedirectToFilterClicked,
+                onLikeClicked = onLikeClicked,
             )
         }
     }

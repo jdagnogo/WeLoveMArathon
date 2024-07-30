@@ -19,8 +19,9 @@ class GetRestaurantUseCase @Inject constructor(
                 is Resource.Loading -> Resource.Loading()
                 is Resource.Success -> {
                     var allRestaurant = resource.data
-                    if (filter.typeOfFilters.isNotEmpty() && filter.typeOfFilters.contains(
-                            FoodCategory.ALL).not()) {
+                    if (filter.typeOfFilters.isNotEmpty()
+                        && filter.typeOfFilters.contains(FoodCategory.ALL).not()
+                        && filter.typeOfFilters.contains(FoodCategory.FAVS).not()) {
                         allRestaurant = allRestaurant?.filter { restaurant ->
                             restaurant.categories.any { filter.typeOfFilters.contains(it) }
                         }

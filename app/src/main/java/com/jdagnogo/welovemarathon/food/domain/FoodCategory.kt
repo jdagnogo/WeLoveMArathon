@@ -13,7 +13,10 @@ data class FoodCategory(
 ) {
     companion object {
         const val ALL = "all"
+        const val FAVS = "favs"
         val allCategory = FoodCategory(name = ALL, ordinal = 99)
+        val filterCategory = FoodCategory(name = "filter", ordinal = 98)
+        val likedCategory = FoodCategory(name = FAVS, ordinal = 97)
     }
 
     fun toCategoryEntity(): FoodCategoryEntity {

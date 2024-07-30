@@ -10,6 +10,7 @@ import com.jdagnogo.welovemarathon.common.utils.handleResourceWithFav
 import com.jdagnogo.welovemarathon.food.domain.FoodCategory
 import com.jdagnogo.welovemarathon.food.domain.FoodCategory.Companion.ALL
 import com.jdagnogo.welovemarathon.food.domain.FoodCategory.Companion.allCategory
+import com.jdagnogo.welovemarathon.food.domain.FoodCategory.Companion.likedCategory
 import com.jdagnogo.welovemarathon.restaurant.domain.Restaurant
 import com.jdagnogo.welovemarathon.restaurant.domain.RestaurantAppliedFilter
 import com.jdagnogo.welovemarathon.restaurant.domain.RestaurantFilter
@@ -76,7 +77,10 @@ class RestaurantViewModel @Inject constructor(
                     useCases.favUseCase.getAllFavUseCases(),
                     { it, favorites ->
                         RestaurantPartialState.OnRestaurantsSuccess(
-                            it
+                            it.map { restaurant -> restaurant.copy(isFavItem = favorites.any { fav -> fav.id == restaurant.id }) }
+                                .filter {
+                                    if (filter.typeOfFilters.contains(likedCategory.name)) it.isFavItem else true
+                                }
                         )
                     },
                     RestaurantPartialState.Loading,
@@ -103,7 +107,15 @@ class RestaurantViewModel @Inject constructor(
             }
 
             is RestaurantUiEvent.OnFilterClicked -> {}
-            is RestaurantUiEvent.OnLikeClicked -> {}
+            is RestaurantUiEvent.OnLikeClicked -> {
+                viewModelScope.launch {
+                    val activities = state.value.items.firstOrNull {
+                        it.id == event.id
+                    }?.toCategoryItem(true)
+                    useCases.favUseCase.updateFavUseCase(activities)
+                }
+            }
+
             is RestaurantUiEvent.OnRestaurantClicked -> {
                 val restaurant = state.value.items.firstOrNull { it.id == event.id } ?: return
                 val partialState = RestaurantPartialState.OnRestaurantSelected(restaurant)
@@ -136,7 +148,7 @@ data class RestaurantState(
     val filter: RestaurantFilter = RestaurantFilter(),
     val currentFilterApplied: RestaurantAppliedFilter = RestaurantAppliedFilter(),
 ) {
-    val allCategories = listOf(allCategory).plus(categories)
+    val allCategories = listOf(allCategory, likedCategory).plus(categories)
 }
 
 @Keep

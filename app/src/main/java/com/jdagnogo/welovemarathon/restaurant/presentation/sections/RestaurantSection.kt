@@ -22,6 +22,7 @@ fun RestaurantSection(
     items: List<Restaurant>,
     onRecommendedSelected: (String) -> Unit,
     onRedirectToFilterClicked: () -> Unit = {},
+    onLikeClicked: (String) -> Unit = {},
 ) {
     if (items.isEmpty()) {
         RestaurantEmptySection(modifier, onRedirectToFilterClicked = onRedirectToFilterClicked)
@@ -44,7 +45,9 @@ fun RestaurantSection(
                         tween(durationMillis = 250)
                     ),
                     item = restaurant.toRecommendedCategoryDetails(),
-                    onRecommendedSelected = onRecommendedSelected
+                    isFavorite = restaurant.isFavItem,
+                    onRecommendedSelected = onRecommendedSelected,
+                    onLikeClicked = onLikeClicked,
                 )
             }
         }

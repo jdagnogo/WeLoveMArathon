@@ -15,29 +15,20 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
-import com.jdagnogo.welovemarathon.common.ui.component.HomeSections
 import com.jdagnogo.welovemarathon.common.ui.theme.ActivitySubTitleStyle
-import com.jdagnogo.welovemarathon.common.ui.theme.BottomNavTitleStyle
-import com.jdagnogo.welovemarathon.common.ui.theme.Primary
 import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryLight
 import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
-import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 import com.jdagnogo.welovemarathon.common.ui.theme.White
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 
@@ -51,7 +42,7 @@ fun TypeOfItem(
 ) {
     val color = Secondary.takeIf { isSelected } ?: PrimaryLight
     val textColor = Secondary.takeIf { isSelected } ?: Color.White
-    val scale = if (isSelected) 1.3f else 1f
+    val scale = if (isSelected) 1.2f else 1f
     val animatedScale: Float by animateFloatAsState(
         targetValue = scale,
         animationSpec = TweenSpec(
@@ -75,11 +66,7 @@ fun TypeOfItem(
     )
     Column(
         modifier = modifier.clickable(
-            indication = rememberRipple(
-                bounded = false,
-                radius = 30.dp,
-                color = PrimaryLight
-            ),
+            indication = null,
             interactionSource = remember { MutableInteractionSource() }
         ) {
             onItemClicked()
@@ -102,7 +89,9 @@ fun TypeOfItem(
                     ),
                     contentDescription = name,
                     tint = White,
-                    modifier = modifier.background(color = animatedColor).size(56.dp)
+                    modifier = modifier
+                        .background(color = animatedColor)
+                        .size(56.dp)
 
                 )
             }
@@ -111,8 +100,8 @@ fun TypeOfItem(
         Text(
             text = name,
             color = animatedTextColor,
-            style = ActivitySubTitleStyle.copy(fontSize = 10.sp),
-            modifier = Modifier.padding(top = MaterialTheme.spacing.extraSmall)
+            style = ActivitySubTitleStyle.copy(fontSize = 12.sp),
+            modifier = Modifier.padding(top = MaterialTheme.spacing.small)
         )
     }
 }

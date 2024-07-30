@@ -27,7 +27,7 @@ fun FilterBooleanComponent(
     onCheckedChange: (Boolean) -> Unit,
 ) {
     Text(
-        modifier = modifier.padding(horizontal = 16.dp),
+        modifier = modifier,
         text = stringResource(id = R.string.access),
         style = SubTitleStyle.copy(fontSize = 18.sp),
     )

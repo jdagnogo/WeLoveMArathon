@@ -1,8 +1,6 @@
 package com.jdagnogo.welovemarathon.restaurant.presentation.sections
 
-import android.util.Log
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -34,6 +32,8 @@ import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 import com.jdagnogo.welovemarathon.food.domain.FoodCategory
 import com.jdagnogo.welovemarathon.food.domain.FoodCategory.Companion.allCategory
+import com.jdagnogo.welovemarathon.food.domain.FoodCategory.Companion.filterCategory
+import com.jdagnogo.welovemarathon.food.domain.FoodCategory.Companion.likedCategory
 
 
 @Composable
@@ -42,11 +42,10 @@ fun CategorySection(
     categories: List<FoodCategory>,
     currentSelected: FoodCategory,
     onCategoryClicked: (String) -> Unit = {},
+    onRedirectToFilterClicked: () -> Unit = {},
 ) {
-    Log.d("toto", "current selecte : " + currentSelected)
     LazyRow(
-        modifier = modifier
-            .fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         contentPadding = PaddingValues(
             start = MaterialTheme.spacing.huge,
@@ -57,6 +56,16 @@ fun CategorySection(
             Alignment.CenterHorizontally
         ),
     ) {
+        item {
+            RestaurantCategoryItem(
+                modifier = Modifier,
+                item = filterCategory,
+                isSelected = currentSelected.name == filterCategory.name,
+                onCategoryClicked = {
+                    onRedirectToFilterClicked()
+                }
+            )
+        }
         itemsIndexed(
             items = categories,
             key = { _: Int, item: FoodCategory -> item.name }

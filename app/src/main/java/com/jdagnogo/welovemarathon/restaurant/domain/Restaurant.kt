@@ -2,6 +2,8 @@ package com.jdagnogo.welovemarathon.restaurant.domain
 
 import androidx.annotation.Keep
 import com.google.firebase.firestore.GeoPoint
+import com.jdagnogo.welovemarathon.R
+import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
 import com.jdagnogo.welovemarathon.common.domain.EntityStringList
 import com.jdagnogo.welovemarathon.restaurant.data.AmenitiesList
@@ -31,6 +33,7 @@ data class Restaurant(
     val categories: List<String> = emptyList(),
     val drinks: List<String> = emptyList(),
     val bigImages: List<String> = emptyList(),
+    val isFavItem: Boolean = false,
 ) {
     fun toRestaurantEntity(): RestaurantEntity {
         return RestaurantEntity(
@@ -70,6 +73,18 @@ data class Restaurant(
             images = images,
             bigImages = bigImages,
             tags = ""
+        )
+    }
+
+    fun toCategoryItem(isFavItem: Boolean): CategoryItem {
+        return CategoryItem(
+            id = id,
+            name = name,
+            locationLink = locationLink,
+            isFavItem = isFavItem,
+            number = number,
+            tags = "",
+            parentIcon = R.drawable.food
         )
     }
 }

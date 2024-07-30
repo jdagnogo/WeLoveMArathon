@@ -33,7 +33,7 @@ fun FilterRowComponent(
     onItemClicked: (Pair<String, Boolean>) -> Unit = {},
 ) {
     Text(
-        modifier = modifier.padding(horizontal = 16.dp),
+        modifier = modifier,
         text = title,
         style = SubTitleStyle.copy(fontSize = 18.sp),
     )
