@@ -6,7 +6,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.jdagnogo.welovemarathon.common.ui.component.MainDestinations
-import com.jdagnogo.welovemarathon.map.domain.MapType
 
 @Composable
 fun RestaurantScreen(
@@ -35,6 +34,9 @@ fun RestaurantScreen(
         },
         onLikeClicked = {
             viewModel.dispatchEvent(RestaurantUiEvent.OnLikeClicked(it))
+        },
+        onRedirectToFilterClicked = {
+            navController.navigate(MainDestinations.RestaurantFilter.route)
         },
     )
 }

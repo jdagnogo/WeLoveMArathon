@@ -15,7 +15,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
-import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetailsFake
 import com.jdagnogo.welovemarathon.common.ui.component.DividerComponent
 import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.Primary
@@ -32,6 +31,7 @@ fun RestaurantContent(
     onLikeClicked: (String) -> Unit = {},
     onCategoryClicked: (String) -> Unit = {},
     onRecommendedSelected: (String) -> Unit = {},
+    onRedirectToFilterClicked: () -> Unit = {},
 ) {
     Scaffold { paddingValues ->
         Column(
@@ -54,12 +54,13 @@ fun RestaurantContent(
                 currentSelected = state.currentCategorySelected
             )
 
-            DividerComponent(modifier = Modifier.padding(top=16.dp), color = Color.White)
+            DividerComponent(modifier = Modifier.padding(top = 16.dp), color = Color.White)
 
             RestaurantSection(
                 modifier = Modifier.padding(horizontal = 16.dp),
                 items = state.items,
-                onRecommendedSelected = onRecommendedSelected
+                onRecommendedSelected = onRecommendedSelected,
+                onRedirectToFilterClicked = onRedirectToFilterClicked,
             )
         }
     }

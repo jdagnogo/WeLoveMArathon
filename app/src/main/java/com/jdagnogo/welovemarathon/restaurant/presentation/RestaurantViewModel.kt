@@ -68,11 +68,11 @@ class RestaurantViewModel @Inject constructor(
         }
     }
 
-    private fun fetchRestaurants(category: FoodCategory) {
+    private fun fetchRestaurants(filter: RestaurantAppliedFilter) {
         viewModelScope.launch {
             viewModelScope.launch {
                 handleResourceWithFav(
-                    useCases.getRestaurantUseCase.invoke(RestaurantFilter()),
+                    useCases.getRestaurantUseCase.invoke(filter),
                     useCases.favUseCase.getAllFavUseCases(),
                     { it, favorites ->
                         RestaurantPartialState.OnRestaurantsSuccess(
@@ -95,8 +95,10 @@ class RestaurantViewModel @Inject constructor(
             is RestaurantUiEvent.OnCategoryClicked -> {
                 val category =
                     state.value.allCategories.firstOrNull { it.name == event.name } ?: return
-                fetchRestaurants(category)
-                val partialState = RestaurantPartialState.OnCategoriesSelected(category)
+                val filter =
+                    state.value.currentFilterApplied.copy(typeOfFilters = mutableSetOf(category.name))
+                fetchRestaurants(filter)
+                val partialState = RestaurantPartialState.OnCategoriesSelected(category, filter)
                 _state.value = reducer.reduce(state.value, partialState)
             }
 
@@ -112,8 +114,10 @@ class RestaurantViewModel @Inject constructor(
                 val partialState = RestaurantPartialState.OnRestaurantReset
                 _state.value = reducer.reduce(state.value, partialState)
             }
+
             is RestaurantUiEvent.OnValidateFilter -> {
                 val partialState = RestaurantPartialState.OnValidateFilter(event.appliedFilter)
+                fetchRestaurants(event.appliedFilter)
                 _state.value = reducer.reduce(state.value, partialState)
             }
         }
@@ -140,11 +144,14 @@ sealed class RestaurantPartialState {
     data class Error(val message: String) : RestaurantPartialState()
     data object Loading : RestaurantPartialState()
     data class OnValidateFilter(val filter: RestaurantAppliedFilter) : RestaurantPartialState()
-    data class OnCategoriesSelected(val data: FoodCategory) : RestaurantPartialState()
+    data class OnCategoriesSelected(val data: FoodCategory, val filter: RestaurantAppliedFilter) :
+        RestaurantPartialState()
+
     data class OnRestaurantSelected(val data: Restaurant) : RestaurantPartialState()
     data object OnRestaurantReset : RestaurantPartialState()
     data class OnCategoriesSuccess(val data: List<FoodCategory>) : RestaurantPartialState()
-    data class OnRestaurantFilterSuccess(val data: List<RestaurantFilter>) : RestaurantPartialState()
+    data class OnRestaurantFilterSuccess(val data: List<RestaurantFilter>) :
+        RestaurantPartialState()
 
     data class OnRestaurantsSuccess(val restaurants: List<Restaurant>) :
         RestaurantPartialState()

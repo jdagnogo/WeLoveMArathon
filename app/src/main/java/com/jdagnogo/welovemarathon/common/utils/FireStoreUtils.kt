@@ -1,5 +1,6 @@
 package com.jdagnogo.welovemarathon.common.utils
 
+import android.util.Log
 import coil.network.HttpException
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
@@ -15,7 +16,13 @@ suspend inline fun <reified T> fetchList(
             .collection(collectionName)
             .get()
             .await()
-        data.addAll(snapshot.toObjects(T::class.java))
+        snapshot.forEach {
+            try {
+                data.add(it.toObject(T::class.java))
+            }catch (e:Exception){
+             Log.e("WLM", e.message.toString())
+            }
+        }
 
         Resource.Success(data)
     } catch (e: HttpException) {

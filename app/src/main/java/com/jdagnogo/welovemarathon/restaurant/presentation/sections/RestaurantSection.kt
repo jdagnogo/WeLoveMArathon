@@ -21,27 +21,32 @@ fun RestaurantSection(
     modifier: Modifier = Modifier,
     items: List<Restaurant>,
     onRecommendedSelected: (String) -> Unit,
+    onRedirectToFilterClicked: () -> Unit = {},
 ) {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
-        contentPadding = PaddingValues(
-            end = MaterialTheme.spacing.medium,
-            start = MaterialTheme.spacing.medium,
-            top = MaterialTheme.spacing.large,
-            bottom = MaterialTheme.spacing.large,
-        ),
-        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
-        modifier = modifier
-    ) {
-        itemsIndexed(items) { _, restaurant ->
-            RecommendedCategoryContent(
-                modifier = Modifier.animateItemPlacement(
-                    tween(durationMillis = 250)
-                ),
-                item = restaurant.toRecommendedCategoryDetails(),
-                onRecommendedSelected = onRecommendedSelected
-            )
+    if (items.isEmpty()) {
+        RestaurantEmptySection(modifier, onRedirectToFilterClicked = onRedirectToFilterClicked)
+    } else {
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            contentPadding = PaddingValues(
+                end = MaterialTheme.spacing.medium,
+                start = MaterialTheme.spacing.medium,
+                top = MaterialTheme.spacing.large,
+                bottom = MaterialTheme.spacing.large,
+            ),
+            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+            modifier = modifier
+        ) {
+            itemsIndexed(items) { _, restaurant ->
+                RecommendedCategoryContent(
+                    modifier = Modifier.animateItemPlacement(
+                        tween(durationMillis = 250)
+                    ),
+                    item = restaurant.toRecommendedCategoryDetails(),
+                    onRecommendedSelected = onRecommendedSelected
+                )
+            }
         }
     }
 }
