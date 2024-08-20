@@ -27,6 +27,8 @@ import com.jdagnogo.welovemarathon.food.data.FoodCategoryEntity
 import com.jdagnogo.welovemarathon.food.data.FoodEntity
 import com.jdagnogo.welovemarathon.food.data.FoodDao
 import com.jdagnogo.welovemarathon.food.data.FoodTagEntity
+import com.jdagnogo.welovemarathon.offer.data.OfferDao
+import com.jdagnogo.welovemarathon.offer.data.OfferEntity
 import com.jdagnogo.welovemarathon.restaurant.data.RestaurantDao
 import com.jdagnogo.welovemarathon.restaurant.data.RestaurantEntity
 import com.jdagnogo.welovemarathon.restaurant.data.RestaurantFilterEntity
@@ -72,12 +74,14 @@ import java.util.*
         AboutEntity::class,
         RestaurantEntity::class,
         RestaurantFilterEntity::class,
+        OfferEntity::class,
         TipsEntity::class],
-    version = 6
+    version = 7
 )
 @TypeConverters(Converters::class)
 abstract class WLMDatabase : RoomDatabase() {
     abstract fun getBlogDao(): BlogDao
+    abstract fun getOfferDao(): OfferDao
     abstract fun getFoodDao(): FoodDao
     abstract fun getRestaurantDao(): RestaurantDao
     abstract fun getFavDao(): FavDao

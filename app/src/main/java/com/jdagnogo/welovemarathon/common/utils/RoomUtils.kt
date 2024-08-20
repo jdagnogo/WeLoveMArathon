@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.jdagnogo.welovemarathon.about.domain.Members
 import com.jdagnogo.welovemarathon.about.domain.SocialMedias
 import com.jdagnogo.welovemarathon.common.domain.EntityStringList
+import com.jdagnogo.welovemarathon.offer.data.Promos
 import com.jdagnogo.welovemarathon.restaurant.data.AmenitiesList
 import com.jdagnogo.welovemarathon.restaurant.data.IconNameFilterList
 import com.jdagnogo.welovemarathon.restaurant.data.PlatesList
@@ -60,6 +61,13 @@ class Converters {
     @TypeConverter
     fun stringToSocialMedia(data: String): SocialMedias =
         Gson().fromJson(data, SocialMedias::class.java)
+
+    @TypeConverter
+    fun promosToString(data: Promos): String = Gson().toJson(data)
+
+    @TypeConverter
+    fun stringToPromos(data: String): Promos =
+        Gson().fromJson(data, Promos::class.java)
 
     @TypeConverter
     fun memberToString(data: Members): String = Gson().toJson(data)

@@ -10,6 +10,7 @@ import com.jdagnogo.welovemarathon.common.utils.IModel
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.home.domain.Activities
 import com.jdagnogo.welovemarathon.home.domain.HomeUseCases
+import com.jdagnogo.welovemarathon.restaurant.domain.RestaurantAppliedFilter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -41,20 +42,7 @@ class HomeViewModel @Inject constructor(
 
     private fun fetchBeaches() {
         viewModelScope.launch {
-            homeUseCases.getBeachesUseCase.invoke().onEach { resource ->
-                val partialState = when (resource) {
-                    is Resource.Success -> {
-                        HomePartialState.OnBeachesSuccess(resource.data ?: listOf())
-                    }
-                    is Resource.Loading -> {
-                        HomePartialState.LoadingBeaches
-                    }
-                    else -> {
-                        HomePartialState.Error("")
-                    }
-                }
-                _state.value = reducer.reduce(_state.value, partialState)
-            }.launchIn(this)
+            homeUseCases.getRestaurantUseCase.invoke(RestaurantAppliedFilter())
         }
     }
 
@@ -63,12 +51,16 @@ class HomeViewModel @Inject constructor(
             homeUseCases.getBannerUseCase.invoke(HOME).onEach { resource ->
                 val partialState = when (resource) {
                     is Resource.Success -> {
-                        HomePartialState.OnBannerSuccess(resource.data?.firstOrNull()
-                            ?: GifBanner())
+                        HomePartialState.OnBannerSuccess(
+                            resource.data?.firstOrNull()
+                                ?: GifBanner()
+                        )
                     }
+
                     is Resource.Loading -> {
                         HomePartialState.LoadingBeaches
                     }
+
                     else -> {
                         HomePartialState.Error(resource.message ?: "")
                     }

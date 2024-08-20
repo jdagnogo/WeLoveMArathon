@@ -32,8 +32,6 @@ import com.jdagnogo.welovemarathon.common.ui.MenuContent
 import com.jdagnogo.welovemarathon.culture.presentation.CultureScreen
 import com.jdagnogo.welovemarathon.culture.presentation.CultureViewModel
 import com.jdagnogo.welovemarathon.culture.presentation.CulturesBarScreen
-import com.jdagnogo.welovemarathon.favorites.presentation.FavViewModel
-import com.jdagnogo.welovemarathon.favorites.presentation.FavoritesScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodMenuScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodViewModel
@@ -41,10 +39,12 @@ import com.jdagnogo.welovemarathon.home.presentation.HomeScreen
 import com.jdagnogo.welovemarathon.home.presentation.HomeViewModel
 import com.jdagnogo.welovemarathon.map.presentation.MapScreen
 import com.jdagnogo.welovemarathon.map.viewmodel.MapViewModel
-import com.jdagnogo.welovemarathon.restaurant.presentation.filter.FilterScreen
+import com.jdagnogo.welovemarathon.offer.presentation.OfferScreen
+import com.jdagnogo.welovemarathon.offer.presentation.OfferViewModel
 import com.jdagnogo.welovemarathon.restaurant.presentation.RestaurantDetailsScreen
 import com.jdagnogo.welovemarathon.restaurant.presentation.RestaurantScreen
 import com.jdagnogo.welovemarathon.restaurant.presentation.RestaurantViewModel
+import com.jdagnogo.welovemarathon.restaurant.presentation.filter.FilterScreen
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingMenuScreen
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingScreen
 import com.jdagnogo.welovemarathon.shopping.presentation.ShoppingViewModel
@@ -197,9 +197,9 @@ fun NavGraphBuilder.homeGraph(
         val viewModel = hiltViewModel<HomeViewModel>()
         HomeScreen(viewModel, navController, modifier)
     }
-    composable(HomeSections.FAVORITES.route) {
-        val viewModel = hiltViewModel<FavViewModel>()
-        FavoritesScreen(viewModel, navController, modifier)
+    composable(HomeSections.OFFERS.route) {
+        val viewModel = hiltViewModel<OfferViewModel>()
+        OfferScreen(modifier, navController, viewModel)
     }
     composable(HomeSections.ABOUT.route) {
         val viewModel = hiltViewModel<AboutViewModel>()
@@ -217,7 +217,7 @@ enum class HomeSections(
     val route: String,
 ) {
     HOME("Home", R.drawable.home, "home/activities"),
-    FAVORITES("Favs", R.drawable.fav, "home/favorites"),
+    OFFERS("Offers", R.drawable.fav, "home/offers"),
     ABOUT("About", R.drawable.about, "home/food")
 }
 

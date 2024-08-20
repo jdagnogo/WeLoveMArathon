@@ -3,9 +3,10 @@ package com.jdagnogo.welovemarathon.home.domain
 import androidx.annotation.Keep
 import com.jdagnogo.welovemarathon.beach.domain.GetBeachesUseCase
 import com.jdagnogo.welovemarathon.common.banner.GetBannerUseCase
+import com.jdagnogo.welovemarathon.restaurant.domain.GetRestaurantUseCase
 
 @Keep
 data class HomeUseCases(
     val getBannerUseCase: GetBannerUseCase,
-    val getBeachesUseCase: GetBeachesUseCase,
+    val getRestaurantUseCase: GetRestaurantUseCase,
 )

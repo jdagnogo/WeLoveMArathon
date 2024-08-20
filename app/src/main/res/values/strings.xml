@@ -14,4 +14,6 @@
     <string name="restaurant_empty_title">No match founded</string>
     <string name="restaurant_empty_description">Reduce the number of filter</string>
     <string name="settings">Go to Settings</string>
+    <string name="offer_title">Special offer</string>
+    <string name="offer_button">Get it now !</string>
 </resources>
