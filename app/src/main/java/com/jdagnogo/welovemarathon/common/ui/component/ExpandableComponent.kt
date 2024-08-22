@@ -22,6 +22,7 @@ internal fun ExpandableComponent(
     labelMore: String = "See more",
     labelLess: String = "See less",
     modifier: Modifier = Modifier,
+    shouldShowExpandButton: Boolean = true,
     content: @Composable ColumnScope.(isExpanded: Boolean) -> Unit,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
@@ -32,15 +33,16 @@ internal fun ExpandableComponent(
         Column(
             content = { content(isExpanded) }, modifier = Modifier.padding(vertical = 8.dp)
         )
-
-        MoreLessComponent(
-            text = text,
-            isExpanded = isExpanded,
-            modifier = Modifier.align(alignment = CenterHorizontally),
-            onClick = {
-                isExpanded = isExpanded.not()
-            }
-        )
+        if (shouldShowExpandButton) {
+            MoreLessComponent(
+                text = text,
+                isExpanded = isExpanded,
+                modifier = Modifier.align(alignment = CenterHorizontally),
+                onClick = {
+                    isExpanded = isExpanded.not()
+                }
+            )
+        }
     }
 }
 
