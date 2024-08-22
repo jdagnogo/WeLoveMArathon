@@ -8,6 +8,7 @@ import com.jdagnogo.welovemarathon.food.domain.GetFoodCategoriesUseCase
 import com.jdagnogo.welovemarathon.food.domain.GetFoodUseCase
 import com.jdagnogo.welovemarathon.map.domain.MapUseCases
 import com.jdagnogo.welovemarathon.map.viewmodel.MapReducer
+import com.jdagnogo.welovemarathon.restaurant.domain.GetRestaurantUseCase
 import com.jdagnogo.welovemarathon.shopping.domain.GetShoppingCategoriesUseCase
 import com.jdagnogo.welovemarathon.shopping.domain.GetShoppingUseCase
 import dagger.Module
@@ -26,7 +27,7 @@ object MapModule {
         getShoppingUseCase: GetShoppingUseCase,
         getShoppingCategoriesUseCase: GetShoppingCategoriesUseCase,
         getFoodCategoriesUseCase: GetFoodCategoriesUseCase,
-        getFoodUseCase: GetFoodUseCase,
+        getRestaurantUseCase: GetRestaurantUseCase,
         getBeachesBarUseCase: GetBeachesBarUseCase,
         getBeachesUseCase: GetBeachesUseCase,
         getActivitiesUseCase: GetActivitiesUseCase,
@@ -36,7 +37,7 @@ object MapModule {
             getShoppingCategoriesUseCase = getShoppingCategoriesUseCase,
             getShoppingUseCase = getShoppingUseCase,
             getFoodCategoriesUseCase = getFoodCategoriesUseCase,
-            getFoodUseCase = getFoodUseCase,
+            getRestaurantUseCase = getRestaurantUseCase,
             getBeachesBarUseCase = getBeachesBarUseCase,
             getBeachesUseCase = getBeachesUseCase,
             getActivitiesUseCase = getActivitiesUseCase,

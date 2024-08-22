@@ -8,6 +8,7 @@ import com.jdagnogo.welovemarathon.beach.domain.GetBeachesUseCase
 import com.jdagnogo.welovemarathon.culture.domain.GetCulturesUseCase
 import com.jdagnogo.welovemarathon.food.domain.GetFoodCategoriesUseCase
 import com.jdagnogo.welovemarathon.food.domain.GetFoodUseCase
+import com.jdagnogo.welovemarathon.restaurant.domain.GetRestaurantUseCase
 import com.jdagnogo.welovemarathon.shopping.domain.GetShoppingCategoriesUseCase
 import com.jdagnogo.welovemarathon.shopping.domain.GetShoppingUseCase
 
@@ -18,7 +19,7 @@ data class MapUseCases(
     val getActivitiesUseCase: GetActivitiesUseCase,
     val getActivitiesCategoriesUseCase: GetActivitiesCategoriesUseCase,
     val getBeachesUseCase: GetBeachesUseCase,
-    val getFoodUseCase: GetFoodUseCase,
+    val getRestaurantUseCase: GetRestaurantUseCase,
     val getFoodCategoriesUseCase: GetFoodCategoriesUseCase,
     val getBeachesBarUseCase: GetBeachesBarUseCase,
 )

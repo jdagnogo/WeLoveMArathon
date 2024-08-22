@@ -1,11 +1,13 @@
 package com.jdagnogo.welovemarathon.restaurant.domain
 
 import androidx.annotation.Keep
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.firestore.GeoPoint
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetails
 import com.jdagnogo.welovemarathon.common.domain.EntityStringList
+import com.jdagnogo.welovemarathon.map.domain.MapItem
 import com.jdagnogo.welovemarathon.restaurant.data.AmenitiesList
 import com.jdagnogo.welovemarathon.restaurant.data.PlatesList
 import com.jdagnogo.welovemarathon.restaurant.data.RestaurantEntity
@@ -58,6 +60,17 @@ data class Restaurant(
             amenities = AmenitiesList(amenities),
             images = EntityStringList(images),
             bigImages = EntityStringList(bigImages)
+        )
+    }
+
+    fun toMapItem(): MapItem {
+        return MapItem(
+            name = name,
+            tags = "",
+            latLng = LatLng(
+                coordinate?.latitude ?: 0.0,
+                coordinate?.longitude ?: 0.0,
+            )
         )
     }
 

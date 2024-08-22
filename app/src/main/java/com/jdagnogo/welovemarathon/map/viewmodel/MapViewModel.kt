@@ -11,6 +11,7 @@ import com.jdagnogo.welovemarathon.map.domain.MapChip
 import com.jdagnogo.welovemarathon.map.domain.MapItem
 import com.jdagnogo.welovemarathon.map.domain.MapType
 import com.jdagnogo.welovemarathon.map.domain.MapUseCases
+import com.jdagnogo.welovemarathon.restaurant.domain.RestaurantAppliedFilter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -45,7 +46,7 @@ class MapViewModel @Inject constructor(
         when (type) {
             MapType.Food.key -> {
                 fetchData(
-                    useCase = { useCases.getFoodUseCase.invoke(key) },
+                    useCase = { useCases.getRestaurantUseCase.invoke(RestaurantAppliedFilter()) },
                     mapper = { it.map { food -> food.toMapItem() } },
                     currentSelected = key
                 )
@@ -95,7 +96,7 @@ class MapViewModel @Inject constructor(
         when (type) {
             MapType.Food.key -> {
                 fetchData(
-                    useCase = { useCases.getFoodUseCase.invoke() },
+                    useCase = { useCases.getRestaurantUseCase.invoke(RestaurantAppliedFilter()) },
                     mapper = { it.map { food -> food.toMapItem() } },
                 )
 
