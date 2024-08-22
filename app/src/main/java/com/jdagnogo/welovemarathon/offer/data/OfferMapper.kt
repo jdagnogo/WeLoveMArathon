@@ -1,8 +1,6 @@
 package com.jdagnogo.welovemarathon.offer.data
 
 import com.jdagnogo.welovemarathon.offer.domain.Offer
-import com.jdagnogo.welovemarathon.restaurant.data.RestaurantEntity
-import com.jdagnogo.welovemarathon.restaurant.domain.Restaurant
 import javax.inject.Inject
 
 class OfferMapper @Inject constructor() {

@@ -1,6 +1,7 @@
 package com.jdagnogo.welovemarathon.food.domain
 
 import androidx.annotation.Keep
+import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.submenu.SubMenuItem
 import com.jdagnogo.welovemarathon.food.data.FoodCategoryEntity
 import com.jdagnogo.welovemarathon.map.domain.MapChip

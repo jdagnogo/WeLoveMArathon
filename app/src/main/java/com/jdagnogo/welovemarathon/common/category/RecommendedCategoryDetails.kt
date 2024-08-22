@@ -11,6 +11,7 @@ data class RecommendedCategoryDetails(
     val locationLink: String = "",
     val number: String = "",
     val description: String = "",
+    val isRecommended: Boolean = false,
     val images: List<String> = emptyList(),
     val bigImages: List<String> = emptyList(),
     val tags: String = "",

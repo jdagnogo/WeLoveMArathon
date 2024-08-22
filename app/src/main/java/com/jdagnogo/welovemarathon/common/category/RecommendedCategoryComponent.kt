@@ -39,6 +39,7 @@ import com.jdagnogo.welovemarathon.common.ui.theme.Neutral3
 import com.jdagnogo.welovemarathon.common.ui.theme.RecommendedCategoryItemTitleStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.RecommendedCategoryTitleStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
+import com.jdagnogo.welovemarathon.common.ui.theme.SecondaryLight
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 
 @ExperimentalMaterialApi
@@ -144,6 +145,23 @@ fun RecommendedCategoryContent(
                     }
             )
         }
+        if (item.isRecommended) {
+            Icon(
+                painter = rememberImagePainter(
+                    data = R.drawable.france ,
+                    builder = {
+                        crossfade(true)
+                        error(R.drawable.ic_wlm_logo)
+                    }
+                ),
+                tint = SecondaryLight,
+                contentDescription = "icon",
+                modifier = Modifier
+                    .padding(8.dp)
+                    .align(Alignment.TopStart)
+                    .size(MaterialTheme.spacing.large)
+            )
+        }
     }
 }
 
@@ -155,6 +173,7 @@ fun RecommendedCategoryContentPreview() {
     val item = RecommendedCategoryDetails(
         "id", "name", "",
         images = listOf(""),
+        isRecommended = true,
         bigImages = listOf(""),
     )
     MaterialTheme {

@@ -22,8 +22,8 @@ data class Restaurant(
     var coordinate: GeoPoint? = null,
     val number: String = "",
     val description: String = "",
-    val isRecommended: Boolean = false,
-    val handicapAccess: Boolean = false,
+    @field:JvmField var isRecommended: Boolean = false,
+    @field:JvmField var handicapAccess: Boolean = false,
     val services: List<RestaurantService> = emptyList(),
     val plates: List<Plates> = emptyList(),
     val amenities: List<Amenities> = emptyList(),
@@ -71,6 +71,7 @@ data class Restaurant(
             number = number,
             description = description,
             images = images,
+            isRecommended = isRecommended,
             bigImages = bigImages,
             tags = ""
         )
