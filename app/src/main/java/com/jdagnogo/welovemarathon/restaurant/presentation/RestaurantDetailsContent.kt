@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -42,13 +43,28 @@ fun RestaurantDetailsContent(
     state: RestaurantState,
     onBackPressed: () -> Unit = {},
     onLikeClicked: (String) -> Unit = {},
-    onMapSelected: () -> Unit = {},
 ) {
     val restaurant = state.currentRestaurantSelected ?: return
     val uriHandler = LocalUriHandler.current
     val context = LocalContext.current
+    var isFav = remember {
+        mutableStateOf(
+            state.currentRestaurantSelected.isFavItem
+        )
+    }
 
     Scaffold(
+        topBar = {
+            TitleComponent(
+                title = stringResource(id = R.string.food),
+                iconRight = if (isFav.value) R.drawable.fav else R.drawable.ic_fav_unselected,
+                onLeftIconClicked = onBackPressed,
+                onRightIconClicked = {
+                    onLikeClicked(restaurant.id)
+                    isFav.value = !isFav.value
+                }
+            )
+        },
         bottomBar = {
             BottomBarSection(
                 restaurant = restaurant,
@@ -65,13 +81,6 @@ fun RestaurantDetailsContent(
                 .padding(paddingValues)
                 .animateContentSize()
         ) {
-            item {
-                TitleComponent(
-                    title = stringResource(id = R.string.food),
-                    onLeftIconClicked = onBackPressed,
-                    onRightIconClicked = onMapSelected
-                )
-            }
 
             item {
                 val images = remember { restaurant.images }
@@ -112,7 +121,9 @@ fun RestaurantDetailsContent(
             )
 
             mapSection(
-                Modifier.height(300.dp).fillMaxWidth()
+                Modifier
+                    .height(300.dp)
+                    .fillMaxWidth()
                     .padding(top = 32.dp),
                 name = restaurant.name,
                 coordinate = restaurant.coordinate
