@@ -11,6 +11,7 @@ import com.jdagnogo.welovemarathon.offer.domain.Offer
 data class OfferEntity(
     @PrimaryKey val id: String = "",
     val startDate: String = "",
+    val title: String = "",
     val endDate: String = "",
     val restaurant: String,
     val promos: Promos,
@@ -19,6 +20,7 @@ data class OfferEntity(
         return Offer(
             id = id,
             startDate = startDate,
+            title = title,
             endDate = endDate,
             restaurant = restaurant,
             promos = promos.promos

@@ -69,6 +69,14 @@ val TitleStyle = TextStyle(
     fontSize = 20.sp
 )
 
+val OfferTitleStyle = TextStyle(
+    fontFamily = fonts,
+    fontWeight = FontWeight.Bold,
+    color = White,
+    textAlign = TextAlign.Center,
+    fontSize = 32.sp
+)
+
 
 val SubTitleStyle = TextStyle(
     fontFamily = fonts,

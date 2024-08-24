@@ -15,5 +15,6 @@
     <string name="restaurant_empty_description">Reduce the number of filter</string>
     <string name="settings">Go to Settings</string>
     <string name="offer_title">Special offer</string>
+    <string name="offer_subtitle">for WLM APP users</string>
     <string name="offer_button">Get it now !</string>
 </resources>

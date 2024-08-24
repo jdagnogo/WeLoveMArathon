@@ -3,13 +3,12 @@ package com.jdagnogo.welovemarathon.offer.domain
 import androidx.annotation.Keep
 import com.jdagnogo.welovemarathon.offer.data.OfferEntity
 import com.jdagnogo.welovemarathon.offer.data.Promos
-import java.sql.Timestamp
-import java.util.Date
 
 @Keep
 data class Offer(
     val id: String = "",
     val startDate: String = "",
+    val title: String = "",
     val endDate: String = "",
     val restaurant: String = "",
     val promos: List<Promo> = listOf(),
@@ -17,6 +16,7 @@ data class Offer(
     fun toOfferEntity(): OfferEntity {
         return OfferEntity(
             id = id,
+            title = title,
             startDate = startDate,
             endDate = endDate,
             restaurant = restaurant,

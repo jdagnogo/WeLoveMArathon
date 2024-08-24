@@ -1,40 +1,62 @@
 package com.jdagnogo.welovemarathon.offer.presentation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.accompanist.insets.ui.Scaffold
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.category.FilterDialogButton
-import com.jdagnogo.welovemarathon.common.ui.component.DescriptionItemFactory
 import com.jdagnogo.welovemarathon.common.ui.component.DividerComponent
-import com.jdagnogo.welovemarathon.common.ui.component.ExpandableComponent
-import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
+import com.jdagnogo.welovemarathon.common.ui.theme.OfferTitleStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.Primary
 import com.jdagnogo.welovemarathon.common.ui.theme.TagColor
-import com.jdagnogo.welovemarathon.common.ui.theme.emptyScreenSubTitle
+import com.jdagnogo.welovemarathon.common.ui.theme.emptyScreenTitle
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
+import com.jdagnogo.welovemarathon.offer.domain.OfferWithRestaurant
 
 @Composable
-fun OfferContent() {
+fun OfferContent(
+    offer: OfferWithRestaurant,
+    onGetOfferClicked: () -> Unit = {},
+) {
     Scaffold(
         backgroundColor = Primary,
         topBar = {
-            TitleComponent(
-                iconLeft = null,
-                title = stringResource(id = R.string.offer_title)
-            )
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(24.dp),
+            ) {
+                Text(
+                    style = OfferTitleStyle,
+                    text = offer.title
+                )
+                Text(
+                    style = OfferTitleStyle,
+                    text = stringResource(id = R.string.offer_title)
+                )
+                Text(
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    style = emptyScreenTitle,
+                    text = stringResource(id = R.string.offer_subtitle)
+                )
+            }
         },
         bottomBar = {
             Column(
@@ -50,7 +72,7 @@ fun OfferContent() {
                 FilterDialogButton(
                     stringResource(id = R.string.offer_button),
                     {
-                        //TODO : on click offer
+                        onGetOfferClicked()
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -60,32 +82,20 @@ fun OfferContent() {
 
         },
     ) { paddingValues ->
-        Column(modifier = Modifier.padding(paddingValues = paddingValues)) {
-            Box(Modifier.size(200.dp)) {
-
-            }
-
-            Spacer(modifier = Modifier.padding(8.dp))
-
-            ExpandableComponent(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(top = 8.dp)
-            ) { isExpanded ->
-                val descriptionItem = DescriptionItemFactory(isExpanded).create()
-
-                Text(
-                    overflow = descriptionItem.overflow,
-                    maxLines = descriptionItem.maxLines,
-                    style = emptyScreenSubTitle,
-                    text = "We are volunteers, the WLM Team and We Love Marathon!  Most of us live in the municipality of Marathon and the rest of us are Marathon lovers! We all work non-profit with love and passion with the aim of promoting and highlighting this magical place!\n" +
-                            "\n" +
-                            "The application is designed voluntarily to help Marathon visitors better organize their holidays in our city. Lots of recommendations for food, drink, beaches and activities in the area of Marathon with detailed information! If you think there is room for improvement (there always is) don't hesitate to email us with your suggestions! The application was launched this summer 2022 as a pilot.",
-                    color = Color.White,
-                )
-            }
-
-
+        Column(
+            modifier = Modifier.padding(paddingValues = paddingValues),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.offer))
+            val progress by animateLottieCompositionAsState(
+                composition,
+                iterations = LottieConstants.IterateForever,
+            )
+            LottieAnimation(
+                modifier = Modifier.size(400.dp),
+                composition = composition,
+                progress = { progress },
+            )
         }
 
     }

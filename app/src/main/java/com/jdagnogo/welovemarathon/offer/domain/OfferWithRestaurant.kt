@@ -7,6 +7,7 @@ import java.util.Date
 @Keep
 data class OfferWithRestaurant(
     val id: String = "",
+    val title: String = "",
     val startDate: Date = Date(),
     val endDate: Date = Date(),
     val restaurant: Restaurant? = null,

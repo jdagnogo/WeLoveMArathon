@@ -20,6 +20,7 @@ class GetOfferUseCase @Inject constructor(
             val offer = data?.firstOrNull()
             OfferWithRestaurant(
                 id = offer?.id.orEmpty(),
+                title = offer?.title.orEmpty(),
                 startDate = toDate(offer?.startDate),
                 endDate = toDate(offer?.endDate),
                 restaurant = restaurant.data,

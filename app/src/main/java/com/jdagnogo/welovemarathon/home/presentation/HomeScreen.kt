@@ -18,6 +18,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
+import com.jdagnogo.welovemarathon.common.ui.component.HomeSections
 import com.jdagnogo.welovemarathon.common.ui.component.MainDestinations
 import com.jdagnogo.welovemarathon.offer.presentation.OfferContent
 
@@ -31,7 +33,8 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
 ) {
     val state by viewModel.state.collectAsState()
-    val shouldOpenOfferBottomSheet = rememberSaveable(state) { mutableStateOf(state.shouldOpenOfferBottomSheet) }
+    val shouldOpenOfferBottomSheet =
+        rememberSaveable(state) { mutableStateOf(state.shouldOpenOfferBottomSheet) }
     HomeContent(
         state = state,
         modifier = modifier,
@@ -73,7 +76,14 @@ fun HomeScreen(
                     shouldOpenOfferBottomSheet.value = false
                 }
             ) {
-                OfferContent()
+                OfferContent(offer = state.offer) {
+                    shouldOpenOfferBottomSheet.value = false
+                    navController.navigate(
+                        navOptions = NavOptions.Builder(
+                        ).setPopUpTo(HomeSections.HOME.route, true, true).build(),
+                        route = HomeSections.OFFERS.route
+                    )
+                }
             }
         }
     }
