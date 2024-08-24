@@ -16,6 +16,13 @@ class HomeReducer : IReducer<HomeState, HomePartialState> {
                     isLoadingBeaches = false,
                     beaches = partialState.data)
             }
+
+            is HomePartialState.OnOfferSuccess ->{
+                state.copy(
+                    shouldOpenOfferBottomSheet = partialState.shouldOpenOfferBottomSheet,
+                    offer = partialState.offer,
+                )
+            }
         }
     }
 }

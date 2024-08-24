@@ -1,9 +1,10 @@
 package com.jdagnogo.welovemarathon.home.di
 
-import com.jdagnogo.welovemarathon.beach.domain.GetBeachesUseCase
 import com.jdagnogo.welovemarathon.common.banner.GetBannerUseCase
 import com.jdagnogo.welovemarathon.home.domain.HomeUseCases
 import com.jdagnogo.welovemarathon.home.presentation.HomeReducer
+import com.jdagnogo.welovemarathon.offer.domain.GetOfferUseCase
+import com.jdagnogo.welovemarathon.offer.domain.IsOfferAvailableUseCase
 import com.jdagnogo.welovemarathon.restaurant.domain.GetRestaurantUseCase
 import dagger.Module
 import dagger.Provides
@@ -23,6 +24,13 @@ object HomeModule {
     fun provideRunDao(
         bannerUseCase: GetBannerUseCase,
         getRestaurantUseCase: GetRestaurantUseCase,
+        getOfferUseCase: GetOfferUseCase,
+        isOfferAvailableUseCase: IsOfferAvailableUseCase,
     ): HomeUseCases =
-        HomeUseCases(bannerUseCase, getRestaurantUseCase)
+        HomeUseCases(
+            bannerUseCase,
+            getRestaurantUseCase,
+            getOfferUseCase,
+            isOfferAvailableUseCase = isOfferAvailableUseCase
+        )
 }

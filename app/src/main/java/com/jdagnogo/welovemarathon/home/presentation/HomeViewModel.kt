@@ -10,6 +10,7 @@ import com.jdagnogo.welovemarathon.common.utils.IModel
 import com.jdagnogo.welovemarathon.common.utils.Resource
 import com.jdagnogo.welovemarathon.home.domain.Activities
 import com.jdagnogo.welovemarathon.home.domain.HomeUseCases
+import com.jdagnogo.welovemarathon.offer.domain.OfferWithRestaurant
 import com.jdagnogo.welovemarathon.restaurant.domain.RestaurantAppliedFilter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,6 +32,7 @@ class HomeViewModel @Inject constructor(
     init {
         dispatchEvent(HomeUiEvent.FetchBanner)
         dispatchEvent(HomeUiEvent.FetchBeaches)
+        fetchOffers()
     }
 
     override fun dispatchEvent(event: HomeUiEvent) {
@@ -43,6 +45,19 @@ class HomeViewModel @Inject constructor(
     private fun fetchBeaches() {
         viewModelScope.launch {
             homeUseCases.getRestaurantUseCase.invoke(RestaurantAppliedFilter())
+        }
+    }
+
+    private fun fetchOffers() {
+        viewModelScope.launch {
+            homeUseCases.getOfferUseCase().onEach { resource ->
+                val offer = resource.data
+                if (resource is Resource.Success && offer != null) {
+                    val isOfferAvailable = homeUseCases.isOfferAvailableUseCase(offer.id)
+                    val partialState = HomePartialState.OnOfferSuccess(offer, isOfferAvailable)
+                    _state.value = reducer.reduce(state.value, partialState)
+                }
+            }.launchIn(this)
         }
     }
 
@@ -81,6 +96,8 @@ data class HomeState(
     val isLoadingBeaches: Boolean = true,
     val banner: GifBanner? = null,
     val hasError: Boolean = false,
+    val shouldOpenOfferBottomSheet: Boolean = false,
+    val offer: OfferWithRestaurant = OfferWithRestaurant(),
 )
 
 @Keep
@@ -89,6 +106,10 @@ sealed class HomePartialState {
     data class OnBannerSuccess(val banner: GifBanner?) : HomePartialState()
     data class OnBeachesSuccess(val data: List<Beach>) : HomePartialState()
     data class Error(val message: String) : HomePartialState()
+    data class OnOfferSuccess(
+        val offer: OfferWithRestaurant,
+        val shouldOpenOfferBottomSheet: Boolean
+    ) : HomePartialState()
 }
 
 /**

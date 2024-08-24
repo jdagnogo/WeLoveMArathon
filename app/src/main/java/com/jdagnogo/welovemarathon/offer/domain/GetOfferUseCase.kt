@@ -5,7 +5,6 @@ import com.jdagnogo.welovemarathon.offer.data.OfferRepository
 import com.jdagnogo.welovemarathon.restaurant.domain.GetRestaurantByIdUseCase
 import com.jdagnogo.welovemarathon.shopping.domain.transformContent
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -20,6 +19,7 @@ class GetOfferUseCase @Inject constructor(
             val restaurant = getRestaurantByIdUseCase(data?.firstOrNull()?.restaurant)
             val offer = data?.firstOrNull()
             OfferWithRestaurant(
+                id = offer?.id.orEmpty(),
                 startDate = toDate(offer?.startDate),
                 endDate = toDate(offer?.endDate),
                 restaurant = restaurant.data,

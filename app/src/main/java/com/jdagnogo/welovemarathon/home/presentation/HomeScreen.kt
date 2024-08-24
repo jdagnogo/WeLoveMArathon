@@ -31,7 +31,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
 ) {
     val state by viewModel.state.collectAsState()
-    val shouldOpenOfferBottomSheet = rememberSaveable { mutableStateOf(true) }
+    val shouldOpenOfferBottomSheet = rememberSaveable(state) { mutableStateOf(state.shouldOpenOfferBottomSheet) }
     HomeContent(
         state = state,
         modifier = modifier,

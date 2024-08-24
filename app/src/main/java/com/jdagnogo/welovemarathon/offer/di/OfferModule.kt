@@ -8,6 +8,7 @@ import com.jdagnogo.welovemarathon.offer.data.OfferMapper
 import com.jdagnogo.welovemarathon.offer.data.OfferRemoteData
 import com.jdagnogo.welovemarathon.offer.data.OfferRepository
 import com.jdagnogo.welovemarathon.offer.domain.GetOfferUseCase
+import com.jdagnogo.welovemarathon.offer.domain.IsOfferAvailableUseCase
 import com.jdagnogo.welovemarathon.offer.domain.OfferUseCase
 import com.jdagnogo.welovemarathon.offer.presentation.OfferReducer
 import com.jdagnogo.welovemarathon.restaurant.domain.GetRestaurantByIdUseCase
@@ -28,6 +29,14 @@ object OfferModule {
         getRestaurantByIdUseCase: GetRestaurantByIdUseCase
     ): GetOfferUseCase {
         return GetOfferUseCase(repository, getRestaurantByIdUseCase)
+    }
+
+    @Provides
+    @Singleton
+    fun provideIsOfferAvailableUseCase(
+        repository: OfferRepository,
+    ): IsOfferAvailableUseCase {
+        return IsOfferAvailableUseCase(repository)
     }
 
     @Provides
