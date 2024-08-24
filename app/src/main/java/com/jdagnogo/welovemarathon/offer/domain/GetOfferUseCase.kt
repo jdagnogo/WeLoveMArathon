@@ -12,19 +12,22 @@ import javax.inject.Inject
 
 class GetOfferUseCase @Inject constructor(
     private val repository: OfferRepository,
-    private val getRestaurantByIdUseCase: GetRestaurantByIdUseCase
+    private val getRestaurantByIdUseCase: GetRestaurantByIdUseCase,
+    private val isOfferAvailableUseCase: IsOfferAvailableUseCase,
 ) {
-    operator fun invoke(): Flow<Resource<OfferWithRestaurant>> {
+    operator fun invoke(): Flow<Resource<OfferWithRestaurant?>> {
         return repository.data.transformContent { data ->
             val restaurant = getRestaurantByIdUseCase(data?.firstOrNull()?.restaurant)
-            val offer = data?.firstOrNull()
+            val offer = data?.firstOrNull() ?: return@transformContent null
+            if (isOfferAvailableUseCase(offer.id).not()) return@transformContent null
             OfferWithRestaurant(
-                id = offer?.id.orEmpty(),
-                title = offer?.title.orEmpty(),
-                startDate = toDate(offer?.startDate),
-                endDate = toDate(offer?.endDate),
+                id = offer.id,
+                title = offer.title,
+                description = offer.description,
+                startDate = toDate(offer.startDate),
+                endDate = toDate(offer.endDate),
                 restaurant = restaurant.data,
-                promos = offer?.promos ?: emptyList()
+                promos = offer.promos
             )
         }
     }

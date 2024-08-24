@@ -15,6 +15,10 @@
     <string name="restaurant_empty_description">Reduce the number of filter</string>
     <string name="settings">Go to Settings</string>
     <string name="offer_title">Special offer</string>
+    <string name="offer_activation_condition">Activate the offer 3 hours in advance. Once you activate, if you blablablalbla</string>
     <string name="offer_subtitle">for WLM APP users</string>
+    <string name="offer_email_condition">Do not forget to send us the receipt on the vkngjkwhekjejkejkfjkwe</string>
     <string name="offer_button">Get it now !</string>
+    <string name="offer_activate_button">Activated it now !</string>
+    <string name="offer_email_button">Send us the receipt</string>
 </resources>

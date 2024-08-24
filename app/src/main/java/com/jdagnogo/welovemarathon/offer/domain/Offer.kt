@@ -7,6 +7,7 @@ import com.jdagnogo.welovemarathon.offer.data.Promos
 @Keep
 data class Offer(
     val id: String = "",
+    val description: String = "",
     val startDate: String = "",
     val title: String = "",
     val endDate: String = "",
@@ -17,6 +18,7 @@ data class Offer(
         return OfferEntity(
             id = id,
             title = title,
+            description = description,
             startDate = startDate,
             endDate = endDate,
             restaurant = restaurant,
@@ -29,5 +31,6 @@ data class Offer(
 data class Promo(
     val icon: String = "",
     val title: String = "",
-    val subTitle: String = "",
+    val subtitle: String = "",
+    val value : String = "",
 )

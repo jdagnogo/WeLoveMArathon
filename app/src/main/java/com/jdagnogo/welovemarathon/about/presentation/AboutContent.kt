@@ -73,14 +73,6 @@ fun AboutContent(
                     }
             )
         }
-
-        item {
-            AboutTitle(title = "Some photos", modifier = Modifier.padding(vertical = 16.dp))
-        }
-
-        items(count = state.photos.size) { index ->
-            PhotosComponent(photo = state.photos[index])
-        }
     }
 }
 

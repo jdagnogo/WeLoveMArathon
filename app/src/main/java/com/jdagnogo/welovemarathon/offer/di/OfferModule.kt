@@ -26,9 +26,10 @@ object OfferModule {
     @Singleton
     fun provideGetOfferUseCase(
         repository: OfferRepository,
-        getRestaurantByIdUseCase: GetRestaurantByIdUseCase
+        getRestaurantByIdUseCase: GetRestaurantByIdUseCase,
+        isOfferAvailableUseCase: IsOfferAvailableUseCase
     ): GetOfferUseCase {
-        return GetOfferUseCase(repository, getRestaurantByIdUseCase)
+        return GetOfferUseCase(repository, getRestaurantByIdUseCase, isOfferAvailableUseCase)
     }
 
     @Provides

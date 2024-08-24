@@ -32,7 +32,7 @@ class OfferViewModel @Inject constructor(
         viewModelScope.launch {
             useCases.getOfferUseCase().onEach { resource ->
                 val offer = resource.data
-                if (resource is Resource.Success && offer != null) {
+                if (resource is Resource.Success) {
                     val partialState = OfferPartialState.OnOfferSuccess(offer)
                     _state.value = reducer.reduce(state.value, partialState)
                 }
@@ -53,13 +53,14 @@ class OfferViewModel @Inject constructor(
      */
     @Keep
     data class OfferState(
-        val offer: OfferWithRestaurant = OfferWithRestaurant(),
+        val offer: OfferWithRestaurant? = null,
+        val isOfferActivated : Boolean = false
     )
 
     @Keep
     sealed class OfferPartialState {
         data object Empty : OfferPartialState()
-        data class OnOfferSuccess(val offer: OfferWithRestaurant) : OfferPartialState()
+        data class OnOfferSuccess(val offer: OfferWithRestaurant?) : OfferPartialState()
     }
 
     @Keep

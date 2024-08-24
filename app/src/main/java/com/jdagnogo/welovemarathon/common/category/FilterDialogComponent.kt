@@ -117,6 +117,7 @@ fun FilterDialogButton(
     title: String,
     onClicked: () -> Unit = {},
     modifier: Modifier = Modifier,
+    color: Color = TagColor,
 ) {
     Button(
         modifier = modifier.padding(
@@ -125,7 +126,7 @@ fun FilterDialogButton(
         ),
         colors = ButtonDefaults.buttonColors(
             contentColor = Color.White,
-            backgroundColor = TagColor
+            backgroundColor = color
         ),
         onClick = {
             onClicked()

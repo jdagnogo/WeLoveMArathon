@@ -8,6 +8,7 @@ import java.util.Date
 data class OfferWithRestaurant(
     val id: String = "",
     val title: String = "",
+    val description: String = "",
     val startDate: Date = Date(),
     val endDate: Date = Date(),
     val restaurant: Restaurant? = null,

@@ -12,6 +12,7 @@ data class OfferEntity(
     @PrimaryKey val id: String = "",
     val startDate: String = "",
     val title: String = "",
+    val description: String = "",
     val endDate: String = "",
     val restaurant: String,
     val promos: Promos,
@@ -21,6 +22,7 @@ data class OfferEntity(
             id = id,
             startDate = startDate,
             title = title,
+            description = description,
             endDate = endDate,
             restaurant = restaurant,
             promos = promos.promos
