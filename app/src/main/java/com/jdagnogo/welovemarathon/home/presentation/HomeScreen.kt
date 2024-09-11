@@ -74,6 +74,7 @@ fun HomeScreen(
                 sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
                 onDismissRequest = {
                     shouldOpenOfferBottomSheet.value = false
+                    viewModel.dispatchEvent(HomeUiEvent.OnOfferDisplayed(state.offer.id))
                 }
             ) {
                 OfferContent(offer = state.offer) {

@@ -13,6 +13,7 @@ import com.jdagnogo.welovemarathon.home.domain.HomeUseCases
 import com.jdagnogo.welovemarathon.offer.domain.OfferWithRestaurant
 import com.jdagnogo.welovemarathon.restaurant.domain.RestaurantAppliedFilter
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -26,6 +27,7 @@ class HomeViewModel @Inject constructor(
     private val reducer: HomeReducer,
 ) : ViewModel(),
     IModel<HomeState, HomeUiEvent> {
+    private val COUNT_MAX = 2
     private val _state = MutableStateFlow(HomeState())
     override val state: StateFlow<HomeState> get() = _state
 
@@ -39,6 +41,13 @@ class HomeViewModel @Inject constructor(
         when (event) {
             HomeUiEvent.FetchBeaches -> fetchBeaches()
             HomeUiEvent.FetchBanner -> fetchBanner()
+            is HomeUiEvent.OnOfferDisplayed -> onOfferDisplayed(event.offerId)
+        }
+    }
+
+    private fun onOfferDisplayed(offerId: String) {
+        viewModelScope.launch {
+            homeUseCases.updateOfferDisplayCountUseCase.invoke(offerId)
         }
     }
 
@@ -52,10 +61,12 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             homeUseCases.getOfferUseCase().onEach { resource ->
                 val offer = resource.data
-                if (resource is Resource.Success && offer != null) {
+                val count = homeUseCases.getOfferCountUseCase(offer?.id)
+                if (resource is Resource.Success && offer != null && count < COUNT_MAX) {
                     val isOfferAvailable = homeUseCases.isOfferAvailableUseCase(offer.id)
                     val partialState = HomePartialState.OnOfferSuccess(offer, isOfferAvailable)
                     _state.value = reducer.reduce(state.value, partialState)
+                    this.cancel()
                 }
             }.launchIn(this)
         }
@@ -119,4 +130,5 @@ sealed class HomePartialState {
 sealed class HomeUiEvent {
     object FetchBeaches : HomeUiEvent()
     object FetchBanner : HomeUiEvent()
+    data class OnOfferDisplayed(val offerId: String) : HomeUiEvent()
 }
