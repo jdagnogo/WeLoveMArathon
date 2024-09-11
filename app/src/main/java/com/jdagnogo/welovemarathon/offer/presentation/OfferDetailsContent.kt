@@ -1,6 +1,7 @@
 package com.jdagnogo.welovemarathon.offer.presentation
 
 import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -18,15 +19,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.category.FilterDialogButton
 import com.jdagnogo.welovemarathon.common.ui.component.CarouselWithPreview
 import com.jdagnogo.welovemarathon.common.ui.component.ContactComponent
+import com.jdagnogo.welovemarathon.common.ui.theme.ActivityColor
 import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import com.jdagnogo.welovemarathon.common.ui.theme.SecondaryLight
 import com.jdagnogo.welovemarathon.common.ui.theme.SubTitleStyle
@@ -45,7 +49,7 @@ import com.jdagnogo.welovemarathon.restaurant.presentation.sections.servicesSect
 fun OfferDetailsContent(
     modifier: Modifier,
     state: OfferViewModel.OfferState,
-    onOfferActivationClicked: () -> Unit = {},
+    onOfferActivationClicked: (String) -> Unit = {},
 ) {
     val offer = state.offer
     val restaurant = offer?.restaurant ?: return
@@ -118,23 +122,36 @@ fun OfferDetailsContent(
             }
 
             item {
-                FilterDialogButton(
-                    stringResource(id = R.string.offer_activate_button),
-                    {
-                        onOfferActivationClicked()
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                        .padding(top = MaterialTheme.spacing.small),
-                    color = Secondary,
-                )
+                if (state.activationDate != null) {
+                    Text(
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                            .background(ActivityColor)
+                            .padding(4.dp)
+                            .clip(RoundedCornerShape(8.dp)),
+                        text = "Your offer is Activated since " + state.activationDate,
+                        textAlign = TextAlign.Center
+                    )
+                } else {
+                    FilterDialogButton(
+                        stringResource(id = R.string.offer_activate_button),
+                        {
+                            onOfferActivationClicked(offer.id)
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                            .padding(top = MaterialTheme.spacing.small),
+                        color = Secondary,
+                    )
+                }
             }
 
             item {
                 Text(
                     style = descriptionStyle,
-                    modifier = Modifier.padding(horizontal = 16.dp) .padding(top = MaterialTheme.spacing.small),
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(top = MaterialTheme.spacing.small),
                     text = stringResource(id = R.string.offer_activation_condition)
                 )
             }

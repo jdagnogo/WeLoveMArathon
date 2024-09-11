@@ -7,6 +7,8 @@ import com.jdagnogo.welovemarathon.offer.data.OfferData
 import com.jdagnogo.welovemarathon.offer.data.OfferMapper
 import com.jdagnogo.welovemarathon.offer.data.OfferRemoteData
 import com.jdagnogo.welovemarathon.offer.data.OfferRepository
+import com.jdagnogo.welovemarathon.offer.domain.ActivateOfferUseCase
+import com.jdagnogo.welovemarathon.offer.domain.GetOfferActivatedUseCase
 import com.jdagnogo.welovemarathon.offer.domain.GetOfferCountUseCase
 import com.jdagnogo.welovemarathon.offer.domain.GetOfferUseCase
 import com.jdagnogo.welovemarathon.offer.domain.IsOfferAvailableUseCase
@@ -33,6 +35,23 @@ object OfferModule {
     ): GetOfferUseCase {
         return GetOfferUseCase(repository, getRestaurantByIdUseCase, isOfferAvailableUseCase)
     }
+
+    @Provides
+    @Singleton
+    fun provideActivateOfferUseCase(
+        repository: OfferRepository,
+    ): ActivateOfferUseCase {
+        return ActivateOfferUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetOfferActivatedUseCase(
+        repository: OfferRepository,
+    ): GetOfferActivatedUseCase {
+        return GetOfferActivatedUseCase(repository)
+    }
+
 
     @Provides
     @Singleton
@@ -82,10 +101,12 @@ object OfferModule {
     @Singleton
     fun provideOfferUseCase(
         getOfferUseCase: GetOfferUseCase,
-        updateOfferDisplayCountUseCase: UpdateOfferDisplayCountUseCase,
+        getOfferActivatedUseCase: GetOfferActivatedUseCase,
+        activateOfferUseCase: ActivateOfferUseCase,
     ) = OfferUseCase(
         getOfferUseCase = getOfferUseCase,
-        updateOfferDisplayCountUseCase = updateOfferDisplayCountUseCase,
+        getOfferActivatedUseCase = getOfferActivatedUseCase,
+        activateOfferUseCase = activateOfferUseCase,
     )
 
     @Provides

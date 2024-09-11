@@ -25,6 +25,7 @@ import com.jdagnogo.welovemarathon.common.category.FilterDialogButton
 import com.jdagnogo.welovemarathon.common.ui.component.DividerComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.OfferTitleStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.Primary
+import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import com.jdagnogo.welovemarathon.common.ui.theme.TagColor
 import com.jdagnogo.welovemarathon.common.ui.theme.emptyScreenTitle
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
@@ -45,6 +46,7 @@ fun OfferContent(
             ) {
                 Text(
                     style = OfferTitleStyle,
+                    color = Secondary,
                     text = offer.title
                 )
                 Text(
@@ -52,7 +54,7 @@ fun OfferContent(
                     text = stringResource(id = R.string.offer_title)
                 )
                 Text(
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    modifier = Modifier.padding(top = 8.dp).align(Alignment.CenterHorizontally),
                     style = emptyScreenTitle,
                     text = stringResource(id = R.string.offer_subtitle)
                 )

@@ -15,6 +15,7 @@ class OfferReducer : IReducer<OfferViewModel.OfferState, OfferViewModel.OfferPar
             is OfferViewModel.OfferPartialState.OnOfferSuccess -> {
                 state.copy(
                     offer = partialState.offer,
+                    activationDate = partialState.activationDate,
                 )
             }
         }

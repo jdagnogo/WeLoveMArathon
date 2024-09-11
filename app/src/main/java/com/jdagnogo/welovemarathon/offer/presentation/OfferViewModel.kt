@@ -10,9 +10,10 @@ import com.jdagnogo.welovemarathon.offer.domain.OfferWithRestaurant
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import java.util.Calendar
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,10 +31,16 @@ class OfferViewModel @Inject constructor(
 
     private fun fetchOffers() {
         viewModelScope.launch {
-            useCases.getOfferUseCase().onEach { resource ->
+            combine(
+                useCases.getOfferUseCase(),
+                useCases.getOfferActivatedUseCase()
+            ) { resource, offerActivated ->
                 val offer = resource.data
+                val activationDate =
+                    offerActivated.data?.find { it.id == offer?.id }?.activationDate
                 if (resource is Resource.Success) {
-                    val partialState = OfferPartialState.OnOfferSuccess(offer)
+                    val partialState =
+                        OfferPartialState.OnOfferSuccess(offer, activationDate = activationDate)
                     _state.value = reducer.reduce(state.value, partialState)
                 }
             }.launchIn(this)
@@ -42,9 +49,13 @@ class OfferViewModel @Inject constructor(
 
     override fun dispatchEvent(event: OfferUiEvent) {
         when (event) {
-            OfferUiEvent.OnBookNow -> {
+            is OfferUiEvent.OnBookNow -> onBookNow(event.offerId)
+        }
+    }
 
-            }
+    private fun onBookNow(offerId: String) {
+        viewModelScope.launch {
+            useCases.activateOfferUseCase(offerId, Calendar.getInstance().time)
         }
     }
 
@@ -54,18 +65,21 @@ class OfferViewModel @Inject constructor(
     @Keep
     data class OfferState(
         val offer: OfferWithRestaurant? = null,
-        val isOfferActivated : Boolean = false
+        val activationDate: String? = null
     )
 
     @Keep
     sealed class OfferPartialState {
         data object Empty : OfferPartialState()
-        data class OnOfferSuccess(val offer: OfferWithRestaurant?) : OfferPartialState()
+        data class OnOfferSuccess(
+            val offer: OfferWithRestaurant?,
+            val activationDate: String?
+        ) : OfferPartialState()
     }
 
     @Keep
     sealed class OfferUiEvent {
-        object OnBookNow : OfferUiEvent()
+        data class OnBookNow(val offerId: String) : OfferUiEvent()
     }
 
 }

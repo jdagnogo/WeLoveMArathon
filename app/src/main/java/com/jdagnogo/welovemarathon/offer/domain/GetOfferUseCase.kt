@@ -19,6 +19,7 @@ class GetOfferUseCase @Inject constructor(
         return repository.data.transformContent { data ->
             val restaurant = getRestaurantByIdUseCase(data?.firstOrNull()?.restaurant)
             val offer = data?.firstOrNull() ?: return@transformContent null
+
             if (isOfferAvailableUseCase(offer.id).not()) return@transformContent null
             OfferWithRestaurant(
                 id = offer.id,
@@ -27,7 +28,7 @@ class GetOfferUseCase @Inject constructor(
                 startDate = toDate(offer.startDate),
                 endDate = toDate(offer.endDate),
                 restaurant = restaurant.data,
-                promos = offer.promos
+                promos = offer.promos,
             )
         }
     }

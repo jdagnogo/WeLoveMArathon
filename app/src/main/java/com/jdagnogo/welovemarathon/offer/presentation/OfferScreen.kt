@@ -1,6 +1,5 @@
 package com.jdagnogo.welovemarathon.offer.presentation
 
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -15,8 +14,13 @@ fun OfferScreen(
 ) {
     val state by viewModel.state.collectAsState()
     if (state.offer == null) {
-        Text(text = " NO OFFER")
+        OfferEmptySection()
     } else {
-        OfferDetailsContent(modifier = modifier, state = state)
+        OfferDetailsContent(
+            modifier = modifier,
+            state = state,
+            onOfferActivationClicked = {
+                viewModel.dispatchEvent(OfferViewModel.OfferUiEvent.OnBookNow(it))
+            })
     }
 }

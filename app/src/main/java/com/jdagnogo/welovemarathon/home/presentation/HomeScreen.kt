@@ -79,6 +79,7 @@ fun HomeScreen(
             ) {
                 OfferContent(offer = state.offer) {
                     shouldOpenOfferBottomSheet.value = false
+                    viewModel.dispatchEvent(HomeUiEvent.OnOfferDisplayed(state.offer.id))
                     navController.navigate(
                         navOptions = NavOptions.Builder(
                         ).setPopUpTo(HomeSections.HOME.route, true, true).build(),
