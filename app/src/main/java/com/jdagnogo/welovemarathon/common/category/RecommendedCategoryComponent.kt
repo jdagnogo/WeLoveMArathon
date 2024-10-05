@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -118,7 +119,7 @@ fun RecommendedCategoryContent(
             contentScale = ContentScale.Fit
         )
         Text(
-            modifier = Modifier.background(Neutral3),
+            modifier = Modifier.background(Neutral3, RoundedCornerShape(8.dp)).padding(8.dp),
             style = RecommendedCategoryItemTitleStyle,
             text = item.name
         )

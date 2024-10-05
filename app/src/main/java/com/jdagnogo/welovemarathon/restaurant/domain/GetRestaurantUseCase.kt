@@ -69,7 +69,7 @@ class GetRestaurantUseCase @Inject constructor(
                         }
                     }
 
-                    Resource.Success(allRestaurant)
+                    Resource.Success(allRestaurant?.sortedBy { it.isRecommended.not() })
                 }
 
                 else -> {
