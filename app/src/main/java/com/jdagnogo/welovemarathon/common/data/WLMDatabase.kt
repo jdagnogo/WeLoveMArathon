@@ -78,7 +78,7 @@ import java.util.*
         RestaurantFilterEntity::class,
         OfferEntity::class,
         TipsEntity::class],
-    version = 6
+    version = 8
 )
 @TypeConverters(Converters::class)
 abstract class WLMDatabase : RoomDatabase() {

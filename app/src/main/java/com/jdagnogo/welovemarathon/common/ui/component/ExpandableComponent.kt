@@ -19,8 +19,8 @@ import com.jdagnogo.welovemarathon.common.ui.theme.SubTitleStyle
 
 @Composable
 internal fun ExpandableComponent(
-    labelMore: String = "See more",
-    labelLess: String = "See less",
+    labelMore: String = "read more",
+    labelLess: String = "read less",
     modifier: Modifier = Modifier,
     shouldShowExpandButton: Boolean = true,
     content: @Composable ColumnScope.(isExpanded: Boolean) -> Unit,

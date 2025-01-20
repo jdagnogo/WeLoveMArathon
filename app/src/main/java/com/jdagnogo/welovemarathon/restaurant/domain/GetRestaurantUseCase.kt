@@ -41,7 +41,7 @@ class GetRestaurantUseCase @Inject constructor(
 
                     if (filter.plates.isNotEmpty()) {
                         allRestaurant = allRestaurant?.filter { restaurant ->
-                            restaurant.plates.any { filter.plates.contains(it.name) }
+                            restaurant.menu.any { filter.plates.contains(it) }
                         }
                     }
 
@@ -66,6 +66,12 @@ class GetRestaurantUseCase @Inject constructor(
                     if (filter.handicapAccess) {
                         allRestaurant = allRestaurant?.filter { restaurant ->
                             restaurant.handicapAccess
+                        }
+                    }
+
+                    if (filter.evCharger) {
+                        allRestaurant = allRestaurant?.filter { restaurant ->
+                            restaurant.evCharger
                         }
                     }
 

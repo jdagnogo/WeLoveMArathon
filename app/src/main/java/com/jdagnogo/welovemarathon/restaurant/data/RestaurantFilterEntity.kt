@@ -18,6 +18,7 @@ data class RestaurantFilterEntity(
     val location: EntityStringList,
     val prices: EntityStringList,
     val handicapAccess: Boolean,
+    val evCharger: Boolean,
 ) {
     fun toRestaurantFilter(): RestaurantFilter {
         return RestaurantFilter(
@@ -28,6 +29,7 @@ data class RestaurantFilterEntity(
             drinks = drinks.data,
             location = location.data,
             prices = prices.data,
+            evCharger = evCharger,
             handicapAccess = handicapAccess,
         )
     }

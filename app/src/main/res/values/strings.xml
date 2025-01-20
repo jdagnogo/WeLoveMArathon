@@ -2,6 +2,7 @@
     <string name="app_name">WeLoveMarathon</string>
     <string name="food">Food &amp; Drink</string>
     <string name="filter">Filters</string>
+    <string name="platesTitle">Must-try Menu</string>
     <string name="amenitiesTitle">Amenities</string>
     <string name="typeOf">Type of</string>
     <string name="cuisine">Cuisine</string>
@@ -11,6 +12,7 @@
     <string name="location">Location</string>
     <string name="services">Services</string>
     <string name="access">Access</string>
+    <string name="ev_charger">EvCharger</string>
     <string name="restaurant_empty_title">Not founded</string>
     <string name="restaurant_empty_description">Reduce the number of filters</string>
     <string name="offer_no_offer_title">No offer at the moment</string>

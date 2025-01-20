@@ -1,6 +1,5 @@
 package com.jdagnogo.welovemarathon.restaurant.presentation.filter
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,12 +22,14 @@ import com.jdagnogo.welovemarathon.common.ui.theme.White
 @Composable
 fun FilterBooleanComponent(
     modifier: Modifier = Modifier,
+    title: Int = R.string.access,
+    icon: Int = R.drawable.access,
     isChecked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
 ) {
     Text(
         modifier = modifier,
-        text = stringResource(id = R.string.access),
+        text = stringResource(id = title),
         style = SubTitleStyle.copy(fontSize = 18.sp),
     )
 
@@ -36,7 +37,7 @@ fun FilterBooleanComponent(
     Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         Icon(
             painter = rememberImagePainter(
-                data = R.drawable.home,
+                data = icon,
                 builder = {
                     crossfade(true)
                     error(R.drawable.ic_wlm_logo)

@@ -28,6 +28,8 @@ import com.jdagnogo.welovemarathon.restaurant.domain.Amenities
 fun LazyListScope.amenitiesSection(
     modifier: Modifier = Modifier,
     amenities: List<Amenities>,
+    menu: List<String>,
+    drinks: List<String>,
 ) {
     if (amenities.isNotEmpty()) {
         item("Amenitie title") {
@@ -36,10 +38,12 @@ fun LazyListScope.amenitiesSection(
                 text = stringResource(id = R.string.amenitiesTitle),
                 style = SubTitleStyle.copy(fontSize = 18.sp),
             )
-            Spacer(modifier = Modifier.padding(bottom = 8.dp))
+            Spacer(modifier = Modifier.padding(bottom = 16.dp))
         }
 
-        items(amenities, key = { it.type }) {
+        items(
+            addAmenities(amenities = amenities, menu = menu, drinks = drinks),
+            key = { it.type }) {
             Row(
                 modifier = Modifier.padding(horizontal = 16.dp),
                 verticalAlignment = Alignment.CenterVertically,
@@ -70,5 +74,29 @@ fun LazyListScope.amenitiesSection(
                 )
             }
         }
+    }
+}
+
+private fun addAmenities(
+    amenities: List<Amenities>,
+    menu: List<String>,
+    drinks: List<String>,
+): List<Amenities> {
+    return buildList<Amenities> {
+        addAll(amenities)
+        add(
+            Amenities(
+                type = "In the menu",
+                icon = "https://firebasestorage.googleapis.com/v0/b/welovemarathon-71ff6.appspot.com/o/icons%2Ffood.png?alt=media&token=6eca67f0-5df1-4e2a-83ba-2c19f854b2e7",
+                description = menu.joinToString(separator = ", "),
+            )
+        )
+        add(
+            Amenities(
+                type = "drinks",
+                icon = "https://firebasestorage.googleapis.com/v0/b/welovemarathon-71ff6.appspot.com/o/icons%2Fdrinks-01.png?alt=media&token=5c0c4f8a-b5b0-4c90-a10d-6752eb98ccd4",
+                description = drinks.joinToString(separator = ", "),
+            )
+        )
     }
 }

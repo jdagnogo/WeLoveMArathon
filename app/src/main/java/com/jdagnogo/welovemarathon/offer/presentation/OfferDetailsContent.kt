@@ -229,7 +229,9 @@ fun OfferDetailsContent(
             amenitiesSection(
                 Modifier
                     .padding(top = 32.dp),
-                amenities = restaurant.amenities
+                amenities = restaurant.amenities,
+                menu = restaurant.menu,
+                drinks = restaurant.drinks,
             )
         }
     }

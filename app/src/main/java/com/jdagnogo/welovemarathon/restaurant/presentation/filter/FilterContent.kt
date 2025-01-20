@@ -160,6 +160,19 @@ fun FilterContent(
 
             Spacer(modifier = Modifier.padding(16.dp))
 
+            FilterBooleanComponent(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                isChecked = filterApplied.value.evCharger,
+                title = R.string.ev_charger,
+                icon = R.drawable.ic_location,
+                onCheckedChange = {
+                    filterApplied.value = filterApplied.value.copy(evCharger = it)
+                }
+            )
+
+
+            Spacer(modifier = Modifier.padding(16.dp))
+
             FilterRowComponent(
                 title = stringResource(id = R.string.location),
                 data = state.filter.location,

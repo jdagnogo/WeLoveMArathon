@@ -12,4 +12,5 @@ data class RestaurantAppliedFilter(
     val location : MutableSet<String> = mutableSetOf(),
     val prices : MutableSet<String> = mutableSetOf(),
     val handicapAccess : Boolean = false,
+    val evCharger : Boolean = false,
 )
