@@ -8,22 +8,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
-val SystemBarColors = Color(0xFFFFFFFF)
-val BottomMenuBackground = Color(0xFFFFFFFF)
-val Transparent = Color(0xff0080)
-val Primary = Color(0xFF3D4962)
-val PrimaryLight = Color(0xFF697490)
-val PrimaryDark = Color(0xFF142238)
-val Secondary = Color(0xFFFF9EA5)
-val SecondaryLight = Color(0xFFFFD0D6)
-val SecondaryDark = Color(0xFFCA6E76)
+
+val Primary = Color(0xFFFAFAFA)
+val PrimaryLight = Color(0xFFFFFFFF)
+val PrimaryDark = Color(0xFFE0E0E0)
+val Secondary = Color(0xFF1E4F7B)
+val SecondaryLight = Color(0xFF1E4F7B)
+val SecondaryDark = Color(0xFF1E4F7B)
 val Black = Color(0xFF000000)
 val White = Color(0xFFFAFAFA)
-val Neutral4 = Color(0xFF4C6599)
-val Neutral3 = Color(0x99070707)
-val Background = Color(0xE1E1E1)
 val BackgroundLight = Primary
-val ContentBackgroundLight = Primary
+val ContentBackgroundLight = Color(0xFFF0F0F0)
 val ContentBackgroundDark = Color(0xFF161616)
 val ActivityColor = Color(0xFF93DB9B)
 val BeachColor = Color(0xFFFAAF3F)
@@ -32,7 +27,6 @@ val ShoppingColor = Color(0xFFA584FA)
 val FoodColor = Color(0xFFE7CD4E)
 val WineColor = Color(0xFFFF9EA5)
 val TagColor = Color(0xFF94CDFD)
-val TipsColor = Primary
 
 class WLMColors(
     val gradient: List<Color>,

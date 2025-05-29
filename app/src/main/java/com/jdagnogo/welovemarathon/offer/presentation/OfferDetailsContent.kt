@@ -232,6 +232,7 @@ fun OfferDetailsContent(
                 amenities = restaurant.amenities,
                 menu = restaurant.menu,
                 drinks = restaurant.drinks,
+                cuisines = restaurant.cuisines
             )
         }
     }

@@ -23,3 +23,5 @@ data class FoodCategoryEntity(
         const val TABLE = "FoodCategory"
     }
 }
+
+

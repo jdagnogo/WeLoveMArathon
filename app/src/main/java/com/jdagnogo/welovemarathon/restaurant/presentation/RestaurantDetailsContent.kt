@@ -1,14 +1,13 @@
 package com.jdagnogo.welovemarathon.restaurant.presentation
 
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
@@ -19,7 +18,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
@@ -83,26 +81,26 @@ fun RestaurantDetailsContent(
         }
     ) { paddingValues ->
         LazyColumn(
-            contentPadding = PaddingValues(
-                bottom = MaterialTheme.spacing.large,
-            ),
+            contentPadding = PaddingValues(0.dp),
             modifier = modifier
                 .padding(paddingValues)
                 .animateContentSize()
         ) {
-
             item {
                 val images = remember { restaurant.images }
                 Box(
                     contentAlignment = Alignment.Center,
-                    modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium)
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(250.dp)
                 ) {
                     CarouselWithPreview(
                         urls = images,
                         shape = RoundedCornerShape(0),
                         bigImages = restaurant.bigImages,
-                        modifier = Modifier.padding(bottom = MaterialTheme.spacing.medium)
-
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(),
                     )
                     if (restaurant.isRecommended) {
                         Icon(
@@ -131,14 +129,16 @@ fun RestaurantDetailsContent(
                 uriHandler = uriHandler
             )
 
-            servicesSection(
-                modifier = Modifier.padding(top = 16.dp),
-                services = restaurant.services
-            )
+            if (restaurant.isRecommended) {
+                descriptionSection(
+                    modifier = Modifier.padding(top = 0.dp, bottom = 0.dp),
+                    description = restaurant.description
+                )
+            }
 
-            descriptionSection(
-                modifier = Modifier.padding(top = 16.dp),
-                description = restaurant.description
+            servicesSection(
+                modifier = Modifier.padding(top = 4.dp),
+                services = restaurant.services
             )
 
             platesSection(
@@ -152,6 +152,7 @@ fun RestaurantDetailsContent(
                 amenities = restaurant.amenities,
                 menu = restaurant.menu,
                 drinks = restaurant.drinks,
+                cuisines = restaurant.cuisines
             )
 
             mapSection(

@@ -12,6 +12,7 @@ data class CategoryItem(
     val number: String = "",
     val tags: String = "",
     val parentIcon: Int = 0,
+
 ) {
     fun toFavorite(): Favorite {
         return Favorite(

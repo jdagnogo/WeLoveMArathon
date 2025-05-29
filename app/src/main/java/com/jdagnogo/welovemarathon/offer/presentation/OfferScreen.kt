@@ -5,6 +5,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.jdagnogo.welovemarathon.offer.domain.OfferWithRestaurant
 
 @Composable
 fun OfferScreen(
@@ -13,14 +14,24 @@ fun OfferScreen(
     viewModel: OfferViewModel,
 ) {
     val state by viewModel.state.collectAsState()
-    if (state.offer == null) {
-        OfferEmptySection()
-    } else {
-        OfferDetailsContent(
-            modifier = modifier,
-            state = state,
-            onOfferActivationClicked = {
-                viewModel.dispatchEvent(OfferViewModel.OfferUiEvent.OnBookNow(it))
-            })
-    }
+
+    // Ensure you have an offer to pass
+    val offer = state.offer ?: OfferWithRestaurant(
+        id = "default",
+        title = "Default Offer",
+        description = "This is a default offer description.",
+        promoCode = "DEFAULT",
+        validUntil = "N/A",
+        restaurantName = "Default Restaurant",
+        discount = "0%",
+        restaurantId = "0",
+        restaurantImage = ""
+    )
+
+    OfferContent(
+        offer = offer,
+        onGetOfferClicked = {
+            viewModel.dispatchEvent(OfferViewModel.OfferUiEvent.OnBookNow(offer.toString()))
+        }
+    )
 }

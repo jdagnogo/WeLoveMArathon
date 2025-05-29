@@ -1,93 +1,121 @@
 package com.jdagnogo.welovemarathon.restaurant.presentation.sections
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.Card
-import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
-import com.google.accompanist.flowlayout.FlowMainAxisAlignment
-import com.google.accompanist.flowlayout.FlowRow
-import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryLight
-import com.jdagnogo.welovemarathon.common.ui.theme.recommendedCategoryContentStyle
-import com.jdagnogo.welovemarathon.common.ui.theme.tagsTitleStyle
 import com.jdagnogo.welovemarathon.restaurant.domain.RestaurantService
+import com.jdagnogo.welovemarathon.restaurant.domain.ServiceIcons
 
 fun LazyListScope.servicesSection(
     modifier: Modifier = Modifier,
     services: List<RestaurantService>
 ) {
     item("servicesSection") {
-        FlowRow(
-            mainAxisSpacing = 8.dp,
-            crossAxisSpacing = 8.dp,
-            lastLineMainAxisAlignment = FlowMainAxisAlignment.Center,
-            modifier = modifier.fillParentMaxWidth()
+        Card(
+            backgroundColor = Color(0xFF1E4F7B).copy(alpha = 0.05f),
+            shape = MaterialTheme.shapes.medium,
+            modifier = modifier
+                .wrapContentSize()
+                .padding(horizontal = 16.dp),
+            elevation = 0.dp
         ) {
-            val itemModifier = Modifier.fillMaxWidth(0.3f)
-            repeat(services.size) { index ->
-                ServiceComponent(
-                    modifier = itemModifier,
-                    services[index]
-                )
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .wrapContentSize(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    services.forEach { service ->
+                        ServiceItem(
+                            service = service,
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
+                }
             }
         }
     }
 }
 
 @Composable
-private fun ServiceComponent(
-    modifier: Modifier = Modifier,
+private fun ServiceItem(
     service: RestaurantService,
+    modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier.padding(horizontal = 4.dp)
     ) {
-        Image(
-            painter = rememberImagePainter(data = service.icon),
-            contentDescription = service.title,
-            modifier = Modifier
-                .size(60.dp)
-                .align(Alignment.CenterHorizontally),
-            contentScale = ContentScale.Crop,
-        )
-        Card(
-            backgroundColor = PrimaryLight,
-            shape = MaterialTheme.shapes.medium,
-            modifier = Modifier.fillMaxSize(),
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.weight(1f)
         ) {
-            Column(modifier = Modifier
-                .padding(8.dp)
-                .height(90.dp)) {
-                Text(
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    text = service.title,
-                    style = tagsTitleStyle.copy(fontSize = 14.sp)
+            Image(
+                painter = rememberImagePainter(
+                    data = getStaticIconForService(service.title),
+                    builder = {
+                        crossfade(true)
+                    }
+                ),
+                contentDescription = service.title,
+                modifier = Modifier.size(49.dp),
+                contentScale = ContentScale.Fit,
+            )
+            
+            Spacer(modifier = Modifier.height(4.dp))
+            
+            Text(
+                text = service.title,
+                style = MaterialTheme.typography.subtitle1.copy(
+                    fontSize = 15.sp,
+                    color = Color.Black,
+                    textAlign = TextAlign.Center
                 )
-                Divider(Modifier.padding(vertical = 8.dp))
-                Text(
-                    text = service.description,
-                    style = recommendedCategoryContentStyle.copy(fontSize = 12.sp),
-                    maxLines = 4,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
+            )
+            
+            Text(
+                text = service.description,
+                style = MaterialTheme.typography.body2.copy(
+                    fontSize = 13.sp,
+                    color = Color(0xFF1E4F7B).copy(alpha = 0.8f),
+                    textAlign = TextAlign.Center
+                ),
+                modifier = Modifier.padding(top = 2.dp)
+            )
         }
 
     }
+}
 
+private fun getStaticIconForService(title: String): String {
+    return when (title.lowercase()) {
+        "services" -> ServiceIcons.SERVICES
+        "cuisine" -> ServiceIcons.CUISINE
+        "location" -> ServiceIcons.LOCATION
+        else -> ServiceIcons.SERVICES
+    }
 }

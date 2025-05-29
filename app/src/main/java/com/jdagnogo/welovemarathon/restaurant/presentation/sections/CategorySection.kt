@@ -28,12 +28,10 @@ import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.component.DividerComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.ActivitySubTitleStyle
-import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 import com.jdagnogo.welovemarathon.food.domain.FoodCategory
 import com.jdagnogo.welovemarathon.food.domain.FoodCategory.Companion.allCategory
 import com.jdagnogo.welovemarathon.food.domain.FoodCategory.Companion.filterCategory
-import com.jdagnogo.welovemarathon.food.domain.FoodCategory.Companion.likedCategory
 
 
 @Composable
@@ -88,15 +86,17 @@ private fun RestaurantCategoryItem(
     onCategoryClicked: (String) -> Unit = {},
 ) {
     val color by animateColorAsState(
-        if (isSelected) Secondary else Color.White,
+        if (isSelected) Color(0xFF1E4F7B) else Color.Black,
         label = "iconColor"
     )
     val interactionSource = remember { MutableInteractionSource() }
-    Column(horizontalAlignment = Alignment.CenterHorizontally,
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.clickable(
             interactionSource = interactionSource,
             indication = null
-        ) { onCategoryClicked(item.name) }) {
+        ) { onCategoryClicked(item.name) }
+    ) {
         Image(
             painter = rememberImagePainter(
                 data = item.icon.ifEmpty { item.icon },
@@ -110,15 +110,15 @@ private fun RestaurantCategoryItem(
             modifier = Modifier.size(40.dp)
         )
         Text(
-            modifier = Modifier.padding(vertical = 4.dp),
+            modifier = Modifier.padding(vertical = 6.dp),
             text = item.name,
-            color = color,
+            color = color, // Use the same animated color for text
             style = ActivitySubTitleStyle,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
         )
         if (isSelected) {
-            DividerComponent(thickness = 4.dp, color = Color.White)
+            DividerComponent(thickness = 4.dp, color = Color(0xFF1E4F7B))
         }
     }
 }

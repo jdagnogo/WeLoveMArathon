@@ -12,6 +12,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.Primary
@@ -43,7 +44,7 @@ fun CategoryScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(Primary),
+            .background(Color.White),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         TitleComponent(
@@ -55,17 +56,27 @@ fun CategoryScreen(
         RecommendedCategoryComponent(
             recommendedItems = recommendedItems,
             onRecommendedSelected = onItemSelected,
-            modifier = Modifier.padding(top = MaterialTheme.spacing.huge)
+            modifier = Modifier.padding(top = MaterialTheme.spacing.small)
         )
 
-        CategoryComponent(
+        CategoryGridComponent(
             items = items,
             onLikeClicked = onLikeClicked,
+            title = title,
+            shouldDisplayFilter = shouldDisplayFilter,
             onFilterClicked = onFilterClicked,
-            shouldDisplayFilter= shouldDisplayFilter,
-            Modifier.padding(top = MaterialTheme.spacing.medium)
+            modifier = Modifier.padding(top = MaterialTheme.spacing.medium)
         )
-        if (shouldOpenRecommenderDialog) {
+
+        if (shouldDisplayFilter) {
+            FilterComponent(
+                shouldDisplayFilter = shouldDisplayFilter,
+                onFilterClicked = onFilterClicked,
+                modifier = Modifier
+            )
+        }
+
+        if (shouldOpenRecommenderDialog && currentRecommended != null) {
             RecommendedCategoryDetailsDialogComponent(
                 item = currentRecommended,
                 onDismissRequest = onRecommendedDialogClosed,

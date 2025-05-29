@@ -6,6 +6,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,6 +20,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,61 +49,77 @@ fun SubMenuScreen(
     if (subMenuUiModel == null) return
     Box(
         modifier = modifier
-            .semantics { backgroundColor = subMenuUiModel.backgroundColor }
+            .semantics { backgroundColor = Color.White }
             .fillMaxSize()
             .statusBarsPadding()
-            .background(subMenuUiModel.backgroundColor)
+            .background(Color.White)
     ) {
-        Card(
-            elevation = 0.dp,
-            shape = RoundedCornerShape(0.dp, 0.dp, 50.dp, 50.dp),
-            modifier = Modifier
-                .height(500.dp)
-                .fillMaxWidth()
-
-        ) {
-            Image(
-                painter = rememberImagePainter(
-                    data = subMenuUiModel.image,
-                    builder = {
-                        crossfade(true)
-                        error(R.drawable.ic_wlm_logo)
-                    }
-                ),
-                contentDescription = subMenuUiModel.screenName,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(250.dp),
-                contentScale = ContentScale.Crop,
-            )
-        }
-        if (shouldDisplayTitle) {
-            TitleComponent(
-                title = subMenuUiModel.screenName,
-                onLeftIconClicked = subMenuInteractions.onBackPressed,
-                onRightIconClicked = subMenuInteractions.onMapSelected
-            )
-        }
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = MaterialTheme.spacing.medium)
-                .padding(bottom = MaterialTheme.spacing.huge),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Bottom
+            modifier = Modifier.fillMaxSize()
         ) {
-            SubMenuComponent(
-                items = subMenuUiModel.items,
-                onItemSelected = subMenuInteractions.onItemSelected,
-            )
+            if (shouldDisplayTitle) {
+                TitleComponent(
+                    title = subMenuUiModel.screenName,
+                    onLeftIconClicked = subMenuInteractions.onBackPressed,
+                    onRightIconClicked = subMenuInteractions.onMapSelected
+                )
+            }
+
+            Card(
+                elevation = 0.dp,
+                shape = RoundedCornerShape(50.dp),
+                modifier = Modifier
+                    .weight(0.7f)
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .padding(horizontal = MaterialTheme.spacing.medium)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight()
+                        .clip(RoundedCornerShape(50.dp))
+                ) {
+                    Image(
+                        painter = rememberImagePainter(
+                            data = subMenuUiModel.image,
+                            builder = {
+                                crossfade(true)
+                                error(R.drawable.ic_wlm_logo)
+                            }
+                        ),
+                        contentDescription = subMenuUiModel.screenName,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(),
+                        contentScale = ContentScale.Crop,
+                        colorFilter = ColorFilter.tint(
+                            color = Color(0xFF1E4F7B).copy(alpha = 0.8f),
+                            blendMode = BlendMode.Color
+                        )
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.weight(0.57f))
         }
+
+        SubMenuComponent(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .fillMaxWidth()
+                .padding(horizontal = MaterialTheme.spacing.medium)
+                .padding(bottom = if (subMenuUiModel.banner != null) MaterialTheme.spacing.medium * 2 else MaterialTheme.spacing.medium),
+            items = subMenuUiModel.items,
+            onItemSelected = subMenuInteractions.onItemSelected,
+        )
 
         if (subMenuUiModel.banner != null) {
             GifBannerComponent(
                 gifBanner = subMenuUiModel.banner,
                 Modifier
                     .align(Alignment.BottomCenter)
-                    .padding(bottom = MaterialTheme.spacing.medium)
+                    .padding(bottom = MaterialTheme.spacing.extraMedium)
             )
         }
     }

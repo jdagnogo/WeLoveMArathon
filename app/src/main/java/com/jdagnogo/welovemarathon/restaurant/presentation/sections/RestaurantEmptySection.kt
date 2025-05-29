@@ -12,11 +12,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
-import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import com.jdagnogo.welovemarathon.common.ui.theme.emptyScreenSubTitle
 import com.jdagnogo.welovemarathon.common.ui.theme.emptyScreenTitle
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
@@ -30,13 +30,12 @@ fun RestaurantEmptySection(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier.padding(horizontal = MaterialTheme.spacing.medium),
-
-            ) {
+        ) {
             Spacer(modifier = Modifier.padding(top = MaterialTheme.spacing.huge))
 
             Image(
                 painter = rememberImagePainter(
-                    data = R.drawable.ic_fav_unselected,
+                    data = R.drawable.ic_toomanyfilters,
                     builder = {
                         crossfade(true)
                         error(R.drawable.ic_wlm_logo)
@@ -48,20 +47,23 @@ fun RestaurantEmptySection(
 
             Text(
                 text = stringResource(id = R.string.restaurant_empty_title),
-                style = emptyScreenTitle,
+                style = emptyScreenTitle.copy(color = Color.Black),
                 modifier = Modifier.padding(top = MaterialTheme.spacing.medium)
             )
 
             Text(
                 text = stringResource(id = R.string.restaurant_empty_description),
-                style = emptyScreenSubTitle,
+                style = emptyScreenSubTitle.copy(color = Color.Black),
                 modifier = Modifier.padding(top = MaterialTheme.spacing.medium)
             )
 
             Button(
                 shape = MaterialTheme.shapes.medium,
                 onClick = { onRedirectToFilterClicked() },
-                colors = ButtonDefaults.buttonColors(backgroundColor = Secondary),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color.White,
+                    contentColor = Color.White
+                ),
                 modifier = modifier
                     .padding(top = MaterialTheme.spacing.huge)
             ) {

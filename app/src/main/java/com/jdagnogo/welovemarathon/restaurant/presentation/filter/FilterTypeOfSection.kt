@@ -4,7 +4,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.TweenSpec
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.foundation.background
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
@@ -27,10 +27,9 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.theme.ActivitySubTitleStyle
-import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryLight
-import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
-import com.jdagnogo.welovemarathon.common.ui.theme.White
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
+
+val LightModeBlue = Color(0xFF1E4F7B) 
 
 @Composable
 fun TypeOfItem(
@@ -40,66 +39,65 @@ fun TypeOfItem(
     isSelected: Boolean,
     onItemClicked: () -> Unit = {},
 ) {
-    val color = Secondary.takeIf { isSelected } ?: PrimaryLight
-    val textColor = Secondary.takeIf { isSelected } ?: Color.White
-    val scale = if (isSelected) 1.2f else 1f
-    val animatedScale: Float by animateFloatAsState(
-        targetValue = scale,
+    val scale by animateFloatAsState(
+        targetValue = if (isSelected) 1.1f else 1f,
         animationSpec = TweenSpec(
-            durationMillis = 500,
+            durationMillis = 200,
             easing = FastOutSlowInEasing
-        ), label = ""
+        )
     )
-    val animatedColor by animateColorAsState(
-        targetValue = color,
-        animationSpec = TweenSpec(
-            durationMillis = 800,
-            easing = FastOutSlowInEasing
-        ), label = ""
+
+    val backgroundColor by animateColorAsState(
+        targetValue = if (isSelected) LightModeBlue else Color.White,
+        animationSpec = TweenSpec(durationMillis = 200)
     )
-    val animatedTextColor by animateColorAsState(
-        targetValue = textColor,
-        animationSpec = TweenSpec(
-            durationMillis = 800,
-            easing = FastOutSlowInEasing
-        ), label = ""
+
+    val iconColor by animateColorAsState(
+        targetValue = if (isSelected) Color.White else Color.Black,
+        animationSpec = TweenSpec(durationMillis = 200)
     )
+
+    val textColor by animateColorAsState(
+        targetValue = if (isSelected) LightModeBlue else Color.Black,
+        animationSpec = TweenSpec(durationMillis = 200)
+    )
+    
     Column(
-        modifier = modifier.clickable(
-            indication = null,
-            interactionSource = remember { MutableInteractionSource() }
-        ) {
-            onItemClicked()
-        },
+        modifier = modifier
+            .scale(scale)
+            .clickable(
+                indication = null,
+                interactionSource = remember { MutableInteractionSource() }
+            ) {
+                onItemClicked()
+            },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Animation params
-
         Surface(
             shape = CircleShape,
-            modifier = Modifier.scale(animatedScale),
-            content = {
-                Icon(
-                    painter = rememberImagePainter(
-                        data = icon,
-                        builder = {
-                            crossfade(true)
-                            error(R.drawable.ic_wlm_logo)
-                        }
-                    ),
-                    contentDescription = name,
-                    tint = White,
-                    modifier = modifier
-                        .background(color = animatedColor)
-                        .size(56.dp)
-
-                )
-            }
-        )
+            modifier = Modifier.size(56.dp),
+            color = backgroundColor,
+            border = BorderStroke(1.dp, LightModeBlue)
+        ) {
+            Icon(
+                painter = rememberImagePainter(
+                    data = icon,
+                    builder = {
+                        crossfade(true)
+                        error(R.drawable.ic_wlm_logo)
+                    }
+                ),
+                contentDescription = name,
+                tint = iconColor,
+                modifier = Modifier
+                    .padding(12.dp)
+                    .size(32.dp)
+            )
+        }
 
         Text(
             text = name,
-            color = animatedTextColor,
+            color = textColor,
             style = ActivitySubTitleStyle.copy(fontSize = 12.sp),
             modifier = Modifier.padding(top = MaterialTheme.spacing.small)
         )

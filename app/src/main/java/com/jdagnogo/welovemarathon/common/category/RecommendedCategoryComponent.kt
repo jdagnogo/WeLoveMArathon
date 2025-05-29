@@ -5,6 +5,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -17,6 +18,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -32,15 +35,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
-import com.jdagnogo.welovemarathon.common.ui.theme.Neutral3
-import com.jdagnogo.welovemarathon.common.ui.theme.RecommendedCategoryItemTitleStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.RecommendedCategoryTitleStyle
-import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
-import com.jdagnogo.welovemarathon.common.ui.theme.SecondaryLight
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 
 @ExperimentalMaterialApi
@@ -56,16 +59,18 @@ fun RecommendedCategoryComponent(
             Text(
                 style = RecommendedCategoryTitleStyle,
                 text = "Best of",
-                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.huge)
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(start = MaterialTheme.spacing.medium, top = 0.dp, bottom = MaterialTheme.spacing.small)
             )
-            Box(modifier = Modifier.padding(top = MaterialTheme.spacing.medium)) {
-                val items = remember {
+            Box(modifier = Modifier.padding(top = MaterialTheme.spacing.small)) {
+                val shuffledItems = remember {
                     recommendedItems.shuffled()
                 }
                 LazyRow(
                     verticalAlignment = Alignment.CenterVertically,
                     contentPadding = PaddingValues(
-                        start = MaterialTheme.spacing.small,
+                        start = MaterialTheme.spacing.medium,
                         end = MaterialTheme.spacing.huge,
                     ),
                     horizontalArrangement = Arrangement.spacedBy(
@@ -76,12 +81,11 @@ fun RecommendedCategoryComponent(
                         .fillMaxWidth()
                         .animateContentSize()
                 ) {
-                    itemsIndexed(items) { _, category ->
+                    itemsIndexed(shuffledItems) { _, category ->
                         RecommendedCategoryContent(
                             item = category,
                             onRecommendedSelected = onRecommendedSelected,
-
-                            )
+                        )
                     }
                 }
             }
@@ -114,15 +118,58 @@ fun RecommendedCategoryContent(
                 }
             ),
             contentDescription = item.name,
-            modifier = Modifier
-                .fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Fit
         )
+
+        if (item.isRecommended) {
+            Icon(
+                painter = rememberImagePainter(
+                    data = R.drawable.star,
+                    builder = {
+                        crossfade(true)
+                        error(R.drawable.ic_wlm_logo)
+                    }
+                ),
+                contentDescription = "recommended icon",
+                tint = Color.White,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .align(Alignment.TopStart)
+                    .size(24.dp)
+                    .background(
+                        color = Color(0xFF1E4F7B).copy(alpha = 0.8f),
+                        shape = RoundedCornerShape(4.dp)
+                    )
+                    .padding(4.dp)
+            )
+        }
+
         Text(
-            modifier = Modifier.background(Neutral3, RoundedCornerShape(8.dp)).padding(8.dp),
-            style = RecommendedCategoryItemTitleStyle,
-            text = item.name
+            text = item.name,
+            style = MaterialTheme.typography.h5.copy(
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp,
+                textAlign = TextAlign.Center
+            ),
+            modifier = Modifier
+                .widthIn(max = 130.dp)
+                .wrapContentWidth()
+                .background(
+                    color = Color.Black.copy(alpha = 0.4f),
+                    shape = RoundedCornerShape(8.dp)
+                )
+                .border(
+                    width = 1.dp,
+                    color = Color.Black,
+                    shape = RoundedCornerShape(8.dp)
+                )
+                .padding(horizontal = 12.dp, vertical = 6.dp),
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
         )
+
         if (isFavorite != null) {
             Icon(
                 painter = rememberImagePainter(
@@ -132,8 +179,8 @@ fun RecommendedCategoryContent(
                         error(R.drawable.ic_wlm_logo)
                     }
                 ),
-                contentDescription = "icon",
-                tint = if (isFavorite) Secondary else Color.White,
+                contentDescription = "favorite icon",
+                tint = if (isFavorite) Color(0xFF1E4F7B) else Color.Black,
                 modifier = Modifier
                     .padding(8.dp)
                     .align(Alignment.TopEnd)
@@ -144,23 +191,6 @@ fun RecommendedCategoryContent(
                     ) {
                         onLikeClicked(item.id)
                     }
-            )
-        }
-        if (item.isRecommended) {
-            Icon(
-                painter = rememberImagePainter(
-                    data = R.drawable.france ,
-                    builder = {
-                        crossfade(true)
-                        error(R.drawable.ic_wlm_logo)
-                    }
-                ),
-                tint = SecondaryLight,
-                contentDescription = "icon",
-                modifier = Modifier
-                    .padding(8.dp)
-                    .align(Alignment.TopStart)
-                    .size(MaterialTheme.spacing.large)
             )
         }
     }

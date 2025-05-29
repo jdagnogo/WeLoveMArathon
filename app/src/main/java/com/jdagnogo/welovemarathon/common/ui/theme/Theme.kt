@@ -12,15 +12,9 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun WeLoveMarathonTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable() () -> Unit,
+    content: @Composable () -> Unit
 ) {
-
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette()
-    }
+    val colors = LightColorPalette()
 
     val sysUiController = rememberSystemUiController()
     SideEffect {
@@ -51,7 +45,6 @@ val LightColorPalette: @Composable () -> Colors by lazy {
     { parseConfigPalette(true) }
 }
 
-// custom palette colors
 val DarkColorCustomPalette: @Composable () -> WLMColors by lazy {
     {
         parseConfigCustomPalette(

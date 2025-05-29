@@ -75,7 +75,10 @@ class GetRestaurantUseCase @Inject constructor(
                         }
                     }
 
-                    Resource.Success(allRestaurant?.sortedBy { it.isRecommended.not() })
+                    Resource.Success(allRestaurant?.let { restaurants ->
+                        val (recommended, nonRecommended) = restaurants.partition { it.isRecommended }
+                        recommended.shuffled() + nonRecommended.sortedBy { it.name.lowercase() }
+                    })
                 }
 
                 else -> {

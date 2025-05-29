@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.border
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
@@ -37,6 +39,9 @@ import com.jdagnogo.welovemarathon.common.ui.theme.White
 import com.jdagnogo.welovemarathon.common.ui.theme.filterButtonStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 import com.jdagnogo.welovemarathon.common.ui.theme.tagStyle
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.indication
+import androidx.compose.material.ripple.rememberRipple
 
 @Composable
 fun FilterDialogComponent(
@@ -67,16 +72,17 @@ fun FilterDetailsDialogContent(
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = modifier.background(PrimaryLight)
+            modifier = modifier.background(Color.White)
         ) {
             Text(
                 style = RecommendedCategoryItemTitleStyle,
                 text = "Select your tags",
+                fontSize = 22.sp,
                 modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium)
             )
             FlowRow(
                 modifier = Modifier
-                    .padding(vertical = MaterialTheme.spacing.medium)
+//                    .padding(vertical = MaterialTheme.spacing.medium)
                     .padding(horizontal = MaterialTheme.spacing.small),
                 mainAxisAlignment = MainAxisAlignment.Center,
                 mainAxisSize = SizeMode.Expand,
@@ -99,14 +105,15 @@ fun FilterDetailsDialogContent(
                     .padding(vertical = MaterialTheme.spacing.medium)
                     .padding(horizontal = MaterialTheme.spacing.small)
             ) {
-                FilterDialogButton("Done ! ", {
+                val blue = Color(0xFF1E4F7B)
+                FilterDialogButton("Reset", {
+                    onResetSelected()
+                }, Modifier.weight(1f), color = blue)
+                FilterDialogButton("Done", {
                     onFiltersSelected(
                         tags.filter { it.isSelected }.map { it.name }
                     )
-                }, Modifier.weight(1f))
-                FilterDialogButton("Reset", {
-                    onResetSelected()
-                }, Modifier.weight(1f))
+                }, Modifier.weight(1f), color = blue)
             }
         }
     }
@@ -117,7 +124,7 @@ fun FilterDialogButton(
     title: String,
     onClicked: () -> Unit = {},
     modifier: Modifier = Modifier,
-    color: Color = TagColor,
+    color: Color = Color(0xFF1E4F7B),
 ) {
     Button(
         modifier = modifier.padding(
@@ -131,8 +138,9 @@ fun FilterDialogButton(
         onClick = {
             onClicked()
         },
+        shape = RoundedCornerShape(12.dp)
     ) {
-        Text(text = title, style = filterButtonStyle)
+        Text(text = title, style = filterButtonStyle, color = Color.White)
     }
 }
 
@@ -143,19 +151,30 @@ fun FilterItem(
     onTagSelected: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
+    val blue = Color(0xFF1E4F7B)
+    val interactionSource = remember { MutableInteractionSource() }
     Text(
-        style = tagStyle,
         text = "#$tag",
-        color = PrimaryDark.takeIf { isSelected } ?: White,
+        color = if (isSelected) Color.White else Color.Black,
         modifier = modifier
-            .clickable {
-                onTagSelected()
-            }
+            .clickable(
+                interactionSource = interactionSource,
+                indication = rememberRipple(
+                    bounded = true,
+                    color = Color.Gray,
+                    radius = 24.dp,
+                )
+            ) { onTagSelected() }
             .background(
-                color = Secondary.takeIf { isSelected } ?: PrimaryDark,
-                shape = RoundedCornerShape(4.dp)
+                color = if (isSelected) blue else Color.White,
+                shape = RoundedCornerShape(12.dp)
             )
-            .padding(8.dp),
+            .border(
+                width = 2.dp,
+                color = blue,
+                shape = RoundedCornerShape(12.dp)
+            )
+            .padding(horizontal = 12.dp, vertical = 8.dp),
         overflow = TextOverflow.Ellipsis,
         maxLines = 1
     )

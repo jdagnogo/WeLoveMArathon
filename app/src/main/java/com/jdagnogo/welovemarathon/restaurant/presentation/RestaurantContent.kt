@@ -33,18 +33,21 @@ fun RestaurantContent(
     onRecommendedSelected: (String) -> Unit = {},
     onRedirectToFilterClicked: () -> Unit = {},
 ) {
-    Scaffold { paddingValues ->
+    Scaffold(
+        backgroundColor = Color.White
+    ) { paddingValues ->
         Column(
             modifier = modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(Primary),
+                .background(Color.White),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             TitleComponent(
                 title = stringResource(id = R.string.food),
                 onLeftIconClicked = onBackPressed,
-                onRightIconClicked = onMapSelected
+                onRightIconClicked = onMapSelected,
+
             )
 
             CategorySection(
@@ -55,7 +58,10 @@ fun RestaurantContent(
                 onRedirectToFilterClicked = onRedirectToFilterClicked,
             )
 
-            DividerComponent(modifier = Modifier.padding(top = 16.dp), color = Color.White)
+            DividerComponent(
+                modifier = Modifier.padding(top = 16.dp),
+                color = Color(0xFFE0E0E0)
+            )
 
             RestaurantSection(
                 modifier = Modifier.padding(horizontal = 16.dp),

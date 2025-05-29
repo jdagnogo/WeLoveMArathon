@@ -4,6 +4,7 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,13 +18,20 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.theme.BeachTitleStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryLight
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.shadow
 
 @ExperimentalMaterialApi
 @Composable
@@ -34,8 +42,8 @@ fun LongCategoryComponent(
 ) {
     LazyColumn(
         contentPadding = PaddingValues(
-            start = MaterialTheme.spacing.huge,
-            end = MaterialTheme.spacing.huge,
+            start = 24.dp, // More than your shadow size
+            end = 24.dp,
             top = MaterialTheme.spacing.large,
         ),
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
@@ -64,19 +72,37 @@ fun LongCategoryItemComponent(
             onItemSelected(item.id)
         }) {
         LongImage(image = item.image, name = item.name)
-        Card(
-            elevation = MaterialTheme.spacing.small,
-            shape = MaterialTheme.shapes.large,
-            backgroundColor = PrimaryLight,
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = MaterialTheme.spacing.extraSmall)
+                .padding(horizontal = 16.dp, vertical = MaterialTheme.spacing.extraSmall)
         ) {
-            Text(
-                text = item.name,
-                style = BeachTitleStyle,
-                modifier = Modifier.padding(MaterialTheme.spacing.small)
-            )
+            Card(
+                elevation = 2.dp,
+                shape = MaterialTheme.shapes.large,
+                backgroundColor = Color(0xFF1E4F7B),
+                modifier = Modifier
+                    .padding(horizontal = 8.dp)
+                    .shadow(
+                        elevation = 2.dp,
+                        shape = MaterialTheme.shapes.large,
+                        clip = false
+                    )
+            ) {
+                Text(
+                    text = item.name,
+                    style = TextStyle(
+                        fontFamily = FontFamily.Default,
+                        fontSize = 20.sp,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(MaterialTheme.spacing.small)
+                )
+            }
         }
     }
 }
@@ -91,7 +117,7 @@ fun LongImage(
         elevation = MaterialTheme.spacing.small,
         shape = MaterialTheme.shapes.large,
         modifier = modifier
-            .height(120.dp)
+            .height(160.dp)
             .fillMaxWidth()
             .padding(vertical = MaterialTheme.spacing.extraSmall)
     ) {

@@ -13,6 +13,7 @@ import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -52,7 +53,7 @@ fun TeamComponent(
 
         Text(
             text = member.name,
-            style = tagsTitleStyle,
+            style = tagsTitleStyle.copy(color = Color(0xFF1E4F7B)),
             modifier = Modifier.padding(top = 8.dp)
         )
     }
