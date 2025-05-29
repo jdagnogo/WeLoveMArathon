@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">WeLoveMarathon</string>
+    <string name="food">Food &amp; Drink</string>
+    <string name="filter">Filters</string>
+    <string name="platesTitle">Must-try menu</string>
+    <string name="amenitiesTitle">Amenities</string>
+    <string name="typeOf">Type of</string>
+    <string name="cuisine">Cuisine</string>
+    <string name="plates">Plates</string>
+    <string name="drinks">Drinks</string>
+    <string name="prices">Price range</string>
+    <string name="location">Location</string>
+    <string name="services">Services</string>
+    <string name="access">Access</string>
+    <string name="ev_charger">EvCharger</string>
+    <string name="restaurant_empty_title">Not founded</string>
+    <string name="restaurant_empty_description">Reduce the number of filters</string>
+    <string name="offer_no_offer_title">No offer at the moment</string>
+    <string name="offer_no_offer">Check again soon ! We update our offers every week !</string>
+    <string name="settings">Go to Settings</string>
+    <string name="offer_title">Special offer</string>
+    <string name="offer_activation_condition">Activate the offer 3 hours in advance. Once you activate, if you blablablalbla</string>
+    <string name="offer_subtitle">for WLM APP users</string>
+    <string name="offer_email_condition">Do not forget to send us the receipt on the vkngjkwhekjejkejkfjkwe</string>
+    <string name="offer_button">Get it now !</string>
+    <string name="offer_activate_button">Activated it now !</string>
+    <string name="offer_email_button">Send us the receipt</string>
+</resources>

@@ -1,0 +1,38 @@
+package com.jdagnogo.welovemarathon.activities.presentation
+
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
+import com.jdagnogo.welovemarathon.common.ui.component.MainDestinations
+import com.jdagnogo.welovemarathon.map.domain.MapType
+
+@ExperimentalMaterialApi
+@ExperimentalFoundationApi
+@ExperimentalAnimationApi
+@Composable
+fun ActivitiesMenuScreen(
+    activitiesViewModel: ActivitiesViewModel,
+    navController: NavController,
+    modifier: Modifier = Modifier,
+) {
+    val state by activitiesViewModel.state.collectAsState()
+    ActivitiesMenuContent(
+        state = state,
+        onItemSelected = {
+            activitiesViewModel.dispatchEvent(event = ActivitiesUiEvent.OnCategoryClicked(it))
+            navController.navigate(MainDestinations.Activities.route)
+        },
+        onMapSelected = {
+            navController.navigate(MainDestinations.Map.createRoute(MapType.Activities.key))
+        },
+        onBackPressed = {
+            navController.popBackStack()
+        },
+        modifier = modifier
+    )
+}
