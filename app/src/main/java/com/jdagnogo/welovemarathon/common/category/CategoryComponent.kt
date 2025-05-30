@@ -5,6 +5,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,6 +20,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
@@ -51,6 +53,7 @@ import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.component.ContactComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.RecommendedCategoryTitleStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
+import com.jdagnogo.welovemarathon.common.ui.theme.tagsTitleStyle
 import com.jdagnogo.welovemarathon.common.utils.redirectToLink
 import com.jdagnogo.welovemarathon.common.utils.redirectToPhone
 
@@ -121,7 +124,23 @@ fun CategoryComponent(
                             .align(Alignment.TopStart)
                             .fillMaxWidth(0.75f)
                     )
-                    
+
+                    Text(
+                        overflow = TextOverflow.Ellipsis,
+                        style = tagsTitleStyle.copy(color = Color.White),
+                        text = item.tags,
+                        maxLines = 1,
+                        modifier = Modifier
+                            .horizontalScroll(rememberScrollState(0))
+                            .align(Alignment.BottomStart)
+                            .padding(
+                                top = MaterialTheme.spacing.medium
+                            )
+                            .padding(
+                                horizontal = MaterialTheme.spacing.small
+                            )
+                    )
+
                     Box(
                         modifier = Modifier
                             .align(Alignment.CenterEnd)
@@ -273,7 +292,7 @@ fun CategoryComponentPreview() {
     MaterialTheme {
         CategoryComponent(
             item = items[0],
-            onLikeClicked = {} ,
+            onLikeClicked = {},
             title = "WATER SPORTS"
         )
     }
@@ -305,5 +324,5 @@ private fun getCategoryBackgroundRes(title: String): Int? = when (title.uppercas
     "PET" -> R.drawable.pet
     "LOCAL" -> R.drawable.local
     "MARKET" -> R.drawable.market
-    else -> null
+    else -> R.drawable.watersports
 }

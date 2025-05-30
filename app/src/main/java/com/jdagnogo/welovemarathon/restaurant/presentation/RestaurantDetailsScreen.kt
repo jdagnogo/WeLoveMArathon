@@ -13,10 +13,11 @@ fun RestaurantDetailsScreen(
     modifier: Modifier = Modifier,
 ) {
     val state by viewModel.state.collectAsState()
+    val restaurant = state.currentRestaurantSelected ?: return
 
     RestaurantDetailsContent(
         modifier = modifier,
-        state = state,
+        restaurant = restaurant,
         onLikeClicked = {
             viewModel.dispatchEvent(RestaurantUiEvent.OnLikeClicked(it))
         },

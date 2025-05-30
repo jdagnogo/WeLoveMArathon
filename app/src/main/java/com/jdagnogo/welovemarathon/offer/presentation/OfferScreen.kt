@@ -14,24 +14,16 @@ fun OfferScreen(
     viewModel: OfferViewModel,
 ) {
     val state by viewModel.state.collectAsState()
+    val offer = state.offer
 
-    // Ensure you have an offer to pass
-    val offer = state.offer ?: OfferWithRestaurant(
-        id = "default",
-        title = "Default Offer",
-        description = "This is a default offer description.",
-        promoCode = "DEFAULT",
-        validUntil = "N/A",
-        restaurantName = "Default Restaurant",
-        discount = "0%",
-        restaurantId = "0",
-        restaurantImage = ""
-    )
-
-    OfferContent(
-        offer = offer,
-        onGetOfferClicked = {
-            viewModel.dispatchEvent(OfferViewModel.OfferUiEvent.OnBookNow(offer.toString()))
-        }
-    )
+    if (offer == null) {
+        OfferEmptySection()
+    } else {
+        OfferContent(
+            offer = offer,
+            onGetOfferClicked = {
+                viewModel.dispatchEvent(OfferViewModel.OfferUiEvent.OnBookNow(offer.toString()))
+            }
+        )
+    }
 }

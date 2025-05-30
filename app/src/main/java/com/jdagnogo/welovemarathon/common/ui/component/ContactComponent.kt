@@ -55,8 +55,7 @@ fun ContactComponent(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = rememberRipple(bounded = false),
                 onClick = onClicked
-            )
-            .fillMaxWidth(),
+            ),
         verticalAlignment = CenterVertically,
     ) {
         if (backgroundColor != null) {

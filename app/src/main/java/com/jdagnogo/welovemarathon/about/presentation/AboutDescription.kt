@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.jdagnogo.welovemarathon.common.ui.component.DescriptionItemFactory
 import com.jdagnogo.welovemarathon.common.ui.component.ExpandableComponent
+import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import com.jdagnogo.welovemarathon.common.ui.theme.emptyScreenSubTitle
 
 @Composable
@@ -29,7 +30,7 @@ fun AboutDescription(
             text = "We are volunteers, the WLM Team and We Love Marathon!  Most of us live in the municipality of Marathon and the rest of us are Marathon lovers! We all work non-profit with love and passion with the aim of promoting and highlighting this magical place!\n" +
                     "\n" +
                     "The application is designed voluntarily to help Marathon visitors better organize their holidays in our city. Lots of recommendations for food, drink, beaches and activities in the area of Marathon with detailed information! If you think there is room for improvement (there always is) don't hesitate to email us with your suggestions! The application was launched this summer 2022 as a pilot.",
-            color = Color(0xFF1E4F7B),
+            color = Secondary,
         )
     }
 }

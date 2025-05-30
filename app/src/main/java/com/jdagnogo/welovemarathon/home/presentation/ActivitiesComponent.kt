@@ -77,7 +77,7 @@ fun ActivityItem(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier
                 .fillMaxSize()
-                .background(color = Main_Blue)
+                .background(color = Color(0xFF1E4F7B))
                 .padding(horizontal = MaterialTheme.spacing.medium)
                 .padding(vertical = MaterialTheme.spacing.medium)
         ) {

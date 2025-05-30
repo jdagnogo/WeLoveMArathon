@@ -49,6 +49,7 @@ import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.component.ContactComponent
+import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 import com.jdagnogo.welovemarathon.common.utils.redirectToLink
 import com.jdagnogo.welovemarathon.common.utils.redirectToMail
 import com.jdagnogo.welovemarathon.common.utils.redirectToPhone
@@ -59,8 +60,8 @@ fun AboutContent(
     modifier: Modifier = Modifier
 ) {
     val uriHandler = LocalUriHandler.current
-    val currentImageIndex = rememberSaveable { mutableStateOf(0) }  // Add this line
-    val totalImages = 10  // Add this line
+    val currentImageIndex = rememberSaveable { mutableStateOf(0) }
+    val totalImages = 10
 
     LazyColumn(
         modifier = modifier
@@ -227,8 +228,7 @@ fun AboutContent(
                 val context = LocalContext.current  // Add this line to get the context
 
                 Column(
-                    modifier = Modifier
-                        .padding(12.dp),
+                    modifier = Modifier.fillMaxWidth().padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
@@ -241,9 +241,9 @@ fun AboutContent(
                     // Single Row for all items with equal spacing
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceEvenly,
-                        verticalAlignment = Alignment.CenterVertically
+                        horizontalArrangement = Arrangement.Center,
                     ) {
+
                         // Phone Contact
                         ContactComponent(
                             modifier = Modifier,
@@ -252,6 +252,7 @@ fun AboutContent(
                             iconSize = 50.dp,
                             onClicked = { redirectToPhone(context, state.phone) }  // Use state.phone
                         )
+
 
                         // Email Contact
                         ContactComponent(
@@ -364,29 +365,6 @@ fun AboutContent(
             }
         }
     }
-}
-
-@Composable
-private fun ContactButtons(phone: String, mail: String) {
-    val context = LocalContext.current
-
-    // Phone Contact
-    ContactComponent(
-        modifier = Modifier,
-        icon = R.drawable.ic_phone,
-        tint = Color.White,
-        iconSize = 50.dp,
-        onClicked = { redirectToPhone(context, phone) }
-    )
-
-    // Email Contact
-    ContactComponent(
-        modifier = Modifier,
-        icon = R.drawable.email,
-        tint = Color.White,
-        iconSize = 50.dp,
-        onClicked = { redirectToMail(context, mail) }
-    )
 }
 
 @Preview
