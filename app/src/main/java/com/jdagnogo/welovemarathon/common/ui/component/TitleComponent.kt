@@ -18,17 +18,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.semantics.SemanticsPropertyKey
-import androidx.compose.ui.semantics.SemanticsPropertyReceiver
-import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jdagnogo.welovemarathon.R
-import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
-import com.jdagnogo.welovemarathon.common.ui.theme.TitleStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 import com.jdagnogo.welovemarathon.common.utils.drawableID
 
@@ -45,14 +42,15 @@ fun TitleComponent(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(top = MaterialTheme.spacing.medium)
-            .padding(horizontal = MaterialTheme.spacing.medium)
+            .padding(vertical = MaterialTheme.spacing.medium)
+            .padding(horizontal = MaterialTheme.spacing.medium),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         if (iconLeft != null) {
             Icon(
                 painterResource(id = iconLeft),
                 contentDescription = "iconLeft",
-                tint = Color.White,
+                tint = Color.Black,
                 modifier = modifier
                     .semantics { drawableID = iconLeft }
                     .clickable(
@@ -61,23 +59,26 @@ fun TitleComponent(
                     ) {
                         onLeftIconClicked()
                     }
-                    .size(MaterialTheme.spacing.huge)
-                    .background(Color(R.color.black), CircleShape)
+                    .size(iconSize)
+                    .background(Color.White, CircleShape)
             )
         }
         Text(
             text = title,
-            style = TitleStyle,
+            style = MaterialTheme.typography.h6.copy(
+                color = Color.Black,
+                textAlign = TextAlign.Center,
+                fontSize = 26.sp  // Adding fontSize parameter
+            ),
             modifier = Modifier
                 .weight(1f)
-                .align(Alignment.CenterVertically)
                 .padding(horizontal = 8.dp)
         )
         if (iconRight != null) {
             Icon(
                 painterResource(id = iconRight),
                 contentDescription = "iconRight",
-                tint = Secondary,
+                tint = Color.Black,
                 modifier = modifier
                     .semantics { drawableID = iconRight }
                     .clickable(

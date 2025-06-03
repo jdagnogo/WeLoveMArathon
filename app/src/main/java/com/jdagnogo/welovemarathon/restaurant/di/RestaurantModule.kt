@@ -1,6 +1,5 @@
 package com.jdagnogo.welovemarathon.restaurant.di
 
-import com.jdagnogo.welovemarathon.common.banner.GetBannerUseCase
 import com.jdagnogo.welovemarathon.common.data.WLMDatabase
 import com.jdagnogo.welovemarathon.common.domain.DataFreshnessUseCase
 import com.jdagnogo.welovemarathon.common.like.domain.FavUseCase

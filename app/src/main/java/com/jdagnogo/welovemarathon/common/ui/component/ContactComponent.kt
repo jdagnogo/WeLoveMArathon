@@ -4,6 +4,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -19,8 +20,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -35,43 +38,55 @@ import com.jdagnogo.welovemarathon.common.utils.conditional
 fun ContactComponent(
     icon: Int = R.drawable.ic_location,
     text: String = "",
-    textColor: Color = Color.White,
+    textColor: Color = Color.Black,
     style: TextStyle = contactStyle,
     iconSize: Dp = 32.dp,
-    tint : Color = Secondary,
+    tint: Color = Secondary,
     onClicked: () -> Unit = {},
     backgroundColor: Color? = null,
     modifier: Modifier = Modifier,
+    maxLines: Int = Int.MAX_VALUE,
+    painter: Painter? = null,
+    textPadding: Dp = MaterialTheme.spacing.small
 ) {
-    Row(modifier = modifier
-        .clickable(
-            interactionSource = remember { MutableInteractionSource() },
-            indication = rememberRipple(bounded = false),
-        ) {
-            onClicked()
-        }) {
-        Icon(
-            painterResource(id = icon),
-            contentDescription = "map",
-            tint = tint,
-            modifier = Modifier
-                .size(iconSize)
-                .conditional(backgroundColor != null) {
-                    Modifier
-                        .background(backgroundColor ?: Color(R.color.black), CircleShape)
-                        .padding(8.dp)
-                }
-        )
+    Row(
+        modifier = modifier
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = rememberRipple(bounded = false),
+                onClick = onClicked
+            ),
+        verticalAlignment = CenterVertically,
+    ) {
+        if (backgroundColor != null) {
+            Box(
+                modifier = Modifier
+                    .background(backgroundColor, CircleShape)
+                    .padding(8.dp)
+            ) {
+                Icon(
+                    painter = painter ?: painterResource(id = icon),
+                    contentDescription = null,
+                    tint = tint,
+                    modifier = Modifier.size(iconSize)
+                )
+            }
+        } else {
+            Icon(
+                painter = painter ?: painterResource(id = icon),
+                contentDescription = null,
+                tint = tint,
+                modifier = Modifier.size(iconSize)
+            )
+        }
         if (text.isNotEmpty()) {
             Text(
                 text = text,
-                maxLines = 2,
                 color = textColor,
                 style = style,
-                modifier = Modifier
-                    .padding(start = 16.dp)
-                    .align(CenterVertically)
-                    .fillMaxWidth()
+                maxLines = maxLines,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.padding(start = textPadding)
             )
         }
     }
@@ -101,7 +116,7 @@ fun ContactComponentWithoutTextPreview() {
 fun ContactComponentWithoutTextWithBackgroundPreview() {
     MaterialTheme {
         Surface(modifier = Modifier.background(Color.Red)) {
-            ContactComponent(R.drawable.ic_location, backgroundColor = Color(R.color.black))
+            ContactComponent(R.drawable.ic_location, backgroundColor = Color.Black)
         }
     }
 }

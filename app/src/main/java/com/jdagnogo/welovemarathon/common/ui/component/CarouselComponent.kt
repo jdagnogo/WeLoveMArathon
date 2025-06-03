@@ -94,7 +94,7 @@ fun Carousel(
     Column(
         Modifier
             .fillMaxWidth()
-            .height(height = 300.dp),
+            .aspectRatio(4f/3f),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         HorizontalPager(
@@ -114,6 +114,7 @@ fun Carousel(
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
+                    .fillMaxHeight()
                     .then(
                         if (onImageClick != null) {
                             Modifier.clickable {
@@ -122,7 +123,7 @@ fun Carousel(
                         } else Modifier
                     )
                     .clip(shape = shape),
-                contentScale = ContentScale.FillWidth
+                contentScale = ContentScale.Crop
             )
         }
 
@@ -130,7 +131,12 @@ fun Carousel(
             pagerState = pagerState,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .padding(bottom = 16.dp),
+                .padding(16.dp),
+            activeColor = Color(0xFF1E4F7B),
+            inactiveColor = Color.LightGray,
+            indicatorWidth = 8.dp,
+            indicatorHeight = 8.dp,
+            spacing = 12.dp
         )
     }
 }

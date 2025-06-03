@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">WeLoveMarathon</string>
+    <string name="home_page_title">WE LOVE MARATHON</string>
+    <string name="offer_of_the_month">Offer of the Month</string>
     <string name="food">Food &amp; Drink</string>
     <string name="filter">Filters</string>
-    <string name="platesTitle">Must-try Menu</string>
+    <string name="claim_offer">Claim offer</string>
+    <string name="platesTitle">Must-try menu</string>
     <string name="amenitiesTitle">Amenities</string>
     <string name="typeOf">Type of</string>
     <string name="cuisine">Cuisine</string>

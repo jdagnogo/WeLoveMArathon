@@ -12,10 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.jdagnogo.welovemarathon.R
@@ -49,7 +51,7 @@ fun TypeTwoComponent(
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .background(Primary)
+            .background(Color.White)
             .padding(start = MaterialTheme.spacing.small),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -100,20 +102,25 @@ fun TypeTwoComponent(
             }
         }
 
-
         items(categoryItems.size) { index ->
             val categoryItem = categoryItems[index]
-            CategoryItemComponent(
-                item = categoryItem,
-                onLikeClicked = onLikeClicked,
-                modifier = Modifier.padding(
-                    start = MaterialTheme.spacing.small,
-                    end = MaterialTheme.spacing.huge,
-                    top = MaterialTheme.spacing.medium,
-                    bottom = MaterialTheme.spacing.medium,
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        start = MaterialTheme.spacing.small,
+                        end = MaterialTheme.spacing.huge,
+                        top = MaterialTheme.spacing.medium,
+                        bottom = MaterialTheme.spacing.medium,
+                    )
+            ) {
+                CategoryComponent(
+                    item = categoryItem,
+                    onLikeClicked = onLikeClicked,
+                    modifier = Modifier.fillMaxWidth(),
+                    title = title,
                 )
-            )
-
+            }
         }
     }
 
@@ -140,7 +147,7 @@ fun TypeTwoItemDescription(item: TypeTwoItem, modifier: Modifier = Modifier) {
         Card(
             elevation = MaterialTheme.spacing.small,
             shape = MaterialTheme.shapes.large,
-            backgroundColor = PrimaryLight,
+            backgroundColor = Color.White,
             modifier = modifier
                 .fillMaxWidth()
                 .constrainAs(card) {
@@ -159,8 +166,6 @@ fun TypeTwoItemDescription(item: TypeTwoItem, modifier: Modifier = Modifier) {
             )
         }
 
-        createHorizontalChain(phone, website, map, chainStyle = ChainStyle.Packed)
-
         ContactComponent(
             modifier = Modifier
                 .padding(MaterialTheme.spacing.medium)
@@ -171,6 +176,7 @@ fun TypeTwoItemDescription(item: TypeTwoItem, modifier: Modifier = Modifier) {
             icon = R.drawable.ic_phone,
             iconSize = 24.dp,
             backgroundColor = Color.White,
+            tint = Color(0xFF1E4F7B),
             onClicked = { redirectToPhone(context, item.phone) },
         )
 
@@ -184,6 +190,7 @@ fun TypeTwoItemDescription(item: TypeTwoItem, modifier: Modifier = Modifier) {
             icon = R.drawable.ic_link,
             backgroundColor = Color.White,
             iconSize = 24.dp,
+            tint = Color(0xFF1E4F7B),
             onClicked = { redirectToLink(uriHandler, item.website) },
         )
 
@@ -197,6 +204,7 @@ fun TypeTwoItemDescription(item: TypeTwoItem, modifier: Modifier = Modifier) {
             icon = R.drawable.location,
             backgroundColor = Color.White,
             iconSize = 24.dp,
+            tint = Color(0xFF1E4F7B),
             onClicked = { redirectToLink(uriHandler, item.locationLink) },
         )
     }
@@ -207,7 +215,7 @@ fun TypeTwoItemPresentation(item: TypeTwoItem, modifier: Modifier = Modifier) {
     Card(
         elevation = MaterialTheme.spacing.small,
         shape = MaterialTheme.shapes.large,
-        backgroundColor = PrimaryLight,
+        backgroundColor = Color.White,
         modifier = modifier.fillMaxWidth()
     ) {
         Column(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
@@ -217,7 +225,10 @@ fun TypeTwoItemPresentation(item: TypeTwoItem, modifier: Modifier = Modifier) {
                     modifier = Modifier.weight(1f),
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
-                    style = RecommendedCategoryItemTitleStyle,
+                    style = MaterialTheme.typography.h6.copy(
+                        color = Color.Black,
+                        fontWeight = FontWeight.Bold
+                    ),
                     text = item.name
                 )
                 val uriHandler = LocalUriHandler.current
@@ -225,23 +236,24 @@ fun TypeTwoItemPresentation(item: TypeTwoItem, modifier: Modifier = Modifier) {
                     modifier = Modifier.padding(MaterialTheme.spacing.extraSmall),
                     icon = R.drawable.location,
                     iconSize = 24.dp,
+                    tint = Color(0xFF1E4F7B),
+                    backgroundColor = Color.White,
                     onClicked = { redirectToLink(uriHandler, item.locationLink) },
                 )
             }
 
-            Divider(color = Color.White, thickness = 1.dp)
+            Divider(color = Color(0xFFE0E0E0), thickness = 1.dp)
 
             Text(
-                style = ActivitySubTitleStyle,
+                style = MaterialTheme.typography.body1.copy(
+                    color = Color.Black,
+                    fontSize = 16.sp
+                ),
                 textAlign = TextAlign.Start,
                 text = item.description,
                 modifier = Modifier
-                    .padding(
-                        top = MaterialTheme.spacing.medium
-                    )
-                    .padding(
-                        horizontal = MaterialTheme.spacing.small
-                    )
+                    .padding(top = MaterialTheme.spacing.medium)
+                    .padding(horizontal = MaterialTheme.spacing.small)
             )
         }
     }

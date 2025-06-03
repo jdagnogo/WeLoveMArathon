@@ -36,7 +36,8 @@ fun MenuContent() {
                 BottomBar(
                     tabs = appState.bottomBarTabs,
                     currentRoute = appState.currentRoute!!,
-                    navigateToRoute = appState::navigateToBottomBarRoute
+                    navigateToRoute = appState::navigateToBottomBarRoute,
+                    hasNewOffer = true
                 )
             }
         },

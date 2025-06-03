@@ -11,10 +11,15 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,10 +29,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.jdagnogo.welovemarathon.R
-import com.jdagnogo.welovemarathon.common.category.FilterDialogButton
 import com.jdagnogo.welovemarathon.common.ui.component.DividerComponent
 import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
-import com.jdagnogo.welovemarathon.common.ui.theme.TagColor
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 import com.jdagnogo.welovemarathon.restaurant.domain.IconNameFilter
 import com.jdagnogo.welovemarathon.restaurant.domain.RestaurantAppliedFilter
@@ -42,6 +45,8 @@ fun FilterContent(
 ) {
     var filterApplied = remember { mutableStateOf(state.currentFilterApplied) }
     val scroll = rememberScrollState(0)
+    val primaryBlue = Color(0xFF1E4F7B)
+
     Scaffold(
         topBar = {
             TitleComponent(
@@ -52,7 +57,11 @@ fun FilterContent(
         },
         bottomBar = {
             Column {
-                DividerComponent(Modifier.fillMaxWidth(), thickness = 2.dp, color = TagColor)
+                DividerComponent(
+                    Modifier.fillMaxWidth(), 
+                    thickness = 2.dp, 
+                    color = primaryBlue
+                )
                 Row(
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically,
@@ -61,21 +70,33 @@ fun FilterContent(
                         .padding(vertical = MaterialTheme.spacing.small)
                         .padding(horizontal = MaterialTheme.spacing.small)
                 ) {
-                    FilterDialogButton("Done ! ", {
-                        onValidatePressed(filterApplied.value)
-                    }, Modifier.weight(1f))
-                    FilterDialogButton("Reset", {
-                        filterApplied.value = RestaurantAppliedFilter()
-                    }, Modifier.weight(1f))
+                    FilterDialogButton(
+                        "Done",
+                        onClick = {
+                            onValidatePressed(filterApplied.value)
+                        },
+                        modifier = Modifier.weight(1f),
+                        backgroundColor = primaryBlue
+                    )
+                    FilterDialogButton(
+                        "Reset",
+                        onClick = {
+                            filterApplied.value = RestaurantAppliedFilter()
+                        },
+                        modifier = Modifier.weight(1f),
+                        backgroundColor = primaryBlue
+                    )
                 }
             }
-        }
+        },
+        backgroundColor = Color.White
     ) { paddingValues ->
         Column(
             modifier = modifier
                 .padding(paddingValues)
                 .fillMaxWidth()
                 .verticalScroll(scroll)
+                .background(Color.White)
         ) {
             Spacer(modifier = Modifier.padding(16.dp))
 
@@ -158,20 +179,19 @@ fun FilterContent(
                 }
             )
 
-            Spacer(modifier = Modifier.padding(16.dp))
+            Spacer(modifier = Modifier.padding(8.dp))
 
             FilterBooleanComponent(
                 modifier = Modifier.padding(horizontal = 16.dp),
                 isChecked = filterApplied.value.evCharger,
                 title = R.string.ev_charger,
-                icon = R.drawable.ic_location,
+                icon = R.drawable.ev_charger,
                 onCheckedChange = {
                     filterApplied.value = filterApplied.value.copy(evCharger = it)
                 }
             )
 
-
-            Spacer(modifier = Modifier.padding(16.dp))
+            Spacer(modifier = Modifier.padding(8.dp))
 
             FilterRowComponent(
                 title = stringResource(id = R.string.location),
@@ -225,6 +245,32 @@ fun FilterContent(
 
             Spacer(modifier = Modifier.padding(16.dp))
         }
+    }
+}
+
+@Composable
+private fun FilterDialogButton(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    backgroundColor: Color = Color(0xFF1E4F7B)
+) {
+    Button(
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = backgroundColor,
+            contentColor = Color.White
+        ),
+        modifier = modifier
+            .padding(horizontal = 8.dp)
+            .height(48.dp),
+        shape = RoundedCornerShape(8.dp)
+    ) {
+        Text(
+            text = text,
+            style = MaterialTheme.typography.button,
+            color = Color.White
+        )
     }
 }
 

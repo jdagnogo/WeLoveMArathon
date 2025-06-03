@@ -19,8 +19,8 @@ import com.jdagnogo.welovemarathon.common.ui.theme.SubTitleStyle
 
 @Composable
 internal fun ExpandableComponent(
-    labelMore: String = "read more",
-    labelLess: String = "read less",
+    labelMore: String = "Read More",
+    labelLess: String = "Read Less",
     modifier: Modifier = Modifier,
     shouldShowExpandButton: Boolean = true,
     content: @Composable ColumnScope.(isExpanded: Boolean) -> Unit,
@@ -31,17 +31,24 @@ internal fun ExpandableComponent(
         modifier = modifier.animateContentSize()
     ) {
         Column(
-            content = { content(isExpanded) }, modifier = Modifier.padding(vertical = 8.dp)
+            content = { content(isExpanded) }, 
+            modifier = Modifier.padding(top = 8.dp, bottom = 0.dp)
         )
         if (shouldShowExpandButton) {
-            MoreLessComponent(
-                text = text,
-                isExpanded = isExpanded,
-                modifier = Modifier.align(alignment = CenterHorizontally),
-                onClick = {
-                    isExpanded = isExpanded.not()
-                }
-            )
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 4.dp, bottom = 12.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                MoreLessComponent(
+                    text = text,
+                    isExpanded = isExpanded,
+                    onClick = {
+                        isExpanded = isExpanded.not()
+                    }
+                )
+            }
         }
     }
 }
@@ -55,9 +62,9 @@ internal fun MoreLessComponent(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier.clickable { onClick() },
-
-        ) {
+        horizontalArrangement = Arrangement.Center,
+        modifier = modifier.clickable { onClick() }
+    ) {
         Text(
             text = text,
             color = Secondary,

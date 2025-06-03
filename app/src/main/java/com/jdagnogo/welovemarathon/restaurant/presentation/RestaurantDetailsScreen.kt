@@ -3,7 +3,6 @@ package com.jdagnogo.welovemarathon.restaurant.presentation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 
@@ -14,10 +13,11 @@ fun RestaurantDetailsScreen(
     modifier: Modifier = Modifier,
 ) {
     val state by viewModel.state.collectAsState()
+    val restaurant = state.currentRestaurantSelected ?: return
 
     RestaurantDetailsContent(
         modifier = modifier,
-        state = state,
+        restaurant = restaurant,
         onLikeClicked = {
             viewModel.dispatchEvent(RestaurantUiEvent.OnLikeClicked(it))
         },

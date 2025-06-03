@@ -1,14 +1,13 @@
 package com.jdagnogo.welovemarathon.restaurant.presentation
 
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
@@ -19,7 +18,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
@@ -27,13 +25,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.jdagnogo.welovemarathon.R
-import com.jdagnogo.welovemarathon.common.category.CategoryItem
 import com.jdagnogo.welovemarathon.common.category.RecommendedCategoryDetailsFake
 import com.jdagnogo.welovemarathon.common.ui.component.CarouselWithPreview
 import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.SecondaryLight
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
-import com.jdagnogo.welovemarathon.food.domain.FoodCategory
 import com.jdagnogo.welovemarathon.restaurant.domain.Amenities
 import com.jdagnogo.welovemarathon.restaurant.domain.Plates
 import com.jdagnogo.welovemarathon.restaurant.domain.Restaurant
@@ -49,16 +45,16 @@ import com.jdagnogo.welovemarathon.restaurant.presentation.sections.servicesSect
 @Composable
 fun RestaurantDetailsContent(
     modifier: Modifier = Modifier,
-    state: RestaurantState,
+    restaurant: Restaurant?,
     onBackPressed: () -> Unit = {},
     onLikeClicked: (String) -> Unit = {},
 ) {
-    val restaurant = state.currentRestaurantSelected ?: return
+    if (restaurant == null) return
     val uriHandler = LocalUriHandler.current
     val context = LocalContext.current
     var isFav = remember {
         mutableStateOf(
-            state.currentRestaurantSelected.isFavItem
+            restaurant.isFavItem
         )
     }
 
@@ -83,31 +79,31 @@ fun RestaurantDetailsContent(
         }
     ) { paddingValues ->
         LazyColumn(
-            contentPadding = PaddingValues(
-                bottom = MaterialTheme.spacing.large,
-            ),
+            contentPadding = PaddingValues(0.dp),
             modifier = modifier
                 .padding(paddingValues)
                 .animateContentSize()
         ) {
-
             item {
                 val images = remember { restaurant.images }
                 Box(
                     contentAlignment = Alignment.Center,
-                    modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium)
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(250.dp)
                 ) {
                     CarouselWithPreview(
                         urls = images,
                         shape = RoundedCornerShape(0),
                         bigImages = restaurant.bigImages,
-                        modifier = Modifier.padding(bottom = MaterialTheme.spacing.medium)
-
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(),
                     )
                     if (restaurant.isRecommended) {
                         Icon(
                             painter = rememberImagePainter(
-                                data = R.drawable.france ,
+                                data = R.drawable.france,
                                 builder = {
                                     crossfade(true)
                                     error(R.drawable.ic_wlm_logo)
@@ -131,14 +127,16 @@ fun RestaurantDetailsContent(
                 uriHandler = uriHandler
             )
 
-            servicesSection(
-                modifier = Modifier.padding(top = 16.dp),
-                services = restaurant.services
-            )
+            if (restaurant.isRecommended) {
+                descriptionSection(
+                    modifier = Modifier.padding(top = 0.dp, bottom = 0.dp),
+                    description = restaurant.description
+                )
+            }
 
-            descriptionSection(
-                modifier = Modifier.padding(top = 16.dp),
-                description = restaurant.description
+            servicesSection(
+                modifier = Modifier.padding(top = 4.dp),
+                services = restaurant.services
             )
 
             platesSection(
@@ -152,6 +150,7 @@ fun RestaurantDetailsContent(
                 amenities = restaurant.amenities,
                 menu = restaurant.menu,
                 drinks = restaurant.drinks,
+                cuisines = restaurant.cuisines
             )
 
             mapSection(
@@ -171,64 +170,52 @@ fun RestaurantDetailsContent(
 @Composable
 private fun RestaurantDetailsContentPreview() {
     MaterialTheme {
-        val itemSelected = FoodCategory(
-            name = "Ferdinand Huff",
-            icon = "litora",
-            ordinal = 3
-        )
-        val state = RestaurantState(
-            currentCategorySelected = itemSelected,
-            categories = FoodCategory().toFakeFoodCategoryList().plus(itemSelected),
-            foods = CategoryItem().toFakeCategoryItemList(),
-            items = listOf(
+        val restaurant = Restaurant(
+            id = "id",
+            name = "Fake restaurant",
+            website = "website",
+            location = RecommendedCategoryDetailsFake.location,
+            locationLink = RecommendedCategoryDetailsFake.locationLink,
+            number = RecommendedCategoryDetailsFake.number,
+            description = RecommendedCategoryDetailsFake.description,
+            isRecommended = false,
+            services = listOf(
+                RestaurantService(
+                    title = "alterum", icon = "simul", description = "sagittis"
+                ),
+                RestaurantService(
+                    title = "facilisis",
+                    icon = "nostra",
+                    description = "moderatius"
+                ),
+                RestaurantService(
+                    title = "senserit",
+                    icon = "potenti",
+                    description = "litora"
+                )
             ),
-            currentRestaurantSelected = Restaurant(
-                id = "id",
-                name = "Fake restaurant",
-                website = "website",
-                location = RecommendedCategoryDetailsFake.location,
-                locationLink = RecommendedCategoryDetailsFake.locationLink,
-                number = RecommendedCategoryDetailsFake.number,
-                description = RecommendedCategoryDetailsFake.description,
-                isRecommended = false,
-                services = listOf(
-                    RestaurantService(
-                        title = "alterum", icon = "simul", description = "sagittis"
-                    ),
-                    RestaurantService(
-                        title = "facilisis",
-                        icon = "nostra",
-                        description = "moderatius"
-                    ),
-                    RestaurantService(
-                        title = "senserit",
-                        icon = "potenti",
-                        description = "litora"
-                    )
-                ),
-                plates = listOf(
-                    Plates(
-                        name = "Virginia Solis",
-                        image = RecommendedCategoryDetailsFake.images.last(),
-                        bigImage = RecommendedCategoryDetailsFake.bigImages.last()
-                    )
-                ),
-                amenities = listOf(
-                    Amenities(type = "ultricies", "titi"),
-                    Amenities(type = "ultricies", "titi"),
-                    Amenities(type = "ultricies", "titi"),
-                    Amenities(type = "ultricies", "titi"),
-                    Amenities(type = "ultricies", "titi"),
-                    Amenities(type = "ultricies", "titi"),
-                    Amenities(type = "ultricies", "titi"),
-                    Amenities(type = "ultricies", "titi"),
-                ),
-                images = RecommendedCategoryDetailsFake.images,
-                bigImages = RecommendedCategoryDetailsFake.bigImages
-
-            )
+            plates = listOf(
+                Plates(
+                    name = "Virginia Solis",
+                    image = RecommendedCategoryDetailsFake.images.last(),
+                    bigImage = RecommendedCategoryDetailsFake.bigImages.last()
+                )
+            ),
+            amenities = listOf(
+                Amenities(type = "ultricies", "titi"),
+                Amenities(type = "ultricies", "titi"),
+                Amenities(type = "ultricies", "titi"),
+                Amenities(type = "ultricies", "titi"),
+                Amenities(type = "ultricies", "titi"),
+                Amenities(type = "ultricies", "titi"),
+                Amenities(type = "ultricies", "titi"),
+                Amenities(type = "ultricies", "titi"),
+            ),
+            images = RecommendedCategoryDetailsFake.images,
+            bigImages = RecommendedCategoryDetailsFake.bigImages
 
         )
-        RestaurantDetailsContent(state = state)
+
+        RestaurantDetailsContent(restaurant = restaurant)
     }
 }

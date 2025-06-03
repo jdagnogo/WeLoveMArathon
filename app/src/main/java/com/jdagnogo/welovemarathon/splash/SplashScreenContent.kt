@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import com.jdagnogo.welovemarathon.common.ui.theme.Secondary
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -31,7 +32,7 @@ fun SplashScreenContent(scale: Float, modifier: Modifier) {
         Icon(
             painterResource(id = R.drawable.ic_wlm_logo),
             contentDescription = "Logo",
-            tint = Color.White,
+            tint = Color(0xFF1E4F7B),
             modifier = Modifier
                 .size(150.dp)
                 .scale(scale)

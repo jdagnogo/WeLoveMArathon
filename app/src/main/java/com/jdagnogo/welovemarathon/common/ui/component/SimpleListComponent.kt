@@ -14,15 +14,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.font.FontWeight.Companion.W300
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.domain.SimpleListItem
 import com.jdagnogo.welovemarathon.common.domain.fakeList
-import com.jdagnogo.welovemarathon.common.ui.theme.ContentBackgroundDark
-import com.jdagnogo.welovemarathon.common.ui.theme.Neutral4
 import com.jdagnogo.welovemarathon.common.utils.redirectToLink
 import com.jdagnogo.welovemarathon.common.utils.redirectToPhone
 

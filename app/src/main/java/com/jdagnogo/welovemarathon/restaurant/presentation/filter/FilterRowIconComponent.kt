@@ -1,11 +1,13 @@
 package com.jdagnogo.welovemarathon.restaurant.presentation.filter
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.MaterialTheme
+import androidx.compose.ui.graphics.Color
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,7 +29,10 @@ fun FilterRowIconComponent(
     Text(
         modifier = modifier,
         text = title,
-        style = SubTitleStyle.copy(fontSize = 18.sp),
+        style = SubTitleStyle.copy(
+            fontSize = 18.sp, 
+            color = Color.Black
+        )
     )
     Spacer(modifier = Modifier.padding(8.dp))
 
@@ -35,7 +40,7 @@ fun FilterRowIconComponent(
         contentPadding = PaddingValues(horizontal = MaterialTheme.spacing.medium),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
-        modifier = Modifier
+        modifier = Modifier.background(Color.White)
     ) {
         items(data.size) { index ->
             val isSelected = filterApplied.contains(data[index].name)

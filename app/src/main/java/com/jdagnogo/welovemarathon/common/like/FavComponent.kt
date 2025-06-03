@@ -10,6 +10,7 @@ import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.jdagnogo.welovemarathon.R
@@ -23,6 +24,8 @@ fun LikeComponent(
     onLikeClicked: (String) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
+    val primaryBlue = Color(0xFF1E4F7B)  // Your app's blue color
+
     Crossfade(
         isFavItem,
         animationSpec = tween(1000)
@@ -30,7 +33,7 @@ fun LikeComponent(
         Icon(
             painterResource(if (targetState) R.drawable.fav else R.drawable.ic_fav_unselected),
             contentDescription = "icon",
-            tint = Secondary,
+            tint = primaryBlue,  // Always use blue color
             modifier = modifier.clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null,

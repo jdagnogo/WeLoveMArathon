@@ -87,27 +87,27 @@ data class AboutState(
     ),
     val socialMedias: List<SocialMedia> = listOf(
         SocialMedia(
-            icon = "https://firebasestorage.googleapis.com/v0/b/welovemarathon-71ff6.appspot.com/o/Capture%20d%E2%80%99e%CC%81cran%202022-07-19%20a%CC%80%2010.06.56.png?alt=media&token=b33f5202-c9ff-4d23-b2e5-b7893aabc3b7",
+            icon = "https://firebasestorage.googleapis.com/v0/b/welovemarathon-71ff6.appspot.com/o/social%2Finstagram-01.png?alt=media&token=a81eed2b-d01e-406c-a941-9ca91adebcf8",
             link = ""
         ),
         SocialMedia(
-            icon = "https://firebasestorage.googleapis.com/v0/b/welovemarathon-71ff6.appspot.com/o/Capture%20d%E2%80%99e%CC%81cran%202022-07-19%20a%CC%80%2010.06.56.png?alt=media&token=b33f5202-c9ff-4d23-b2e5-b7893aabc3b7",
+            icon = "https://firebasestorage.googleapis.com/v0/b/welovemarathon-71ff6.appspot.com/o/social%2Fweb01.png?alt=media&token=a58c70ab-bf27-403b-b448-b3ed837f8d9b",
             link = ""
         ),
         SocialMedia(
-            icon = "https://firebasestorage.googleapis.com/v0/b/welovemarathon-71ff6.appspot.com/o/Capture%20d%E2%80%99e%CC%81cran%202022-07-19%20a%CC%80%2010.06.56.png?alt=media&token=b33f5202-c9ff-4d23-b2e5-b7893aabc3b7",
+            icon = "https://firebasestorage.googleapis.com/v0/b/welovemarathon-71ff6.appspot.com/o/social%2Fweb01.png?alt=media&token=a58c70ab-bf27-403b-b448-b3ed837f8d9b",
             link = ""
         ),
         SocialMedia(
-            icon = "https://firebasestorage.googleapis.com/v0/b/welovemarathon-71ff6.appspot.com/o/Capture%20d%E2%80%99e%CC%81cran%202022-07-19%20a%CC%80%2010.06.56.png?alt=media&token=b33f5202-c9ff-4d23-b2e5-b7893aabc3b7",
+            icon = "https://firebasestorage.googleapis.com/v0/b/welovemarathon-71ff6.appspot.com/o/social%2Fweb01.png?alt=media&token=a58c70ab-bf27-403b-b448-b3ed837f8d9b",
             link = ""
         ),
         SocialMedia(
-            icon = "https://firebasestorage.googleapis.com/v0/b/welovemarathon-71ff6.appspot.com/o/Capture%20d%E2%80%99e%CC%81cran%202022-07-19%20a%CC%80%2010.06.56.png?alt=media&token=b33f5202-c9ff-4d23-b2e5-b7893aabc3b7",
+            icon = "https://firebasestorage.googleapis.com/v0/b/welovemarathon-71ff6.appspot.com/o/social%2Fweb01.png?alt=media&token=a58c70ab-bf27-403b-b448-b3ed837f8d9b",
             link = ""
         ),
         SocialMedia(
-            icon = "https://firebasestorage.googleapis.com/v0/b/welovemarathon-71ff6.appspot.com/o/Capture%20d%E2%80%99e%CC%81cran%202022-07-19%20a%CC%80%2010.06.56.png?alt=media&token=b33f5202-c9ff-4d23-b2e5-b7893aabc3b7",
+            icon = "https://firebasestorage.googleapis.com/v0/b/welovemarathon-71ff6.appspot.com/o/social%2Fweb01.png?alt=media&token=a58c70ab-bf27-403b-b448-b3ed837f8d9b",
             link = ""
         ),
     ),

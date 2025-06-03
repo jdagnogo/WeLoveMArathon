@@ -51,11 +51,12 @@ fun RecommendedCategoryDetailsDialogContent(
     val context = LocalContext.current
     Card(
         shape = RoundedCornerShape(10),
-        elevation = 8.dp
+        elevation = 8.dp,
+        backgroundColor = Color.White
     ) {
         Column(
             modifier
-                .background(PrimaryLight)
+                .background(Color.White)
         ) {
             val images = remember { item.images }
             CarouselWithPreview(
@@ -74,30 +75,35 @@ fun RecommendedCategoryDetailsDialogContent(
             ) {
                 Text(
                     overflow = TextOverflow.Ellipsis,
-                    style = SplashScreenTitleStyle,
+                    style = SplashScreenTitleStyle.copy(
+                        color = Color(0xFF1E4F7B)
+                    ),
                     maxLines = 1,
                     text = item.name,
                 )
                 Icon(
                     painterResource(id = R.drawable.ic_link),
-                    contentDescription = "back",
-                    tint = Color.White,
+                    contentDescription = "link",
+                    tint = Color(0xFF1E4F7B),
                     modifier = modifier
                         .padding(start = MaterialTheme.spacing.extraMedium)
                         .size(MaterialTheme.spacing.medium)
-
                 )
             }
             Text(
                 overflow = TextOverflow.Ellipsis,
-                style = tagsTitleStyle,
+                style = tagsTitleStyle.copy(
+                    color = Color.Black
+                ),
                 text = item.tags,
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
             )
 
             Text(
                 overflow = TextOverflow.Ellipsis,
-                style = recommendedCategoryContentStyle,
+                style = recommendedCategoryContentStyle.copy(
+                    color = Color.Black
+                ),
                 text = item.description,
                 modifier = Modifier
                     .padding(vertical = MaterialTheme.spacing.huge)
@@ -109,6 +115,8 @@ fun RecommendedCategoryDetailsDialogContent(
                 iconSize = 24.dp,
                 onClicked = { redirectToLink(uriHandler, item.locationLink) },
                 text = item.location,
+                tint = Color(0xFF1E4F7B),
+                textColor = Color.Black,
                 modifier = Modifier
                     .padding(top = 16.dp)
                     .padding(horizontal = MaterialTheme.spacing.medium),
@@ -121,6 +129,8 @@ fun RecommendedCategoryDetailsDialogContent(
                     redirectToPhone(context, item.number)
                 },
                 text = item.number,
+                tint = Color(0xFF1E4F7B),
+                textColor = Color.Black,
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.medium)
             )

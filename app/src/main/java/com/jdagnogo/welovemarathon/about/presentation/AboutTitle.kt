@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.jdagnogo.welovemarathon.common.ui.theme.emptyScreenTitle
+import androidx.compose.ui.graphics.Color
 
 @Composable
 fun AboutTitle(
@@ -15,7 +16,7 @@ fun AboutTitle(
 ) {
     Text(
         text = title,
-        style = emptyScreenTitle,
+        style = emptyScreenTitle.copy(color = Color(0xFF1E4F7B)), // Updated color
         textAlign = TextAlign.Justify,
         modifier = modifier
             .padding(top = 16.dp)

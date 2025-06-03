@@ -80,16 +80,7 @@ fun SubMenuGridComponent(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier
                 .fillMaxSize()
-                .background(
-                    brush = Brush.horizontalGradient(
-                        colors = listOf(
-                            PrimaryLight,
-                            Primary,
-                            Primary,
-                            Primary,
-                        )
-                    )
-                )
+                .background(Color.White)
                 .padding(MaterialTheme.spacing.small)
         ) {
             Image(
@@ -100,7 +91,7 @@ fun SubMenuGridComponent(
                         error(R.drawable.ic_wlm_logo)
                     }
                 ),
-                colorFilter = ColorFilter.tint(Color.White),
+                colorFilter = ColorFilter.tint(Color.Black),
                 contentDescription = item.title,
                 modifier = Modifier
                     .size(iconSize)

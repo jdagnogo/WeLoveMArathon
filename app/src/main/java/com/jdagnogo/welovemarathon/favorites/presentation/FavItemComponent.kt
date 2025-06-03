@@ -75,7 +75,7 @@ fun FavItem(
         Card(
             elevation = MaterialTheme.spacing.small,
             shape = MaterialTheme.shapes.large,
-            backgroundColor = PrimaryLight,
+            backgroundColor = Color.White,
             modifier = Modifier
                 .padding(start = MaterialTheme.spacing.small)
                 .weight(1f)
@@ -89,7 +89,9 @@ fun FavItem(
                         modifier = Modifier.weight(1f),
                         overflow = TextOverflow.Ellipsis,
                         maxLines = 1,
-                        style = RecommendedCategoryItemTitleStyle,
+                        style = RecommendedCategoryItemTitleStyle.copy(
+                            color = Color(0xFF1E4F7B)
+                        ),
                         text = item.name
                     )
                     val uriHandler = LocalUriHandler.current
@@ -98,18 +100,20 @@ fun FavItem(
                         modifier = Modifier.padding(MaterialTheme.spacing.extraSmall),
                         icon = R.drawable.location,
                         iconSize = 24.dp,
+                        tint = Color(0xFF1E4F7B),
+                        backgroundColor = Color.White,
                         onClicked = { redirectToLink(uriHandler, item.locationLink) },
                     )
                     ContactComponent(
                         modifier = Modifier.padding(MaterialTheme.spacing.extraSmall),
                         icon = R.drawable.ic_phone,
                         iconSize = 24.dp,
-                        onClicked = {
-                            redirectToPhone(context, item.number)
-                        },
+                        tint = Color(0xFF1E4F7B),
+                        backgroundColor = Color.White,
+                        onClicked = { redirectToPhone(context, item.number) },
                     )
                 }
-                Divider(color = Color.White, thickness = 1.dp)
+                Divider(color = Color(0xFFE0E0E0), thickness = 1.dp)
                 Text(
                     overflow = TextOverflow.Ellipsis,
                     style = tagsTitleStyle,
