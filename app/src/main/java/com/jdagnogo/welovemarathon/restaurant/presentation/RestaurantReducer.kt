@@ -57,7 +57,7 @@ class RestaurantReducer : IReducer<RestaurantState, RestaurantPartialState> {
 
             is RestaurantPartialState.OnRestaurantFilterSuccess -> {
                 state.copy(
-                    filter = partialState.data.first(),
+                    filter = partialState.data.firstOrNull(),
                 )
             }
         }

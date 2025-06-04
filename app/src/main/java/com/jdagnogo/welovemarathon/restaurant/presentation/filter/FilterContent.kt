@@ -119,7 +119,7 @@ fun FilterContent(
 
             FilterRowComponent(
                 title = stringResource(id = R.string.cuisine),
-                data = state.filter.cuisines,
+                data = state.filter?.cuisines?: emptyList(),
                 modifier = Modifier.padding(horizontal = 16.dp),
                 filterApplied = filterApplied.value.cuisines,
                 onItemClicked = { result ->
@@ -137,7 +137,7 @@ fun FilterContent(
 
             FilterRowComponent(
                 title = stringResource(id = R.string.plates),
-                data = state.filter.plates,
+                data = state.filter?.plates?: emptyList(),
                 filterApplied = filterApplied.value.plates,
                 onItemClicked = { result ->
                     val filter = filterApplied.value
@@ -156,7 +156,7 @@ fun FilterContent(
 
             FilterRowComponent(
                 title = stringResource(id = R.string.drinks),
-                data = state.filter.drinks,
+                data = state.filter?.drinks?: emptyList(),
                 filterApplied = filterApplied.value.drinks,
                 onItemClicked = { result ->
                     val filter = filterApplied.value
@@ -195,7 +195,7 @@ fun FilterContent(
 
             FilterRowComponent(
                 title = stringResource(id = R.string.location),
-                data = state.filter.location,
+                data = state.filter?.location?: emptyList(),
                 filterApplied = filterApplied.value.location,
                 onItemClicked = { result ->
                     val filter = filterApplied.value
@@ -212,7 +212,7 @@ fun FilterContent(
 
             FilterRowIconComponent(
                 title = stringResource(id = R.string.services),
-                data = state.filter.services,
+                data = state.filter?.services?: emptyList(),
                 onItemClicked = { result ->
                     val filter = filterApplied.value
                     filterApplied.value = filter.copy(
@@ -230,7 +230,7 @@ fun FilterContent(
 
             FilterPricesComponent(
                 modifier = Modifier.padding(horizontal = 16.dp),
-                data = state.filter.prices,
+                data = state.filter?.prices?: emptyList(),
                 filterApplied = filterApplied.value.prices,
                 onItemClicked = { result ->
                     val filter = filterApplied.value
