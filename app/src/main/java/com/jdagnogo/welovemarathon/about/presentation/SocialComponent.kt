@@ -8,6 +8,8 @@ import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
@@ -30,6 +32,7 @@ fun SocialComponent(
             ) {
                 redirectToLink(uriHandler, socialMedia.link)
             }
-            .size(50.dp)
+            .size(50.dp),
+        colorFilter = ColorFilter.tint(Color.White)
     )
 }

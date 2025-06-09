@@ -17,7 +17,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment.Companion.CenterVertically
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
@@ -49,20 +49,40 @@ fun ContactComponent(
     painter: Painter? = null,
     textPadding: Dp = MaterialTheme.spacing.small
 ) {
-    Row(
-        modifier = modifier
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = rememberRipple(bounded = false),
-                onClick = onClicked
-            ),
-        verticalAlignment = CenterVertically,
-    ) {
-        if (backgroundColor != null) {
+    if (text.isEmpty()) {
+        Box(
+            modifier = modifier
+                .size(iconSize + 16.dp)
+                .background(backgroundColor ?: Color.Transparent, CircleShape)
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = rememberRipple(bounded = false),
+                    onClick = onClicked
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                painter = painter ?: painterResource(id = icon),
+                contentDescription = null,
+                tint = tint,
+                modifier = Modifier.size(iconSize)
+            )
+        }
+    } else {
+        Row(
+            modifier = modifier
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = rememberRipple(bounded = false),
+                    onClick = onClicked
+                ),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
             Box(
                 modifier = Modifier
-                    .background(backgroundColor, CircleShape)
-                    .padding(8.dp)
+                    .size(iconSize + 16.dp)
+                    .background(backgroundColor ?: Color.Transparent, CircleShape),
+                contentAlignment = Alignment.Center
             ) {
                 Icon(
                     painter = painter ?: painterResource(id = icon),
@@ -71,15 +91,6 @@ fun ContactComponent(
                     modifier = Modifier.size(iconSize)
                 )
             }
-        } else {
-            Icon(
-                painter = painter ?: painterResource(id = icon),
-                contentDescription = null,
-                tint = tint,
-                modifier = Modifier.size(iconSize)
-            )
-        }
-        if (text.isNotEmpty()) {
             Text(
                 text = text,
                 color = textColor,

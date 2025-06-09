@@ -13,4 +13,10 @@ data class OfferWithRestaurant(
     val endDate: Date = Date(),
     val restaurant: Restaurant? = null,
     val promos: List<Promo> = listOf(),
+    val promoCode: String = "",
+    val validUntil: String = "",
+    val restaurantName: String = "",
+    val discount: String = "",
+    val restaurantId: String = "",
+    val restaurantImage: String = ""
 )

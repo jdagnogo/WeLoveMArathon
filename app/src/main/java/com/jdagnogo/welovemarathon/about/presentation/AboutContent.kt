@@ -44,12 +44,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.google.accompanist.flowlayout.FlowCrossAxisAlignment
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.component.ContactComponent
-import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 import com.jdagnogo.welovemarathon.common.utils.redirectToLink
 import com.jdagnogo.welovemarathon.common.utils.redirectToMail
 import com.jdagnogo.welovemarathon.common.utils.redirectToPhone
@@ -69,7 +69,6 @@ fun AboutContent(
             .background(MaterialTheme.colors.background),
         contentPadding = PaddingValues(bottom = 24.dp)
     ) {
-        // TopBar with blue background and white logo
         item {
             Box(
                 modifier = Modifier
@@ -90,19 +89,19 @@ fun AboutContent(
                         colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(Color.White)
                     )
 
-                    Spacer(modifier = Modifier.width(12.dp))  // Add some space between logo and text
+                    Spacer(modifier = Modifier.width(12.dp))
 
                     Text(
                         text = "Marathon, Greece",
-                        style = MaterialTheme.typography.subtitle1.copy(
-                            color = Color.White
+                        style = MaterialTheme.typography.h6.copy(
+                            color = Color.White,
+                            fontSize = 18.sp
                         ),
                         modifier = Modifier.padding(start = 4.dp)
                     )
                 }
             }
         }
-        // Header Section with Image Carousel
         item {
             Card(
                 modifier = Modifier
@@ -116,7 +115,6 @@ fun AboutContent(
                 Box(
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    // Background Image
                     Image(
                         painter = painterResource(
                             id = when(currentImageIndex.value) {
@@ -134,10 +132,9 @@ fun AboutContent(
                         ),
                         contentDescription = null,
                         modifier = Modifier.fillMaxSize(),
-                        contentScale = ContentScale.FillBounds
+                        contentScale = ContentScale.Crop
                     )
 
-                    // Navigation Arrows
                     Row(
                         modifier = Modifier
                             .fillMaxSize()
@@ -166,7 +163,6 @@ fun AboutContent(
                             )
                         }
 
-                        // Right Arrow
                         IconButton(
                             onClick = {
                                 if (currentImageIndex.value < totalImages - 1) {
@@ -188,7 +184,6 @@ fun AboutContent(
                         }
                     }
 
-                    // Page Indicators
                     Row(
                         modifier = Modifier
                             .align(Alignment.BottomCenter)
@@ -225,10 +220,11 @@ fun AboutContent(
                 shape = RoundedCornerShape(16.dp),
                 backgroundColor = Color(0xFF1E4F7B)
             ) {
-                val context = LocalContext.current  // Add this line to get the context
+                val context = LocalContext.current
 
                 Column(
-                    modifier = Modifier.fillMaxWidth().padding(16.dp),
+                    modifier = Modifier
+                        .padding(12.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
@@ -238,23 +234,19 @@ fun AboutContent(
                         modifier = Modifier.padding(bottom = 8.dp)
                     )
 
-                    // Single Row for all items with equal spacing
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center,
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-
-                        // Phone Contact
                         ContactComponent(
                             modifier = Modifier,
                             icon = R.drawable.ic_phone,
                             tint = Color.White,
-                            iconSize = 50.dp,
+                            iconSize = 34.dp,
                             onClicked = { redirectToPhone(context, state.phone) }  // Use state.phone
                         )
 
-
-                        // Email Contact
                         ContactComponent(
                             modifier = Modifier,
                             icon = R.drawable.email,
@@ -263,7 +255,6 @@ fun AboutContent(
                             onClicked = { redirectToMail(context, state.mail) }  // Use state.mail
                         )
 
-                        // Social Media Icons
                         state.socialMedias.forEach { socialMedia ->
                             SocialComponent(
                                 socialMedia = socialMedia,
@@ -274,8 +265,7 @@ fun AboutContent(
                 }
             }
         }
-
-        // About Description Section
+        
         item {
             Card(
                 modifier = Modifier
@@ -299,7 +289,6 @@ fun AboutContent(
             }
         }
 
-        // Team Section
         item {
             Spacer(modifier = Modifier.height(24.dp))
             Text(
@@ -338,7 +327,6 @@ fun AboutContent(
             }
         }
 
-        // Privacy Policy Section
         item {
             Spacer(modifier = Modifier.height(16.dp))
             Card(
@@ -365,6 +353,29 @@ fun AboutContent(
             }
         }
     }
+}
+
+@Composable
+private fun ContactButtons(phone: String, mail: String) {
+    val context = LocalContext.current
+
+    // Phone Contact
+    ContactComponent(
+        modifier = Modifier,
+        icon = R.drawable.ic_phone,
+        tint = Color.White,
+        iconSize = 50.dp,
+        onClicked = { redirectToPhone(context, phone) }
+    )
+
+    // Email Contact
+    ContactComponent(
+        modifier = Modifier,
+        icon = R.drawable.email,
+        tint = Color.White,
+        iconSize = 50.dp,
+        onClicked = { redirectToMail(context, mail) }
+    )
 }
 
 @Preview

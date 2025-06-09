@@ -17,6 +17,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -32,6 +35,7 @@ import com.jdagnogo.welovemarathon.common.ui.theme.PrimaryLight
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.draw.shadow
+import com.jdagnogo.welovemarathon.common.ui.theme.RecommendedCategoryTitleStyle
 
 @ExperimentalMaterialApi
 @Composable
@@ -39,22 +43,52 @@ fun LongCategoryComponent(
     items: List<LongCategoryItem>,
     onItemSelected: (String) -> Unit,
     modifier: Modifier = Modifier,
+    title: String,
 ) {
-    LazyColumn(
-        contentPadding = PaddingValues(
-            start = 24.dp, // More than your shadow size
-            end = 24.dp,
-            top = MaterialTheme.spacing.large,
-        ),
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
-        modifier = modifier.animateContentSize()
+    Card(
+        backgroundColor = Color(0xFF1E4F7B).copy(alpha = 0.1f),
+        shape = MaterialTheme.shapes.medium,
+        modifier = modifier
+            .wrapContentSize()
+            .padding(horizontal = MaterialTheme.spacing.small),
+        elevation = 0.dp,
     ) {
-        items(items.size) { index ->
-            val item = items[index]
-            LongCategoryItemComponent(
-                item = item,
-                onItemSelected = onItemSelected
-            )
+        Column(
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth()
+        ) {
+            if (title != "CULTURE") {
+                Text(
+                    style = RecommendedCategoryTitleStyle,
+                    text = "All",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF1E4F7B),
+                    modifier = Modifier.padding(
+                        horizontal = MaterialTheme.spacing.small,
+                        vertical = MaterialTheme.spacing.small
+                    )
+                )
+            }
+            LazyColumn(
+                contentPadding = PaddingValues(
+                    start = MaterialTheme.spacing.medium,
+                    end = MaterialTheme.spacing.medium,
+                    top = 0.dp,
+                    bottom = 0.dp,
+                ),
+                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+                modifier = modifier.animateContentSize()
+            ) {
+                items(items.size) { index ->
+                    val item = items[index]
+                    LongCategoryItemComponent(
+                        item = item,
+                        onItemSelected = onItemSelected
+                    )
+                }
+            }
         }
     }
 }
@@ -75,14 +109,14 @@ fun LongCategoryItemComponent(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = MaterialTheme.spacing.extraSmall)
+                .padding(horizontal = 16.dp, vertical = 0.dp)
         ) {
             Card(
                 elevation = 2.dp,
                 shape = MaterialTheme.shapes.large,
                 backgroundColor = Color(0xFF1E4F7B),
                 modifier = Modifier
-                    .padding(horizontal = 8.dp)
+                    .fillMaxWidth()
                     .shadow(
                         elevation = 2.dp,
                         shape = MaterialTheme.shapes.large,
@@ -93,7 +127,7 @@ fun LongCategoryItemComponent(
                     text = item.name,
                     style = TextStyle(
                         fontFamily = FontFamily.Default,
-                        fontSize = 20.sp,
+                        fontSize = 17.sp,
                         color = Color.White,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center
@@ -119,7 +153,7 @@ fun LongImage(
         modifier = modifier
             .height(160.dp)
             .fillMaxWidth()
-            .padding(vertical = MaterialTheme.spacing.extraSmall)
+            .padding(vertical = MaterialTheme.spacing.small)
     ) {
         Image(
             painter = rememberImagePainter(

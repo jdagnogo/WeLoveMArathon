@@ -3,12 +3,15 @@ package com.jdagnogo.welovemarathon.common.type_two
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
@@ -20,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.category.*
 import com.jdagnogo.welovemarathon.common.ui.component.ContactComponent
@@ -65,8 +69,8 @@ fun TypeTwoComponent(
         item {
             LongImage(
                 item.image, item.name, modifier = Modifier
-                    .padding(top = MaterialTheme.spacing.huge)
-                    .padding(horizontal = MaterialTheme.spacing.huge)
+                    .padding(top = 0.dp)
+                    .padding(horizontal = MaterialTheme.spacing.small)
             )
         }
         item {
@@ -74,7 +78,7 @@ fun TypeTwoComponent(
                 ItemType.Description -> {
                     TypeTwoItemDescription(
                         item = item, modifier = Modifier
-                            .padding(horizontal = MaterialTheme.spacing.medium)
+                            .padding(horizontal = MaterialTheme.spacing.small)
                             .padding(top = MaterialTheme.spacing.medium)
                     )
                 }
@@ -88,17 +92,30 @@ fun TypeTwoComponent(
             }
         }
         item {
-            Column {
-                FilterComponent(
-                    shouldDisplayFilter = shouldDisplayFilter,
-                    onFilterClicked = onFilterClicked,
-                    modifier = Modifier
-                        .height(MaterialTheme.spacing.extraHuge)
-                        .fillMaxWidth()
-                        .padding(
-                            horizontal = MaterialTheme.spacing.huge
-                        )
-                )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        horizontal = MaterialTheme.spacing.medium,
+                        vertical = MaterialTheme.spacing.medium
+                    ),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                if (shouldDisplayFilter){
+                    Text(
+                        text = "Organized Beach Bars",
+                        style = RecommendedCategoryTitleStyle,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.weight(1f),
+                        textAlign = TextAlign.Start
+                    )
+                    FilterComponent(
+                        shouldDisplayFilter = shouldDisplayFilter,
+                        onFilterClicked = onFilterClicked,
+                        modifier = Modifier
+                    )
+                }
             }
         }
 
@@ -140,73 +157,92 @@ fun TypeTwoItemDescription(item: TypeTwoItem, modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxWidth()
             .animateContentSize()
+            .padding(bottom = 32.dp)
     ) {
         val uriHandler = LocalUriHandler.current
         val context = LocalContext.current
-        val (card, map, website, phone) = createRefs()
+        val (card, phone, website, location) = createRefs()
+        val spacing = MaterialTheme.spacing.medium
+
         Card(
             elevation = MaterialTheme.spacing.small,
             shape = MaterialTheme.shapes.large,
             backgroundColor = Color.White,
             modifier = modifier
                 .fillMaxWidth()
+                .padding(horizontal = MaterialTheme.spacing.small)
                 .constrainAs(card) {
                     linkTo(parent.start, parent.end)
                     top.linkTo(parent.top)
                 }
         ) {
-            HtmlTextComponent(
-                text = item.description,
-                modifier = Modifier
-                    .padding(
-                        top = MaterialTheme.spacing.medium,
-                        bottom = MaterialTheme.spacing.huge,
-                    )
-                    .padding(horizontal = MaterialTheme.spacing.small)
-            )
+            ConstraintLayout(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                val (description, phoneBtn, websiteBtn, locationBtn) = createRefs()
+
+                HtmlTextComponent(
+                    text = item.description,
+                    modifier = Modifier
+                        .constrainAs(description) {
+                            linkTo(parent.start, parent.end, endMargin = 72.dp)
+                            top.linkTo(parent.top)
+                            width = Dimension.percent(0.75f)
+                        }
+                        .padding(
+                            top = MaterialTheme.spacing.medium,
+                            bottom = MaterialTheme.spacing.large,
+                            start = MaterialTheme.spacing.small,
+                            end = MaterialTheme.spacing.small
+                        )
+                )
+
+                ContactComponent(
+                    modifier = Modifier
+                        .constrainAs(phoneBtn) {
+                            top.linkTo(parent.top, margin = spacing)
+                            end.linkTo(parent.end, margin = spacing)
+                        }
+                        .size(48.dp)
+                        .border(1.dp, Color(0xFF1E4F7B), CircleShape),
+                    icon = R.drawable.ic_phone,
+                    iconSize = 24.dp,
+                    backgroundColor = Color.White,
+                    tint = Color(0xFF1E4F7B),
+                    onClicked = { redirectToPhone(context, item.phone) },
+                )
+
+                ContactComponent(
+                    modifier = Modifier
+                        .constrainAs(websiteBtn) {
+                            top.linkTo(phoneBtn.bottom, margin = spacing)
+                            end.linkTo(parent.end, margin = spacing)
+                        }
+                        .size(48.dp)
+                        .border(1.dp, Color(0xFF1E4F7B), CircleShape),
+                    icon = R.drawable.ic_link,
+                    backgroundColor = Color.White,
+                    iconSize = 24.dp,
+                    tint = Color(0xFF1E4F7B),
+                    onClicked = { redirectToLink(uriHandler, item.website) },
+                )
+
+                ContactComponent(
+                    modifier = Modifier
+                        .constrainAs(locationBtn) {
+                            top.linkTo(websiteBtn.bottom, margin = spacing)
+                            end.linkTo(parent.end, margin = spacing)
+                        }
+                        .size(48.dp)
+                        .border(1.dp, Color(0xFF1E4F7B), CircleShape),
+                    icon = R.drawable.location,
+                    iconSize = 24.dp,
+                    tint = Color(0xFF1E4F7B),
+                    backgroundColor = Color.White,
+                    onClicked = { redirectToLink(uriHandler, item.locationLink) }
+                )
+            }
         }
-
-        ContactComponent(
-            modifier = Modifier
-                .padding(MaterialTheme.spacing.medium)
-                .constrainAs(phone) {
-                    top.linkTo(card.bottom)
-                    bottom.linkTo(card.bottom)
-                },
-            icon = R.drawable.ic_phone,
-            iconSize = 24.dp,
-            backgroundColor = Color.White,
-            tint = Color(0xFF1E4F7B),
-            onClicked = { redirectToPhone(context, item.phone) },
-        )
-
-        ContactComponent(
-            modifier = Modifier
-                .padding(MaterialTheme.spacing.medium)
-                .constrainAs(website) {
-                    top.linkTo(card.bottom)
-                    bottom.linkTo(card.bottom)
-                },
-            icon = R.drawable.ic_link,
-            backgroundColor = Color.White,
-            iconSize = 24.dp,
-            tint = Color(0xFF1E4F7B),
-            onClicked = { redirectToLink(uriHandler, item.website) },
-        )
-
-        ContactComponent(
-            modifier = Modifier
-                .padding(MaterialTheme.spacing.medium)
-                .constrainAs(map) {
-                    top.linkTo(card.bottom)
-                    bottom.linkTo(card.bottom)
-                },
-            icon = R.drawable.location,
-            backgroundColor = Color.White,
-            iconSize = 24.dp,
-            tint = Color(0xFF1E4F7B),
-            onClicked = { redirectToLink(uriHandler, item.locationLink) },
-        )
     }
 }
 
