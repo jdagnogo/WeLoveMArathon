@@ -145,7 +145,7 @@ data class RestaurantState(
     val foods: List<CategoryItem> = listOf(),
     val items: List<Restaurant> = emptyList(),
     val currentRestaurantSelected: Restaurant? = null,
-    val filter: RestaurantFilter? = RestaurantFilter(),
+    val filter: RestaurantFilter = RestaurantFilter(),
     val currentFilterApplied: RestaurantAppliedFilter = RestaurantAppliedFilter(),
 ) {
     val allCategories = listOf(allCategory, likedCategory).plus(categories)

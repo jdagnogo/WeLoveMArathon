@@ -16,7 +16,7 @@ fun AboutTitle(
 ) {
     Text(
         text = title,
-        style = emptyScreenTitle.copy(color = Color(0xFF1E4F7B)), // Updated color
+        style = emptyScreenTitle.copy(color = Color(0xFF1E4F7B)),
         textAlign = TextAlign.Justify,
         modifier = modifier
             .padding(top = 16.dp)

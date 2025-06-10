@@ -68,7 +68,7 @@ fun TitleComponent(
             style = MaterialTheme.typography.h6.copy(
                 color = Color.Black,
                 textAlign = TextAlign.Center,
-                fontSize = 26.sp  // Adding fontSize parameter
+                fontSize = 26.sp
             ),
             modifier = Modifier
                 .weight(1f)

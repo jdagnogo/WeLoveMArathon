@@ -29,6 +29,8 @@ class GetOfferUseCase @Inject constructor(
                 endDate = toDate(offer.endDate),
                 restaurant = restaurant.data,
                 promos = offer.promos,
+                restaurantName = restaurant.data?.name ?: "",
+                restaurantId = offer.restaurant
             )
         }
     }

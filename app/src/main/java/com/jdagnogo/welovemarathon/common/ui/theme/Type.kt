@@ -12,11 +12,11 @@ import androidx.compose.ui.unit.sp
 import com.jdagnogo.welovemarathon.R
 
 val fonts = FontFamily(
-    Font(R.font.arial_bold, weight = FontWeight.Bold),
-    Font(R.font.arial, weight = FontWeight.Light),
-    Font(R.font.arial, weight = FontWeight.Thin),
-    Font(R.font.arial, weight = FontWeight.Normal, style = FontStyle.Italic),
-    Font(R.font.arial)
+    Font(R.font.wlm_font, weight = FontWeight.Bold),
+    Font(R.font.wlm_font, weight = FontWeight.Light),
+    Font(R.font.wlm_font, weight = FontWeight.Thin),
+    Font(R.font.wlm_font, weight = FontWeight.Normal, style = FontStyle.Italic),
+    Font(R.font.wlm_font)
 )
 
 val normal_font = FontFamily(
