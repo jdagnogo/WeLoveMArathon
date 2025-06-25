@@ -62,9 +62,9 @@ class HomeViewModel @Inject constructor(
             homeUseCases.getOfferUseCase().onEach { resource ->
                 val offer = resource.data
                 val count = homeUseCases.getOfferCountUseCase(offer?.id)
-                if (resource is Resource.Success && offer != null && count < COUNT_MAX) {
-                    val isOfferAvailable = homeUseCases.isOfferAvailableUseCase(offer.id)
-                    val partialState = HomePartialState.OnOfferSuccess(offer, isOfferAvailable)
+                if (resource is Resource.Success && offer != null) {
+                    val shouldShowPopup = count == 0
+                    val partialState = HomePartialState.OnOfferSuccess(offer, shouldShowPopup)
                     _state.value = reducer.reduce(state.value, partialState)
                     this.cancel()
                 }

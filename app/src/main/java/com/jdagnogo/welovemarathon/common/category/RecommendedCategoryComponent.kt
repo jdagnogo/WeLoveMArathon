@@ -19,10 +19,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -56,36 +58,85 @@ fun RecommendedCategoryComponent(
 ) {
     AnimatedVisibility(recommendedItems.isNotEmpty()) {
         Column(modifier = modifier) {
-            Text(
-                style = RecommendedCategoryTitleStyle,
-                text = "Best of",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(start = MaterialTheme.spacing.medium, top = 0.dp, bottom = MaterialTheme.spacing.small)
-            )
-            Box(modifier = Modifier.padding(top = MaterialTheme.spacing.small)) {
-                val shuffledItems = remember {
-                    recommendedItems.shuffled()
-                }
-                LazyRow(
-                    verticalAlignment = Alignment.CenterVertically,
-                    contentPadding = PaddingValues(
-                        start = MaterialTheme.spacing.medium,
-                        end = MaterialTheme.spacing.huge,
-                    ),
-                    horizontalArrangement = Arrangement.spacedBy(
-                        MaterialTheme.spacing.medium,
-                        Alignment.CenterHorizontally
-                    ),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .animateContentSize()
-                ) {
-                    itemsIndexed(shuffledItems) { _, category ->
-                        RecommendedCategoryContent(
-                            item = category,
-                            onRecommendedSelected = onRecommendedSelected,
+            Card(
+                backgroundColor = Color(0xFF1E4F7B).copy(alpha = 0.1f),
+                shape = MaterialTheme.shapes.medium,
+                modifier = modifier
+                    .wrapContentSize()
+                    .padding(horizontal = MaterialTheme.spacing.small),
+                elevation = 0.dp
+            ) {
+                Box {
+                    Icon(
+                        painter = rememberImagePainter(
+                            data = R.drawable.star,
+                            builder = {
+                                crossfade(true)
+                                error(R.drawable.ic_wlm_logo)
+                            }
+                        ),
+                        contentDescription = "recommended icon",
+                        tint = Color.White,
+                        modifier = Modifier
+                            .padding(MaterialTheme.spacing.medium)
+                            .align(Alignment.TopEnd)
+                            .size(22.dp)
+                            .background(
+                                color = Color(0xFF1E4F7B).copy(alpha = 0.8f),
+                                shape = RoundedCornerShape(4.dp)
+                            )
+                            .padding(4.dp)
+                    )
+                    // Main content
+                    Column(
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .fillMaxWidth()
+                    ) {
+                        Text(
+                            style = RecommendedCategoryTitleStyle,
+                            text = "Best of",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF1E4F7B),
+                            modifier = Modifier.padding(
+                                horizontal = MaterialTheme.spacing.small,
+                                vertical =  MaterialTheme.spacing.small
+                            )
                         )
+
+                        Box(
+                            modifier = Modifier
+                                .padding(
+                                    top = MaterialTheme.spacing.extraSmall,
+                                    bottom = MaterialTheme.spacing.small
+                                )
+                        ) {
+                            val shuffledItems = remember {
+                                recommendedItems.shuffled()
+                            }
+                            LazyRow(
+                                verticalAlignment = Alignment.CenterVertically,
+                                contentPadding = PaddingValues(
+                                    start = MaterialTheme.spacing.small,
+                                    end = MaterialTheme.spacing.small,
+                                ),
+                                horizontalArrangement = Arrangement.spacedBy(
+                                    MaterialTheme.spacing.small,
+                                    Alignment.CenterHorizontally
+                                ),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .animateContentSize()
+                            ) {
+                                itemsIndexed(shuffledItems) { _, category ->
+                                    RecommendedCategoryContent(
+                                        item = category,
+                                        onRecommendedSelected = onRecommendedSelected,
+                                    )
+                                }
+                            }
+                        }
                     }
                 }
             }

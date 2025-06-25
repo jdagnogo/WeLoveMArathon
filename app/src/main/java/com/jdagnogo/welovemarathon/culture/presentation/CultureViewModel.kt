@@ -72,7 +72,7 @@ class CultureViewModel @Inject constructor(
 
 @Keep
 data class CultureState(
-    val mainScreenName: String = "Culture",
+    val mainScreenName: String = "CULTURE",
     val currentSelected: Culture = Culture(),
     val categories: List<CategoryItem> = listOf(),
     val cultures: List<Culture> = listOf(),

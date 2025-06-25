@@ -51,13 +51,14 @@ fun LongCategoryScreen(
         RecommendedCategoryComponent(
             recommendedItems = recommendedItems,
             onRecommendedSelected = onRecommendedSelected,
-            modifier = Modifier.padding(top = MaterialTheme.spacing.huge)
+            modifier = Modifier.padding(top = MaterialTheme.spacing.small)
         )
 
         LongCategoryComponent(
             items = items,
             onItemSelected = onItemSelected,
-            Modifier.padding(top = MaterialTheme.spacing.medium)
+            Modifier.padding(top = MaterialTheme.spacing.medium),
+            title = title,
         )
 
         if (shouldOpenRecommenderDialog) {

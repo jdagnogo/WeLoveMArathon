@@ -1,10 +1,12 @@
 package com.jdagnogo.welovemarathon.offer.presentation
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.MaterialTheme
@@ -12,54 +14,61 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberImagePainter
+import androidx.compose.ui.unit.sp
 import com.jdagnogo.welovemarathon.R
-import com.jdagnogo.welovemarathon.common.ui.theme.emptyScreenSubTitle
-import com.jdagnogo.welovemarathon.common.ui.theme.emptyScreenTitle
-import com.jdagnogo.welovemarathon.common.ui.theme.spacing
+import androidx.compose.foundation.background
 
 @Composable
-fun OfferEmptySection(
-    modifier: Modifier = Modifier,
-) {
+fun OfferEmptySection() {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp),
-
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color(0xFF1E4F7B))
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
         ) {
-        Spacer(modifier = Modifier.padding(top = MaterialTheme.spacing.huge))
+            Text(
+                text = "Offers",
+                style = MaterialTheme.typography.h6.copy(
+                    color = Color.White,
+                    fontSize = 24.sp
+                )
+            )
+        }
 
-        Image(
-            painter = rememberImagePainter(
-                data = R.drawable.ic_discount,
-                builder = {
-                    crossfade(true)
-                    error(R.drawable.ic_wlm_logo)
-                }
-            ),
-            contentDescription = "",
-            modifier = Modifier.size(150.dp),
-        )
 
-        Text(
-            text = stringResource(id = R.string.offer_no_offer_title),
-            textAlign = TextAlign.Center,
-            style = emptyScreenTitle,
-            modifier = Modifier.padding(top = MaterialTheme.spacing.medium)
-        )
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.noresults),
+                    contentDescription = "No results found",
+                    modifier = Modifier.size(170.dp)
+                )
 
-        Text(
-            text = stringResource(id = R.string.offer_no_offer),
-            style = emptyScreenSubTitle,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(top = MaterialTheme.spacing.medium)
-        )
+                Spacer(modifier = Modifier.height(32.dp))
 
+                Text(
+                    text = "No offers are available right now",
+                    style = MaterialTheme.typography.h5.copy(
+                        color = Color.Black,
+                        fontSize = 20.sp
+                    ),
+                    textAlign = TextAlign.Center
+                )
+            }
+        }
     }
 }

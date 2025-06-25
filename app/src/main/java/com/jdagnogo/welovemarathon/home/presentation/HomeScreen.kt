@@ -77,15 +77,19 @@ fun HomeScreen(
                     viewModel.dispatchEvent(HomeUiEvent.OnOfferDisplayed(state.offer.id))
                 }
             ) {
-                OfferContent(offer = state.offer) {
-                    shouldOpenOfferBottomSheet.value = false
-                    viewModel.dispatchEvent(HomeUiEvent.OnOfferDisplayed(state.offer.id))
-                    navController.navigate(
-                        navOptions = NavOptions.Builder(
-                        ).setPopUpTo(HomeSections.HOME.route, true, true).build(),
-                        route = HomeSections.OFFERS.route
-                    )
-                }
+                OfferContent(
+                    offer = state.offer,
+                    onGetOfferClicked = {
+                        shouldOpenOfferBottomSheet.value = false
+                        viewModel.dispatchEvent(HomeUiEvent.OnOfferDisplayed(state.offer.id))
+                        navController.navigate(
+                            navOptions = NavOptions.Builder()
+                                .setPopUpTo(HomeSections.HOME.route, true, true).build(),
+                            route = HomeSections.OFFERS.route
+                        )
+                    },
+                    isPopup = true
+                )
             }
         }
     }

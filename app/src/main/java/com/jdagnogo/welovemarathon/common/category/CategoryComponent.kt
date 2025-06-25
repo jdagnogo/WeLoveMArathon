@@ -5,7 +5,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,10 +19,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -53,7 +52,6 @@ import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.ui.component.ContactComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.RecommendedCategoryTitleStyle
 import com.jdagnogo.welovemarathon.common.ui.theme.spacing
-import com.jdagnogo.welovemarathon.common.ui.theme.tagsTitleStyle
 import com.jdagnogo.welovemarathon.common.utils.redirectToLink
 import com.jdagnogo.welovemarathon.common.utils.redirectToPhone
 
@@ -102,48 +100,69 @@ fun CategoryComponent(
                     .fillMaxSize()
                     .padding(8.dp)
             ) {
-                Box(
-                    modifier = Modifier.fillMaxWidth()
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.Top
                 ) {
-                    Text(
-                        text = item.name,
-                        color = Color.White,
-                        fontSize = 20.sp,
-                        maxLines = 2,
-                        fontWeight = FontWeight.ExtraBold,
-                        overflow = TextOverflow.Ellipsis,
-                        style = TextStyle(
-                            shadow = Shadow(
-                                color = Color.Black,
-                                offset = Offset(4f, 4f),
-                                blurRadius = 16f
+                    Column(
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.Top
+                        ) {
+                            Text(
+                                text = item.name,
+                                color = Color.White,
+                                fontSize = 20.sp,
+                                maxLines = 2,
+                                fontWeight = FontWeight.ExtraBold,
+                                overflow = TextOverflow.Ellipsis,
+                                style = TextStyle(
+                                    shadow = Shadow(
+                                        color = Color.Black,
+                                        offset = Offset(4f, 4f),
+                                        blurRadius = 16f
+                                    )
+                                ),
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .padding(8.dp)
                             )
-                        ),
-                        modifier = Modifier
-                            .padding(8.dp)
-                            .align(Alignment.TopStart)
-                            .fillMaxWidth(0.75f)
-                    )
-
-                    Text(
-                        overflow = TextOverflow.Ellipsis,
-                        style = tagsTitleStyle.copy(color = Color.White),
-                        text = item.tags,
-                        maxLines = 1,
-                        modifier = Modifier
-                            .horizontalScroll(rememberScrollState(0))
-                            .align(Alignment.BottomStart)
-                            .padding(
-                                top = MaterialTheme.spacing.medium
+                            Icon(
+                                painter = painterResource(id = if (item.isFavItem) R.drawable.ic_favorites else R.drawable.ic_fav_unselected),
+                                contentDescription = if (item.isFavItem) "Remove from favorites" else "Add to favorites",
+                                tint = Color.White,
+                                modifier = Modifier
+                                    .padding(end = 8.dp, top = 0.dp)
+                                    .size(36.dp)
+                                    .clickable(indication = null, interactionSource = remember { MutableInteractionSource() }) { onLikeClicked(item.id) }
                             )
-                            .padding(
-                                horizontal = MaterialTheme.spacing.small
+                        }
+                        if (item.tags.isNotBlank()) {
+                            Text(
+                                text = item.tags,
+                                color = Color.White.copy(alpha = 0.9f),
+                                fontSize = 14.sp,
+                                maxLines = 2,
+                                overflow = TextOverflow.Clip,
+                                textAlign = TextAlign.Start,
+                                style = TextStyle(
+                                    shadow = Shadow(
+                                        color = Color.Black,
+                                        offset = Offset(2f, 2f),
+                                        blurRadius = 8f
+                                    )
+                                ),
+                                modifier = Modifier
+                                    .padding(start = 8.dp, end = 8.dp, bottom = 4.dp)
+                                    .align(Alignment.Start)
+                                    .fillMaxWidth(0.75f)
                             )
-                    )
-
+                        }
+                    }
                     Box(
                         modifier = Modifier
-                            .align(Alignment.CenterEnd)
                             .padding(end = 2.dp)
                             .width(IntrinsicSize.Min)
                     ) {
@@ -292,7 +311,7 @@ fun CategoryComponentPreview() {
     MaterialTheme {
         CategoryComponent(
             item = items[0],
-            onLikeClicked = {},
+            onLikeClicked = {} ,
             title = "WATER SPORTS"
         )
     }
