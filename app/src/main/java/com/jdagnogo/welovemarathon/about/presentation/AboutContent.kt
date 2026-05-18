@@ -44,6 +44,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberImagePainter
 import com.google.accompanist.flowlayout.FlowCrossAxisAlignment
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
@@ -118,20 +119,7 @@ fun AboutContent(
                 ) {
                     // Background Image
                     Image(
-                        painter = painterResource(
-                            id = when(currentImageIndex.value) {
-                                0 -> R.drawable.about1
-                                1 -> R.drawable.about2
-                                2 -> R.drawable.about3
-                                3 -> R.drawable.about4
-                                4 -> R.drawable.about5
-                                5 -> R.drawable.about6
-                                6 -> R.drawable.about7
-                                7 -> R.drawable.about8
-                                8 -> R.drawable.about9
-                                else -> R.drawable.about10
-                            }
-                        ),
+                        painter = rememberImagePainter(state.photos[currentImageIndex.value]),
                         contentDescription = null,
                         modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.FillBounds

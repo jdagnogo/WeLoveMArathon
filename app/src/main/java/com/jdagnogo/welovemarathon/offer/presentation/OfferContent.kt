@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -69,6 +70,7 @@ fun OfferContent(
     val scope = rememberCoroutineScope()
 
     Scaffold(
+        modifier = Modifier.statusBarsPadding(),
         backgroundColor = Color.White,
         topBar = {
             TopAppBar(
@@ -299,9 +301,10 @@ private fun OfferContentPreview() {
             offer = OfferWithRestaurant(
                 id = "default",
                 title = "Default Offer",
-                description = "For the month of (month), (Restaurant) offers (offer) on all food items for in store orders. The offer works every day and can be claimed using the code below.",
-                restaurant = Restaurant(name = "Default Restaurant "),
-                promos = listOf(Promo(value = "35%")),
+                description = "For the first week of July, Eponimo offers a combo offer:\n\n \uD83C\uDF79 1 Person: Free drink with a minimum spend of €5\n" +
+                        "\n\uD83C\uDF79\uD83C\uDF79\uD83E\uDD5F 2 Persons: A free drink each + complimentary appetizer",
+                restaurant = Restaurant(name = "Eponimo "),
+                promos = listOf(Promo(value = "35%"), Promo("toto")),
             )
         )
     }
