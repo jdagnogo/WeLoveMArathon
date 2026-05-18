@@ -29,7 +29,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
-import com.google.accompanist.insets.statusBarsPadding
 import com.jdagnogo.welovemarathon.R
 import com.jdagnogo.welovemarathon.common.banner.GifBannerComponent
 import com.jdagnogo.welovemarathon.common.ui.component.TitleComponent
@@ -51,7 +50,6 @@ fun SubMenuScreen(
         modifier = modifier
             .semantics { backgroundColor = Color.White }
             .fillMaxSize()
-            .statusBarsPadding()
             .background(Color.White)
     ) {
         Column(

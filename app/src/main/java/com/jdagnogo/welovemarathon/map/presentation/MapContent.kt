@@ -62,7 +62,8 @@ fun MapContent(
             screenName = state.screenName,
             currentSelected = state.currentSelected,
             onChipClicked = onCategorySelected,
-            onBackPressed = onBackPressed, modifier = Modifier
+            onBackPressed = onBackPressed,
+            modifier = Modifier
         )
     }
 }

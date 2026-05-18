@@ -18,11 +18,14 @@ fun WeLoveMarathonTheme(
 
     val sysUiController = rememberSystemUiController()
     SideEffect {
-        sysUiController.setSystemBarsColor(
-            color = Primary
+        sysUiController.setStatusBarColor(
+            color = Color.Transparent,
+            darkIcons = false
         )
         sysUiController.setNavigationBarColor(
-            color = Color.White
+            color = Color.Transparent,
+            darkIcons = true,
+            navigationBarContrastEnforced = false
         )
     }
     CompositionLocalProvider(LocalSpacing provides Spacing()) {

@@ -3,6 +3,7 @@ package com.jdagnogo.welovemarathon.map.presentation
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomSheetScaffold
 import androidx.compose.material.ExperimentalMaterialApi
@@ -41,7 +42,9 @@ fun MapScreen(
         sheetContent = {
             MapBottomSheetComponent(
                 mapItems = state.items,
-                Modifier.fillMaxWidth()
+                Modifier
+                    .fillMaxWidth()
+                    .navigationBarsPadding()
             )
         }
     )

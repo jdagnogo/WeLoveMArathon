@@ -11,7 +11,6 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
-import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.jdagnogo.welovemarathon.common.ui.component.NavGraph
 import com.jdagnogo.welovemarathon.common.ui.theme.Primary
@@ -28,6 +27,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             MainContent()
         }
@@ -42,10 +42,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainContent() {
     WeLoveMarathonTheme {
-        ProvideWindowInsets {
-            Surface(color = Primary, modifier = Modifier.fillMaxSize()) {
-                NavGraph()
-            }
+        Surface(color = Primary, modifier = Modifier.fillMaxSize()) {
+            NavGraph()
         }
     }
 }

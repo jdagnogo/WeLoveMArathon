@@ -3,13 +3,13 @@ package com.jdagnogo.welovemarathon.sport.presentation
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.insets.navigationBarsPadding
-import com.google.accompanist.insets.statusBarsPadding
 import com.jdagnogo.welovemarathon.common.ui.component.RightMenuComponent
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 
@@ -21,7 +21,7 @@ fun SportContent(
 ) {
     Box(modifier = modifier
         .fillMaxSize()
-        .navigationBarsPadding(start = false, end = false)
+        .navigationBarsPadding()
         .statusBarsPadding()
         .background(WeLoveMarathonTheme.colors.contentBackground)) {
 

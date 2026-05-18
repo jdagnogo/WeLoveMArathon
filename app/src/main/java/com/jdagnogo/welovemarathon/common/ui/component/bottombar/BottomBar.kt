@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -41,6 +42,7 @@ fun BottomBar(
             modifier = Modifier
                 .padding(horizontal = 16.dp)
                 .fillMaxWidth()
+                .navigationBarsPadding()
                 .padding(vertical = 4.dp)
         ) {
             tabs.forEach { section ->
