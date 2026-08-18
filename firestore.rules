@@ -1,0 +1,32 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Internal sync bookkeeping - never read or written by clients.
+    match /syncState/{docId} {
+      allow read, write: if false;
+    }
+
+    // Public read-only - no login in the app, so any client can read events,
+    // but only the Cloud Function (Admin SDK, bypasses these rules) can write.
+    match /events/{eventId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Every other collection (Tips, Food, Blog, Shopping, Beach, Sport,
+    // Culture, Wine, Activities, Restaurant, Offer, About, Banner, ...) is
+    // public read-only content fetched via common/utils/FireStoreUtils.kt's
+    // fetchList() - confirmed no .set()/.add()/.update() call exists
+    // anywhere in the Android app's client code (grepped app/src/main).
+    // Deploying a rules file REPLACES the whole ruleset, not adds to it -
+    // an earlier version of this file only allowlisted /events and
+    // /syncState, which silently broke every other feature's Firestore
+    // reads. This catch-all restores read access for all of them while
+    // keeping the app write-only-via-Cloud-Function posture everywhere.
+    match /{document=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}

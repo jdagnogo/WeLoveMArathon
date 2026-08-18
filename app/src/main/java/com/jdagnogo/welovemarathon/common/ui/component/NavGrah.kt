@@ -32,6 +32,12 @@ import com.jdagnogo.welovemarathon.common.ui.MenuContent
 import com.jdagnogo.welovemarathon.culture.presentation.CultureScreen
 import com.jdagnogo.welovemarathon.culture.presentation.CultureViewModel
 import com.jdagnogo.welovemarathon.culture.presentation.CulturesBarScreen
+import com.jdagnogo.welovemarathon.events.presentation.EventDetailScreen
+import com.jdagnogo.welovemarathon.events.presentation.EventDetailViewModel
+import com.jdagnogo.welovemarathon.events.presentation.EventsScreen
+import com.jdagnogo.welovemarathon.events.presentation.EventsViewModel
+import com.jdagnogo.welovemarathon.events.presentation.NotificationSettingsScreen
+import com.jdagnogo.welovemarathon.events.presentation.NotificationSettingsViewModel
 import com.jdagnogo.welovemarathon.food.presentation.FoodMenuScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodScreen
 import com.jdagnogo.welovemarathon.food.presentation.FoodViewModel
@@ -184,6 +190,39 @@ fun NavGraphBuilder.wlmNavGraph(
         val viewModel = hiltViewModel<WineViewModel>()
         WineScreen(viewModel = viewModel, navController)
     }
+    // Offer is no longer a bottom-nav tab (replaced by Events), but its screen/code
+    // stays reachable as a standalone destination - e.g. from HomeScreen's active-offer
+    // bottom sheet - rather than being deleted.
+    composable(MainDestinations.Offer.route) {
+        val viewModel = hiltViewModel<OfferViewModel>(viewModelStoreOwner = viewModelStoreOwner)
+        OfferScreen(navController = navController, viewModel = viewModel)
+    }
+    composable(MainDestinations.EventNotificationSettings.route) {
+        val viewModel =
+            hiltViewModel<NotificationSettingsViewModel>(viewModelStoreOwner = viewModelStoreOwner)
+        NotificationSettingsScreen(viewModel = viewModel, navController = navController)
+    }
+    // A real navigation destination, not a Dialog - full-screen pages need
+    // reliable system-bar inset handling, which Compose Dialog windows don't
+    // provide as consistently as a normal Activity-hosted destination does.
+    //
+    // Deliberately NOT passing the shared viewModelStoreOwner used elsewhere
+    // in this graph: that owner is shared across every route registered
+    // here, so a ViewModel scoped to it is effectively a singleton reused
+    // across different navigations to "the same route with different args"
+    // (that's why MapViewModel re-dispatches OnInit(mapType) on every
+    // composition - it can't rely on fresh construction). This ViewModel
+    // reads its eventId once via SavedStateHandle at construction, so it
+    // needs actual per-navigation-entry scoping (the default) instead, or
+    // navigating from one event's detail to a different event's would just
+    // keep showing the first event.
+    composable(
+        MainDestinations.EventDetail.route,
+        arguments = listOf(navArgument(EventDetailViewModel.KEY_EVENT_ID) { type = NavType.StringType }),
+    ) {
+        val viewModel = hiltViewModel<EventDetailViewModel>()
+        EventDetailScreen(viewModel = viewModel, navController = navController)
+    }
 }
 
 @ExperimentalMaterialApi
@@ -197,9 +236,9 @@ fun NavGraphBuilder.homeGraph(
         val viewModel = hiltViewModel<HomeViewModel>()
         HomeScreen(viewModel, navController, modifier)
     }
-    composable(HomeSections.OFFERS.route) {
-        val viewModel = hiltViewModel<OfferViewModel>()
-        OfferScreen(modifier, navController, viewModel)
+    composable(HomeSections.EVENTS.route) {
+        val viewModel = hiltViewModel<EventsViewModel>()
+        EventsScreen(viewModel, navController, modifier)
     }
     composable(HomeSections.ABOUT.route) {
         val viewModel = hiltViewModel<AboutViewModel>()
@@ -217,7 +256,7 @@ enum class HomeSections(
     val route: String,
 ) {
     HOME("Home", R.drawable.home, "home/activities"),
-    OFFERS("Offers", R.drawable.fav, "home/offers"),
+    EVENTS("Events", R.drawable.ic_events, "home/events"),
     ABOUT("About", R.drawable.about, "home/food")
 }
 
@@ -243,6 +282,11 @@ sealed class MainDestinations(val route: String) {
     object Beaches : MainDestinations("beaches")
     object Cultures : MainDestinations("cultures")
     object CulturesDetails : MainDestinations("culturesDetails")
+    object Offer : MainDestinations("offer")
+    object EventNotificationSettings : MainDestinations("eventNotificationSettings")
+    object EventDetail : MainDestinations("eventDetail/{${EventDetailViewModel.KEY_EVENT_ID}}") {
+        fun createRoute(eventId: String) = "eventDetail/$eventId"
+    }
 }
 
 sealed class GlobalDestinations(val route: String) {

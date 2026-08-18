@@ -28,4 +28,12 @@
         <item name="android:textColor">#ff000000</item>
         <item name="android:textSize">12sp</item>
     </style>
+
+    <!-- Matches common/ui/theme/Type.kt's descriptionStyle, for HTML descriptions
+         (e.g. event descriptions from Google Calendar) rendered outside Compose Text. -->
+    <style name="htmlTextDescription">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">#FF333333</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>

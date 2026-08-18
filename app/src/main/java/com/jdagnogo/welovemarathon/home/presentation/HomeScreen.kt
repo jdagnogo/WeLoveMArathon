@@ -83,7 +83,7 @@ fun HomeScreen(
                     navController.navigate(
                         navOptions = NavOptions.Builder(
                         ).setPopUpTo(HomeSections.HOME.route, true, true).build(),
-                        route = HomeSections.OFFERS.route
+                        route = MainDestinations.Offer.route
                     )
                 }
             }

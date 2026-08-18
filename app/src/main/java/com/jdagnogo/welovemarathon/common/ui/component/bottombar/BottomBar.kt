@@ -25,7 +25,6 @@ import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
 fun BottomBar(
     tabs: Array<HomeSections>,
     currentRoute: String,
-    hasNewOffer: Boolean = false,
     navigateToRoute: (String) -> Unit
 ) {
     val currentSection = tabs.first { it.route == currentRoute }
@@ -50,7 +49,6 @@ fun BottomBar(
                 BottomNavItem(
                     section = section,
                     isSelected = isSelected,
-                    hasNewOffer = hasNewOffer && section == HomeSections.OFFERS,
                     onItemClicked = {
                         navigateToRoute(section.route)
                     }
@@ -69,11 +67,10 @@ fun BottomBarPreview() {
             BottomBar(
                 tabs = arrayOf(
                     HomeSections.HOME,
-                    HomeSections.OFFERS,
+                    HomeSections.EVENTS,
                     HomeSections.ABOUT
                 ),
                 currentRoute = HomeSections.ABOUT.route,
-                hasNewOffer = true,
                 navigateToRoute = {}
             )
         }

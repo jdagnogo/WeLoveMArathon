@@ -27,6 +27,23 @@ val ShoppingColor = Color(0xFFA584FA)
 val FoodColor = Color(0xFFE7CD4E)
 val WineColor = Color(0xFFFF9EA5)
 val TagColor = Color(0xFF94CDFD)
+val EventsColor = Color(0xFF4ECDC4)
+
+// Event categories - mirrors the Google Calendar color the owner picks when
+// creating an event, from Calendar's expanded 24-color picker (functions/src/categoryMap.ts
+// is the source of truth on the backend side; these hex values must stay in sync with that file).
+val EventTheatersColor = Color(0xFFD06B64) // Flamingo
+val EventFestivalsColor = Color(0xFFFFAD46) // Mango
+val EventSportsColor = Color(0xFF7BD148) // Pistachio
+val EventMusicColor = Color(0xFFB3DC6C) // Avocado
+val EventCultureColor = Color(0xFFFBE983) // Citron
+val EventCharityColor = Color(0xFFB99AFF) // Wisteria
+val EventCinemaColor = Color(0xFFC2C2C2) // Graphite
+val EventTalksColor = Color(0xFFCABDBF) // Birch
+
+// No category picked (colorId unset, or not one of the 8 mapped swatches) -
+// a fixed blue rather than a color pulled from anywhere else.
+val EventUncategorizedColor = Color(0xFF3F51B5) // Blueberry
 
 class WLMColors(
     val gradient: List<Color>,

@@ -23,6 +23,8 @@ import com.jdagnogo.welovemarathon.common.like.data.FavoriteEntity
 import com.jdagnogo.welovemarathon.common.utils.Converters
 import com.jdagnogo.welovemarathon.culture.data.CultureDao
 import com.jdagnogo.welovemarathon.culture.data.CultureEntity
+import com.jdagnogo.welovemarathon.events.data.EventDao
+import com.jdagnogo.welovemarathon.events.data.EventEntity
 import com.jdagnogo.welovemarathon.food.data.FoodCategoryEntity
 import com.jdagnogo.welovemarathon.food.data.FoodEntity
 import com.jdagnogo.welovemarathon.food.data.FoodDao
@@ -77,8 +79,9 @@ import java.util.*
         RestaurantEntity::class,
         RestaurantFilterEntity::class,
         OfferEntity::class,
-        TipsEntity::class],
-    version = 8
+        TipsEntity::class,
+        EventEntity::class],
+    version = 10
 )
 @TypeConverters(Converters::class)
 abstract class WLMDatabase : RoomDatabase() {
@@ -97,6 +100,7 @@ abstract class WLMDatabase : RoomDatabase() {
     abstract fun getWineDao(): WineDao
     abstract fun getAboutDao(): AboutDao
     abstract fun getCultureDao(): CultureDao
+    abstract fun getEventDao(): EventDao
 
     companion object {
         private const val DB_NAME = "wlm_db"
