@@ -64,7 +64,7 @@ gcloud scheduler jobs create pubsub sync-events-frequent \
   --project=welovemarathon-71ff6
 
 gcloud scheduler jobs create pubsub sync-events-nightly \
-  --schedule="0 3 * * *" \
+  --schedule="0 10 * * *" \
   --topic=<pubsub-topic-from-function-deploy> \
   --message-body='{"mode":"full"}' \
   --time-zone="Europe/Athens" \

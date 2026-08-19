@@ -68,7 +68,11 @@ function newEventsDigestMessage(count: number) {
   return {
     title: `🎉 ${count} new events in Marathon!`,
     body: "Tap to see what's new",
-    data: {},
+    // No eventId (nothing single to deep-link to), but an explicit "screen"
+    // marker so the Android client can tell "tapped a digest notification"
+    // apart from "launched normally with no extras" and open the Events
+    // list instead of just landing on Home.
+    data: { screen: "events" },
   };
 }
 
@@ -84,7 +88,7 @@ function cancelledEventsDigestMessage(count: number) {
   return {
     title: `⚠️ ${count} events cancelled`,
     body: "Tap to see what changed",
-    data: {},
+    data: { screen: "events" },
   };
 }
 

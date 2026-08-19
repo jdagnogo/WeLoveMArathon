@@ -9,6 +9,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -16,6 +19,9 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.navigation.compose.NavHost
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.jdagnogo.welovemarathon.common.notifications.NotificationTarget
+import com.jdagnogo.welovemarathon.common.notifications.PendingNotificationNavigation
+import com.jdagnogo.welovemarathon.common.ui.component.HomeSections
 import com.jdagnogo.welovemarathon.common.ui.component.MainDestinations
 import com.jdagnogo.welovemarathon.common.ui.component.WLMScaffold
 import com.jdagnogo.welovemarathon.common.ui.component.bottombar.BottomBar
@@ -30,6 +36,22 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @Composable
 fun MenuContent() {
     val appState = rememberAppState()
+
+    val pendingNotificationTarget by PendingNotificationNavigation.target.collectAsState()
+    LaunchedEffect(pendingNotificationTarget) {
+        when (val target = pendingNotificationTarget) {
+            is NotificationTarget.EventDetail -> {
+                appState.navController.navigate(MainDestinations.EventDetail.createRoute(target.eventId))
+                PendingNotificationNavigation.consume()
+            }
+            NotificationTarget.EventsList -> {
+                appState.navigateToBottomBarRoute(HomeSections.EVENTS.route)
+                PendingNotificationNavigation.consume()
+            }
+            null -> Unit
+        }
+    }
+
     WLMScaffold(
         bottomBar = {
             if (appState.shouldShowBottomBar) {

@@ -62,7 +62,7 @@ fun AboutContent(
 ) {
     val uriHandler = LocalUriHandler.current
     val currentImageIndex = rememberSaveable { mutableStateOf(0) }
-    val totalImages = 10
+    val totalImages = state.photos.size
 
     LazyColumn(
         modifier = modifier
@@ -104,7 +104,9 @@ fun AboutContent(
             }
         }
         // Header Section with Image Carousel
+        if (state.photos.isNotEmpty()) {
         item {
+            val safeImageIndex = currentImageIndex.value.coerceIn(0, totalImages - 1)
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -119,7 +121,7 @@ fun AboutContent(
                 ) {
                     // Background Image
                     Image(
-                        painter = rememberImagePainter(state.photos[currentImageIndex.value]),
+                        painter = rememberImagePainter(state.photos[safeImageIndex]),
                         contentDescription = null,
                         modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.FillBounds
@@ -201,6 +203,7 @@ fun AboutContent(
                     }
                 }
             }
+        }
         }
 
         item {

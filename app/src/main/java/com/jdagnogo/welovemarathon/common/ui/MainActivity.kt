@@ -1,5 +1,6 @@
 package com.jdagnogo.welovemarathon.common.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -12,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.jdagnogo.welovemarathon.common.notifications.PendingNotificationNavigation
 import com.jdagnogo.welovemarathon.common.ui.component.NavGraph
 import com.jdagnogo.welovemarathon.common.ui.theme.Primary
 import com.jdagnogo.welovemarathon.common.ui.theme.WeLoveMarathonTheme
@@ -28,9 +30,19 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
+        PendingNotificationNavigation.setFromExtras(intent.extras)
         setContent {
             MainContent()
         }
+    }
+
+    // Needed because MainActivity is launchMode="singleTop": tapping a notification
+    // while the app is already running delivers here instead of spawning a new
+    // instance (which would otherwise skip onCreate and lose the tap).
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        PendingNotificationNavigation.setFromExtras(intent.extras)
     }
 }
 

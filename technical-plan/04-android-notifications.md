@@ -49,10 +49,11 @@ Matches the channel id/name/description fixed in `00-overview.md`/US3.3.
 - Toggled **on** → `subscribeToTopic("events")`; if the OS permission was previously denied, this is where re-requesting matters — if permanently denied, deep-link to the app's system notification settings screen (`Settings.ACTION_APP_NOTIFICATION_SETTINGS`) rather than silently failing, since Android won't show the permission dialog again after a hard denial.
 - Structure this screen as a list (even with one item today) so more channels can be added later without a redesign, per Decision 9.
 
-### 6. Deep-link handling (`MainActivity.kt`)
-- `onNewIntent(intent)` (running app tapped from background) and the `onCreate` cold-start case (app launched fresh from a notification tap) both check for an `eventId` string extra.
-- If present → set a one-shot navigation event (e.g. a `SharedFlow` the `NavGraph`/`EventsViewModel` observes) that opens that event's detail dialog once `EventsScreen` is composed.
-- If absent (digest notification) → just navigate to the Events tab.
+### 6. Deep-link handling (`MainActivity.kt`) — **implemented**
+- `MainActivity` is `launchMode="singleTop"` so a background-app tap reuses the existing instance via `onNewIntent` instead of spawning a duplicate.
+- `onCreate` (cold start) and `onNewIntent` (warm) both hand `intent.extras` to `common/notifications/PendingNotificationNavigation.setFromExtras()`, which reads the `eventId` string extra (single event / cancellation) or a `screen=events` marker extra (digest — new-event and cancellation digests both carry `data: { screen: "events" }`) and stores a one-shot `NotificationTarget` in a module-level `StateFlow`.
+- `MenuContent.kt` — the composable that owns the actual `NavHostController` with the `EventDetail`/`Events` routes — collects that `StateFlow` in a `LaunchedEffect` and navigates (`navController.navigate(...)` for a single event, `appState.navigateToBottomBarRoute(HomeSections.EVENTS.route)` for a digest), then calls `consume()` to clear it so it doesn't re-fire on recomposition.
+- No custom `FirebaseMessagingService`/`onMessageReceived` exists or is needed for this: since every message sets the top-level `notification` field, FCM auto-displays it via the system tray, and Android already copies the message's `data` payload onto the intent extras of the launcher activity when the notification is tapped.
 
 ## Testing
 Manual: send a test message via Firebase Console's Cloud Messaging test panel to topic `events`, confirm it arrives on a device, confirm tapping it opens the right screen (single-event detail vs. Events list depending on payload).

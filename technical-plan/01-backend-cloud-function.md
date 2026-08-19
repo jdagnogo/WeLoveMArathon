@@ -15,7 +15,7 @@ This doc originally called for `singleEvents=true` without addressing that Googl
 ## Trigger design
 One function, `syncCalendarEvents`, triggered by Pub/Sub (not HTTP — simpler IAM story, no OIDC token needed between Cloud Scheduler and the function). Two Cloud Scheduler jobs publish to it with different payloads:
 - `sync-events-frequent`: cron `*/15 * * * *`, message `{"mode":"incremental"}`.
-- `sync-events-nightly`: cron `0 3 * * *` (03:00 Europe/Athens), message `{"mode":"full"}`.
+- `sync-events-nightly`: cron `0 10 * * *` (10:00 Europe/Athens), message `{"mode":"full"}`. Originally 03:00; moved to 10:00 so that any notification this run triggers lands during the day instead of overnight.
 
 ## Files
 - `functions/src/index.ts` — exports `syncCalendarEvents`, reads `mode` from the Pub/Sub message, dispatches to the two code paths below.

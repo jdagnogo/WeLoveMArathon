@@ -8,6 +8,8 @@ import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
@@ -23,6 +25,7 @@ fun SocialComponent(
     Image(
         painter = rememberImagePainter(data = socialMedia.icon),
         contentDescription = null,
+        colorFilter = ColorFilter.tint(Color.White),
         modifier = modifier
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
